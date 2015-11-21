@@ -1,0 +1,964 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EDA8DE10-AA7A-456B-A187-431D7109D5D9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CIXReader</RootNamespace>
+    <AssemblyName>CIXReader</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ProductName>CIXReader</ProductName>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <AssemblyOriginatorKeyFile>..\codesigning.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AssemblyOriginatorKeyFile>..\cixreader.key</AssemblyOriginatorKeyFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>CIXReader.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\CIXReader_Linux.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>E5B98C3B8FDBBBEBF94BE5C86C4AF2A779A38BB0</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>codesigning.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLua">
+      <HintPath>..\NLua\NLua.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\CRInfoBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CRInfoBar.Designer.cs">
+      <DependentUpon>CRInfoBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CRListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CRTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CRToolbar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CRToolbar.Designer.cs">
+      <DependentUpon>CRToolbar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CRToolbarItem.cs" />
+    <Compile Include="Forms\Account.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Account.Designer.cs">
+      <DependentUpon>Account.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddUserInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddUserInput.Designer.cs">
+      <DependentUpon>AddUserInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CRSearchField.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CRSearchField.Designer.cs">
+      <DependentUpon>CRSearchField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\GoToMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GoToMessage.Designer.cs">
+      <DependentUpon>GoToMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\JoinForum.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\JoinForum.Designer.cs">
+      <DependentUpon>JoinForum.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\JoinForumInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\JoinForumInput.Designer.cs">
+      <DependentUpon>JoinForumInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CRSortOrder.cs" />
+    <Compile Include="Forms\ManageForum.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ManageForum.Designer.cs">
+      <DependentUpon>ManageForum.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ManageForumGeneral.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ManageForumGeneral.Designer.cs">
+      <DependentUpon>ManageForumGeneral.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ManageModerators.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ManageModerators.Designer.cs">
+      <DependentUpon>ManageModerators.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ManageParticipants.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ManageParticipants.Designer.cs">
+      <DependentUpon>ManageParticipants.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Participants.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Participants.Designer.cs">
+      <DependentUpon>Participants.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ScriptPackage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ScriptPackage.Designer.cs">
+      <DependentUpon>ScriptPackage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MessageEditorBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SettingsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SettingsDialog.Designer.cs">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SettingsGeneral.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SettingsGeneral.Designer.cs">
+      <DependentUpon>SettingsGeneral.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SettingsSignatures.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SettingsSignatures.Designer.cs">
+      <DependentUpon>SettingsSignatures.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SettingsUpdates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SettingsUpdates.Designer.cs">
+      <DependentUpon>SettingsUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SettingsViewing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SettingsViewing.Designer.cs">
+      <DependentUpon>SettingsViewing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SignatureEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SignatureEditor.Designer.cs">
+      <DependentUpon>SignatureEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UserForumEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources_Mono.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources_Mono.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SpecialFolders\CategoryFolder.cs" />
+    <Compile Include="SpecialFolders\ForumGroup.cs" />
+    <Compile Include="SpecialFolders\MailFolder.cs" />
+    <Compile Include="SpecialFolders\MailGroup.cs" />
+    <Compile Include="SpecialFolders\SmartFolder.cs" />
+    <Compile Include="SubViews\DirectoryView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SubViews\DirectoryView.Designer.cs">
+      <DependentUpon>DirectoryView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubViews\FolderOptions.cs" />
+    <Compile Include="SubViews\InboxView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SubViews\InboxView.Designer.cs">
+      <DependentUpon>InboxView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\Address.cs" />
+    <Compile Include="Utilities\BackTrackArray.cs" />
+    <Compile Include="Utilities\DrawRectElements.cs" />
+    <Compile Include="Utilities\PredicateBuilder.cs" />
+    <Compile Include="Utilities\Preferences.cs" />
+    <Compile Include="Utilities\ScriptManager.cs" />
+    <Compile Include="Controls\CRToolbarItemCollection.cs" />
+    <Compile Include="Utilities\ActionID.cs" />
+    <Compile Include="Canvas\CanvasButton.cs" />
+    <Compile Include="Canvas\CanvasElementBase.cs" />
+    <Compile Include="Canvas\CanvasHTMLText.cs" />
+    <Compile Include="Canvas\CanvasImage.cs" />
+    <Compile Include="Canvas\CanvasText.cs" />
+    <Compile Include="Controls\CRRoundButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CRRoundButton.Designer.cs">
+      <DependentUpon>CRRoundButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CRTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CanvasItems\ForumPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CanvasItems\ForumPage.Designer.cs">
+      <DependentUpon>ForumPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CanvasItems\ProfileGroupItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CanvasItems\ProfileGroupItem.Designer.cs">
+      <DependentUpon>ProfileGroupItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CanvasItems\ProfileItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CanvasItems\ProfileItem.Designer.cs">
+      <DependentUpon>ProfileItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CRLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CRLabel.Designer.cs">
+      <DependentUpon>CRLabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CanvasItems\InboxItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CanvasItems\InboxItem.Designer.cs">
+      <DependentUpon>InboxItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CanvasItems\MessageItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CanvasItems\MessageItem.Designer.cs">
+      <DependentUpon>MessageItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Canvas\CanvasItemLayout.cs" />
+    <Compile Include="Canvas\CanvasItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Canvas\CanvasItem.Designer.cs">
+      <DependentUpon>CanvasItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\EventID.cs" />
+    <Compile Include="Utilities\Extensions.cs" />
+    <Compile Include="Forms\Authenticate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Authenticate.Designer.cs">
+      <DependentUpon>Authenticate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Diagnostics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Diagnostics.Designer.cs">
+      <DependentUpon>Diagnostics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EULA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EULA.Designer.cs">
+      <DependentUpon>EULA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\KeyboardHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\KeyboardHelp.Designer.cs">
+      <DependentUpon>KeyboardHelp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CIXMessageEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CIXMessageEditor.Designer.cs">
+      <DependentUpon>CIXMessageEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ProfileView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProfileView.Designer.cs">
+      <DependentUpon>ProfileView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ThemeEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ThemeEditor.Designer.cs">
+      <DependentUpon>ThemeEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lua\LuaAPI.cs" />
+    <Compile Include="Lua\LuaAPISettings.cs" />
+    <Compile Include="Utilities\GraphicsExtensions.cs" />
+    <Compile Include="Utilities\MessageEditorCollection.cs" />
+    <Compile Include="SpecialFolders\FolderBase.cs" />
+    <Compile Include="SpecialFolders\TopicFolder.cs" />
+    <Compile Include="SubViews\ForumView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SubViews\ForumView.Designer.cs">
+      <DependentUpon>ForumView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubViews\ViewBaseView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SubViews\ViewBaseView.Designer.cs">
+      <DependentUpon>ViewBaseView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubViews\TopicView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SubViews\TopicView.Designer.cs">
+      <DependentUpon>TopicView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubViews\WelcomeView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SubViews\WelcomeView.Designer.cs">
+      <DependentUpon>WelcomeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIConfig\UIConfig.cs" />
+    <Compile Include="Controls\CRPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CRProgress.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CRProgress.designer.cs">
+      <DependentUpon>CRProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Canvas\Canvas.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FoldersTree.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FoldersTree.Designer.cs">
+      <DependentUpon>FoldersTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\InboxMessageEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InboxMessageEditor.Designer.cs">
+      <DependentUpon>InboxMessageEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Forms\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UIConfig\UITheme.cs" />
+    <Compile Include="UIConfig\UIThemes.cs" />
+    <Compile Include="Utilities\SearchEngines.cs" />
+    <Compile Include="Utilities\Signatures.cs" />
+    <EmbeddedResource Include="Controls\CRInfoBar.resx">
+      <DependentUpon>CRInfoBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CRProgress.resx">
+      <DependentUpon>CRProgress.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Account.resx">
+      <DependentUpon>Account.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddUserInput.resx">
+      <DependentUpon>AddUserInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CRSearchField.resx">
+      <DependentUpon>CRSearchField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Authenticate.resx">
+      <DependentUpon>Authenticate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\GoToMessage.resx">
+      <DependentUpon>GoToMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\JoinForum.resx">
+      <DependentUpon>JoinForum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\JoinForumInput.resx">
+      <DependentUpon>JoinForumInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ManageForum.resx">
+      <DependentUpon>ManageForum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ManageForumGeneral.resx">
+      <DependentUpon>ManageForumGeneral.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ManageModerators.resx">
+      <DependentUpon>ManageModerators.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ManageParticipants.resx">
+      <DependentUpon>ManageParticipants.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Participants.resx">
+      <DependentUpon>Participants.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ScriptPackage.resx">
+      <DependentUpon>ScriptPackage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SettingsDialog.resx">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Diagnostics.resx">
+      <DependentUpon>Diagnostics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EULA.resx">
+      <DependentUpon>EULA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\KeyboardHelp.resx">
+      <DependentUpon>KeyboardHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CIXMessageEditor.resx">
+      <DependentUpon>CIXMessageEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FoldersTree.resx">
+      <DependentUpon>FoldersTree.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InboxMessageEditor.resx">
+      <DependentUpon>InboxMessageEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProfileView.resx">
+      <DependentUpon>ProfileView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SettingsGeneral.resx">
+      <DependentUpon>SettingsGeneral.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SettingsSignatures.resx">
+      <DependentUpon>SettingsSignatures.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SettingsUpdates.resx">
+      <DependentUpon>SettingsUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SettingsViewing.resx">
+      <DependentUpon>SettingsViewing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SignatureEditor.resx">
+      <DependentUpon>SignatureEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ThemeEditor.resx">
+      <DependentUpon>ThemeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources_Mono.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources_Mono.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubViews\DirectoryView.resx">
+      <DependentUpon>DirectoryView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubViews\ForumView.resx">
+      <DependentUpon>ForumView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubViews\InboxView.resx">
+      <DependentUpon>InboxView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubViews\TopicView.resx">
+      <DependentUpon>TopicView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubViews\WelcomeView.resx">
+      <DependentUpon>WelcomeView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Controls\CRListView_Mono.cs" />
+    <Compile Include="Utilities\Platform_Mono.cs" />
+    <Compile Include="Forms\SpellEditorBase_Mono.cs" />
+    <Compile Include="Utilities\Constants.cs" />
+    <Compile Include="Utilities\Constants_Mono.cs" />
+    <Compile Include="Utilities\Settings.cs" />
+    <Compile Include="Forms\MainForm_Mono.cs" />
+    <Compile Include="Canvas\CanvasItemArgs.cs" />
+    <Compile Include="CanvasItems\WelcomePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CanvasItems\WelcomePage.Designer.cs">
+      <DependentUpon>WelcomePage.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.manifest" />
+    <None Include="Resources\CIXReader_Linux.ico" />
+    <None Include="Resources\CIXReaderLinux_Medium.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\NLua\lua52.dll">
+      <Link>lua52.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Setup\Acknowledgements.html">
+      <Link>Acknowledgements.html</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Setup\Changes.html">
+      <Link>Setup\Changes.html</Link>
+    </Content>
+    <Content Include="..\Setup\CIXReaderSetup.iss">
+      <Link>Setup\CIXReaderSetup.iss</Link>
+    </Content>
+    <Content Include="..\SQLite\x86\sqlite3.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Setup\appcast.xml">
+      <Link>Setup\appcast.xml</Link>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Emoticons\shades.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tbFlexibleSpace.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tbOnline.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tbProfile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tbSearchField.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tbSpace.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tbWithdraw.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\smallFolder.png" />
+    <None Include="Resources\Inbox.png" />
+    <Content Include="Toolbar\toolbar_all.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\CloseButton.png" />
+    <None Include="Resources\Closed.png" />
+    <None Include="Resources\Confidential.png" />
+    <None Include="Resources\SmallDownArrow.PNG" />
+    <None Include="Resources\ReadLock.png" />
+    <None Include="Resources\script.png" />
+    <None Include="Resources\SmartFolder.png" />
+    <None Include="Resources\searchengines.xml" />
+    <Content Include="Images\tbFlag.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tbJoin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tbNewMail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tbNewMessage.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tbNextUnread.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tbNextUnreadPriority.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tbPrevious.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tbPrint.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tbRead.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tbReadLock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tbReply.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tbUnflag.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\moderatorForumEditorImage.tiff" />
+    <None Include="Resources\participantForumEditorImage.tiff" />
+    <None Include="Resources\generalForumEditorImage.tiff" />
+    <None Include="Resources\signaturePreferences.tiff" />
+    <None Include="Resources\viewingPrefImage.tiff" />
+    <None Include="Resources\updatePreferences.tiff" />
+    <None Include="Resources\generalPrefImage.tiff" />
+    <Content Include="Themes\Blue\ui.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Toolbar\toolbar.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\Search2.png" />
+    <None Include="Resources\CustomWords.txt" />
+    <Content Include="Themes\Green\ui.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Orange\ui.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Pink\ui.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Red\ui.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\MenuDrop.png" />
+    <None Include="Resources\MenuDropWhite.png" />
+    <None Include="Resources\MenuDropBlue.png" />
+    <None Include="Resources\CIXLogo2.png" />
+    <Content Include="Themes\Large\ui.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\ActiveStar.png" />
+    <Content Include="Emoticons\frown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Emoticons\laugh.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Emoticons\smiley.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\Bubble.png" />
+    <Content Include="Emoticons\wink.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\Chat.png" />
+    <None Include="Resources\licence.rtf" />
+    <None Include="Resources\rightArrow.png" />
+    <None Include="Resources\downArrow.png" />
+    <None Include="Resources\Topic.png" />
+    <None Include="Resources\Categories.png" />
+    <None Include="Resources\ArtsCategory.png" />
+    <None Include="Resources\BusinessCategory.png" />
+    <None Include="Resources\GamesCategory.png" />
+    <None Include="Resources\HealthCategory.png" />
+    <None Include="Resources\MoneyCategory.png" />
+    <None Include="Resources\NewsCategory.png" />
+    <None Include="Resources\ComputersCategory.png" />
+    <None Include="Resources\ReferenceCategory.png" />
+    <None Include="Resources\ShoppingCategory.png" />
+    <None Include="Resources\SportsCategory.png" />
+    <None Include="Resources\SocietyCategory.png" />
+    <None Include="Resources\TravelCategory.png" />
+    <None Include="Resources\ScienceCategory.png" />
+    <None Include="Resources\KidsCategory.png" />
+    <None Include="Resources\CIXCategory.png" />
+    <None Include="Resources\HomeCategory.png" />
+    <None Include="Resources\ReadMessage.png" />
+    <None Include="Resources\UnreadMessage.png" />
+    <None Include="Resources\ROTopic.png" />
+    <None Include="Resources\InactiveStar.png" />
+    <None Include="Resources\Control.png" />
+    <None Include="Resources\UnreadPriorityMessage.png" />
+    <None Include="Resources\Map.png" />
+    <None Include="Resources\Draft.png" />
+    <None Include="Resources\Error.png" />
+    <None Include="Resources\Warning.png" />
+    <None Include="Resources\Mail.png" />
+    <None Include="Resources\CollapseArrows.png" />
+    <None Include="Resources\ExpandArrows.png" />
+    <None Include="Resources\Key.png" />
+    <None Include="Resources\DeleteButton.png" />
+    <Content Include="Resources\MarkRead.png" />
+    <Content Include="Themes\Default\ui.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <FileAssociation Include=".cixreader">
+      <Visible>False</Visible>
+      <Description>CIXReader Database</Description>
+      <Progid>cixreader</Progid>
+      <DefaultIcon>Resources\CixReader.ico</DefaultIcon>
+    </FileAssociation>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HtmlRenderer\HtmlRenderer\HtmlRenderer.csproj">
+      <Project>{FE611685-391F-4E3E-B27E-D3150E51E49B}</Project>
+      <Name>HtmlRenderer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HtmlRenderer\HtmlRenderer.WinForms\HtmlRenderer.WinForms.csproj">
+      <Project>{1B058920-24B4-4140-8AE7-C8C6C38CA52D}</Project>
+      <Name>HtmlRenderer.WinForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZipLib\ICSharpCode.SharpZLib.csproj">
+      <Project>{0E7413FF-EB9E-4714-ACF2-BE3A6A7B2FFD}</Project>
+      <Name>ICSharpCode.SharpZLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IniFileParser\INIFileParser.csproj">
+      <Project>{5E46DCF4-C473-4171-9F9B-F3910B5EC407}</Project>
+      <Name>INIFileParser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CIXMarkup\CIXMarkup.csproj">
+      <Project>{C7EE3119-690B-4947-8A97-26D42A08956C}</Project>
+      <Name>CIXMarkup</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CIXClient\CIXClient.csproj">
+      <Project>{3FB617B0-0E69-4687-9BE5-E3E8D3274BE4}</Project>
+      <Name>CIXClient</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="CIXClient.pdb">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="CIXReader.pdb">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="HtmlRenderer.pdb">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="NHunspellExtender.pdb">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Themes\Default\ui.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Themes\Green\ui.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Themes\Large\ui.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Themes\Orange\ui.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Themes\Pink\ui.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Themes\Red\ui.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="BeforePublish">
+    <Exec Command="&quot;$(ProjectDir)crsign.cmd&quot; &quot;$(ProjectDir)codesigning.pfx&quot; &quot;$(TargetPath)&quot;" />
+  </Target>
+</Project>

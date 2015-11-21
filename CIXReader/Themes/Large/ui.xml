@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<UIConfig>
+  <system>
+    <font>Arial</font>
+  </system>
+  <forums>
+    <font>Verdana</font>
+    <font-size>12</font-size>
+    <listfont>Verdana</listfont>
+    <listfont-size>12</listfont-size>
+    <rootfont>Verdana</rootfont>
+    <rootfont-size>12</rootfont-size>
+    <messagefont>Verdana</messagefont>
+    <messagefont-size>12</messagefont-size>
+  </forums>
+</UIConfig>

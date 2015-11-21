@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+   <channel>
+      <title>CIXReader Version 1.50.717</title>
+      <link>http://cixreader.cixhosting.co.uk/cixreader/windows/beta/appcast.xml</link>
+      <description>Most recent changes with links to updates.</description>
+      <copyright>Copyright 2014-2015, CIXOnline Ltd</copyright>
+      <language>en</language>      
+         <item>
+            <title>Version 1.50.717</title>
+         <description>
+            CIXReader
+         </description>
+         <pubDate>Fri, 13 Feb 2015 11:25:52 +0000</pubDate>
+         <sparkle:releaseNotesLink>
+            http://cixreader.cixhosting.co.uk/cixreader/windows/beta/Changes.html
+         </sparkle:releaseNotesLink>
+         <enclosure url="http://cixreader.cixhosting.co.uk/cixreader/windows/beta/cr1.50.717.exe"
+               sparkle:version="1.50.717"
+               type="application/octet-stream" />
+         </item>
+   </channel>
+</rss>

@@ -1,0 +1,16 @@
+<UIConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <menu>
+    <backcolor>0,128,0</backcolor>
+  </menu>
+  <system>
+    <selectioncolor>165,241,114</selectioncolor>
+    <countcolor>white</countcolor>
+    <counttextcolor>gray</counttextcolor>
+    <toolbarcolor>135,244,62</toolbarcolor>
+  </system>
+  <forums>
+    <headerfootercolor>132,130,132</headerfootercolor>
+    <selectioncolor>165,241,114</selectioncolor>
+    <selectiontextcolor>black</selectiontextcolor>
+  </forums>
+</UIConfig>

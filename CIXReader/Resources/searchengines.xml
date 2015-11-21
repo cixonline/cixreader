@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SearchEnginesFile>
+  <Site name="Google" link="http://www.google.com/search?q={0}" />
+  <Site name="Bing" link="http://www.bing.com/search?q={0}" />
+  <Site name="Yahoo" link="http://search.yahoo.com/search?p={0}" />
+</SearchEnginesFile>

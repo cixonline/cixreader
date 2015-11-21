@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<UIConfig>
+  <keys>
+    <key code="C" name="Edit" />
+    <key code="G" name="GoTo" />
+    <key code="H" name="Priority" />
+    <key code="I" name="Ignore" />
+    <key code="L" name="ReadLock" />
+    <key code="O" name="Original" />
+    <key code="P" name="NextPriorityUnread" />
+    <key code="Q" name="Quote" />
+    <key code="R" name="Read" />
+    <key code="S" name="NewMessage" />
+    <key code="V" name="Markdown" />
+    <key code="W" name="Withdraw" />
+    <key code="X" name="Expand" />
+    <key code="Z" name="MarkThreadRead" />
+    <key code="Shift+Z" name="MarkThreadReadThenRoot" />
+    <key code="8" name="Star" />
+    <key code="Space" name="PageMessage" />
+    <key code="Ctrl+C" name="Copy" />
+    <key code="Ctrl+F" name="Search" />
+    <key code="Ctrl+K" name="MarkTopicRead" />
+    <key code="Oemcomma" name="Root" />
+    <key code="OemPeriod" name="NextRoot" />
+    <key code="Left" name="Backtrack" />
+    <key code="Del" name="Delete" />
+    <key code="Right" name="NextUnread" />
+    <key code="F1" name="KeyboardHelp" />
+    <key code="F5" name="SystemMenu" />
+  </keys>
+  <menu>
+    <backcolor>0,128,192</backcolor>
+    <font>Arial Narrow,Arial</font>
+    <forecolor>white</forecolor>
+    <inactivecolor>lightgray</inactivecolor>
+  </menu>
+  <system>
+    <font>Arial</font>
+    <linkcolor>windowtext</linkcolor>
+    <countcolor>red</countcolor>
+    <counttextcolor>white</counttextcolor>
+    <selectioncolor>highlight</selectioncolor>
+    <selectiontextcolor>highlighttext</selectiontextcolor>
+    <forecolor>windowtext</forecolor>
+    <infobarcolor>control</infobarcolor>
+    <infobartextcolor>controltext</infobartextcolor>
+    <edgecolor>activeborder</edgecolor>
+    <splitterbarcolor>activeborder</splitterbarcolor>
+    <toolbarcolor>15,177,255</toolbarcolor>
+  </system>
+  <forums>
+    <font>Verdana</font>
+    <font-size>8</font-size>
+    <listfont>Verdana</listfont>
+    <listfont-size>10</listfont-size>
+    <rootfont>Verdana</rootfont>
+    <rootfont-size>8</rootfont-size>
+    <selectioncolor>highlight</selectioncolor>
+    <selectiontextcolor>highlighttext</selectiontextcolor>
+    <messagefont>Verdana</messagefont>
+    <messagefont-size>10</messagefont-size>
+    <bodycolor>windowtext</bodycolor>
+    <rootcolor>230,230,250</rootcolor>
+    <commentcolor>215,235,255</commentcolor>
+    <collapsedcolor>230,230,250</collapsedcolor>
+    <headerfootercolor>109,132,180</headerfootercolor>
+    <prioritycolor>255,0,0</prioritycolor>
+    <ignoredcolor>192,192,192</ignoredcolor>
+    <draftcolor>236,235,204</draftcolor>
+    <level1quotecolor>128,0,128</level1quotecolor>
+    <level2quotecolor>0,128,128</level2quotecolor>
+    <level3quotecolor>0,255,0</level3quotecolor>
+  </forums>
+</UIConfig>

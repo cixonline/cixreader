@@ -1,0 +1,561 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title>CIXReader for Windows Release Notes</title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1343.14">
+  <style type="text/css">
+    body {
+      padding: 0;
+      margin: 20px;
+      font: 13px "Lucida Grande", Lucida, Verdana, sans-serif;
+    }
+    h1 {
+      font-size: 20px;
+    }
+    h2 {
+        -ms-border-radius: 30px;
+        border-radius: 30px;
+        padding: 1px 8px 2px;
+        display: inline-block;
+        color: white;
+        background-color: #3385FF;
+        text-transform: uppercase;
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    p.p1 {
+        margin: 0 0 16.1px 0;
+        font-size: 14.0px;
+        color: #000000;
+        -webkit-text-stroke: #000000
+    }
+    li.li2 {
+        margin: 0;
+        font-size: 12.0px;
+        color: #000000;
+        -webkit-text-stroke: #000000
+    }
+    span.s1 {
+        -webkit-font-kerning: none;
+        -moz-font-kerning: none;
+        -ms-font-kerning: none;
+        -o-font-kerning: none;
+        font-kerning: none
+    }
+
+    ul.ul1 {
+        list-style-type: disc
+    }
+    .beta {
+        display: block;
+    }
+    .release {
+        display: block;
+    }
+  </style>
+ $ifscript
+  <script type="text/javascript">
+      var _showbeta = 0;
+      function togglebeta() {
+          _showbeta = !_showbeta;
+          showbeta();
+      }
+      function showbeta() {
+          var elements = document.getElementsByClassName("beta");
+          for (var i = 0; i < elements.length; i++) {
+              elements[i].style.display = _showbeta ? "block" : "none";
+          }
+          window._beta.checked = _showbeta;
+      }
+      function getElementsByClassName(classname) {
+          var a = [];
+          var re = new RegExp('(^| )' + classname + '( |$)');
+          var els = document.getElementsByTagName("*");
+          for (var i = 0, j = els.length; i < j; i++)
+              if (re.test(els[i].className)) a.push(els[i]);
+          return a;
+      }
+  </script>
+$endif
+</head>
+$ifscript
+<body onload="showbeta();">
+$else
+<body>
+$endif
+<h1>CIXReader for Windows</h1>
+<p>The latest version of CIXReader for Windows is $(version)</p>
+$ifscript
+<input type="checkbox" id="_beta" onchange="togglebeta();return false;">Include beta release changes<br>
+$endif
+<div class="beta">
+<h2>Version $(version)</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Add option to Account to enable e-mail notifications when sent a PM or tagged in a message.</span></li>
+    <li class="li2"><span class="s1">Dynamic folders now show counts.</span></li>
+</ul>
+</div>
+<div>
+<h2>Version 1.60.1028</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fix bug where dropbox shared image URLs didn't render.</span></li>
+    <li class="li2"><span class="s1">Allow 'S' and 'C' shortcuts to work in inbox view.</span></li>
+    <li class="li2"><span class="s1">Fix scroll issue with paging messages with the spacebar.</span></li>
+</ul>
+</div>
+<div>
+<h2>Version 1.60.1026</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Handle cix:/ link format.</span></li>
+    <li class="li2"><span class="s1">Handle parenthesis in the middle of a URL.</span></li>
+    <li class="li2"><span class="s1">Multi-colour quote levels.</span></li>
+    <li class="li2"><span class="s1">Don't try to inline Dropbox links.</span></li>
+    <li class="li2"><span class="s1">Fix an issue with unread priority inside ignored threads.</span></li>
+    <li class="li2"><span class="s1">Minimum supported version is now Windows 7.</span></li>
+</ul>
+</div>
+<div>
+<h2>Version 1.60.1015</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">New home page that shows top threads and online users.</span></li>
+    <li class="li2"><span class="s1">New folder tree layout to match the Mac OSX version.</span></li>
+    <li class="li2"><span class="s1">Add option to always start CIXReader at the home page.</span></li>
+    <li class="li2"><span class="s1">Backtrack now restores unread state of message.</span></li>
+    <li class="li2"><span class="s1">'Q' key now aliases to replying and quoting the original message'.</span></li>
+    <li class="li2"><span class="s1">New message markup parser.</span></li>
+    <li class="li2"><span class="s1">Improved handling of missing messages.</span></li>
+    <li class="li2"><span class="s1">Fixed multiple image rendering issue.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.60.1014</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Improved handling of missing messages.</span></li>
+    <li class="li2"><span class="s1">Fixed status bar rendering issue.</span></li>
+    <li class="li2"><span class="s1">Fixed multiple image rendering issue.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.60.1013</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">More bug fixes.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.60.1012</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Lots of minor bug fixes.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.60.1009</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">New home page that shows top threads and online users.</span></li>
+    <li class="li2"><span class="s1">New folder tree layout to match the Mac OSX version.</span></li>
+    <li class="li2"><span class="s1">Add option to always start CIXReader at the home page.</span></li>
+    <li class="li2"><span class="s1">Backtrack now restores unread state of message.</span></li>
+    <li class="li2"><span class="s1">'Q' key now aliases to replying and quoting the original message'.</span></li>
+    <li class="li2"><span class="s1">New message markup parser.</span></li>
+    <li class="li2"><span class="s1">Improved self-repair of inconsistent folders.</span></li>
+    <li class="li2"><span class="s1">Lots of minor bug fixes.</span></li>
+</ul>
+</div>
+<div>
+<h2>Version 1.55.918</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">New thread pane which is much faster than the old one. (Single pane mode is unavailable for this version).</span></li>
+    <li class="li2"><span class="s1">Toolbar can now be customised.</span></li>
+    <li class="li2"><span class="s1">Support showing and hiding ignored threads.</span></li>
+    <li class="li2"><span class="s1">Conversations can now be collapsed by default.</span></li>
+    <li class="li2"><span class="s1">Conversations is now a grouping option and they can now be sorted by date, subject or author, ascending or descending.</span></li>
+    <li class="li2"><span class="s1">Renamed Private Message to PMessage.</span></li>
+    <li class="li2"><span class="s1">Read state synchronised with the server on shutdown.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.55.912</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Bug fixes.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.55.908</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">New thread pane which is much faster than the old one. (Single pane mode is temporarily unavailable).</span></li>
+    <li class="li2"><span class="s1">Toolbar can now be customised.</span></li>
+    <li class="li2"><span class="s1">Support showing and hiding ignored threads.</span></li>
+    <li class="li2"><span class="s1">Conversations can now be collapsed by default.</span></li>
+    <li class="li2"><span class="s1">Conversations is now a grouping option and they can now be sorted by date, subject or author, ascending or descending.</span></li>
+    <li class="li2"><span class="s1">Renamed Private Message to PMessage.</span></li>
+    <li class="li2"><span class="s1">Read state synchronised with the server on shutdown.</span></li>
+</ul>
+</div>
+<div>
+<h2>Version 1.51.823</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Batch all read and unread requests to further reduce network traffic.</span></li>
+    <li class="li2"><span class="s1">Various performance tweaks with the message caching.</span></li>
+    <li class="li2"><span class="s1">Handle paste of invalid characters into Goto dialog input field.</span></li>
+    <li class="li2"><span class="s1">Add ability to reply to a CIX message via private mail.</span></li>
+    <li class="li2"><span class="s1">Reply in noticeboard and pc.noticeboard to messages not your own now brings up reply via private mail.</span></li>
+    <li class="li2"><span class="s1">Click the read icon on a collapsed message to mark the thread read or unread.</span></li>
+    <li class="li2"><span class="s1">Added option in Settings to schedule cache cleanup on startup.</span></li>
+    <li class="li2"><span class="s1">Fix issue where some images did not correctly render inline.</span></li>
+    <li class="li2"><span class="s1">Fix crashing issue where directory isn't fully initialised.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.51.822</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fix issue with focus being lost in editor.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.51.820</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fix stupid regression with next unread caused by the bug fix in the last build.</span></li>
+    <li class="li2"><span class="s1">Synchronisation between CIXReader and other CIXReader clients now works much better.</span></li>
+    <li class="li2"><span class="s1">Improved logging with new message posting.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.51.819</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fix for stuck unread message when it occurs in the first collapsed thread in the list.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.51.816</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Batch all read and unread requests to further reduce network traffic.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.51.814</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Minor bug fixes.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.51.813</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fix unhandled exception bug.</span></li>
+    <li class="li2"><span class="s1">Removed option to toggle fast sync as it is now enforced.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.51.812</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Minor bug fixes.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.51.811</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Various performance tweaks with the message caching.</span></li>
+    <li class="li2"><span class="s1">Click the read icon on a collapsed message to mark the thread read or unread.</span></li>
+    <li class="li2"><span class="s1">Add option in Settings to schedule cache cleanup on startup.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.51.808</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fix an issue with some mugshots not being correctly persisted to the database.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.51.807</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fixed an issue where out of order sync can cause duplicate messages.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.51.806</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Bug fixes.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.51.805</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Bug fixes.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.51.804</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fast Sync now implemented. Enable this via the Preferences and report feedback.</span></li>
+    <li class="li2"><span class="s1">Handle paste of invalid characters into Goto dialog input field.</span></li>
+    <li class="li2"><span class="s1">Add ability to reply to a CIX message via private mail.</span></li>
+    <li class="li2"><span class="s1">Reply in noticeboard and pc.noticeboard to messages not your own now brings up reply via private mail.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.51.803</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Minor release to test upgrade changes in 1.51.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.51.802</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Upgrade now runs silently.</span></li>
+    <li class="li2"><span class="s1">Fix issue where some images did not correctly render inline.</span></li>
+    <li class="li2"><span class="s1">Fix crashing issue where directory isn't fully initialised.</span></li>
+</ul>
+</div>
+<div>
+<h2>Version 1.50.744</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">New CIXReader branding.</span></li>
+    <li class="li2"><span class="s1">Database schema upgraded to improve performance. First time run will perform an upgrade but the schema changes still permit reverting to an earlier build with some messages temporarily out of sync with the server.</span></li>
+    <li class="li2"><span class="s1">Optional menu bar now displayed at the top of the window, controlled by Settings.</span></li>
+    <li class="li2"><span class="s1">New global toolbar replaces the old forum and directory specific versions and can be turned on or off via the View menu or the Settings dialog.</span></li>
+    <li class="li2"><span class="s1">Revamped Settings dialog.</span></li>
+    <li class="li2"><span class="s1">Support for multiple signatures and per-forum signatures.</span></li>
+    <li class="li2"><span class="s1">Display forum participants list.</span></li>
+    <li class="li2"><span class="s1">Implement drag and drop of message to a topic folder to copy that message to the topic.</span></li>
+    <li class="li2"><span class="s1">Add Manage Forum feature to allow moderators to edit their forum details and add and remove participants and co-moderators.</span></li>
+    <li class="li2"><span class="s1">Add 'Search With' to message right-click menu to search for selected text via one of three search engines.</span></li>
+    <li class="li2"><span class="s1">Account panel is now a dialog box.</span></li>
+    <li class="li2"><span class="s1">Messages are now rendered using the Markdown syntax as for the Mac OSX version of CIXReader.</span></li>
+    <li class="li2"><span class="s1">You can now print CIX messages or mail conversations.</span></li>
+    <li class="li2"><span class="s1">You can now switch between single and split view layout without restarting CIXReader.</span></li>
+    <li class="li2"><span class="s1">Switched to API2.</span></li>
+    <li class="li2"><span class="s1">New Outbox smart folder that now shows pending, non-draft, messages.</span></li>
+    <li class="li2"><span class="s1">Messages can now be sorted by author, date, subject or conversation.</span></li>
+    <li class="li2"><span class="s1">Go To now displays an error if the message number doesn't exist.</span></li>
+    <li class="li2"><span class="s1">Can now join a forum by entering its name rather than from the directory.</span></li>
+    <li class="li2"><span class="s1">Double-clicking a draft message now opens it up for editing.</span></li>
+    <li class="li2"><span class="s1">New option to toggle between short and long date formats in messages.</span></li>
+    <li class="li2"><span class="s1">Fixes for Windows High Contrast themes.</span></li>
+    <li class="li2"><span class="s1">Added Help menu command to view the change log.</span></li>
+    <li class="li2"><span class="s1">UI cleanup and polish in various places.</span></li>
+    <li class="li2"><span class="s1">Compact Database temporarily removed.</span></li>
+    <li class="li2"><span class="s1">'V' shortcut key added to toggle plain text display.</span></li>
+    <li class="li2"><span class="s1">As for the OSX version, Edit->Quote now works as a reply rather than a new message.</span></li>
+    <li class="li2"><span class="s1">Message search results now include a link back to the message in its original thread.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.50.742</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fix issue where Reply fails to pick up selected text for quoting.</span></li>
+    <li class="li2"><span class="s1">Fix issue where arrow navigation keys stop working in the thread list.</span></li>
+    <li class="li2"><span class="s1">Updated theme editor with additional custom attributes.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.50.735</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fix race conditions and a sequencing issue in the database engine that causes an exception.</span></li>
+    <li class="li2"><span class="s1">Fix timing of the rule engine with withdrawn messages that caused folder count mismatch.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.50.734</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fix exception when deleting topic.</span></li>
+    <li class="li2"><span class="s1">Sorting by author, date or subject now shows 200 messages per page.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.50.733</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fixes for Windows High Contrast themes.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.50.731</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fixed an issue where a withdrawn message caused an unread count mismatch.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.50.730</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Added Help menu command to view the change log.</span></li>
+    <li class="li2"><span class="s1">UI cleanup and polish in various places.</span></li>
+    <li class="li2"><span class="s1">Compact Database temporarily removed.</span></li>
+    <li class="li2"><span class="s1">Fixed an issue where marking a priority thread normal or priority didn't stick.</span></li>
+    <li class="li2"><span class="s1">Bug fixes.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.50.729</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">'V' shortcut key added to toggle plain text display.</span></li>
+    <li class="li2"><span class="s1">Bug fixes.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.50.728</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Implement drag and drop of message to a topic folder to copy that message to the topic.</span></li>
+    <li class="li2"><span class="s1">Bug fixes.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.50.727</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fix bug where priority and ignored message flags weren't inherited correctly.</span></li>
+    <li class="li2"><span class="s1">Add Manage Forum feature to allow moderators to edit their forum details and add and remove participants and co-moderators.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.50.725</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fix bug where unread icon on root folder didn't update.</span></li>
+    <li class="li2"><span class="s1">As for the OSX version, Edit->Quote now works as a reply rather than a new message.</span></li>
+    <li class="li2"><span class="s1">Message search results now include a link back to the message in its original thread.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.50.724</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fix bug where drafts folder didn't show some draft messages.</span></li>
+    <li class="li2"><span class="s1">Added option to Settings to show or hide the toolbar.</span></li>
+    <li class="li2"><span class="s1">Fix bug where back button skipped messages.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.50.723</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">New CIXReader branding.</span></li>
+    <li class="li2"><span class="s1">Database schema upgraded to improve performance. First time run will perform an upgrade but the schema changes still permit reverting to an earlier build with some messages temporarily out of sync with the server.</span></li>
+    <li class="li2"><span class="s1">New global toolbar replaces the old forum and directory specific versions.</span></li>
+    <li class="li2"><span class="s1">Toolbar can now be shown or hidden via the View menu.</span></li>
+    <li class="li2"><span class="s1">Various bug fixes.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.50.717</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fixed bug where Participants dialog failed to appear.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.50.716</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Revamped Settings dialog.</span></li>
+    <li class="li2"><span class="s1">Support for multiple signatures.</span></li>
+    <li class="li2"><span class="s1">Support per-forum signatures.</span></li>
+    <li class="li2"><span class="s1">Display forum participants list.</span></li>
+    <li class="li2"><span class="s1">Add 'Search With' to message right-click menu to search for selected text via one of three search engines.</span></li>
+    <li class="li2"><span class="s1">Account panel is now a dialog box.</span></li>
+    <li class="li2"><span class="s1">Optional menu bar now displayed at the top of the window, controlled by Settings.</span></li>
+    <li class="li2"><span class="s1">Messages are now rendered using the Markdown syntax as for the Mac OSX version of CIXReader.</span></li>
+    <li class="li2"><span class="s1">You can now print CIX messages or mail conversations.</span></li>
+    <li class="li2"><span class="s1">You can now switch between single and split view layout without restarting CIXReader.</span></li>
+    <li class="li2"><span class="s1">Switched to API2.</span></li>
+    <li class="li2"><span class="s1">New Outbox smart folder that now shows pending, non-draft, messages.</span></li>
+    <li class="li2"><span class="s1">Messages can now be sorted by author, date, subject or conversation.</span></li>
+    <li class="li2"><span class="s1">Go To now displays an error if the message number doesn't exist.</span></li>
+    <li class="li2"><span class="s1">Can now join a forum by entering its name rather than from the directory.</span></li>
+    <li class="li2"><span class="s1">Double-clicking a draft message now opens it up for editing.</span></li>
+    <li class="li2"><span class="s1">New option to toggle between short and long date formats in messages.</span></li>
+</ul>
+</div>
+<div class="release">
+<h2>Version 1.21.531</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">New Directory view which allows sorting.</span></li>
+    <li class="li2"><span class="s1">The Message editor now includes a Subject line.</span></li>
+    <li class="li2"><span class="s1">Your mugshot is now always refreshed when you visit the Account page while online.</span></li>
+    <li class="li2"><span class="s1">Display "Reply to message..." in comment message header which can be clicked to go to the original.</span></li>
+    <li class="li2"><span class="s1">Bug fixes.</span></li>
+</ul>
+</div>
+<div class="release">
+<h2>Version 1.20.526</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Added Set Signature/Delete Signature to editor popup menu. Simply type a signature, highlight and right
+  click on the text and choose Set Signature to make that text your signature.</span></li>
+    <li class="li2"><span class="s1">Added Read-Lock on messages. Press 'L' to set a locked, unread, flag on the current message.</span></li>
+    <li class="li2"><span class="s1">Add Install Script to system menu to install CIXReader script packages.</span></li>
+    <li class="li2"><span class="s1">Can now close a profile window with Esc or Ctrl+F4.</span></li>
+    <li class="li2"><span class="s1">Can now override mugshots by putting a replacement image in the Mugshots folder in the CIXReader data
+  folder with the username as the filename.</span></li>
+    <li class="li2"><span class="s1">Support Ctrl+K to mark the current topic read.</span></li>
+    <li class="li2"><span class="s1">Fix a bug where some messages didn't scroll into view when selected.</span></li>
+    <li class="li2"><span class="s1">Fix a bug where backtracking missed some messages.</span></li>
+    <li class="li2"><span class="s1">Added more shortcut keys to dialogs for improved accessibility.</span></li>
+    <li class="li2"><span class="s1">Added F5 to invoke the system menu.</span></li>
+    <li class="li2"><span class="s1">Improvements for running CIXReader on high DPI displays.</span></li>
+    <li class="li2"><span class="s1">Add IndentationOffset configuration option in ini file for adjusting indentation in thread list.</span></li>
+    <li class="li2"><span class="s1">Expanded the Keyboard Help dialog.</span></li>
+</ul>
+</div>
+<div class="release">
+<h2>Version 1.10.517</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Message search capability, across a topic or forum.</span></li>
+    <li class="li2"><span class="s1">Added optional status bar that shows background activities.</span></li>
+    <li class="li2"><span class="s1">Added support for scripting via Lua. See http://developer.cixonline.com/cixreaderapi.aspx for details.</span></li>
+    <li class="li2"><span class="s1">Added option to disable rendering markdown codes in messages.</span></li>
+    <li class="li2"><span class="s1">Root font now configurable in Theme Editor.</span></li>
+    <li class="li2"><span class="s1">Can now configure the message pane font separately.</span></li>
+    <li class="li2"><span class="s1">Can now compact a database from Settings.</span></li>
+    <li class="li2"><span class="s1">Can now resign a forum or topic via the forums list popup menu.</span></li>
+    <li class="li2"><span class="s1">Can force refresh a specific folder or forum.</span></li>
+    <li class="li2"><span class="s1">New 'G' command to go to a specific message.</span></li>
+    <li class="li2"><span class="s1">New default theme. The old theme is now renamed "Blue" in Settings.</span></li>
+    <li class="li2"><span class="s1">Log files can now be optionally archived.</span></li>
+    <li class="li2"><span class="s1">User's account type is now shown on the Account page.</span></li>
+    <li class="li2"><span class="s1">Performance improvements under the hood.</span></li>
+    <li class="li2"><span class="s1">UI style tweaks.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.0.7.315</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fix potential crash on startup with splitter bar.</span></li>
+    <li class="li2"><span class="s1">Fix bug with folder counts getting out of sync.</span></li>
+</ul>
+</div>
+<div class="release">
+<h2>Version 1.0.6.314</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fix a bug where Ctrl+C and Reply does not pick up selected text in three pane mode.</span></li>
+    <li class="li2"><span class="s1">Add more validation to a private message recipient name.</span></li>
+    <li class="li2"><span class="s1">Check main window position on startup and ensure it is constrained to the desktop.</span></li>
+    <li class="li2"><span class="s1">Allow re-ordering a forum to underneath the Draft folder.</span></li>
+    <li class="li2"><span class="s1">Remove selection toggle when clicking on items.</span></li>
+    <li class="li2"><span class="s1">Fix bug where thread items show expanded in three pane mode.</span></li>
+    <li class="li2"><span class="s1">Add 'W' shortcut key for Withdraw messages.</span></li>
+</ul>
+</div>
+<div class="release">
+<h2>Version 1.0.5.312</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fix exception when restarting CIXReader after it was shut down while minimised.</span></li>
+    <li class="li2"><span class="s1">Fix NHunspellExtender exception when minimising editor.</span></li>
+</ul>
+</div>
+<div class="release">
+<h2>Version 1.0.4.311</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fixed root message font size with Large theme.</span></li>
+    <li class="li2"><span class="s1">Keyboard Help window is now modeless.</span></li>
+    <li class="li2"><span class="s1">Added some custom words to the spelling checker.</span></li>
+    <li class="li2"><span class="s1">Minor bug fixes.</span></li>
+</ul>
+</div>
+<div class="beta">
+<h2>Version 1.0.3.310</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Bug fixes.</span></li>
+</ul>
+</div>
+<div class="release">
+<h2>Version 1.0.3.309</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">First released version.</span></li>
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,766 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppTitle" xml:space="preserve">
+    <value>CIXReader</value>
+  </data>
+  <data name="CancelNewMessagePrompt" xml:space="preserve">
+    <value>Do you want to close this message without sending it?</value>
+  </data>
+  <data name="CancelNewMessageTitle" xml:space="preserve">
+    <value>Cancel Message</value>
+  </data>
+  <data name="PMessages" xml:space="preserve">
+    <value>PMessages</value>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="SelectMugshot" xml:space="preserve">
+    <value>Select a Mugshot File</value>
+  </data>
+  <data name="MugshotFileTypes" xml:space="preserve">
+    <value>Image Files|*.jpg;*.gif;*.png|JPEG Files|*.jpg|GIF Files|*.gif|PNG Files|*.png|All files (*.*)|*.*</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="ConfirmJoin" xml:space="preserve">
+    <value>Do you want to join the {0} forum?</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="downArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\downArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rightArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rightArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Topic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Topic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Forums" xml:space="preserve">
+    <value>Forums</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="Categories" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Categories.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ArtsCategory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ArtsCategory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BusinessCategory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BusinessCategory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CIXCategory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CIXCategory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ComputersCategory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ComputersCategory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GamesCategory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GamesCategory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HealthCategory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HealthCategory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HomeCategory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HomeCategory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="KidsCategory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\KidsCategory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoneyCategory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoneyCategory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NewsCategory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NewsCategory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ReferenceCategory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReferenceCategory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ScienceCategory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ScienceCategory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ShoppingCategory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ShoppingCategory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SocietyCategory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SocietyCategory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SportsCategory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SportsCategory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TravelCategory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TravelCategory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Reply</value>
+  </data>
+  <data name="Ignore" xml:space="preserve">
+    <value>Ignore</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="ReadMessage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReadMessage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UnreadMessage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UnreadMessage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Retrieve" xml:space="preserve">
+    <value>Retrieve</value>
+  </data>
+  <data name="MessageRetrievePending" xml:space="preserve">
+    <value>Message will be retrieved from the server when you next go online.</value>
+  </data>
+  <data name="FolderIsReadOnly" xml:space="preserve">
+    <value>This topic is read-only. You cannot post or comment to messages in it.</value>
+  </data>
+  <data name="ROTopic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ROTopic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CixReader" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CixReader.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ActiveStar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ActiveStar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InactiveStar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InactiveStar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Control" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Control.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExpandThread" xml:space="preserve">
+    <value>Expand this thread</value>
+  </data>
+  <data name="UnreadPriorityMessage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UnreadPriorityMessage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Unignore" xml:space="preserve">
+    <value>Unignore</value>
+  </data>
+  <data name="Bubble" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Bubble.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ManyReplies" xml:space="preserve">
+    <value>{0} replies</value>
+  </data>
+  <data name="OneReply" xml:space="preserve">
+    <value>1 reply</value>
+  </data>
+  <data name="ResignForum" xml:space="preserve">
+    <value>Resign Forum</value>
+  </data>
+  <data name="JoinForum" xml:space="preserve">
+    <value>Join Forum</value>
+  </data>
+  <data name="ConfirmResign" xml:space="preserve">
+    <value>Do you want to resign from {0} ?</value>
+  </data>
+  <data name="IgnoredMessage" xml:space="preserve">
+    <value>This message and all replies are ignored.</value>
+  </data>
+  <data name="Withdraw" xml:space="preserve">
+    <value>Withdraw</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="LastOnText" xml:space="preserve">
+    <value>Last on {0}</value>
+  </data>
+  <data name="LocationText" xml:space="preserve">
+    <value>Location: {0}</value>
+  </data>
+  <data name="Map" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Map.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Moderators" xml:space="preserve">
+    <value>Moderators</value>
+  </data>
+  <data name="CannotOpen" xml:space="preserve">
+    <value>Cannot open {0} : {1}</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="EULA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\licence.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>Are you sure you want to delete the {0} folder?</value>
+  </data>
+  <data name="DeleteFolder" xml:space="preserve">
+    <value>Delete Folder</value>
+  </data>
+  <data name="NewMessageTitle" xml:space="preserve">
+    <value>New Message in {0} • {1}</value>
+  </data>
+  <data name="ReplyTitle" xml:space="preserve">
+    <value>Reply to {0} in {1} • {2}</value>
+  </data>
+  <data name="RevertThemeToDefault" xml:space="preserve">
+    <value>This will delete any custom theme file and revert to the CIXReader default. Are you sure?</value>
+  </data>
+  <data name="Draft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Draft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OwnerPostingOnly" xml:space="preserve">
+    <value>You can only comment to your own messages in this topic.</value>
+  </data>
+  <data name="ConfirmWithdraw" xml:space="preserve">
+    <value>Withdraw this message from the server?</value>
+  </data>
+  <data name="Chat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Chat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XMPPLink" xml:space="preserve">
+    <value>xmpp:{0}@cix</value>
+  </data>
+  <data name="JoinFailure" xml:space="preserve">
+    <value>Failed to join the forum. The forum may be closed or you may have reached the limit on the number of forums you can join</value>
+  </data>
+  <data name="JoinPending" xml:space="preserve">
+    <value>CIXReader will join this forum when you next go online.</value>
+  </data>
+  <data name="Error1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Error.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Warning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ResignPending" xml:space="preserve">
+    <value>CIXReader will resign this forum when you next go online.</value>
+  </data>
+  <data name="Mail" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Mail.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CollapseArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CollapseArrows.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExpandArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ExpandArrows.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NoConnection" xml:space="preserve">
+    <value>Cannot connect to CIX.Check your internet connection.</value>
+  </data>
+  <data name="Key" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Key.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="JoinClosed" xml:space="preserve">
+    <value>{0} is a closed forum. You need to contact the forum moderator to request access. Do you want to send a request message now?</value>
+  </data>
+  <data name="DraftText" xml:space="preserve">
+    <value>Drafts</value>
+  </data>
+  <data name="Starred" xml:space="preserve">
+    <value>Starred</value>
+  </data>
+  <data name="MarkFolderRead" xml:space="preserve">
+    <value>Mark all messages in {0} read?</value>
+  </data>
+  <data name="MarkRead" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MarkRead.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeleteButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteConversation" xml:space="preserve">
+    <value>Delete this conversation?</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="MenuDropBlue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MenuDropBlue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MenuDropWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MenuDropWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CIXLogo2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CIXLogo2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ReplyEditorTitle" xml:space="preserve">
+    <value>Replying to {0}</value>
+  </data>
+  <data name="LatestVersion" xml:space="preserve">
+    <value>{0} is the latest version of CIXReader</value>
+  </data>
+  <data name="LatestVersionTitle" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="StatusMessagePost" xml:space="preserve">
+    <value>Posting message "{0}"</value>
+  </data>
+  <data name="StatusTopicRefresh" xml:space="preserve">
+    <value>Refreshing...</value>
+  </data>
+  <data name="CustomWords" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CustomWords.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="LinkTooltip" xml:space="preserve">
+    <value>Click to copy a link to this message to the clipboard</value>
+  </data>
+  <data name="UnknownRecipientError" xml:space="preserve">
+    <value>This message could not be posted. The recipient is unknown.</value>
+  </data>
+  <data name="CopyLinkInfoMessage" xml:space="preserve">
+    <value>Link to message copied to clipboard</value>
+  </data>
+  <data name="SearchForText" xml:space="preserve">
+    <value>Search for...</value>
+  </data>
+  <data name="Search2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Search2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ScriptException" xml:space="preserve">
+    <value>Script Exception</value>
+  </data>
+  <data name="CloseButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CloseButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SearchForTextIn" xml:space="preserve">
+    <value>Search in {0}</value>
+  </data>
+  <data name="StatusInboxRefresh" xml:space="preserve">
+    <value>Refreshing private messages...</value>
+  </data>
+  <data name="Participants" xml:space="preserve">
+    <value>Participants</value>
+  </data>
+  <data name="CloseSearchBar" xml:space="preserve">
+    <value>Close the search bar</value>
+  </data>
+  <data name="CurrentForumSearch" xml:space="preserve">
+    <value>Search in the current forum</value>
+  </data>
+  <data name="CurrentTopicSearch" xml:space="preserve">
+    <value>Search in the current topic</value>
+  </data>
+  <data name="ForumsTooltip" xml:space="preserve">
+    <value>Display CIX forums</value>
+  </data>
+  <data name="Closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Closed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Confidential" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Confidential.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="SmallDownArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SmallDownArrow.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh {0}</value>
+  </data>
+  <data name="Resign" xml:space="preserve">
+    <value>Resign {0}</value>
+  </data>
+  <data name="SForum" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="STopic" xml:space="preserve">
+    <value>Topic</value>
+  </data>
+  <data name="Basic" xml:space="preserve">
+    <value>Basic</value>
+  </data>
+  <data name="Full" xml:space="preserve">
+    <value>Full</value>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>Undo {0}</value>
+  </data>
+  <data name="ReadLock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReadLock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ZipFileExtension" xml:space="preserve">
+    <value>Script Packages (*.zip)|*.zip|All files (*.*)|*.*</value>
+  </data>
+  <data name="ScriptInstallError" xml:space="preserve">
+    <value>Error installing script. Check the log file for more details.</value>
+  </data>
+  <data name="Script" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\script.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="BadUsernameOrPassword" xml:space="preserve">
+    <value>Invalid username or password</value>
+  </data>
+  <data name="InactivatedAccount" xml:space="preserve">
+    <value>This account has not yet been activated</value>
+  </data>
+  <data name="ReplyToMessage" xml:space="preserve">
+    <value>Reply to message {0}</value>
+  </data>
+  <data name="HideStatusBar" xml:space="preserve">
+    <value>Hide Status &amp;Bar</value>
+  </data>
+  <data name="ShowStatusBar" xml:space="preserve">
+    <value>Show Status &amp;Bar</value>
+  </data>
+  <data name="AsIgnored" xml:space="preserve">
+    <value>As &amp;Ignored</value>
+  </data>
+  <data name="AsNormal" xml:space="preserve">
+    <value>As N&amp;ormal</value>
+  </data>
+  <data name="AsPriority" xml:space="preserve">
+    <value>As Pri&amp;ority</value>
+  </data>
+  <data name="AsRead" xml:space="preserve">
+    <value>As &amp;Read</value>
+  </data>
+  <data name="AsUnignored" xml:space="preserve">
+    <value>As Un&amp;ignored</value>
+  </data>
+  <data name="AsUnread" xml:space="preserve">
+    <value>As Un&amp;read</value>
+  </data>
+  <data name="ClearFlag" xml:space="preserve">
+    <value>Clear &amp;Flag</value>
+  </data>
+  <data name="ClearReadLock" xml:space="preserve">
+    <value>Clear Read &amp;Lock</value>
+  </data>
+  <data name="Flag" xml:space="preserve">
+    <value>&amp;Flag</value>
+  </data>
+  <data name="SetReadLock" xml:space="preserve">
+    <value>Set Read &amp;Lock</value>
+  </data>
+  <data name="PrintError" xml:space="preserve">
+    <value>Error printing document: {0}</value>
+  </data>
+  <data name="PrintMailDate" xml:space="preserve">
+    <value>Date: {0}</value>
+  </data>
+  <data name="PrintMailFrom" xml:space="preserve">
+    <value>From: {0}</value>
+  </data>
+  <data name="PrintMailSubject" xml:space="preserve">
+    <value>Subject: {0}</value>
+  </data>
+  <data name="SmartFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SmartFolder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NoSignature" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="ParticipantsCount" xml:space="preserve">
+    <value>{0} participants</value>
+  </data>
+  <data name="ParticipantsTitle" xml:space="preserve">
+    <value>Participants in {0}</value>
+  </data>
+  <data name="SearchWith" xml:space="preserve">
+    <value>Search With {0}</value>
+  </data>
+  <data name="SearchEngines" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\searchengines.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="OutboxText" xml:space="preserve">
+    <value>Outbox</value>
+  </data>
+  <data name="DeleteOnMenu" xml:space="preserve">
+    <value>&amp;Delete</value>
+  </data>
+  <data name="GotoError" xml:space="preserve">
+    <value>Message {0} not found in this topic</value>
+  </data>
+  <data name="WithdrawOnMenu" xml:space="preserve">
+    <value>&amp;Withdraw</value>
+  </data>
+  <data name="JoinForumStatusText" xml:space="preserve">
+    <value>By clicking Join This Forum, you will be added to the forum participant list and you will be able to read and post to any topic in the forum.</value>
+  </data>
+  <data name="JoinClosedForum" xml:space="preserve">
+    <value>This forum is closed. To join the forum, you need to contact the moderators to request admittance</value>
+  </data>
+  <data name="RequestAdmittance" xml:space="preserve">
+    <value>&amp;Request Admittance</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>&amp;Close</value>
+  </data>
+  <data name="JoinNoSuchForum" xml:space="preserve">
+    <value>This forum does not exist in the directory. Check the spelling of the name.</value>
+  </data>
+  <data name="HideToolBar" xml:space="preserve">
+    <value>&amp;Hide Toolbar</value>
+  </data>
+  <data name="ShowToolBar" xml:space="preserve">
+    <value>S&amp;how Toolbar</value>
+  </data>
+  <data name="Directory" xml:space="preserve">
+    <value>Directory</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SearchIn" xml:space="preserve">
+    <value>Search in {0}</value>
+  </data>
+  <data name="CIXReaderLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CIXReader_Medium.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ManageForum" xml:space="preserve">
+    <value>Manage Forum</value>
+  </data>
+  <data name="ManageGeneral" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\generalForumEditorImage.tiff;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ManageMods" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\moderatorForumEditorImage.tiff;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ManageParts" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\participantForumEditorImage.tiff;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ClosedForum" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="OpenForum" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="PrivateForum" xml:space="preserve">
+    <value>Private</value>
+  </data>
+  <data name="RemoveButton" xml:space="preserve">
+    <value>&amp;Remove</value>
+  </data>
+  <data name="RestoreButton" xml:space="preserve">
+    <value>&amp;Restore</value>
+  </data>
+  <data name="GeneralPrefImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\generalPrefImage.tiff;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SignaturePreferences" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\signaturePreferences.tiff;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UpdatePreferences" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\updatePreferences.tiff;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ViewingPrefImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\viewingPrefImage.tiff;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Daily" xml:space="preserve">
+    <value>Daily</value>
+  </data>
+  <data name="Never" xml:space="preserve">
+    <value>Never</value>
+  </data>
+  <data name="Weekly" xml:space="preserve">
+    <value>Weekly</value>
+  </data>
+  <data name="CustomiseToolbar" xml:space="preserve">
+    <value>Customise Toolbar</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="SmallFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\smallFolder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AllCategories" xml:space="preserve">
+    <value>All Categories</value>
+  </data>
+  <data name="Inbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Inbox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NewPMessage" xml:space="preserve">
+    <value>New PMessage</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>(No subject)</value>
+  </data>
+  <data name="OnlineUsers" xml:space="preserve">
+    <value>Users who are online now</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="InboxName" xml:space="preserve">
+    <value>Inbox</value>
+  </data>
+  <data name="PMessagesTooltip" xml:space="preserve">
+    <value>Display your private messages</value>
+  </data>
+  <data name="DirectoryTooltip" xml:space="preserve">
+    <value>Display the CIX Forums directory</value>
+  </data>
+  <data name="Beta" xml:space="preserve">
+    <value>Beta</value>
+  </data>
+  <data name="BetaTooltip" xml:space="preserve">
+    <value>Go to the CIXReader beta forum</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="SupportTooltip" xml:space="preserve">
+    <value>Go to the CIXReader Support forum</value>
+  </data>
+  <data name="TopThreads" xml:space="preserve">
+    <value>Interesting Threads</value>
+  </data>
+  <data name="WelcomeSubtitle" xml:space="preserve">
+    <value>CIXReader is the new way to access CIX Forums on your Windows Desktop and read messages either off-line or on-line. Allows instant and draft postings, immediate access to whole topics, forums and automatically keeps in sync with the CIX Forums web interface.</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>Welcome to CIXReader</value>
+  </data>
+  <data name="StartedAt" xml:space="preserve">
+    <value>Started at {0}</value>
+  </data>
+  <data name="StartedBy" xml:space="preserve">
+    <value>Written by {0}</value>
+  </data>
+</root>

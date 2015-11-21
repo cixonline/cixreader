@@ -1,0 +1,42 @@
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Libraries
+*.lib
+*.a
+!ameol232_real.lib
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+!winsparkle.dll
+!regexp.dll
+!regexp9x.dll
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+*.sbr
+*.pdb
+*.exp
+*.user
+*.idb
+*.bsc
+*.res
+*.ilk
+*.map
+
+# Intermediate files
+mt.dep
+BuildLog.htm
+*.intermediate.manifest
+*.embed.manifest

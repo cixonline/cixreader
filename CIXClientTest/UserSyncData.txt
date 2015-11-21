@@ -1,0 +1,1170 @@
+<MessageResultSet2 xmlns="http://cixonline.com" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <Count>329</Count>
+    <Messages>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>Hmm... switch to View->Sort By Date. Do they show up there? Have you deleted the topic or database since installing the latest build?
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 10:04:10</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2323</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2322</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>Try turning off fast sync via Settings and let it sync. A full forum refresh doesn't happen as regularly on fast sync as it does on the slow sync mechanism.
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 10:56:12</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2333</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2332</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>5 minutes after you posted that and this topic still hasn't come back following deletion
+
+Niamh
+</Body>
+            <DateTime>22/04/2015 10:53:54</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2332</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2330</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>Did the original issues happen in the latest build after you last deleted the database cache file?
+
+There was a bad bug in 805 which could cause this. It should be nailed in 806 and internal testing confirms this but I may have missed a scenario.
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 10:53:20</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2331</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2330</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>OK - I've found the likely source of the problem. I'm about to release build 807 with a fix but I recommend deleting your database cache after upgrading. Sorry about that.
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 11:12:39</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2337</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2322</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>I'm deleting topics left right and centre!
+
+Niamh
+</Body>
+            <DateTime>22/04/2015 10:34:15</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2326</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2325</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>Fine in build 804 though
+
+Niamh
+</Body>
+            <DateTime>22/04/2015 07:01:45</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2318</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2317</ReplyTo>
+            <RootID>2293</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>making</Author>
+            <Body>Sorry to sound daft but once I've deleted a topic how do I rejoin it? I right click on the topic and select "Delete Folder" but what's the next step?
+
+Cheers,
+
+Mike
+</Body>
+            <DateTime>22/04/2015 09:15:32</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2319</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2316</ReplyTo>
+            <RootID>2315</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>making</Author>
+            <Body>Something seems really screwy with the latest beta.
+
+Three times now I've read a conference (using the right arrow to read each message) and after I've finished the conference list on the LHS is still showing unreads. It's just happened in DIY, I had 7 unreads. I hit right and it went down to 6, then 5 then it was almost as if it lost focus and the right arrow was doing nothing. Now according to the conf list I have 5 unreads when in fact it looks like there are none.
+
+I'm using CR in 3 pane mode if any use.
+
+Cheers,
+
+Mike
+Using CIXReader 1.51.806 Beta for Windows
+</Body>
+            <DateTime>22/04/2015 00:31:15</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2315</ID>
+            <Priority>false</Priority>
+            <ReplyTo>0</ReplyTo>
+            <RootID>2315</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>jstrong</Author>
+            <Body>So far so good after one "read through" my conferences. Will keep an eye on it today and report back.
+
+Thanks
+
+Jim
+CIXReader for Mac 1.41.399 Beta
+</Body>
+            <DateTime>22/04/2015 08:14:37</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>592</ID>
+            <Priority>false</Priority>
+            <ReplyTo>590</ReplyTo>
+            <RootID>579</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreadermac</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>mat</Author>
+            <Body>I'm not seeing any issues with cix:electronics using right arrow to navigate to it. I know that doesn't help you, but it does suggest that somehow it seems to be a local issue to you, which in itself seems strange.
+</Body>
+            <DateTime>22/04/2015 09:29:20</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2321</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2313</ReplyTo>
+            <RootID>2293</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>geoff</Author>
+            <Body>cix:own.business/17chatter:4290 and 4288 showing as "Message not available" here, as is 2308 in this topic.  Refresh doesn't get the messages down.
+
+GJC
+</Body>
+            <DateTime>22/04/2015 09:51:07</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2322</ID>
+            <Priority>false</Priority>
+            <ReplyTo>0</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>cix:bikers/15bike_related:2459 here
+
+This build seems seriously broken
+
+Niamh
+</Body>
+            <DateTime>22/04/2015 10:16:16</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2324</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2322</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>Who knows what particular topic is open elsewhere, CR runs 24/7 on 3 machinds for this user ID.
+
+Niamh
+</Body>
+            <DateTime>22/04/2015 11:01:17</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2335</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2328</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>&gt; A full forum refresh doesn't happen as regularly on fast sync as it does 
+&gt; on the slow sync mechanism.
+
+Hmmm!
+</Body>
+            <DateTime>22/04/2015 10:58:51</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2334</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2333</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>There was a bug in earlier betas that caused duplicate messages in the topic. Switch to View->Date on the topic and question and see if they show up. If so, delete the topic and let CIXReader reconstruct it.
+
+Let me know if it happens with the same topic even after it has been reconstructed.
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 06:09:08</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2316</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2315</ReplyTo>
+            <RootID>2315</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>geoff</Author>
+            <Body>Setting to Sort By Date got the message bodies down, but they were still showing as authored by CIX.
+
+Deleting the database has cleared it, as you would expect - I'll let you know if it re-occurs.
+
+GJC
+</Body>
+            <DateTime>22/04/2015 10:47:49</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2330</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2323</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>Sure, not actually at the same time... generally here during the day and the lapdog in the living room in the evening.
+
+Niamh
+</Body>
+            <DateTime>22/04/2015 11:20:50</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2338</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2336</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>For now, CIXReader will reload it when someone posts to that topic again. Alternatively, a quick hack is to turn off Fast Sync from Preferences and it will restore the topic automatically on the next sync.
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 09:21:53</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2320</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2319</ReplyTo>
+            <RootID>2315</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>making</Author>
+            <Body>ok ta.
+</Body>
+            <DateTime>22/04/2015 10:35:46</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2327</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2320</ReplyTo>
+            <RootID>2315</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>Since installing the latest build (806), yes?
+
+Are you also reading the same topics on CIXReader (any version) on another machine at the same time?
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 10:40:29</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2328</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2326</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>Even where we haven't installed the problem release(s)?
+
+Niamh
+</Body>
+            <DateTime>22/04/2015 11:21:18</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2339</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2337</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>mattjones</Author>
+            <Body>FWIW, since updating this morning all has been fine. I marked three topics that were stuck as read, after doing a refresh on them. All good again.
+
+/Matthew Jones/
+</Body>
+            <DateTime>22/04/2015 10:46:03</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2329</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2328</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>cix:2311 shows as message not available... and the the author is CIX!
+
+Niamh
+</Body>
+            <DateTime>22/04/2015 06:49:29</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2317</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2311</ReplyTo>
+            <RootID>2293</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>Have you deleted your database or that topic since installing the latest build?
+
+If not, then do so and let CIXReader rebuild the cache. Then we need to see if the problem recurs.
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 10:20:04</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2325</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2324</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>And you're reading the topic on the other machines too? I don't mean that they're syncing but that you're actively reading the messages in the same topic on multiple machines?
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 11:07:06</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2336</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2335</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>Well, for optimum testing I'd recommend starting from scratch OR go back to version 1.50 (or earlier) and sync from that and then upgrade to build 807 which would be more representative of what happens on release. Or even restore a backup database from 1.50 if you have one.
+
+The nature of beta testing is that I can't really guarantee that the database cache is fine going from one beta to another. I only test going from last release to the current beta because the unit tests mirror that scenario. But I do try to ensure that beta->beta upgrades are solid for least inconvenience. Unfortunately due to the changes required by fast sync, this isn't one of those times. :-)
+
+At least you're not testing the early betas of Ameol2. Those were interesting days...
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 11:25:53</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2340</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2339</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>true</Unread>
+        </Message2>
+        <Message2>
+            <Author>paul_w</Author>
+            <Body>I found this spindump in case it helps:
+
+Date/Time:       2015-04-21 19:59:36 +1000
+OS Version:      10.10.3 (Build 14D131)
+Architecture:    x86_64
+Report Version:  21
+
+Command:         CIXReader
+Path:            /Applications/CIXReader.app/Contents/MacOS/CIXReader
+Version:         1.41.391 Beta (391)
+PID:             541
+
+Event:           timeout-lite
+Duration:        10.00s (process was unresponsive for 2 seconds before sampling)
+Steps:           101 (100ms sampling interval)
+
+Hardware model:  MacBookPro10,1
+Active cpus:     8
+
+Fan speed:       2158 rpm
+
+Heaviest stack for the main thread of the target process:
+  101  start + 1 (libdyld.dylib + 13769) [0x7fff8a2ee5c9]
+  101  NSApplicationMain + 1832 (AppKit + 13140) [0x7fff8baa9354]
+  101  -[NSApplication run] + 594 (AppKit + 551923) [0x7fff8bb2cbf3]
+  101  -[NSApplication nextEventMatchingMask:untilDate:inMode:dequeue:] + 346 (AppKit + 593768) [0x7fff8bb36f68]
+  101  _DPSNextEvent + 978 (AppKit + 596411) [0x7fff8bb379bb]
+  101  _BlockUntilNextEventMatchingListInModeWithFilter + 71 (HIToolbox + 205099) [0x7fff8c8bd12b]
+  101  ReceiveNextEventCommon + 431 (HIToolbox + 205546) [0x7fff8c8bd2ea]
+  101  RunCurrentEventLoopInMode + 235 (HIToolbox + 206191) [0x7fff8c8bd56f]
+  101  CFRunLoopRunSpecific + 296 (CoreFoundation + 465880) [0x7fff8dc35bd8]
+  101  __CFRunLoopRun + 2024 (CoreFoundation + 468488) [0x7fff8dc36608]
+  101  __CFRunLoopDoTimers + 301 (CoreFoundation + 1221949) [0x7fff8dcee53d]
+  101  __CFRunLoopDoTimer + 1059 (CoreFoundation + 749427) [0x7fff8dc7af73]
+  101  __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20 (CoreFoundation + 750308) [0x7fff8dc7b2e4]
+  101  __NSFireTimer + 95 (Foundation + 309587) [0x7fff901c9953]
+  101  +[CIX uiTimerFired:] + 30 (CIXClient + 33691) [0x109fb339b]
+  101  +[CIX sync] + 256 (CIXClient + 34114) [0x109fb3542]
+  101  -[FolderCollection sync] + 294 (CIXClient + 196478) [0x109fdaf7e]
+  101  -[Folder sync] + 63 (CIXClient + 19991) [0x109fafe17]
+  101  -[Folder markReadRange:] + 932 (CIXClient + 26715) [0x109fb185b]
+  101  +[NSURLSession(SynchronousTask) sendSynchronousDataTaskWithRequest:returningResponse:error:] + 318 (CIXReader + 279982) [0x109f265ae]
+  101  semaphore_wait_trap + 10 (libsystem_kernel.dylib + 70938) [0x7fff91c7a51a]
+ *101  semaphore_wait_continue + 0 (kernel + 1357760) [0xffffff800034b7c0]
+
+  Binary Images:
+         0x109ee2000 -        0x109f39fff  com.cixonline.CIXReader 1.41.391 Beta (391) &lt;E46FC17C-AC7F-322F-A3A4-559C28934CBE&gt;  /Applications/CIXReader.app/Contents/MacOS/CIXReader
+         0x109fab000 -        0x109ff1fff  CIX.CIXClient 1.0 (1)                       &lt;C2F2B88C-6ADD-3C1C-8341-83B42D3104CC&gt;  /Applications/CIXReader.app/Contents/Frameworks/CIXClient.framework/Versions/A/CIXClient
+      0x7fff8a2eb000 -     0x7fff8a2eefff  libdyld.dylib (353.2.1)                     &lt;9EACCA38-291D-38CC-811F-7E9D1451E2D3&gt;  /usr/lib/system/libdyld.dylib
+      0x7fff8baa6000 -     0x7fff8c627fff  com.apple.AppKit 6.9 (1347.57)              &lt;B214D528-7D1C-39B2-BE36-821D417A0297&gt;  /System/Library/Frameworks/AppKit.framework/Versions/C/AppKit
+      0x7fff8c88b000 -     0x7fff8cb90fff  com.apple.HIToolbox 2.1.1 (758.7)           &lt;6711FAA9-904A-3B49-9665-FC8D13B93C42&gt;  /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/HIToolbox.framework/Versions/A/HIToolbox
+      0x7fff8dbc4000 -     0x7fff8df5cfff  com.apple.CoreFoundation 6.9 (1153.18)      &lt;5C0892B8-9691-341F-9279-CA3A74D59AA0&gt;  /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+      0x7fff9017e000 -     0x7fff904affff  com.apple.Foundation 6.9 (1153.20)          &lt;F0FF3A5D-C5B7-34A1-9319-DE1EF928E58E&gt;  /System/Library/Frameworks/Foundation.framework/Versions/C/Foundation
+      0x7fff91c69000 -     0x7fff91c86fff  libsystem_kernel.dylib (2782.20.48)         &lt;EAFD7BD0-0C30-3E7D-9528-F9916BA0167C&gt;  /usr/lib/system/libsystem_kernel.dylib
+ *0xffffff8000200000 - 0xffffff80009fffff  kernel (2782.20.48)                         &lt;4B3A11F4-77AA-3D27-A22D-81A1BC5B504D&gt;  /System/Library/Kernels/kernel
+ 
+</Body>
+            <DateTime>21/04/2015 21:31:21</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>587</ID>
+            <Priority>false</Priority>
+            <ReplyTo>561</ReplyTo>
+            <RootID>559</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreadermac</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>paul_w</Author>
+            <Body>I found this spindump in case it helps:
+
+Date/Time:       2015-04-21 19:59:36 +1000
+OS Version:      10.10.3 (Build 14D131)
+Architecture:    x86_64
+Report Version:  21
+
+Command:         CIXReader
+Path:            /Applications/CIXReader.app/Contents/MacOS/CIXReader
+Version:         1.41.391 Beta (391)
+PID:             541
+
+Event:           timeout-lite
+Duration:        10.00s (process was unresponsive for 2 seconds before sampling)
+Steps:           101 (100ms sampling interval)
+
+Hardware model:  MacBookPro10,1
+Active cpus:     8
+
+Fan speed:       2158 rpm
+
+Heaviest stack for the main thread of the target process:
+  101  start + 1 (libdyld.dylib + 13769) [0x7fff8a2ee5c9]
+  101  NSApplicationMain + 1832 (AppKit + 13140) [0x7fff8baa9354]
+  101  -[NSApplication run] + 594 (AppKit + 551923) [0x7fff8bb2cbf3]
+  101  -[NSApplication nextEventMatchingMask:untilDate:inMode:dequeue:] + 346 (AppKit + 593768) [0x7fff8bb36f68]
+  101  _DPSNextEvent + 978 (AppKit + 596411) [0x7fff8bb379bb]
+  101  _BlockUntilNextEventMatchingListInModeWithFilter + 71 (HIToolbox + 205099) [0x7fff8c8bd12b]
+  101  ReceiveNextEventCommon + 431 (HIToolbox + 205546) [0x7fff8c8bd2ea]
+  101  RunCurrentEventLoopInMode + 235 (HIToolbox + 206191) [0x7fff8c8bd56f]
+  101  CFRunLoopRunSpecific + 296 (CoreFoundation + 465880) [0x7fff8dc35bd8]
+  101  __CFRunLoopRun + 2024 (CoreFoundation + 468488) [0x7fff8dc36608]
+  101  __CFRunLoopDoTimers + 301 (CoreFoundation + 1221949) [0x7fff8dcee53d]
+  101  __CFRunLoopDoTimer + 1059 (CoreFoundation + 749427) [0x7fff8dc7af73]
+  101  __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20 (CoreFoundation + 750308) [0x7fff8dc7b2e4]
+  101  __NSFireTimer + 95 (Foundation + 309587) [0x7fff901c9953]
+  101  +[CIX uiTimerFired:] + 30 (CIXClient + 33691) [0x109fb339b]
+  101  +[CIX sync] + 256 (CIXClient + 34114) [0x109fb3542]
+  101  -[FolderCollection sync] + 294 (CIXClient + 196478) [0x109fdaf7e]
+  101  -[Folder sync] + 63 (CIXClient + 19991) [0x109fafe17]
+  101  -[Folder markReadRange:] + 932 (CIXClient + 26715) [0x109fb185b]
+  101  +[NSURLSession(SynchronousTask) sendSynchronousDataTaskWithRequest:returningResponse:error:] + 318 (CIXReader + 279982) [0x109f265ae]
+  101  semaphore_wait_trap + 10 (libsystem_kernel.dylib + 70938) [0x7fff91c7a51a]
+ *101  semaphore_wait_continue + 0 (kernel + 1357760) [0xffffff800034b7c0]
+
+  Binary Images:
+         0x109ee2000 -        0x109f39fff  com.cixonline.CIXReader 1.41.391 Beta (391) &lt;E46FC17C-AC7F-322F-A3A4-559C28934CBE&gt;  /Applications/CIXReader.app/Contents/MacOS/CIXReader
+         0x109fab000 -        0x109ff1fff  CIX.CIXClient 1.0 (1)                       &lt;C2F2B88C-6ADD-3C1C-8341-83B42D3104CC&gt;  /Applications/CIXReader.app/Contents/Frameworks/CIXClient.framework/Versions/A/CIXClient
+      0x7fff8a2eb000 -     0x7fff8a2eefff  libdyld.dylib (353.2.1)                     &lt;9EACCA38-291D-38CC-811F-7E9D1451E2D3&gt;  /usr/lib/system/libdyld.dylib
+      0x7fff8baa6000 -     0x7fff8c627fff  com.apple.AppKit 6.9 (1347.57)              &lt;B214D528-7D1C-39B2-BE36-821D417A0297&gt;  /System/Library/Frameworks/AppKit.framework/Versions/C/AppKit
+      0x7fff8c88b000 -     0x7fff8cb90fff  com.apple.HIToolbox 2.1.1 (758.7)           &lt;6711FAA9-904A-3B49-9665-FC8D13B93C42&gt;  /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/HIToolbox.framework/Versions/A/HIToolbox
+      0x7fff8dbc4000 -     0x7fff8df5cfff  com.apple.CoreFoundation 6.9 (1153.18)      &lt;5C0892B8-9691-341F-9279-CA3A74D59AA0&gt;  /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+      0x7fff9017e000 -     0x7fff904affff  com.apple.Foundation 6.9 (1153.20)          &lt;F0FF3A5D-C5B7-34A1-9319-DE1EF928E58E&gt;  /System/Library/Frameworks/Foundation.framework/Versions/C/Foundation
+      0x7fff91c69000 -     0x7fff91c86fff  libsystem_kernel.dylib (2782.20.48)         &lt;EAFD7BD0-0C30-3E7D-9528-F9916BA0167C&gt;  /usr/lib/system/libsystem_kernel.dylib
+ *0xffffff8000200000 - 0xffffff80009fffff  kernel (2782.20.48)                         &lt;4B3A11F4-77AA-3D27-A22D-81A1BC5B504D&gt;  /System/Library/Kernels/kernel
+ 
+</Body>
+            <DateTime>21/04/2015 21:32:20</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>588</ID>
+            <Priority>false</Priority>
+            <ReplyTo>561</ReplyTo>
+            <RootID>559</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreadermac</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>Yes, markReadRange runs synchronously for reasons too boring to explain and it appears to be happening on the main thread for the wrong reasons. I need to track this down and fix it. Thanks for the spindump which confirms my theory.
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>21/04/2015 22:12:14</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>589</ID>
+            <Priority>true</Priority>
+            <ReplyTo>588</ReplyTo>
+            <RootID>559</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreadermac</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>Can you try build 399 and see if that makes any difference?
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>21/04/2015 22:30:55</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>590</ID>
+            <Priority>true</Priority>
+            <ReplyTo>586</ReplyTo>
+            <RootID>579</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreadermac</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>OK, can you try build 399 and see if that helps?
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>21/04/2015 22:31:10</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>591</ID>
+            <Priority>true</Priority>
+            <ReplyTo>589</ReplyTo>
+            <RootID>559</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreadermac</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>making</Author>
+            <Body>Something seems really screwy with the latest beta.
+
+Three times now I've read a conference (using the right arrow to read each message) and after I've finished the conference list on the LHS is still showing unreads. It's just happened in DIY, I had 7 unreads. I hit right and it went down to 6, then 5 then it was almost as if it lost focus and the right arrow was doing nothing. Now according to the conf list I have 5 unreads when in fact it looks like there are none.
+
+I'm using CR in 3 pane mode if any use.
+
+Cheers,
+
+Mike
+Using CIXReader 1.51.806 Beta for Windows
+</Body>
+            <DateTime>22/04/2015 00:31:15</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2315</ID>
+            <Priority>false</Priority>
+            <ReplyTo>0</ReplyTo>
+            <RootID>2315</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>There was a bug in earlier betas that caused duplicate messages in the topic. Switch to View->Date on the topic and question and see if they show up. If so, delete the topic and let CIXReader reconstruct it.
+
+Let me know if it happens with the same topic even after it has been reconstructed.
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 06:09:08</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2316</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2315</ReplyTo>
+            <RootID>2315</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>cix:2311 shows as message not available... and the the author is CIX!
+
+Niamh
+</Body>
+            <DateTime>22/04/2015 06:49:29</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2317</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2311</ReplyTo>
+            <RootID>2293</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>Fine in build 804 though
+
+Niamh
+</Body>
+            <DateTime>22/04/2015 07:01:45</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2318</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2317</ReplyTo>
+            <RootID>2293</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>jstrong</Author>
+            <Body>So far so good after one "read through" my conferences. Will keep an eye on it today and report back.
+
+Thanks
+
+Jim
+CIXReader for Mac 1.41.399 Beta
+</Body>
+            <DateTime>22/04/2015 08:14:37</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>592</ID>
+            <Priority>false</Priority>
+            <ReplyTo>590</ReplyTo>
+            <RootID>579</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreadermac</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>making</Author>
+            <Body>Sorry to sound daft but once I've deleted a topic how do I rejoin it? I right click on the topic and select "Delete Folder" but what's the next step?
+
+Cheers,
+
+Mike
+</Body>
+            <DateTime>22/04/2015 09:15:32</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2319</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2316</ReplyTo>
+            <RootID>2315</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>For now, CIXReader will reload it when someone posts to that topic again. Alternatively, a quick hack is to turn off Fast Sync from Preferences and it will restore the topic automatically on the next sync.
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 09:21:53</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2320</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2319</ReplyTo>
+            <RootID>2315</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>mat</Author>
+            <Body>I'm not seeing any issues with cix:electronics using right arrow to navigate to it. I know that doesn't help you, but it does suggest that somehow it seems to be a local issue to you, which in itself seems strange.
+</Body>
+            <DateTime>22/04/2015 09:29:20</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2321</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2313</ReplyTo>
+            <RootID>2293</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>geoff</Author>
+            <Body>cix:own.business/17chatter:4290 and 4288 showing as "Message not available" here, as is 2308 in this topic.  Refresh doesn't get the messages down.
+
+GJC
+</Body>
+            <DateTime>22/04/2015 09:51:07</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2322</ID>
+            <Priority>false</Priority>
+            <ReplyTo>0</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>Hmm... switch to View->Sort By Date. Do they show up there? Have you deleted the topic or database since installing the latest build?
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 10:04:10</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2323</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2322</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>cix:bikers/15bike_related:2459 here
+
+This build seems seriously broken
+
+Niamh
+</Body>
+            <DateTime>22/04/2015 10:16:16</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2324</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2322</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>Have you deleted your database or that topic since installing the latest build?
+
+If not, then do so and let CIXReader rebuild the cache. Then we need to see if the problem recurs.
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 10:20:04</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2325</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2324</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>I'm deleting topics left right and centre!
+
+Niamh
+</Body>
+            <DateTime>22/04/2015 10:34:15</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2326</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2325</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>making</Author>
+            <Body>ok ta.
+</Body>
+            <DateTime>22/04/2015 10:35:46</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2327</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2320</ReplyTo>
+            <RootID>2315</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>Since installing the latest build (806), yes?
+
+Are you also reading the same topics on CIXReader (any version) on another machine at the same time?
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 10:40:29</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2328</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2326</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>mattjones</Author>
+            <Body>FWIW, since updating this morning all has been fine. I marked three topics that were stuck as read, after doing a refresh on them. All good again.
+
+/Matthew Jones/
+</Body>
+            <DateTime>22/04/2015 10:46:03</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2329</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2328</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>geoff</Author>
+            <Body>Setting to Sort By Date got the message bodies down, but they were still showing as authored by CIX.
+
+Deleting the database has cleared it, as you would expect - I'll let you know if it re-occurs.
+
+GJC
+</Body>
+            <DateTime>22/04/2015 10:47:49</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2330</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2323</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>Did the original issues happen in the latest build after you last deleted the database cache file?
+
+There was a bad bug in 805 which could cause this. It should be nailed in 806 and internal testing confirms this but I may have missed a scenario.
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 10:53:20</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2331</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2330</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>5 minutes after you posted that and this topic still hasn't come back following deletion
+
+Niamh
+</Body>
+            <DateTime>22/04/2015 10:53:54</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2332</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2330</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>&gt; A full forum refresh doesn't happen as regularly on fast sync as it does 
+&gt; on the slow sync mechanism.
+
+Hmmm!
+</Body>
+            <DateTime>22/04/2015 10:58:51</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2334</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2333</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>Who knows what particular topic is open elsewhere, CR runs 24/7 on 3 machinds for this user ID.
+
+Niamh
+</Body>
+            <DateTime>22/04/2015 11:01:17</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2335</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2328</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>And you're reading the topic on the other machines too? I don't mean that they're syncing but that you're actively reading the messages in the same topic on multiple machines?
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 11:07:06</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2336</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2335</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>OK - I've found the likely source of the problem. I'm about to release build 807 with a fix but I recommend deleting your database cache after upgrading. Sorry about that.
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 11:12:39</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2337</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2322</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>Sure, not actually at the same time... generally here during the day and the lapdog in the living room in the evening.
+
+Niamh
+</Body>
+            <DateTime>22/04/2015 11:20:50</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2338</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2336</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>fullbore</Author>
+            <Body>Even where we haven't installed the problem release(s)?
+
+Niamh
+</Body>
+            <DateTime>22/04/2015 11:21:18</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2339</ID>
+            <Priority>false</Priority>
+            <ReplyTo>2337</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+        <Message2>
+            <Author>spalmer</Author>
+            <Body>Well, for optimum testing I'd recommend starting from scratch OR go back to version 1.50 (or earlier) and sync from that and then upgrade to build 807 which would be more representative of what happens on release. Or even restore a backup database from 1.50 if you have one.
+
+The nature of beta testing is that I can't really guarantee that the database cache is fine going from one beta to another. I only test going from last release to the current beta because the unit tests mirror that scenario. But I do try to ensure that beta->beta upgrades are solid for least inconvenience. Unfortunately due to the changes required by fast sync, this isn't one of those times. :-)
+
+At least you're not testing the early betas of Ameol2. Those were interesting days...
+
+-Steve
+steve@icuk.net
+</Body>
+            <DateTime>22/04/2015 11:25:53</DateTime>
+            <Flag>U</Flag>
+            <Forum>cix.beta</Forum>
+            <ID>2340</ID>
+            <Priority>true</Priority>
+            <ReplyTo>2339</ReplyTo>
+            <RootID>2322</RootID>
+            <Starred>false</Starred>
+            <Topic>cixreader</Topic>
+            <Unread>false</Unread>
+        </Message2>
+    </Messages>
+    <Start>0</Start>
+</MessageResultSet2>

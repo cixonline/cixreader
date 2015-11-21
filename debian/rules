@@ -1,0 +1,16 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --with=cli
+
+override_dh_auto_build:
+	xbuild $(CURDIR)/CIXReader_Mono.sln /p:Configuration=Release
+
+override_dh_auto_clean:
+	xbuild $(CURDIR)/CIXReader_Mono.sln /p:Configuration=Release /t:Clean
+
+override_dh_makeclilibs:
+	dh_makeclilibs --exclude=sqlite3 --exclude=lua52
+
+override_dh_clideps:
+	dh_clideps --exclude-moduleref=i:sqlite3 --exclude-moduleref=i:lua52 

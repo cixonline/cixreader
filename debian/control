@@ -1,0 +1,23 @@
+Source: cixreader
+Section: devel
+Priority: optional
+Maintainer: Steve Palmer <steve@icuk.net>
+Build-Depends: debhelper (>=9),
+               cli-common-dev (>= 0.7),
+               libmono-cil-dev, 
+               mono-devel (>= 2.6.7),
+               mono-xbuild,
+               libgtk2.0-cil-dev (>= 2.12.10),
+               libglade2.0-cil-dev (>= 2.12.10)
+Standards-Version: 3.9.5
+Homepage: http://www.cix.co.uk
+
+Package: cixreader
+Architecture: any
+Depends: ${cli:Depends}, ${misc:Depends}
+Description: CIXReader Client
+ CIXReader is the new way to access CIX Forums on Windows or Mac OSX and read 
+ messages either off-line or on-line.  Allows instant and draft postings, 
+ immediate access to whole topics, forums and automatically keeps in sync with 
+ the CIX Forums web interface.
+

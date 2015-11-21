@@ -1,0 +1,18 @@
+scripts/cixreader /usr/bin
+CIXReader/bin/Release/CIXReader.exe /usr/lib/cixreader
+CIXReader/bin/Release/Acknowledgements.html /usr/lib/cixreader
+CIXReader/bin/Release/HtmlRenderer.dll /usr/lib/cixreader
+CIXReader/bin/Release/NLua.dll /usr/lib/cixreader
+CIXReader/bin/Release/HtmlRenderer.WinForms.dll /usr/lib/cixreader
+CIXReader/bin/Release/CIXClient.dll /usr/lib/cixreader
+CIXReader/bin/Release/ICSharpCode.SharpZipLib.dll /usr/lib/cixreader
+CIXReader/bin/Release/sqlite3.dll /usr/lib/cixreader
+CIXReader/bin/Release/Images /usr/lib/cixreader
+CIXReader/bin/Release/Themes /usr/lib/cixreader
+CIXReader/bin/Release/CIXMarkup.dll /usr/lib/cixreader
+CIXReader/bin/Release/INIFileParser.dll /usr/lib/cixreader
+CIXReader/bin/Release/Toolbar /usr/lib/cixreader
+CIXReader/bin/Release/Emoticons /usr/lib/cixreader
+CIXReader/bin/Release/KeraLua.dll /usr/lib/cixreader
+CIXReader/bin/Release/lua52.dll /usr/lib/cixreader
+

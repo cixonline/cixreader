@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<UIConfig>
+  <menu>
+    <backcolor>0,128,192</backcolor>
+  </menu>
+  <system>
+    <selectioncolor>151,203,255</selectioncolor>
+    <linkcolor>68,68,68</linkcolor>
+    <forecolor>68,68,68</forecolor>
+    <infobarcolor>242,242,242</infobarcolor>
+    <infobartextcolor>64,64,64</infobartextcolor>
+    <edgecolor>205,206,207</edgecolor>
+    <splitterbarcolor>233,234,235</splitterbarcolor>
+    <toolbarcolor>0,158,234</toolbarcolor>
+  </system>
+  <forums>
+    <headerfootercolor>109,132,180</headerfootercolor>
+    <selectioncolor>151,203,255</selectioncolor>
+    <selectiontextcolor>black</selectiontextcolor>
+  </forums>
+</UIConfig>

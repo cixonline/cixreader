@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolbar>
+  <button type="button" label="Join Forum" name="JoinForum" image="app:tbJoin.png" tooltip="Join a forum" />
+  <button type="button" label="Print" name="Print" image="app:tbPrint.png" tooltip="Print the current message" />
+  <button type="button" label="New Message" name="NewMessage" image="app:tbNewMessage.png" tooltip="Begin a new conversation" />
+  <button type="button" label="Reply" name="Reply" image="app:tbReply.png" tooltip="Reply to the current message" />
+  <button type="button" label="Backtrack" name="BackTrack" image="app:tbPrevious.png" tooltip="Go back to the previous message" />
+  <button type="button" label="Next Unread" name="NextUnread" image="app:tbNextUnread.png" tooltip="Go to the next unread message" />
+  <button type="button" label="Next Priority Unread" name="NextPriorityUnread" image="app:tbNextUnreadPriority.png" tooltip="Go to the next unread priority message" />
+  <button type="button" label="Mark Read" name="Read" image="app:tbRead.png" tooltip="Toggle the read status on the current message" />
+  <button type="button" label="Flag" name="Star" image="app:tbFlag.png" tooltip="Toggle the flag on the current message" />
+  <button type="button" label="Read Lock" name="ReadLock" image="app:tbReadLock.png" tooltip="Toggle the read lock status on the current message" />
+  <button type="button" label="Profile" name="Profile" image="app:tbProfile.png" tooltip="View the profile of the selected author" />
+  <button type="button" label="Withdraw" name="Withdraw" image="app:tbWithdraw.png" tooltip="Withdraw the selected message" />
+  <button type="button" label="Offline" name="Offline" image="app:tbOnline.png" tooltip="Toggle online and offline state" />
+  <button type="space" label="Space" image="app:tbSpace.png" />
+  <button type="flexible_space" label="Flexible Space" image="app:tbFlexibleSpace.png" />
+  <button type="search" label="Search" image="app:tbSearchField.png" />
+</toolbar>

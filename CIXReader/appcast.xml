@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+   <channel>
+      <title>CIXReader Version 1.0.3.302</title>
+      <link>http://ameol2beta.cixhosting.co.uk/cr_release/appcast.xml</link>
+      <description>Most recent changes with links to updates.</description>
+      <language>en</language>      
+         <item>
+            <title>Version 1.0.3.302</title>
+			<description>
+				CIXReader
+			</description>
+			<pubDate>Wed, 23 Apr 2014 14:13:00 +0000</pubDate>
+			<sparkle:releaseNotesLink>
+				http://ameol2beta.cixhosting.co.uk/cr_release/Changes.txt
+			</sparkle:releaseNotesLink>
+			<enclosure url="http://ameol2beta.cixhosting.co.uk/cr_release/cr103302.exe"
+               sparkle:version="1.0.3.302"
+               type="application/octet-stream" />
+         </item>
+   </channel>
+</rss>
