@@ -1420,6 +1420,15 @@ namespace CIXReader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        internal static string RefreshText {
+            get {
+                return ResourceManager.GetString("RefreshText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reject.
         /// </summary>
         internal static string Reject {

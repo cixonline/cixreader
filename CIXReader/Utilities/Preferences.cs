@@ -139,9 +139,16 @@ namespace CIXReader.Utilities
             _parser.Parser.Configuration.AllowDuplicateKeys = true;
             if (File.Exists (INIPath)) 
             {
-                _data = _parser.ReadFile(INIPath);
+                try
+                {
+                    _data = _parser.ReadFile(INIPath);
+                }
+                catch (Exception)
+                {
+                    _data = null;
+                }
             }
-            else
+            if (_data == null)
             {
                 _data = new IniData();
                 _data.Sections.AddSection (_mainSection);

@@ -763,4 +763,7 @@
   <data name="StartedBy" xml:space="preserve">
     <value>Written by {0}</value>
   </data>
+  <data name="RefreshText" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
 </root>

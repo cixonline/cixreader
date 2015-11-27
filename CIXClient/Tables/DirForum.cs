@@ -445,6 +445,18 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
+        /// Refresh the list of moderators and participants for this forum.
+        /// </summary>
+        public void Refresh()
+        {
+            Mods = string.Empty;
+            Parts = string.Empty;
+
+            Participants();
+            Moderators();
+        }
+
+        /// <summary>
         /// Update this forum in the database and also sync with the server if
         /// we're online.
         /// </summary>

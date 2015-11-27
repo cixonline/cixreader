@@ -245,6 +245,16 @@ namespace CIXReader.CanvasItems
                     SpaceAfter = 15
                 });
 
+                // Refresh button
+                newLayout.Add(new CanvasButton
+                {
+                    ID = ActionID.Refresh,
+                    Text = Resources.RefreshText,
+                    Font = DescriptionFont,
+                    ForeColour = UI.System.ForegroundColour,
+                    SpaceAfter = 15
+                });
+
                 // Manage Forum button
                 if (Forum != null && Forum.IsModerator)
                 {

@@ -86,6 +86,7 @@ namespace CIXReader.SubViews
                 case ActionID.ManageForum:
                     return _thisForum != null && _thisForum.IsModerator;
 
+                case ActionID.Refresh:
                 case ActionID.Participants:
                     return true;
             }
@@ -100,6 +101,13 @@ namespace CIXReader.SubViews
         {
             switch (id)
             {
+                case ActionID.Refresh:
+                    if (_thisForum != null)
+                    {
+                        _thisForum.Refresh();
+                    }
+                    break;
+
                 case ActionID.Participants:
                     FoldersTree.DisplayParticipants(_thisForum.Name);
                     break;
@@ -217,6 +225,7 @@ namespace CIXReader.SubViews
                     break;
                 }
 
+                case ActionID.Refresh:
                 case ActionID.ManageForum:
                 case ActionID.Participants:
                     Action(args.Item);
