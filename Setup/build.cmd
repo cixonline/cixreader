@@ -86,7 +86,7 @@ signtool sign /f "%_PFXPATH%" /p %_AM2SIGNPWD% /t %_CODEURL% /v %_CRDEVROOT%\dro
 :SkipSign2
 
 echo Building Lite distribution...
-set ZIP7="..\Tools\7z.exe"
+set ZIP7=%_CRDEVROOT%\Tools\7z.exe
 set ZARCHIVE=%_CRDEVROOT%\drops\z%_VERSTRING%.zip
 if exist %ZARCHIVE% del %ZARCHIVE%
 %ZIP7% a -r %ZARCHIVE% %_CRDEVROOT%\setup\source\*

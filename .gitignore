@@ -19,6 +19,12 @@
 !regexp.dll
 !regexp9x.dll
 
+# Folders
+bin/
+obj/
+drops/
+setup/source/
+
 # Executables
 *.exe
 *.out
