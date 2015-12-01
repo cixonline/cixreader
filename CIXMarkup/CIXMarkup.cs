@@ -106,7 +106,7 @@ namespace CIXMarkup
                     return true;
                 }
                 char chAfterTag = line[endIndex + 1];
-                return (Char.IsWhiteSpace(chAfterTag) || chAfterTag == '*' || chAfterTag == '_' || chAfterTag == '/' || chAfterTag == '.');
+                return (Char.IsWhiteSpace(chAfterTag) || chAfterTag == '*' || chAfterTag == '_' || chAfterTag == '/' || chAfterTag == '.' || chAfterTag == ',');
             }
             return false;
         }

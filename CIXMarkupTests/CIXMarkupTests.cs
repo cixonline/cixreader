@@ -49,6 +49,9 @@ namespace CIXMarkupTests
                 "*Unterminated bold"),
                 "*Unterminated bold");
             Assert.AreEqual(CIXMarkup.CIXMarkup.MarkupToHTML(
+                "*Terminated bold*,"),
+                "<b>Terminated bold</b>,");
+            Assert.AreEqual(CIXMarkup.CIXMarkup.MarkupToHTML(
                 "/Unterminated italic"),
                 "/Unterminated italic");
             Assert.AreEqual(CIXMarkup.CIXMarkup.MarkupToHTML(
