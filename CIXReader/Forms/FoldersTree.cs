@@ -219,6 +219,16 @@ namespace CIXReader.Forms
             {
                 case ActionID.Refresh:
                 {
+                    if (folderBase.ID > 0)
+                    {
+                        TopicFolder topicFolder = (TopicFolder)folderBase;
+                        Folder folder = topicFolder.Folder;
+                        if (folder.IsRootFolder)
+                        {
+                            DirForum thisForum = CIX.DirectoryCollection.ForumByName(folder.Name);
+                            thisForum.Refresh();
+                        }
+                    }
                     folderBase.Refresh();
                     _contextMenuNode = null;
                     return;

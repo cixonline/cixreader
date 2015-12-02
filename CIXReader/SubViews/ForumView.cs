@@ -106,6 +106,10 @@ namespace CIXReader.SubViews
                     {
                         _thisForum.Refresh();
                     }
+                    foreach (Folder topic in _currentFolder.Folder.Children)
+                    {
+                        topic.Refresh();
+                    }
                     break;
 
                 case ActionID.Participants:

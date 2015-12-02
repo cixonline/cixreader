@@ -396,7 +396,7 @@ namespace CIXReader
             StartupAddress = _address ?? Preferences.StandardPreferences.LastAddress;
 
             // Use the beta API only if the user has manually specified it.
-            APIRequest.UseBetaAPI = true; //Preferences.StandardPreferences.UseBetaAPI;
+            APIRequest.UseBetaAPI = Preferences.StandardPreferences.UseBetaAPI;
             return true;
         }
 
