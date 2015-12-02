@@ -343,13 +343,17 @@ namespace CIXClient.Tables
                     string url = string.Format("personalmessage/{0}/{1}/toggleread", RemoteID, UnreadCount > 0);
                     HttpWebRequest wrGeturl = APIRequest.Get(url, APIRequest.APIFormat.XML);
                     string responseString = APIRequest.ReadResponseString(wrGeturl);
+
+                    // Any non-exception response should treat the action as having completed. The two
+                    // possible outcomes are either the message is marked read or the ID is invalid.
+                    // The latter case cannot be re-tried so don't repeat the action.
+                    Flags &= ~InboxConversationFlags.MarkRead;
+                    lock (CIX.DBLock)
+                    {
+                        CIX.DB.Update(this);
+                    }
                     if (responseString == "Success")
                     {
-                        Flags &= ~InboxConversationFlags.MarkRead;
-                        lock (CIX.DBLock)
-                        {
-                            CIX.DB.Update(this);
-                        }
                         LogFile.WriteLine("Conversation {0} marked as read on server", RemoteID);
                     }
                 }
