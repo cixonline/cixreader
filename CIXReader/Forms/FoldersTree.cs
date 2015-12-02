@@ -385,6 +385,8 @@ namespace CIXReader.Forms
             TreeNode startingNode = currentNode;
             bool resetLoop = false;
 
+            _isRBut = false;
+
             bool acceptSmartFolders = currentNode.Tag is SmartFolder;
             bool priorityOnly = options.HasFlag(FolderOptions.Priority);
 
