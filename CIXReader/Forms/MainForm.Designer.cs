@@ -160,6 +160,8 @@ namespace CIXReader.Forms
             this.mainStatusBar = new CIXReader.Controls.CRPanel();
             this.mainStatusText = new System.Windows.Forms.Label();
             this.mainProgress = new CIXReader.Controls.CRProgress();
+            this.menuMessageBlock = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.mainPopupMenu.SuspendLayout();
             this.mainMenubar.SuspendLayout();
             this.menuViewSortByTopic.SuspendLayout();
@@ -170,21 +172,21 @@ namespace CIXReader.Forms
             // mainPopupMenu
             // 
             this.mainPopupMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.mainAbout,
-                this.toolStripSeparator4,
-                this.mainKeyboardHelp,
-                this.mainSupport,
-                this.mainDiagnostics,
-                this.toolStripSeparator3,
-                this.mainCheckForUpdates,
-                this.mainViewChangeLog,
-                this.mainInstallScript,
-                this.mainSettings,
-                this.toolStripSeparator1,
-                this.mainOffline,
-                this.toolStripSeparator2,
-                this.mainLogoff,
-                this.mainExit});
+            this.mainAbout,
+            this.toolStripSeparator4,
+            this.mainKeyboardHelp,
+            this.mainSupport,
+            this.mainDiagnostics,
+            this.toolStripSeparator3,
+            this.mainCheckForUpdates,
+            this.mainViewChangeLog,
+            this.mainInstallScript,
+            this.mainSettings,
+            this.toolStripSeparator1,
+            this.mainOffline,
+            this.toolStripSeparator2,
+            this.mainLogoff,
+            this.mainExit});
             this.mainPopupMenu.Name = "mainPopupMenu";
             this.mainPopupMenu.Size = new System.Drawing.Size(183, 270);
             // 
@@ -288,12 +290,12 @@ namespace CIXReader.Forms
             // mainMenubar
             // 
             this.mainMenubar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.menuFile,
-                this.menuEdit,
-                this.menuView,
-                this.menuMessage,
-                this.menuFolder,
-                this.menuHelp});
+            this.menuFile,
+            this.menuEdit,
+            this.menuView,
+            this.menuMessage,
+            this.menuFolder,
+            this.menuHelp});
             this.mainMenubar.Location = new System.Drawing.Point(0, 0);
             this.mainMenubar.Name = "mainMenubar";
             this.mainMenubar.Size = new System.Drawing.Size(895, 24);
@@ -304,18 +306,18 @@ namespace CIXReader.Forms
             // menuFile
             // 
             this.menuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.menuFileNewPrivateMessage,
-                this.menuFileReply,
-                this.menuFileReplyByMail,
-                this.toolStripMenuItem1,
-                this.menuFileOffline,
-                this.toolStripMenuItem3,
-                this.menuFilePageSetup,
-                this.menuFilePrint,
-                this.toolStripMenuItem4,
-                this.menuFileSignOut,
-                this.toolStripMenuItem7,
-                this.menuFileExit});
+            this.menuFileNewPrivateMessage,
+            this.menuFileReply,
+            this.menuFileReplyByMail,
+            this.toolStripMenuItem1,
+            this.menuFileOffline,
+            this.toolStripMenuItem3,
+            this.menuFilePageSetup,
+            this.menuFilePrint,
+            this.toolStripMenuItem4,
+            this.menuFileSignOut,
+            this.toolStripMenuItem7,
+            this.menuFileExit});
             this.menuFile.Name = "menuFile";
             this.menuFile.Size = new System.Drawing.Size(37, 20);
             this.menuFile.Text = "&File";
@@ -324,7 +326,7 @@ namespace CIXReader.Forms
             // 
             this.menuFileNewPrivateMessage.Name = "menuFileNewPrivateMessage";
             this.menuFileNewPrivateMessage.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-                | System.Windows.Forms.Keys.N)));
+            | System.Windows.Forms.Keys.N)));
             this.menuFileNewPrivateMessage.Size = new System.Drawing.Size(229, 22);
             this.menuFileNewPrivateMessage.Text = "&New PMessage";
             this.menuFileNewPrivateMessage.Click += new System.EventHandler(this.menuFileNewPrivateMessage_Click);
@@ -403,14 +405,14 @@ namespace CIXReader.Forms
             // menuEdit
             // 
             this.menuEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.menuEditCopy,
-                this.menuEditCopyLink,
-                this.menuEditSelectAll,
-                this.toolStripMenuItem2,
-                this.menuEditQuote,
-                this.toolStripSeparator5,
-                this.menuCIXReaderSettings,
-                this.menuCIXReaderAccount});
+            this.menuEditCopy,
+            this.menuEditCopyLink,
+            this.menuEditSelectAll,
+            this.toolStripMenuItem2,
+            this.menuEditQuote,
+            this.toolStripSeparator5,
+            this.menuCIXReaderSettings,
+            this.menuCIXReaderAccount});
             this.menuEdit.Name = "menuEdit";
             this.menuEdit.Size = new System.Drawing.Size(39, 20);
             this.menuEdit.Text = "&Edit";
@@ -427,7 +429,7 @@ namespace CIXReader.Forms
             // 
             this.menuEditCopyLink.Name = "menuEditCopyLink";
             this.menuEditCopyLink.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-                | System.Windows.Forms.Keys.C)));
+            | System.Windows.Forms.Keys.C)));
             this.menuEditCopyLink.Size = new System.Drawing.Size(201, 22);
             this.menuEditCopyLink.Text = "Copy &Link";
             this.menuEditCopyLink.Click += new System.EventHandler(this.menuEditCopyLink_Click);
@@ -449,7 +451,7 @@ namespace CIXReader.Forms
             // 
             this.menuEditQuote.Name = "menuEditQuote";
             this.menuEditQuote.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-                | System.Windows.Forms.Keys.Q)));
+            | System.Windows.Forms.Keys.Q)));
             this.menuEditQuote.Size = new System.Drawing.Size(201, 22);
             this.menuEditQuote.Text = "&Quote...";
             this.menuEditQuote.Click += new System.EventHandler(this.menuEditQuote_Click);
@@ -476,31 +478,31 @@ namespace CIXReader.Forms
             // menuView
             // 
             this.menuView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.menuViewSortBy,
-                this.toolStripSeparator12,
-                this.menuViewGroupByConv,
-                this.menuViewCollapseConv,
-                this.toolStripSeparator10,
-                this.menuViewProfile,
-                this.toolStripMenuItem8,
-                this.menuViewShowPlainText,
-                this.menuViewShowInlineImages,
-                this.menuViewShowIgnoredMessages,
-                this.toolStripMenuItem9,
-                this.menuViewPreviousMessage,
-                this.menuViewNextUnread,
-                this.menuViewNextUnreadPriority,
-                this.toolStripMenuItem10,
-                this.menuViewPreviousRoot,
-                this.menuViewNextRoot,
-                this.toolStripMenuItem5,
-                this.menuViewAllTopics,
-                this.menuViewRecentTopics,
-                this.toolStripMenuItem11,
-                this.menuViewShowToolBar,
-                this.menuViewCustomiseToolbar,
-                this.toolStripSeparator11,
-                this.menuViewShowStatusBar});
+            this.menuViewSortBy,
+            this.toolStripSeparator12,
+            this.menuViewGroupByConv,
+            this.menuViewCollapseConv,
+            this.toolStripSeparator10,
+            this.menuViewProfile,
+            this.toolStripMenuItem8,
+            this.menuViewShowPlainText,
+            this.menuViewShowInlineImages,
+            this.menuViewShowIgnoredMessages,
+            this.toolStripMenuItem9,
+            this.menuViewPreviousMessage,
+            this.menuViewNextUnread,
+            this.menuViewNextUnreadPriority,
+            this.toolStripMenuItem10,
+            this.menuViewPreviousRoot,
+            this.menuViewNextRoot,
+            this.toolStripMenuItem5,
+            this.menuViewAllTopics,
+            this.menuViewRecentTopics,
+            this.toolStripMenuItem11,
+            this.menuViewShowToolBar,
+            this.menuViewCustomiseToolbar,
+            this.toolStripSeparator11,
+            this.menuViewShowStatusBar});
             this.menuView.Name = "menuView";
             this.menuView.Size = new System.Drawing.Size(44, 20);
             this.menuView.Text = "&View";
@@ -539,7 +541,7 @@ namespace CIXReader.Forms
             // 
             this.menuViewProfile.Name = "menuViewProfile";
             this.menuViewProfile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-                | System.Windows.Forms.Keys.V)));
+            | System.Windows.Forms.Keys.V)));
             this.menuViewProfile.Size = new System.Drawing.Size(201, 22);
             this.menuViewProfile.Text = "&Profile...";
             this.menuViewProfile.Click += new System.EventHandler(this.menuViewProfile_Click);
@@ -668,17 +670,19 @@ namespace CIXReader.Forms
             // menuMessage
             // 
             this.menuMessage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.menuMessageNewMessage,
-                this.menuMessageReply,
-                this.menuMessageEdit,
-                this.toolStripMenuItem12,
-                this.markToolStripMenuItem,
-                this.menuMessageMarkThreadRead,
-                this.toolStripMenuItem14,
-                this.menuMessageGoTo,
-                this.menuMessageGoToOriginal,
-                this.toolStripMenuItem15,
-                this.menuMessageWithdraw});
+            this.menuMessageNewMessage,
+            this.menuMessageReply,
+            this.menuMessageEdit,
+            this.toolStripMenuItem12,
+            this.markToolStripMenuItem,
+            this.menuMessageMarkThreadRead,
+            this.toolStripMenuItem14,
+            this.menuMessageGoTo,
+            this.menuMessageGoToOriginal,
+            this.toolStripMenuItem15,
+            this.menuMessageWithdraw,
+            this.toolStripSeparator13,
+            this.menuMessageBlock});
             this.menuMessage.Name = "menuMessage";
             this.menuMessage.Size = new System.Drawing.Size(65, 20);
             this.menuMessage.Text = "&Message";
@@ -714,12 +718,12 @@ namespace CIXReader.Forms
             // markToolStripMenuItem
             // 
             this.markToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.menuMessageMarkUnread,
-                this.menuMessageMarkPriority,
-                this.menuMessageMarkIgnored,
-                this.toolStripMenuItem13,
-                this.menuMessageMarkReadLock,
-                this.menuMessageMarkStarred});
+            this.menuMessageMarkUnread,
+            this.menuMessageMarkPriority,
+            this.menuMessageMarkIgnored,
+            this.toolStripMenuItem13,
+            this.menuMessageMarkReadLock,
+            this.menuMessageMarkStarred});
             this.markToolStripMenuItem.Name = "markToolStripMenuItem";
             this.markToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.markToolStripMenuItem.Text = "&Mark";
@@ -728,7 +732,7 @@ namespace CIXReader.Forms
             // 
             this.menuMessageMarkUnread.Name = "menuMessageMarkUnread";
             this.menuMessageMarkUnread.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-                | System.Windows.Forms.Keys.R)));
+            | System.Windows.Forms.Keys.R)));
             this.menuMessageMarkUnread.Size = new System.Drawing.Size(225, 22);
             this.menuMessageMarkUnread.Text = "As &NextUnread";
             this.menuMessageMarkUnread.Click += new System.EventHandler(this.menuMessageMarkUnread_Click);
@@ -810,15 +814,15 @@ namespace CIXReader.Forms
             // menuFolder
             // 
             this.menuFolder.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.menuFolderJoinForum,
-                this.toolStripMenuItem16,
-                this.menuFolderDelete,
-                this.menuFolderResign,
-                this.menuFolderManage,
-                this.menuFolderParticipants,
-                this.menuFolderMarkAllRead,
-                this.toolStripMenuItem17,
-                this.menuFolderRefresh});
+            this.menuFolderJoinForum,
+            this.toolStripMenuItem16,
+            this.menuFolderDelete,
+            this.menuFolderResign,
+            this.menuFolderManage,
+            this.menuFolderParticipants,
+            this.menuFolderMarkAllRead,
+            this.toolStripMenuItem17,
+            this.menuFolderRefresh});
             this.menuFolder.Name = "menuFolder";
             this.menuFolder.Size = new System.Drawing.Size(52, 20);
             this.menuFolder.Text = "Fo&lder";
@@ -887,14 +891,14 @@ namespace CIXReader.Forms
             // menuHelp
             // 
             this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.menuHelpCheckForUpdates,
-                this.toolStripSeparator8,
-                this.menuHelpDiagnostics,
-                this.menuHelpCIXSupport,
-                this.menuHelpViewChangeLog,
-                this.menuHelpKeyboardHelp,
-                this.toolStripSeparator9,
-                this.menuCIXReaderAbout});
+            this.menuHelpCheckForUpdates,
+            this.toolStripSeparator8,
+            this.menuHelpDiagnostics,
+            this.menuHelpCIXSupport,
+            this.menuHelpViewChangeLog,
+            this.menuHelpKeyboardHelp,
+            this.toolStripSeparator9,
+            this.menuCIXReaderAbout});
             this.menuHelp.Name = "menuHelp";
             this.menuHelp.Size = new System.Drawing.Size(44, 20);
             this.menuHelp.Text = "&Help";
@@ -994,25 +998,25 @@ namespace CIXReader.Forms
             // menuViewSortByTopic
             // 
             this.menuViewSortByTopic.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.menuViewSortByDate,
-                this.menuViewSortByAuthor,
-                this.menuViewSortBySubject,
-                this.toolStripSeparator7,
-                this.menuViewSortAscendingForTopic,
-                this.menuViewSortDescendingForTopic});
+            this.menuViewSortByDate,
+            this.menuViewSortByAuthor,
+            this.menuViewSortBySubject,
+            this.toolStripSeparator7,
+            this.menuViewSortAscendingForTopic,
+            this.menuViewSortDescendingForTopic});
             this.menuViewSortByTopic.Name = "menuViewSortByTopic";
             this.menuViewSortByTopic.Size = new System.Drawing.Size(137, 120);
             // 
             // menuViewSortByDirectory
             // 
             this.menuViewSortByDirectory.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.menuViewSortByName,
-                this.menuViewSortByPopularity,
-                this.menuViewSortByTitle,
-                this.menuViewSortBySubCategory,
-                this.toolStripSeparator6,
-                this.menuViewSortAscendingForDirectory,
-                this.menuViewSortDescendingForDirectory});
+            this.menuViewSortByName,
+            this.menuViewSortByPopularity,
+            this.menuViewSortByTitle,
+            this.menuViewSortBySubCategory,
+            this.toolStripSeparator6,
+            this.menuViewSortAscendingForDirectory,
+            this.menuViewSortDescendingForDirectory});
             this.menuViewSortByDirectory.Name = "menuViewSortByDirectory";
             this.menuViewSortByDirectory.Size = new System.Drawing.Size(143, 142);
             // 
@@ -1066,7 +1070,7 @@ namespace CIXReader.Forms
             // mainStatusBar
             // 
             this.mainStatusBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-                | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.mainStatusBar.BackColor = System.Drawing.Color.Gainsboro;
             this.mainStatusBar.BottomBorderWidth = 0;
             this.mainStatusBar.Controls.Add(this.mainStatusText);
@@ -1101,6 +1105,18 @@ namespace CIXReader.Forms
             this.mainProgress.TabIndex = 0;
             this.mainProgress.Text = "crProgress1";
             this.mainProgress.Visible = false;
+            // 
+            // menuMessageBlock
+            // 
+            this.menuMessageBlock.Name = "menuMessageBlock";
+            this.menuMessageBlock.Size = new System.Drawing.Size(190, 22);
+            this.menuMessageBlock.Text = "Block";
+            this.menuMessageBlock.Click += new System.EventHandler(this.menuMessageBlock_Click);
+            // 
+            // toolStripSeparator13
+            // 
+            this.toolStripSeparator13.Name = "toolStripSeparator13";
+            this.toolStripSeparator13.Size = new System.Drawing.Size(187, 6);
             // 
             // MainForm
             // 
@@ -1252,5 +1268,7 @@ namespace CIXReader.Forms
         private ToolStripMenuItem menuViewGroupByConv;
         private ToolStripMenuItem menuViewCollapseConv;
         private ToolStripMenuItem menuViewCustomiseToolbar;
+        private ToolStripSeparator toolStripSeparator13;
+        private ToolStripMenuItem menuMessageBlock;
     }
 }

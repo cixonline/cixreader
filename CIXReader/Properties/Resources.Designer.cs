@@ -189,6 +189,15 @@ namespace CIXReader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Block all messages from {0} by automatically marking them as read. Are you sure?.
+        /// </summary>
+        internal static string BlockPrompt {
+            get {
+                return ResourceManager.GetString("BlockPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Bubble {

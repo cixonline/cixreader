@@ -269,6 +269,11 @@ namespace CIXReader.Utilities
         /// <summary>
         /// Toggle online/offline state
         /// </summary>
-        Offline
+        Offline,
+
+        /// <summary>
+        /// Block the selected user
+        /// </summary>
+        Block
     }
 }

@@ -312,6 +312,7 @@ namespace CIXReader.SubViews
                 case ActionID.SelectAll:
                 case ActionID.Print:
                 case ActionID.ReplyByMail:
+                case ActionID.Block:
                     if (SelectedMessage != null)
                     {
                         CIXMessage message = SelectedMessage;
@@ -2073,6 +2074,18 @@ namespace CIXReader.SubViews
             {
                 case ActionID.Chat:
                     Chat(message);
+                    break;
+
+                case ActionID.Block:
+                    if (message != null)
+                    {
+                        string promptString = string.Format(Resources.BlockPrompt, message.Author);
+                        if (MessageBox.Show(promptString, Resources.Confirm, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            CIX.RuleCollection.Block(message.Author);
+                            OnMessageChanged(message);
+                        }
+                    }
                     break;
 
                 case ActionID.Participants:

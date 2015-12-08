@@ -1462,6 +1462,7 @@ namespace CIXReader.Forms
             menuMessageGoTo.Enabled = CanAction(ActionID.GoTo);
             menuMessageGoToOriginal.Enabled = CanAction(ActionID.Original);
             menuMessageWithdraw.Enabled = CanAction(ActionID.Withdraw);
+            menuMessageBlock.Enabled = CanAction(ActionID.Block);
             menuFolderJoinForum.Enabled = CanAction(ActionID.JoinForum);
             menuFolderRefresh.Enabled = CanAction(ActionID.Refresh);
             menuFolderResign.Enabled = CanAction(ActionID.ResignForum);
@@ -1961,6 +1962,14 @@ namespace CIXReader.Forms
         private void menuViewCustomiseToolbar_Click(object sender, EventArgs e)
         {
             _toolbar.CustomiseToolbar();
+        }
+
+        /// <summary>
+        /// Block messages from the selected author.
+        /// </summary>
+        private void menuMessageBlock_Click(object sender, EventArgs e)
+        {
+            Action(ActionID.Block);
         }
     }
 }

@@ -766,4 +766,7 @@
   <data name="RefreshText" xml:space="preserve">
     <value>Refresh</value>
   </data>
+  <data name="BlockPrompt" xml:space="preserve">
+    <value>Block all messages from {0} by automatically marking them as read. Are you sure?</value>
+  </data>
 </root>

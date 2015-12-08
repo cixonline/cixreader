@@ -298,7 +298,6 @@
     <Compile Include="Utilities\Constants_Windows.cs" />
     <Compile Include="Utilities\DrawRectElements.cs" />
     <Compile Include="Utilities\Platform.cs" />
-    <Compile Include="Utilities\PredicateBuilder.cs" />
     <Compile Include="Utilities\Preferences.cs" />
     <Compile Include="Utilities\ScriptManager.cs" />
     <Compile Include="Controls\CRToolbarItemCollection.cs" />

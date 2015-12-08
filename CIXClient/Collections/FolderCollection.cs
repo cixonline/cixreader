@@ -592,7 +592,7 @@ namespace CIXClient.Collections
                                 cixMessage = CIXMessageFromMessage(topic, message);
                                 if (cixMessage != null)
                                 {
-                                    RuleCollection.ApplyRules(cixMessage);
+                                    CIX.RuleCollection.ApplyRules(cixMessage);
                                     if (cixMessage.Unread)
                                     {
                                         topic.Unread += 1;

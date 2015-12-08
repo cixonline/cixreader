@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <UIConfig>
   <keys>
+    <key code="B" name="Block" />
     <key code="C" name="Edit" />
     <key code="G" name="GoTo" />
     <key code="H" name="Priority" />

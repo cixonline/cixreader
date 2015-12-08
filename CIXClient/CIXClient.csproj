@@ -57,12 +57,14 @@
     <Compile Include="Models\Forum.Topics.get.cs" />
     <Compile Include="Models\PMessage.Outbox.Get.cs" />
     <Compile Include="Models\Range.cs" />
+    <Compile Include="Models\Rules.cs" />
     <Compile Include="Models\SendMail.cs" />
     <Compile Include="Models\StarAdd.cs" />
     <Compile Include="Models\StarSet.cs" />
     <Compile Include="Models\User.Account.Get.cs" />
     <Compile Include="Models\User.AllTopics.get.cs" />
     <Compile Include="Models\User.AllUnread2.Get.cs" />
+    <Compile Include="PredicateBuilder.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

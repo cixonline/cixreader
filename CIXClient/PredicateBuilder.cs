@@ -14,8 +14,11 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace CIXReader.Utilities
+namespace CIXClient
 {
+    /// <summary>
+    /// Class to build predicates
+    /// </summary>
     public static class PredicateBuilder
     {
         /// <summary>
@@ -24,13 +27,44 @@ namespace CIXReader.Utilities
         /// </summary>
         public enum Op
         {
+            /// <summary>
+            /// Operation equals value
+            /// </summary>
             Equals,
+
+            /// <summary>
+            /// Operation is greater than value
+            /// </summary>
             GreaterThan,
+
+            /// <summary>
+            /// Operation is less than value
+            /// </summary>
             LessThan,
+
+            /// <summary>
+            /// Operation is greater than or equal to value
+            /// </summary>
             GreaterThanOrEqual,
+
+            /// <summary>
+            /// Operation is less than or equal to value
+            /// </summary>
             LessThanOrEqual,
+
+            /// <summary>
+            /// Operation contains value
+            /// </summary>
             Contains,
+
+            /// <summary>
+            /// Operation starts with value
+            /// </summary>
             StartsWith,
+
+            /// <summary>
+            /// Operation ends with value
+            /// </summary>
             EndsWith
         }
 
