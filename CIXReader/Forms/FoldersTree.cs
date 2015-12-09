@@ -911,7 +911,9 @@ namespace CIXReader.Forms
             {
                 Name = Resources.Starred,
                 Comparator = message => message.Starred,
-                Criteria = PredicateBuilder.GetExpression<CIXMessage>(new List<PredicateBuilder.Filter>
+                Criteria = PredicateBuilder.GetExpression<CIXMessage>(
+                    RuleGroupType.All,
+                    new List<PredicateBuilder.Filter>
                     {
                         new PredicateBuilder.Filter { 
                             PropertyName = "Starred" , 
@@ -929,7 +931,9 @@ namespace CIXReader.Forms
             {
                 Name = Resources.DraftText,
                 Comparator = message => message.IsDraft,
-                Criteria = PredicateBuilder.GetExpression<CIXMessage>(new List<PredicateBuilder.Filter>
+                Criteria = PredicateBuilder.GetExpression<CIXMessage>(
+                    RuleGroupType.All,
+                    new List<PredicateBuilder.Filter>
                     {
                         new PredicateBuilder.Filter { 
                             PropertyName = "RemoteID" , 
@@ -951,7 +955,9 @@ namespace CIXReader.Forms
             {
                 Name = Resources.OutboxText,
                 Comparator = message => message.IsPending,
-                Criteria = PredicateBuilder.GetExpression<CIXMessage>(new List<PredicateBuilder.Filter>
+                Criteria = PredicateBuilder.GetExpression<CIXMessage>(
+                    RuleGroupType.All,
+                    new List<PredicateBuilder.Filter>
                     {
                         new PredicateBuilder.Filter { 
                             PropertyName = "PostPending" , 

@@ -18,6 +18,7 @@ using System.Linq.Expressions;
 using System.Xml;
 using System.Xml.Serialization;
 using CIXClient.Models;
+using CIXClient.Properties;
 using CIXClient.Tables;
 
 namespace CIXClient.Collections
@@ -55,6 +56,23 @@ namespace CIXClient.Collections
     }
 
     /// <summary>
+    /// Specifies how the rules in the group relate for the rule
+    /// to be considered matched.
+    /// </summary>
+    public enum RuleGroupType
+    {
+        /// <summary>
+        /// Match any of the rules in the group
+        /// </summary>
+        Any,
+
+        /// <summary>
+        /// Must match all of the rules in the group
+        /// </summary>
+        All
+    }
+
+    /// <summary>
     /// Defines a collection of rules that are applied to all incoming
     /// forum messages.
     /// </summary>
@@ -67,7 +85,9 @@ namespace CIXClient.Collections
         /// </summary>
         public RuleCollection()
         {
+            LoadDefaultRules();
             LoadRules();
+            CompileRules();
         }
 
         /// <summary>
@@ -79,43 +99,33 @@ namespace CIXClient.Collections
             // ReSharper disable once LoopCanBeConvertedToQuery
             foreach (RuleGroup ruleGroup in ruleGroups)
             {
-                if (ruleGroup.rule.Any(rule => rule.property.ToLower() == "author" && rule.value == name))
+                if (ruleGroup.rule.Any(rule => rule.property == "Author" && rule.value.ToString() == name))
                 {
                     return;
                 }
             }
-            Expression<Func<CIXMessage, bool>> newCriteria = PredicateBuilder.GetExpression<CIXMessage>(new List<PredicateBuilder.Filter>
-            {
-                new PredicateBuilder.Filter
-                {
-                    PropertyName = "Author",
-                    Operation = PredicateBuilder.Op.Equals,
-                    Value = name
-                }
-            });
             ruleGroups.Add(new RuleGroup
             {
-                group = "and", 
-                Criteria = newCriteria,
+                type = RuleGroupType.All, 
+                title = string.Format(Resources.BlockFrom,name),
                 actionCode = RuleActionCodes.Unread | RuleActionCodes.Clear,
                 rule = new[] { new Rule
                 {
-                    property = "author",
+                    property = "Author",
                     value = name,
                     op = "equals"
                 } }
             });
+            CompileRules();
             SaveRules();
         }
 
         /// <summary>
         /// Save the rules to the rules.xml file.
         /// </summary>
-        private bool SaveRules()
+        private void SaveRules()
         {
             StreamWriter fileStream = null;
-
-            bool success = false;
 
             string rulesFilename = string.Format("{0}.rules.xml", CIX.Username);
             string filename = Path.Combine(CIX.HomeFolder, rulesFilename);
@@ -142,7 +152,6 @@ namespace CIXClient.Collections
                 }
 
                 LogFile.WriteLine("Saved rules to {0}", filename);
-                success = true;
             }
             catch (Exception e)
             {
@@ -155,49 +164,16 @@ namespace CIXClient.Collections
                     fileStream.Dispose();
                 }
             }
-            return success;
         }
 
         /// <summary>
-        /// Load rules from the rules.xml file.
+        /// Compile any missing Criteria for each rule.
         /// </summary>
-        private void LoadRules()
+        private void CompileRules()
         {
-            StreamReader fileStream = null;
-            rules uiConfig;
-
-            string rulesFilename = string.Format("{0}.rules.xml", CIX.Username);
-            string filename = Path.Combine(CIX.HomeFolder, rulesFilename);
-
-            try
+            foreach (RuleGroup ruleGroup in ruleGroups.Cast<RuleGroup>().Where(ruleGroup => ruleGroup.Criteria == null))
             {
-                fileStream = new StreamReader(filename);
-                using (XmlReader reader = XmlReader.Create(fileStream))
-                {
-                    fileStream = null;
-
-                    XmlSerializer serializer = new XmlSerializer(typeof(rules));
-                    uiConfig = (rules)serializer.Deserialize(reader);
-                }
-            }
-            catch (Exception e)
-            {
-                LogFile.WriteLine("Error parsing rules file {0} : {1}", filename, e.Message);
-                uiConfig = null;
-            }
-            finally
-            {
-                if (fileStream != null)
-                {
-                    fileStream.Dispose();
-                }
-            }
-
-            // Build the predicates and attach to each ruleGroup.
-            if (uiConfig != null)
-            {
-                ruleGroups = new ArrayList();
-                foreach (RuleGroup ruleGroup in uiConfig.Items)
+                try
                 {
                     List<PredicateBuilder.Filter> filters = new List<PredicateBuilder.Filter>();
                     // ReSharper disable once LoopCanBeConvertedToQuery
@@ -211,68 +187,192 @@ namespace CIXClient.Collections
                         };
                         filters.Add(filter);
                     }
-                    Expression<Func<CIXMessage, bool>> newCriteria = PredicateBuilder.GetExpression<CIXMessage>(filters);
+                    Expression<Func<CIXMessage, bool>> newCriteria = PredicateBuilder.GetExpression<CIXMessage>(ruleGroup.type, filters);
                     ruleGroup.Criteria = newCriteria;
-                    ruleGroups.Add(ruleGroup);
+                }
+                catch (Exception e)
+                {
+                    LogFile.WriteLine("Error compiling rulegroup {0} : {1}", ruleGroup, e.Message);
                 }
             }
         }
 
         /// <summary>
-        /// Hardcoded rules later to be replaced by the rules engine ported from the
-        /// OSX version.
+        /// Load the default set of rules
         /// </summary>
-        /// <param name="message">Message to which rules are applied</param>
-        internal void ApplyRules(CIXMessage message)
+        private void LoadDefaultRules()
         {
-            CIXMessage parentMessage = message.Parent;
-            foreach (RuleGroup ruleGroup in ruleGroups)
+            ruleGroups = new ArrayList
             {
-                Func<CIXMessage, bool> evaluateCriteria = ruleGroup.Criteria.Compile();
-                if (evaluateCriteria(message))
+                // Mark messages priority if they're from me or the parent
+                // message is also priority
+                new RuleGroup
                 {
-                    bool isClear = ruleGroup.actionCode.HasFlag(RuleActionCodes.Clear);
-                    if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Unread))
+                    type = RuleGroupType.Any,
+                    title = "Priority",
+                    actionCode = RuleActionCodes.Priority,
+                    rule = new[]
                     {
-                        if (!message.ReadLocked)
+                        new Rule
                         {
-                            bool oldState = message.Unread;
-                            message.Unread = !isClear;
-                            if (oldState != message.Unread)
-                            {
-                                message.ReadPending = true;
-                                Folder folder = CIX.FolderCollection[message.TopicID];
-                                folder.MarkReadRangePending = true;
-                            }
+                            property = "IsMine",
+                            value = true,
+                            op = "equals"
+                        },
+                        new Rule
+                        {
+                            property = "SafeParent.Priority",
+                            value = true,
+                            op = "equals"
+                        }
+                    }
+                },
+
+                // Mark this message as read if it is withdrawn
+                new RuleGroup
+                {
+                    type = RuleGroupType.Any,
+                    title = "Withdrawn",
+                    actionCode = RuleActionCodes.Unread | RuleActionCodes.Clear,
+                    rule = new[]
+                    {
+                        new Rule
+                        {
+                            property = "IsWithdrawn",
+                            value = true,
+                            op = "equals"
+                        }
+                    }
+                },
+
+                // Mark this message ignored if the parent is ignored
+                new RuleGroup
+                {
+                    type = RuleGroupType.Any,
+                    title = "Ignored",
+                    actionCode = RuleActionCodes.Ignored,
+                    rule = new[]
+                    {
+                        new Rule
+                        {
+                            property = "SafeParent.Ignored",
+                            value = true,
+                            op = "equals"
                         }
                     }
                 }
-            }
-            if (message.IsMine)
+            };
+        }
+
+        /// <summary>
+        /// Load rules from the rules.xml file.
+        /// </summary>
+        private void LoadRules()
+        {
+            StreamReader fileStream = null;
+
+            string rulesFilename = string.Format("{0}.rules.xml", CIX.Username);
+            string filename = Path.Combine(CIX.HomeFolder, rulesFilename);
+
+            try
             {
-                message.Priority = true;
-            }
-            if (message.IsWithdrawn && message.Unread)
-            {
-                message.Unread = false;
-                message.ReadPending = true;
-            }
-            if (parentMessage != null)
-            {
-                if (parentMessage.Ignored)
+                fileStream = new StreamReader(filename);
+                using (XmlReader reader = XmlReader.Create(fileStream))
                 {
-                    message.Ignored = true;
-                    if (message.Unread)
+                    fileStream = null;
+
+                    XmlSerializer serializer = new XmlSerializer(typeof(rules));
+                    rules rules = (rules)serializer.Deserialize(reader);
+                    foreach (RuleGroup ruleGroup in rules.Items)
+                    {
+                        ruleGroups.Add(ruleGroup);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                LogFile.WriteLine("Error parsing rules file {0} : {1}", filename, e.Message);
+            }
+            finally
+            {
+                if (fileStream != null)
+                {
+                    fileStream.Dispose();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Apply all rules to the specified message
+        /// </summary>
+        /// <param name="message">Message to which rules are applied</param>
+        /// <returns>True if any rule changed the message, false otherwise</returns>
+        internal bool ApplyRules(CIXMessage message)
+        {
+            return ruleGroups.Cast<RuleGroup>().Aggregate(false, (current, ruleGroup) => current || ApplyRule(ruleGroup, message));
+        }
+
+        /// <summary>
+        /// Apply the specified rule group to the message. On completion, the flags
+        /// in the message will be adjusted as per the rule.
+        /// </summary>
+        /// <param name="ruleGroup">Rule group to apply</param>
+        /// <param name="message">CIXMessage to which rule is applied</param>
+        /// <returns>True if the rule changed the message, false otherwise</returns>
+        internal static bool ApplyRule(RuleGroup ruleGroup, CIXMessage message)
+        {
+            Func<CIXMessage, bool> evaluateCriteria = ruleGroup.Criteria.Compile();
+            bool changed = false;
+            if (evaluateCriteria(message))
+            {
+                bool isClear = ruleGroup.actionCode.HasFlag(RuleActionCodes.Clear);
+                if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Unread))
+                {
+                    if (!message.ReadLocked)
+                    {
+                        bool oldState = message.Unread;
+                        message.Unread = !isClear;
+                        if (oldState != message.Unread)
+                        {
+                            message.ReadPending = true;
+                            Folder folder = CIX.FolderCollection[message.TopicID];
+                            folder.MarkReadRangePending = true;
+
+                            changed = true;
+                        }
+                    }
+                }
+                if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Priority))
+                {
+                    bool oldPriority = message.Priority;
+                    message.Priority = !isClear;
+                    changed = message.Priority != oldPriority;
+                }
+                if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Ignored))
+                {
+                    message.Ignored = !isClear;
+                    if (message.Ignored && message.Unread)
                     {
                         message.Unread = false;
                         message.ReadPending = true;
+                        Folder folder = CIX.FolderCollection[message.TopicID];
+                        folder.MarkReadRangePending = true;
+
+                        changed = true;
                     }
                 }
-                if (parentMessage.Priority)
+                if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Flag))
                 {
-                    message.Priority = true;
+                    bool oldStarred = message.Starred;
+                    message.Starred = !isClear;
+                    if (oldStarred != message.Starred)
+                    {
+                        message.StarPending = true;
+                        changed = true;
+                    }
                 }
             }
+            return changed;
         }
     }
 }

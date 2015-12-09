@@ -203,6 +203,16 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
+        /// Return the parent of this message
+        /// </summary>
+        [Ignore]
+        public CIXMessage SafeParent
+        {
+            set { _parent = value; }
+            get { return _parent ?? (_parent = CommentID > 0 ? Topic.Messages.MessageByID(CommentID) : new CIXMessage()); }
+        }
+
+        /// <summary>
         /// Return the root message
         /// </summary>
         [Ignore]

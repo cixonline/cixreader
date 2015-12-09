@@ -52,8 +52,17 @@ namespace CIXClient.Models
     public sealed class RuleGroup
     {
         private RuleActionCodes actionCodeField;
-        private string groupField;
+        private RuleGroupType groupField;
         private Rule[] ruleField;
+        private string titleField;
+
+        /// <remarks />
+        [XmlElement(Form = XmlSchemaForm.Unqualified)]
+        public string title
+        {
+            get { return titleField; }
+            set { titleField = value; }
+        }
 
         /// <remarks />
         [XmlElement("rule", Form = XmlSchemaForm.Unqualified)]
@@ -65,7 +74,7 @@ namespace CIXClient.Models
 
         /// <remarks />
         [XmlAttribute]
-        public string group
+        public RuleGroupType type
         {
             get { return groupField; }
             set { groupField = value; }
@@ -96,11 +105,11 @@ namespace CIXClient.Models
     {
         private string operatorField;
         private string propertyField;
-        private string valueField;
+        private object valueField;
 
         /// <remarks />
         [XmlElement(Form = XmlSchemaForm.Unqualified)]
-        public string value
+        public object value
         {
             get { return valueField; }
             set { valueField = value; }

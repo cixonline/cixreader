@@ -11,8 +11,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using CIXClient.Collections;
 
 namespace CIXClient
 {
@@ -102,9 +104,10 @@ namespace CIXClient
         /// will return a new collection filtered by the conditions in the expression.
         /// </summary>
         /// <typeparam name="T">The type of the result returned by the expression</typeparam>
+        /// <param name="type">The group type (All or Any)</param>
         /// <param name="filters">A list of filters that each define one part of the expression</param>
         /// <returns>An Expression that filters a list of type T based on the filters</returns>
-        public static Expression<Func<T,bool>> GetExpression<T>(IList<Filter> filters)
+        public static Expression<Func<T,bool>> GetExpression<T>(RuleGroupType type, IList<Filter> filters)
         {
             if (filters.Count == 0)
                 return null;
@@ -115,7 +118,7 @@ namespace CIXClient
             if (filters.Count == 1)
                 exp = GetExpression(param, filters[0]);
             else if (filters.Count == 2)
-                exp = GetExpression(param, filters[0], filters[1]);
+                exp = GetExpression(type, param, filters[0], filters[1]);
             else
             {
                 while (filters.Count > 0)
@@ -123,7 +126,11 @@ namespace CIXClient
                     var f1 = filters[0];
                     var f2 = filters[1];
 
-                    exp = exp == null ? GetExpression(param, filters[0], filters[1]) : Expression.AndAlso(exp, GetExpression(param, filters[0], filters[1]));
+                    exp = (exp == null) ? 
+                        GetExpression(type, param, filters[0], filters[1]) : 
+                        type == RuleGroupType.All ?
+                            Expression.AndAlso(exp, GetExpression(type, param, filters[0], filters[1])) :
+                            Expression.OrElse(exp, GetExpression(type, param, filters[0], filters[1]));
 
                     filters.Remove(f1);
                     filters.Remove(f2);
@@ -140,7 +147,9 @@ namespace CIXClient
 
         private static Expression GetExpression(Expression param, Filter filter)
         {
-            MemberExpression member = Expression.Property(param, filter.PropertyName);
+            Expression member = param;
+            member = filter.PropertyName.Split('.').Aggregate(member, Expression.PropertyOrField);
+
             ConstantExpression constant = Expression.Constant(filter.Value);
 
             switch (filter.Operation)
@@ -173,12 +182,12 @@ namespace CIXClient
             return null;
         }
 
-        private static BinaryExpression GetExpression(Expression param, Filter filter1, Filter filter2)
+        private static BinaryExpression GetExpression(RuleGroupType type, Expression param, Filter filter1,
+            Filter filter2)
         {
             Expression bin1 = GetExpression(param, filter1);
             Expression bin2 = GetExpression(param, filter2);
-
-            return Expression.AndAlso(bin1, bin2);
+            return (type == RuleGroupType.All ? Expression.AndAlso(bin1, bin2) : Expression.OrElse(bin1, bin2));
         }
     }
 }
