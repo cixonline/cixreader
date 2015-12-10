@@ -22,6 +22,7 @@ namespace CIXReader.Forms
         private readonly SettingsSignatures _signatures;
         private readonly SettingsUpdates _updates;
         private readonly SettingsViewing _viewing;
+        private readonly SettingsRules _rules;
 
         private Button _activeButton;
         private Form _activeView;
@@ -34,6 +35,7 @@ namespace CIXReader.Forms
             _viewing = new SettingsViewing();
             _signatures = new SettingsSignatures();
             _updates = new SettingsUpdates();
+            _rules = new SettingsRules();
         }
 
         /// <summary>
@@ -123,6 +125,15 @@ namespace CIXReader.Forms
         {
             SelectButton(settingsSignatures);
             LoadPage(_signatures);
+        }
+
+        /// <summary>
+        /// Activate the Rules tab.
+        /// </summary>
+        private void settingsRules_Click(object sender, EventArgs e)
+        {
+            SelectButton(settingsRules);
+            LoadPage(_rules);
         }
 
         /// <summary>

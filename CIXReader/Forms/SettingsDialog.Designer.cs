@@ -30,6 +30,7 @@
         {
             this.settingsPanel = new System.Windows.Forms.Panel();
             this.settingsToolbar = new CIXReader.Controls.CRPanel();
+            this.settingsRules = new System.Windows.Forms.Button();
             this.settingsUpdates = new System.Windows.Forms.Button();
             this.settingsSignatures = new System.Windows.Forms.Button();
             this.settingsViewing = new System.Windows.Forms.Button();
@@ -53,6 +54,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.settingsToolbar.BackColor = System.Drawing.SystemColors.Window;
             this.settingsToolbar.BottomBorderWidth = 1;
+            this.settingsToolbar.Controls.Add(this.settingsRules);
             this.settingsToolbar.Controls.Add(this.settingsUpdates);
             this.settingsToolbar.Controls.Add(this.settingsSignatures);
             this.settingsToolbar.Controls.Add(this.settingsViewing);
@@ -67,6 +69,23 @@
             this.settingsToolbar.TabIndex = 4;
             this.settingsToolbar.TopBorderWidth = 0;
             // 
+            // settingsRules
+            // 
+            this.settingsRules.FlatAppearance.BorderSize = 0;
+            this.settingsRules.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsRules.Font = new System.Drawing.Font("Arial", 8F);
+            this.settingsRules.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.settingsRules.Image = global::CIXReader.Properties.Resources.rulesPreferences;
+            this.settingsRules.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.settingsRules.Location = new System.Drawing.Point(202, 0);
+            this.settingsRules.Name = "settingsRules";
+            this.settingsRules.Size = new System.Drawing.Size(66, 56);
+            this.settingsRules.TabIndex = 4;
+            this.settingsRules.Text = "Rules";
+            this.settingsRules.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.settingsRules.UseVisualStyleBackColor = true;
+            this.settingsRules.Click += new System.EventHandler(this.settingsRules_Click);
+            // 
             // settingsUpdates
             // 
             this.settingsUpdates.FlatAppearance.BorderSize = 0;
@@ -75,7 +94,7 @@
             this.settingsUpdates.ForeColor = System.Drawing.SystemColors.ControlText;
             this.settingsUpdates.Image = global::CIXReader.Properties.Resources.UpdatePreferences;
             this.settingsUpdates.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.settingsUpdates.Location = new System.Drawing.Point(202, 0);
+            this.settingsUpdates.Location = new System.Drawing.Point(274, 0);
             this.settingsUpdates.Name = "settingsUpdates";
             this.settingsUpdates.Size = new System.Drawing.Size(66, 56);
             this.settingsUpdates.TabIndex = 3;
@@ -165,5 +184,6 @@
         private System.Windows.Forms.Button settingsViewing;
         private System.Windows.Forms.Button settingsGeneral;
         private System.Windows.Forms.Button settingsUpdates;
+        private System.Windows.Forms.Button settingsRules;
     }
 }

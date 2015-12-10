@@ -91,6 +91,17 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public IEnumerable<string> RuleTitles 
+        {
+            get
+            {
+                return (from RuleGroup ruleGroup in ruleGroups select ruleGroup.title).ToList();
+            }
+        }
+
+        /// <summary>
         /// Add name to the block list if it is not already present.
         /// </summary>
         /// <param name="name"></param>
@@ -117,13 +128,26 @@ namespace CIXClient.Collections
                 } }
             });
             CompileRules();
-            SaveRules();
+            Save();
+        }
+
+        /// <summary>
+        /// Delete the specified rule.
+        /// </summary>
+        /// <param name="text"></param>
+        public void DeleteRule(string text)
+        {
+            foreach (RuleGroup ruleGroup in ruleGroups.Cast<RuleGroup>().Where(ruleGroup => ruleGroup.title == text))
+            {
+                ruleGroups.Remove(ruleGroup);
+                break;
+            }
         }
 
         /// <summary>
         /// Save the rules to the rules.xml file.
         /// </summary>
-        private void SaveRules()
+        public void Save()
         {
             StreamWriter fileStream = null;
 
@@ -161,6 +185,7 @@ namespace CIXClient.Collections
             {
                 if (fileStream != null)
                 {
+                    fileStream.Close();
                     fileStream.Dispose();
                 }
             }
@@ -283,6 +308,8 @@ namespace CIXClient.Collections
 
                     XmlSerializer serializer = new XmlSerializer(typeof(rules));
                     rules rules = (rules)serializer.Deserialize(reader);
+
+                    ruleGroups = new ArrayList();
                     foreach (RuleGroup ruleGroup in rules.Items)
                     {
                         ruleGroups.Add(ruleGroup);
@@ -297,6 +324,7 @@ namespace CIXClient.Collections
             {
                 if (fileStream != null)
                 {
+                    fileStream.Close();
                     fileStream.Dispose();
                 }
             }
