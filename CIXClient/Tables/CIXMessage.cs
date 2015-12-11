@@ -258,7 +258,7 @@ namespace CIXClient.Tables
         {
             get
             {
-                return (Topic != null) ? Topic.Messages.MessageByID(RemoteID) : null;
+                return (Topic != null && Topic.HasMessages) ? Topic.Messages.MessageByID(RemoteID) : this;
             }
         }
 

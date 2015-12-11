@@ -2079,8 +2079,9 @@ namespace CIXReader.SubViews
                 case ActionID.Block:
                     if (message != null)
                     {
+                        string titleString = string.Format(Resources.BlockTitle, message.Author);
                         string promptString = string.Format(Resources.BlockPrompt, message.Author);
-                        if (MessageBox.Show(promptString, Resources.Confirm, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        if (MessageBox.Show(promptString, titleString, MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             CIX.RuleCollection.Block(message.Author);
                             OnMessageChanged(message);

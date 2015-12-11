@@ -189,11 +189,20 @@ namespace CIXReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Block all messages from {0} by automatically marking them as read. Are you sure?.
+        ///   Looks up a localized string similar to All existing messages and any new messages from {0} will automatically be marked as read. Are you sure?.
         /// </summary>
         internal static string BlockPrompt {
             get {
                 return ResourceManager.GetString("BlockPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Block all messages from {0}.
+        /// </summary>
+        internal static string BlockTitle {
+            get {
+                return ResourceManager.GetString("BlockTitle", resourceCulture);
             }
         }
         

@@ -115,20 +115,26 @@ namespace CIXClient.Collections
                     return;
                 }
             }
-            ruleGroups.Add(new RuleGroup
+            RuleGroup newRuleGroup = new RuleGroup
             {
-                type = RuleGroupType.All, 
-                title = string.Format(Resources.BlockFrom,name),
+                type = RuleGroupType.All,
+                title = string.Format(Resources.BlockFrom, name),
                 actionCode = RuleActionCodes.Unread | RuleActionCodes.Clear,
-                rule = new[] { new Rule
+                rule = new[]
                 {
-                    property = "Author",
-                    value = name,
-                    op = "equals"
-                } }
-            });
+                    new Rule
+                    {
+                        property = "Author",
+                        value = name,
+                        op = "equals"
+                    }
+                }
+            };
+            ruleGroups.Add(newRuleGroup);
             CompileRules();
             Save();
+
+            FolderCollection.ApplyRules(newRuleGroup);
         }
 
         /// <summary>
@@ -343,6 +349,10 @@ namespace CIXClient.Collections
         /// <summary>
         /// Apply the specified rule group to the message. On completion, the flags
         /// in the message will be adjusted as per the rule.
+        /// 
+        /// The caller must persist both the message and the associated folder back
+        /// to the database if the function returns true since both will likely have
+        /// been altered.
         /// </summary>
         /// <param name="ruleGroup">Rule group to apply</param>
         /// <param name="message">CIXMessage to which rule is applied</param>
@@ -353,14 +363,15 @@ namespace CIXClient.Collections
             bool changed = false;
             if (evaluateCriteria(message))
             {
+                bool isUnread = message.Unread;
                 bool isClear = ruleGroup.actionCode.HasFlag(RuleActionCodes.Clear);
+
                 if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Unread))
                 {
                     if (!message.ReadLocked)
                     {
-                        bool oldState = message.Unread;
                         message.Unread = !isClear;
-                        if (oldState != message.Unread)
+                        if (isUnread != message.Unread)
                         {
                             message.ReadPending = true;
                             Folder folder = CIX.FolderCollection[message.TopicID];
@@ -397,6 +408,19 @@ namespace CIXClient.Collections
                     {
                         message.StarPending = true;
                         changed = true;
+                    }
+                }
+
+                // If a rule action changed the unread state then we need to fix
+                // up the counts on the associated folder. Note that the Topic
+                // property might not be valid at this point, although TopicID will be.
+                if (message.Unread != isUnread)
+                {
+                    Folder folder = CIX.FolderCollection[message.TopicID];
+                    folder.Unread += (message.Unread) ? 1 : -1;
+                    if (message.Priority)
+                    {
+                        folder.UnreadPriority += (message.Unread) ? 1 : -1;
                     }
                 }
             }

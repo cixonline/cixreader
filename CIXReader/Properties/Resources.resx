@@ -767,9 +767,12 @@
     <value>Refresh</value>
   </data>
   <data name="BlockPrompt" xml:space="preserve">
-    <value>Block all messages from {0} by automatically marking them as read. Are you sure?</value>
+    <value>All existing messages and any new messages from {0} will automatically be marked as read. Are you sure?</value>
   </data>
   <data name="rulesPreferences" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rulesPreferences.tiff;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BlockTitle" xml:space="preserve">
+    <value>Block all messages from {0}</value>
   </data>
 </root>

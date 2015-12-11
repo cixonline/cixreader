@@ -353,6 +353,43 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
+        /// Apply the specified rule to all messages
+        /// </summary>
+        /// <param name="ruleGroup">Rule group to be applied</param>
+        public static void ApplyRules(RuleGroup ruleGroup)
+        {
+            Thread t = new Thread(() =>
+            {
+                CIXMessageCollection messages = MessagesWithCriteria(ruleGroup.Criteria);
+                List<Folder> modifiedFolders = new List<Folder>();
+                foreach (CIXMessage message in messages)
+                {
+                    CIXMessage realMessage = message.RealMessage;
+                    if (RuleCollection.ApplyRule(ruleGroup, realMessage))
+                    {
+                        lock (CIX.DBLock)
+                        {
+                            CIX.DB.Update(realMessage);
+                        }
+                        if (!modifiedFolders.Contains(realMessage.Topic))
+                        {
+                            modifiedFolders.Add(realMessage.Topic);
+                        }
+                    }
+                }
+                foreach (Folder folder in modifiedFolders)
+                {
+                    lock (CIX.DBLock)
+                    {
+                        CIX.DB.Update(folder);
+                    }
+                    CIX.FolderCollection.NotifyFolderUpdated(folder);
+                }
+            });
+            t.Start();
+        }
+
+        /// <summary>
         /// Return the parent folder for this folder
         /// </summary>
         /// <param name="thisFolder">A Folder</param>
@@ -592,20 +629,15 @@ namespace CIXClient.Collections
                                 cixMessage = CIXMessageFromMessage(topic, message);
                                 if (cixMessage != null)
                                 {
-                                    CIX.RuleCollection.ApplyRules(cixMessage);
                                     if (cixMessage.Unread)
                                     {
-                                        topic.Unread += 1;
+                                        ++topic.Unread;
                                         if (cixMessage.Priority)
                                         {
-                                            topic.UnreadPriority += 1;
+                                            ++topic.UnreadPriority;
                                         }
                                     }
-                                    if (cixMessage.IsWithdrawn && cixMessage.Unread)
-                                    {
-                                        cixMessage.Unread = false;
-                                        cixMessage.ReadPending = true;
-                                    }
+                                    CIX.RuleCollection.ApplyRules(cixMessage);
                                     topic.Messages.AddInternal(cixMessage);
 
                                     if (cixMessage.Ignored)
