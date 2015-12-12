@@ -177,10 +177,10 @@ namespace CIXClient.Collections
         public IEnumerable<CIXMessage> Children(CIXMessage message)
         {
             List<CIXMessage> conversations = AllMessagesByConversation;
+            List<CIXMessage> children = new List<CIXMessage>();
             lock (_changeLock)
             {
                 int index = conversations.IndexOf(message);
-                List<CIXMessage> children = new List<CIXMessage>();
 
                 while (++index < conversations.Count)
                 {
