@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("CIXReader")]
 [assembly: AssemblyDescription("CIX Client Reader")]
-[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyConfiguration("Beta")]
 [assembly: AssemblyCompany("CIXOnline Ltd")]
 [assembly: AssemblyProduct("CIXReader")]
 [assembly: AssemblyCopyright("Copyright © 2014-2015")]
@@ -46,5 +46,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("1.61.1106")]
-[assembly: AssemblyFileVersion("1.61.1106")]
+[assembly: AssemblyVersion("1.61.1107")]
+[assembly: AssemblyFileVersion("1.61.1107")]
