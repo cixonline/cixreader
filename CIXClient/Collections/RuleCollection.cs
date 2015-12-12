@@ -375,6 +375,11 @@ namespace CIXClient.Collections
                         {
                             message.ReadPending = true;
                             Folder folder = CIX.FolderCollection[message.TopicID];
+                            folder.Unread += (message.Unread) ? 1 : -1;
+                            if (message.Priority)
+                            {
+                                folder.UnreadPriority += (message.Unread) ? 1 : -1;
+                            }
                             folder.MarkReadRangePending = true;
 
                             changed = true;
@@ -386,6 +391,11 @@ namespace CIXClient.Collections
                     bool oldPriority = message.Priority;
                     message.Priority = !isClear;
                     changed = message.Priority != oldPriority;
+                    if (changed && message.Unread)
+                    {
+                        Folder folder = CIX.FolderCollection[message.TopicID];
+                        folder.UnreadPriority += (message.Priority) ? 1 : -1;
+                    }
                 }
                 if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Ignored))
                 {
@@ -395,6 +405,11 @@ namespace CIXClient.Collections
                         message.Unread = false;
                         message.ReadPending = true;
                         Folder folder = CIX.FolderCollection[message.TopicID];
+                        folder.Unread -= 1;
+                        if (message.Priority)
+                        {
+                            folder.UnreadPriority -= 1;
+                        }
                         folder.MarkReadRangePending = true;
 
                         changed = true;
@@ -408,19 +423,6 @@ namespace CIXClient.Collections
                     {
                         message.StarPending = true;
                         changed = true;
-                    }
-                }
-
-                // If a rule action changed the unread state then we need to fix
-                // up the counts on the associated folder. Note that the Topic
-                // property might not be valid at this point, although TopicID will be.
-                if (message.Unread != isUnread)
-                {
-                    Folder folder = CIX.FolderCollection[message.TopicID];
-                    folder.Unread += (message.Unread) ? 1 : -1;
-                    if (message.Priority)
-                    {
-                        folder.UnreadPriority += (message.Unread) ? 1 : -1;
                     }
                 }
             }
