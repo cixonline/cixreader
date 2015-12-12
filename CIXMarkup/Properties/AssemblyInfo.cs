@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("CIXMarkup")]
 [assembly: AssemblyDescription("CIX Markup Parser")]
-[assembly: AssemblyConfiguration("Beta")]
+[assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("CIXOnline Ltd")]
 [assembly: AssemblyProduct("CIXMarkup")]
 [assembly: AssemblyCopyright("Copyright © 2014-2015")]
@@ -46,5 +46,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("1.61.1105")]
-[assembly: AssemblyFileVersion("1.61.1105")]
+[assembly: AssemblyVersion("1.61.1106")]
+[assembly: AssemblyFileVersion("1.61.1106")]
