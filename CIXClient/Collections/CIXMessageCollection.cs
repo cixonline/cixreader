@@ -162,7 +162,10 @@ namespace CIXClient.Collections
             get
             {
                 List<CIXMessage> conversations = AllMessagesByConversation;
-                return conversations.Where(msg => msg.CommentID == 0).ToList();
+                lock (_changeLock)
+                {
+                    return conversations.Where(msg => msg.CommentID == 0).ToList();
+                }
             }
         }
 
@@ -174,15 +177,18 @@ namespace CIXClient.Collections
         public IEnumerable<CIXMessage> Children(CIXMessage message)
         {
             List<CIXMessage> conversations = AllMessagesByConversation;
-            int index = conversations.IndexOf(message);
-            List<CIXMessage> children = new List<CIXMessage>();
-    
-            while (++index < conversations.Count)
+            lock (_changeLock)
             {
-                CIXMessage child = conversations[index];
-                if (child.Level <= message.Level)
-                    break;
-                children.Add(child);
+                int index = conversations.IndexOf(message);
+                List<CIXMessage> children = new List<CIXMessage>();
+
+                while (++index < conversations.Count)
+                {
+                    CIXMessage child = conversations[index];
+                    if (child.Level <= message.Level)
+                        break;
+                    children.Add(child);
+                }
             }
             return children;
         }
