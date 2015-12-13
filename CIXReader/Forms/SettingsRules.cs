@@ -13,11 +13,16 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using CIXClient;
+using CIXClient.Models;
+using CIXReader.Properties;
 
 namespace CIXReader.Forms
 {
     public sealed partial class SettingsRules : Form
     {
+        private List<RuleGroup> _arrayOfRules;
+        private bool _isInitialising;
+
         public SettingsRules()
         {
             InitializeComponent();
@@ -25,18 +30,9 @@ namespace CIXReader.Forms
 
         private void SettingsRules_Load(object sender, EventArgs e)
         {
-            LoadRulesList();
+            _arrayOfRules = CIX.RuleCollection.AllRules;
 
-            settingsDeleteRule.Enabled = false;
-            settingsEditRule.Enabled = false;
-        }
-
-        /// <summary>
-        /// Called when the user selects a rule from the list.
-        /// </summary>
-        private void settingsRules_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateRuleButtons();
+            ReloadRules(0);
         }
 
         /// <summary>
@@ -44,8 +40,7 @@ namespace CIXReader.Forms
         /// </summary>
         private void UpdateRuleButtons()
         {
-            ListView.SelectedIndexCollection index = settingsRulesList.SelectedIndices;
-            bool hasSelection = (index.Count > 0);
+            bool hasSelection = (settingsRulesList.SelectedIndex >= 0);
             settingsEditRule.Enabled = hasSelection;
             settingsDeleteRule.Enabled = hasSelection;
         }
@@ -62,30 +57,40 @@ namespace CIXReader.Forms
         /// </summary>
         private void settingsDeleteRule_Click(object sender, EventArgs e)
         {
-            ListView.SelectedListViewItemCollection selections = settingsRulesList.SelectedItems;
-            if (selections.Count == 1)
+            int index = settingsRulesList.SelectedIndex;
+            if (index >= 0)
             {
-                ListViewItem lvItem = selections[0];
-                CIX.RuleCollection.DeleteRule(lvItem.Text);
+                CIX.RuleCollection.DeleteRule(_arrayOfRules[index]);
                 CIX.RuleCollection.Save();
+
+                _arrayOfRules = CIX.RuleCollection.AllRules;
+                ReloadRules(index);
             }
-            LoadRulesList();
-            UpdateRuleButtons();
         }
 
         /// <summary>
-        /// Load the signatures list.
+        /// Load the rules list.
         /// </summary>
-        private void LoadRulesList()
+        private void ReloadRules(int initialSelection)
         {
-            IEnumerable<string> rules = CIX.RuleCollection.RuleTitles;
-
             settingsRulesList.Items.Clear();
-            foreach (string title in rules)
+
+            _isInitialising = true;
+
+            foreach (RuleGroup ruleGroup in _arrayOfRules)
             {
-                ListViewItem lvItem = new ListViewItem { Text = title };
-                settingsRulesList.Items.Add(lvItem);
+                int index = settingsRulesList.Items.Add(ruleGroup.title);
+                settingsRulesList.SetItemChecked(index, ruleGroup.active);
             }
+            if (initialSelection >= settingsRulesList.Items.Count)
+            {
+                initialSelection = settingsRulesList.Items.Count - 1;
+            }
+            settingsRulesList.SelectedIndex = initialSelection;
+
+            _isInitialising = false;
+
+            UpdateRuleButtons();
         }
 
         private void settingsEditRule_Click(object sender, EventArgs e)
@@ -103,11 +108,42 @@ namespace CIXReader.Forms
 
         private void EditRule()
         {
-            ListView.SelectedListViewItemCollection selections = settingsRulesList.SelectedItems;
-            if (selections.Count == 1)
+            int index = settingsRulesList.SelectedIndex;
+            if (index >= 0)
             {
-                ListViewItem lvItem = selections[0];
-                string ruleBeingEdited = lvItem.Text;
+            }
+        }
+
+        /// <summary>
+        /// Reset rules back to the default.
+        /// </summary>
+        private void settingsResetRules_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(Resources.ResetRules, Resources.ResetRulesTitle, MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                CIX.RuleCollection.Reset();
+                _arrayOfRules = CIX.RuleCollection.AllRules;
+                ReloadRules(0);
+            }
+        }
+
+        private void settingsRulesList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateRuleButtons();
+        }
+
+        /// <summary>
+        /// User enabled or disabled a specific rule.
+        /// </summary>
+        private void settingsRulesList_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (!_isInitialising)
+            {
+                if (e.Index >= 0 && e.Index < _arrayOfRules.Count)
+                {
+                    _arrayOfRules[e.Index].active = e.NewValue == CheckState.Checked;
+                    CIX.RuleCollection.Save();
+                }
             }
         }
     }

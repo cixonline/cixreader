@@ -31,8 +31,8 @@
             this.settingsDeleteRule = new System.Windows.Forms.Button();
             this.settingsEditRule = new System.Windows.Forms.Button();
             this.settingsNewRule = new System.Windows.Forms.Button();
-            this.settingsRulesList = new System.Windows.Forms.ListView();
-            this.settingsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.settingsResetRules = new System.Windows.Forms.Button();
+            this.settingsRulesList = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
             // 
             // settingsDeleteRule
@@ -74,29 +74,33 @@
             this.settingsNewRule.UseVisualStyleBackColor = false;
             this.settingsNewRule.Click += new System.EventHandler(this.settingsNewRule_Click);
             // 
+            // settingsResetRules
+            // 
+            this.settingsResetRules.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.settingsResetRules.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.settingsResetRules.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.settingsResetRules.Location = new System.Drawing.Point(299, 93);
+            this.settingsResetRules.Name = "settingsResetRules";
+            this.settingsResetRules.Size = new System.Drawing.Size(76, 23);
+            this.settingsResetRules.TabIndex = 10;
+            this.settingsResetRules.Text = "&Reset";
+            this.settingsResetRules.UseVisualStyleBackColor = false;
+            this.settingsResetRules.Click += new System.EventHandler(this.settingsResetRules_Click);
+            // 
             // settingsRulesList
             // 
             this.settingsRulesList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.settingsRulesList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.settingsColumnHeader});
-            this.settingsRulesList.FullRowSelect = true;
-            this.settingsRulesList.Location = new System.Drawing.Point(12, 12);
-            this.settingsRulesList.MultiSelect = false;
+            this.settingsRulesList.FormattingEnabled = true;
+            this.settingsRulesList.IntegralHeight = false;
+            this.settingsRulesList.Location = new System.Drawing.Point(13, 12);
             this.settingsRulesList.Name = "settingsRulesList";
-            this.settingsRulesList.ShowGroups = false;
-            this.settingsRulesList.Size = new System.Drawing.Size(281, 251);
-            this.settingsRulesList.TabIndex = 6;
-            this.settingsRulesList.UseCompatibleStateImageBehavior = false;
-            this.settingsRulesList.View = System.Windows.Forms.View.Details;
-            this.settingsRulesList.SelectedIndexChanged += new System.EventHandler(this.settingsRules_SelectedIndexChanged);
+            this.settingsRulesList.Size = new System.Drawing.Size(280, 289);
+            this.settingsRulesList.TabIndex = 11;
+            this.settingsRulesList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.settingsRulesList_ItemCheck);
+            this.settingsRulesList.SelectedIndexChanged += new System.EventHandler(this.settingsRulesList_SelectedIndexChanged);
             this.settingsRulesList.DoubleClick += new System.EventHandler(this.settingsRules_DoubleClick);
-            // 
-            // settingsColumnHeader
-            // 
-            this.settingsColumnHeader.Text = "Title";
-            this.settingsColumnHeader.Width = 276;
             // 
             // SettingsRules
             // 
@@ -104,10 +108,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(387, 310);
             this.ControlBox = false;
+            this.Controls.Add(this.settingsRulesList);
+            this.Controls.Add(this.settingsResetRules);
             this.Controls.Add(this.settingsDeleteRule);
             this.Controls.Add(this.settingsEditRule);
             this.Controls.Add(this.settingsNewRule);
-            this.Controls.Add(this.settingsRulesList);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -118,7 +123,6 @@
             this.Text = "SettingsRules";
             this.Load += new System.EventHandler(this.SettingsRules_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -127,7 +131,7 @@
         private System.Windows.Forms.Button settingsDeleteRule;
         private System.Windows.Forms.Button settingsEditRule;
         private System.Windows.Forms.Button settingsNewRule;
-        private System.Windows.Forms.ListView settingsRulesList;
-        private System.Windows.Forms.ColumnHeader settingsColumnHeader;
+        private System.Windows.Forms.Button settingsResetRules;
+        private System.Windows.Forms.CheckedListBox settingsRulesList;
     }
 }

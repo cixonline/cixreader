@@ -775,4 +775,10 @@
   <data name="BlockTitle" xml:space="preserve">
     <value>Block all messages from {0}</value>
   </data>
+  <data name="ResetRules" xml:space="preserve">
+    <value>This will reset all rules back to the CIXReader defaults and discard all custom modifications. Are you sure?</value>
+  </data>
+  <data name="ResetRulesTitle" xml:space="preserve">
+    <value>Reset All Rules</value>
+  </data>
 </root>

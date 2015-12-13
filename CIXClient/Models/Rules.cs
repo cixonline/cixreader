@@ -55,6 +55,15 @@ namespace CIXClient.Models
         private RuleGroupType groupField;
         private Rule[] ruleField;
         private string titleField;
+        private bool activeField;
+
+        /// <remarks />
+        [XmlElement(Form = XmlSchemaForm.Unqualified)]
+        public bool active
+        {
+            get { return activeField; }
+            set { activeField = value; }
+        }
 
         /// <remarks />
         [XmlElement(Form = XmlSchemaForm.Unqualified)]

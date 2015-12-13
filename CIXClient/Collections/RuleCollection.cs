@@ -10,7 +10,6 @@
 // *****************************************************
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -78,7 +77,7 @@ namespace CIXClient.Collections
     /// </summary>
     public sealed class RuleCollection
     {
-        private ArrayList ruleGroups = new ArrayList();
+        private List<RuleGroup> ruleGroups = new List<RuleGroup>();
 
         /// <summary>
         /// Instantiate an instance of the RuleCollection
@@ -91,14 +90,11 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// 
+        /// Return an array of all rules, both active and inactive
         /// </summary>
-        public IEnumerable<string> RuleTitles 
+        public List<RuleGroup> AllRules
         {
-            get
-            {
-                return (from RuleGroup ruleGroup in ruleGroups select ruleGroup.title).ToList();
-            }
+            get { return ruleGroups; }
         }
 
         /// <summary>
@@ -119,6 +115,7 @@ namespace CIXClient.Collections
             {
                 type = RuleGroupType.All,
                 title = string.Format(Resources.BlockFrom, name),
+                active = true,
                 actionCode = RuleActionCodes.Unread | RuleActionCodes.Clear,
                 rule = new[]
                 {
@@ -140,14 +137,10 @@ namespace CIXClient.Collections
         /// <summary>
         /// Delete the specified rule.
         /// </summary>
-        /// <param name="text"></param>
-        public void DeleteRule(string text)
+        /// <param name="ruleGroup">Rule to remove</param>
+        public void DeleteRule(RuleGroup ruleGroup)
         {
-            foreach (RuleGroup ruleGroup in ruleGroups.Cast<RuleGroup>().Where(ruleGroup => ruleGroup.title == text))
-            {
-                ruleGroups.Remove(ruleGroup);
-                break;
-            }
+            ruleGroups.Remove(ruleGroup);
         }
 
         /// <summary>
@@ -172,12 +165,10 @@ namespace CIXClient.Collections
 
                 using (XmlWriter writer = XmlWriter.Create(fileStream, settings))
                 {
-                    fileStream = null;
-
                     XmlSerializer serializer = new XmlSerializer(typeof(rules));
                     serializer.Serialize(writer, new rules
                     {
-                        Items = (RuleGroup[]) ruleGroups.ToArray(typeof (RuleGroup))
+                        Items = ruleGroups.ToArray()
                     });
                 }
 
@@ -198,11 +189,32 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
+        /// Reset all rules back to the default
+        /// </summary>
+        public void Reset()
+        {
+            LoadDefaultRules();
+            CompileRules();
+
+            string rulesFilename = string.Format("{0}.rules.xml", CIX.Username);
+            string filename = Path.Combine(CIX.HomeFolder, rulesFilename);
+
+            try
+            {
+                File.Delete(filename);
+            }
+            catch (IOException e)
+            {
+                LogFile.WriteLine("Error deleting rule file {0} : {1}", filename, e.Message);
+            }
+        }
+
+        /// <summary>
         /// Compile any missing Criteria for each rule.
         /// </summary>
         private void CompileRules()
         {
-            foreach (RuleGroup ruleGroup in ruleGroups.Cast<RuleGroup>().Where(ruleGroup => ruleGroup.Criteria == null))
+            foreach (RuleGroup ruleGroup in ruleGroups.Where(ruleGroup => ruleGroup.Criteria == null))
             {
                 try
                 {
@@ -233,7 +245,7 @@ namespace CIXClient.Collections
         /// </summary>
         private void LoadDefaultRules()
         {
-            ruleGroups = new ArrayList
+            ruleGroups = new List<RuleGroup>
             {
                 // Mark messages priority if they're from me or the parent
                 // message is also priority
@@ -241,6 +253,7 @@ namespace CIXClient.Collections
                 {
                     type = RuleGroupType.Any,
                     title = "Priority",
+                    active = true,
                     actionCode = RuleActionCodes.Priority,
                     rule = new[]
                     {
@@ -264,6 +277,7 @@ namespace CIXClient.Collections
                 {
                     type = RuleGroupType.Any,
                     title = "Withdrawn",
+                    active = true,
                     actionCode = RuleActionCodes.Unread | RuleActionCodes.Clear,
                     rule = new[]
                     {
@@ -281,6 +295,7 @@ namespace CIXClient.Collections
                 {
                     type = RuleGroupType.Any,
                     title = "Ignored",
+                    active = true,
                     actionCode = RuleActionCodes.Ignored,
                     rule = new[]
                     {
@@ -310,12 +325,10 @@ namespace CIXClient.Collections
                 fileStream = new StreamReader(filename);
                 using (XmlReader reader = XmlReader.Create(fileStream))
                 {
-                    fileStream = null;
-
                     XmlSerializer serializer = new XmlSerializer(typeof(rules));
                     rules rules = (rules)serializer.Deserialize(reader);
 
-                    ruleGroups = new ArrayList();
+                    ruleGroups = new List<RuleGroup>();
                     foreach (RuleGroup ruleGroup in rules.Items)
                     {
                         ruleGroups.Add(ruleGroup);
@@ -343,7 +356,7 @@ namespace CIXClient.Collections
         /// <returns>True if any rule changed the message, false otherwise</returns>
         internal bool ApplyRules(CIXMessage message)
         {
-            return ruleGroups.Cast<RuleGroup>().Aggregate(false, (current, ruleGroup) => current || ApplyRule(ruleGroup, message));
+            return ruleGroups.Aggregate(false, (current, ruleGroup) => current || ApplyRule(ruleGroup, message));
         }
 
         /// <summary>
@@ -361,7 +374,7 @@ namespace CIXClient.Collections
         {
             Func<CIXMessage, bool> evaluateCriteria = ruleGroup.Criteria.Compile();
             bool changed = false;
-            if (evaluateCriteria(message))
+            if (ruleGroup.active && evaluateCriteria(message))
             {
                 bool isUnread = message.Unread;
                 bool isClear = ruleGroup.actionCode.HasFlag(RuleActionCodes.Clear);

@@ -1519,6 +1519,24 @@ namespace CIXReader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This will reset all rules back to the CIXReader defaults and discard all custom modifications. Are you sure?.
+        /// </summary>
+        internal static string ResetRules {
+            get {
+                return ResourceManager.GetString("ResetRules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset All Rules.
+        /// </summary>
+        internal static string ResetRulesTitle {
+            get {
+                return ResourceManager.GetString("ResetRulesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resign {0}.
         /// </summary>
         internal static string Resign {
