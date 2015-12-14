@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RuleEditor));
             this.titleLabel = new System.Windows.Forms.Label();
             this.titleField = new System.Windows.Forms.TextBox();
             this.saveButton = new System.Windows.Forms.Button();
@@ -216,6 +217,10 @@
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.titleField);
             this.Controls.Add(this.titleLabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(495, 417);
             this.Name = "RuleEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rule Editor";

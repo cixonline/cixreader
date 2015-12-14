@@ -233,7 +233,7 @@ namespace CIXReader.Forms
                 if (propertyCell.Value != null)
                 {
                     string propertyName = propertyCell.Value as string;
-                    dataGrid.Rows[e.RowIndex].Cells[2] = CellForProperty(propertyName, false);
+                    dataGrid.Rows[e.RowIndex].Cells[2] = CellForProperty(propertyName, null);
                 }
             }
             UpdateButtons();

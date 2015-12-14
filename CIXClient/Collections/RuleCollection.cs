@@ -370,7 +370,7 @@ namespace CIXClient.Collections
         /// </summary>
         /// <param name="message">Message to which rules are applied</param>
         /// <returns>True if any rule changed the message, false otherwise</returns>
-        internal Void ApplyRules(CIXMessage message)
+        internal void ApplyRules(CIXMessage message)
         {
             ruleGroups.Aggregate(false, (current, ruleGroup) => current || ApplyRule(ruleGroup, message));
         }
