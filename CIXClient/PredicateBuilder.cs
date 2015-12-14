@@ -35,6 +35,11 @@ namespace CIXClient
             Equals,
 
             /// <summary>
+            /// Operation not equals value
+            /// </summary>
+            NotEquals,
+
+            /// <summary>
             /// Operation is greater than value
             /// </summary>
             GreaterThan,
@@ -145,9 +150,8 @@ namespace CIXClient
             return exp == null ? null : Expression.Lambda<Func<T, bool>>(exp, param);
         }
 
-        private static Expression GetExpression(Expression param, Filter filter)
+        private static Expression GetExpression(Expression member, Filter filter)
         {
-            Expression member = param;
             member = filter.PropertyName.Split('.').Aggregate(member, Expression.PropertyOrField);
 
             ConstantExpression constant = Expression.Constant(filter.Value);
@@ -156,6 +160,9 @@ namespace CIXClient
             {
                 case Op.Equals:
                     return Expression.Equal(member, constant);
+
+                case Op.NotEquals:
+                    return Expression.NotEqual(member, constant);
 
                 case Op.GreaterThan:
                     return Expression.GreaterThan(member, constant);

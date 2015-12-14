@@ -112,7 +112,7 @@ namespace CIXClient.Models
     [XmlType(AnonymousType = true)]
     public sealed class Rule
     {
-        private string operatorField;
+        private PredicateBuilder.Op operatorField;
         private string propertyField;
         private object valueField;
 
@@ -126,31 +126,10 @@ namespace CIXClient.Models
 
         /// <remarks />
         [XmlElement(Form = XmlSchemaForm.Unqualified)]
-        public string op
+        public PredicateBuilder.Op op
         {
             get { return operatorField; }
             set { operatorField = value; }
-        }
-
-        /// <summary>
-        /// Return the predicate operator for this rule
-        /// </summary>
-        public PredicateBuilder.Op? Operator
-        {
-            get
-            {
-                switch (operatorField)
-                {
-                    default:
-                        return PredicateBuilder.Op.Equals;
-
-                    case "equals":
-                        return PredicateBuilder.Op.Equals;
-
-                    case "contains":
-                        return PredicateBuilder.Op.Contains;
-                }
-            }
         }
 
         /// <remarks />

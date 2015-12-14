@@ -235,9 +235,6 @@
   <data name="Retrieve" xml:space="preserve">
     <value>Retrieve</value>
   </data>
-  <data name="MessageRetrievePending" xml:space="preserve">
-    <value>Message will be retrieved from the server when you next go online.</value>
-  </data>
   <data name="FolderIsReadOnly" xml:space="preserve">
     <value>This topic is read-only. You cannot post or comment to messages in it.</value>
   </data>
@@ -780,5 +777,14 @@
   </data>
   <data name="ResetRulesTitle" xml:space="preserve">
     <value>Reset All Rules</value>
+  </data>
+  <data name="Operator" xml:space="preserve">
+    <value>Operator</value>
+  </data>
+  <data name="Property" xml:space="preserve">
+    <value>Property</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Value</value>
   </data>
 </root>

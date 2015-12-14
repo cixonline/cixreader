@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using CIXClient;
+using CIXClient.Collections;
 using CIXClient.Models;
 using CIXReader.Properties;
 
@@ -50,6 +51,30 @@ namespace CIXReader.Forms
         /// </summary>
         private void settingsNewRule_Click(object sender, EventArgs e)
         {
+            RuleGroup newRuleGroup = new RuleGroup
+            {
+                title = "",
+                active = true,
+                type = RuleGroupType.Any,
+                actionCode = RuleActionCodes.Unread | RuleActionCodes.Clear,
+                rule = new[]
+                {
+                    new Rule
+                    {
+                        property = "Subject",
+                        value = string.Empty,
+                        op = PredicateBuilder.Op.Equals
+                    }
+                }
+            };
+            RuleEditor ruleEditor = new RuleEditor(newRuleGroup);
+            if (ruleEditor.ShowDialog() == DialogResult.OK)
+            {
+                CIX.RuleCollection.AddRule(newRuleGroup);
+
+                _arrayOfRules = CIX.RuleCollection.AllRules;
+                ReloadRules(0);
+            }
         }
 
         /// <summary>
@@ -93,6 +118,9 @@ namespace CIXReader.Forms
             UpdateRuleButtons();
         }
 
+        /// <summary>
+        /// Edit button edits the selected item.
+        /// </summary>
         private void settingsEditRule_Click(object sender, EventArgs e)
         {
             EditRule();
@@ -106,11 +134,20 @@ namespace CIXReader.Forms
             EditRule();
         }
 
+        /// <summary>
+        /// Invoke the rule editor to edit the selected item and save it back
+        /// if the user OK's the editor dialog.
+        /// </summary>
         private void EditRule()
         {
             int index = settingsRulesList.SelectedIndex;
             if (index >= 0)
             {
+                RuleEditor ruleEditor = new RuleEditor(_arrayOfRules[index]);
+                if (ruleEditor.ShowDialog() == DialogResult.OK)
+                {
+                    CIX.RuleCollection.Save();
+                }
             }
         }
 
@@ -127,13 +164,18 @@ namespace CIXReader.Forms
             }
         }
 
+        /// <summary>
+        /// Selection changed - update the button states.
+        /// </summary>
         private void settingsRulesList_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateRuleButtons();
         }
 
         /// <summary>
-        /// User enabled or disabled a specific rule.
+        /// User enabled or disabled a specific rule. This can get invoked during
+        /// SetItemChecked so we need to filter that scenario out by ensuring that
+        /// _isInitialising is set while programmatically changing the state.
         /// </summary>
         private void settingsRulesList_ItemCheck(object sender, ItemCheckEventArgs e)
         {

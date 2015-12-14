@@ -230,6 +230,15 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
+        /// Return the forum folder to which this message belongs.
+        /// </summary>
+        [Ignore]
+        public Folder Forum
+        {
+            get { return Topic.ParentFolder; }
+        }
+
+        /// <summary>
         /// Return the topic folder to which this message belongs.
         /// </summary>
         [Ignore]

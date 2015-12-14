@@ -98,9 +98,19 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
+        /// Add the specified rule group to the list.
+        /// </summary>
+        public void AddRule(RuleGroup newRuleGroup)
+        {
+            ruleGroups.Add(newRuleGroup);
+            CompileRules();
+            Save();
+        }
+
+        /// <summary>
         /// Add name to the block list if it is not already present.
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">Name of user to block</param>
         public void Block(string name)
         {
             // ReSharper disable once LoopCanBeConvertedToQuery
@@ -113,7 +123,7 @@ namespace CIXClient.Collections
             }
             RuleGroup newRuleGroup = new RuleGroup
             {
-                type = RuleGroupType.All,
+                type = RuleGroupType.Any,
                 title = string.Format(Resources.BlockFrom, name),
                 active = true,
                 actionCode = RuleActionCodes.Unread | RuleActionCodes.Clear,
@@ -123,13 +133,11 @@ namespace CIXClient.Collections
                     {
                         property = "Author",
                         value = name,
-                        op = "equals"
+                        op = PredicateBuilder.Op.Equals
                     }
                 }
             };
-            ruleGroups.Add(newRuleGroup);
-            CompileRules();
-            Save();
+            AddRule(newRuleGroup);
 
             FolderCollection.ApplyRules(newRuleGroup);
         }
@@ -150,7 +158,7 @@ namespace CIXClient.Collections
         {
             StreamWriter fileStream = null;
 
-            string rulesFilename = string.Format("{0}.rules.xml", CIX.Username);
+            string rulesFilename = string.Format("{0}.rules2.xml", CIX.Username);
             string filename = Path.Combine(CIX.HomeFolder, rulesFilename);
 
             try
@@ -196,7 +204,7 @@ namespace CIXClient.Collections
             LoadDefaultRules();
             CompileRules();
 
-            string rulesFilename = string.Format("{0}.rules.xml", CIX.Username);
+            string rulesFilename = string.Format("{0}.rules2.xml", CIX.Username);
             string filename = Path.Combine(CIX.HomeFolder, rulesFilename);
 
             try
@@ -222,9 +230,14 @@ namespace CIXClient.Collections
                     // ReSharper disable once LoopCanBeConvertedToQuery
                     foreach (Rule rule in ruleGroup.rule)
                     {
+                        List<string> propertyNames = rule.property.Split('.').ToList();
+                        if (propertyNames[0] == "Parent")
+                        {
+                            propertyNames[0] = "SafeParent";
+                        }
                         PredicateBuilder.Filter filter = new PredicateBuilder.Filter
                         {
-                            PropertyName = rule.property,
+                            PropertyName = string.Join(".", propertyNames),
                             Operation = PredicateBuilder.Op.Equals,
                             Value = rule.value
                         };
@@ -261,13 +274,13 @@ namespace CIXClient.Collections
                         {
                             property = "IsMine",
                             value = true,
-                            op = "equals"
+                            op = PredicateBuilder.Op.Equals
                         },
                         new Rule
                         {
-                            property = "SafeParent.Priority",
+                            property = "Parent.Priority",
                             value = true,
-                            op = "equals"
+                            op = PredicateBuilder.Op.Equals
                         }
                     }
                 },
@@ -285,7 +298,7 @@ namespace CIXClient.Collections
                         {
                             property = "IsWithdrawn",
                             value = true,
-                            op = "equals"
+                            op = PredicateBuilder.Op.Equals
                         }
                     }
                 },
@@ -301,9 +314,9 @@ namespace CIXClient.Collections
                     {
                         new Rule
                         {
-                            property = "SafeParent.Ignored",
+                            property = "Parent.Ignored",
                             value = true,
-                            op = "equals"
+                            op = PredicateBuilder.Op.Equals
                         }
                     }
                 }
@@ -315,36 +328,39 @@ namespace CIXClient.Collections
         /// </summary>
         private void LoadRules()
         {
-            StreamReader fileStream = null;
-
-            string rulesFilename = string.Format("{0}.rules.xml", CIX.Username);
+            string rulesFilename = string.Format("{0}.rules2.xml", CIX.Username);
             string filename = Path.Combine(CIX.HomeFolder, rulesFilename);
 
-            try
+            if (File.Exists(filename))
             {
-                fileStream = new StreamReader(filename);
-                using (XmlReader reader = XmlReader.Create(fileStream))
-                {
-                    XmlSerializer serializer = new XmlSerializer(typeof(rules));
-                    rules rules = (rules)serializer.Deserialize(reader);
+                StreamReader fileStream = null;
 
-                    ruleGroups = new List<RuleGroup>();
-                    foreach (RuleGroup ruleGroup in rules.Items)
+                try
+                {
+                    fileStream = new StreamReader(filename);
+                    using (XmlReader reader = XmlReader.Create(fileStream))
                     {
-                        ruleGroups.Add(ruleGroup);
+                        XmlSerializer serializer = new XmlSerializer(typeof (rules));
+                        rules rules = (rules) serializer.Deserialize(reader);
+
+                        ruleGroups = new List<RuleGroup>();
+                        foreach (RuleGroup ruleGroup in rules.Items)
+                        {
+                            ruleGroups.Add(ruleGroup);
+                        }
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                LogFile.WriteLine("Error parsing rules file {0} : {1}", filename, e.Message);
-            }
-            finally
-            {
-                if (fileStream != null)
+                catch (Exception e)
                 {
-                    fileStream.Close();
-                    fileStream.Dispose();
+                    LogFile.WriteLine("Error parsing rules file {0} : {1}", filename, e.Message);
+                }
+                finally
+                {
+                    if (fileStream != null)
+                    {
+                        fileStream.Close();
+                        fileStream.Dispose();
+                    }
                 }
             }
         }
@@ -354,9 +370,9 @@ namespace CIXClient.Collections
         /// </summary>
         /// <param name="message">Message to which rules are applied</param>
         /// <returns>True if any rule changed the message, false otherwise</returns>
-        internal bool ApplyRules(CIXMessage message)
+        internal Void ApplyRules(CIXMessage message)
         {
-            return ruleGroups.Aggregate(false, (current, ruleGroup) => current || ApplyRule(ruleGroup, message));
+            ruleGroups.Aggregate(false, (current, ruleGroup) => current || ApplyRule(ruleGroup, message));
         }
 
         /// <summary>
