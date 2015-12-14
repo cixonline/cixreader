@@ -219,6 +219,8 @@ namespace CIXClient.Collections
         {
             bool isNew = AddInternal(message);
 
+            CIX.RuleCollection.ApplyRules(message);
+
             if (message.Unread)
             {
                 Folder topic = message.Topic;

@@ -39,6 +39,7 @@ namespace CIXReader.Forms
             "Parent.Priority",
             "Parent.Ignored",
             "IsMine",
+            "IsPseudo",
             "IsWithdrawn"
         };
         private readonly Dictionary<PredicateBuilder.Op, string> operatorNames = new Dictionary<PredicateBuilder.Op, string>

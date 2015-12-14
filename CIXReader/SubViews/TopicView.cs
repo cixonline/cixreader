@@ -2311,6 +2311,7 @@ namespace CIXReader.SubViews
                     Date = DateTime.Now,
                     TopicID = message.TopicID,
                     RootID = message.IsRoot ? message.RemoteID : message.RootID,
+                    Unread = true,
                     CommentID = message.RemoteID
                 };
 

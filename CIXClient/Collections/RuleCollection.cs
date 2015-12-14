@@ -260,6 +260,24 @@ namespace CIXClient.Collections
         {
             ruleGroups = new List<RuleGroup>
             {
+                // Mark messages composed and posted from CIXReader as read
+                new RuleGroup
+                {
+                    type = RuleGroupType.Any,
+                    title = "New Messages",
+                    active = true,
+                    actionCode = RuleActionCodes.Unread | RuleActionCodes.Clear,
+                    rule = new[]
+                    {
+                        new Rule
+                        {
+                            property = "IsPseudo",
+                            value = true,
+                            op = PredicateBuilder.Op.Equals
+                        }
+                    }
+                },
+
                 // Mark messages priority if they're from me or the parent
                 // message is also priority
                 new RuleGroup
@@ -388,72 +406,79 @@ namespace CIXClient.Collections
         /// <returns>True if the rule changed the message, false otherwise</returns>
         internal static bool ApplyRule(RuleGroup ruleGroup, CIXMessage message)
         {
-            Func<CIXMessage, bool> evaluateCriteria = ruleGroup.Criteria.Compile();
             bool changed = false;
-            if (ruleGroup.active && evaluateCriteria(message))
+            try
             {
-                bool isUnread = message.Unread;
-                bool isClear = ruleGroup.actionCode.HasFlag(RuleActionCodes.Clear);
-
-                if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Unread))
+                Func<CIXMessage, bool> evaluateCriteria = ruleGroup.Criteria.Compile();
+                if (ruleGroup.active && evaluateCriteria(message))
                 {
-                    if (!message.ReadLocked)
+                    bool isUnread = message.Unread;
+                    bool isClear = ruleGroup.actionCode.HasFlag(RuleActionCodes.Clear);
+
+                    if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Unread))
                     {
-                        message.Unread = !isClear;
-                        if (isUnread != message.Unread)
+                        if (!message.ReadLocked)
                         {
+                            message.Unread = !isClear;
+                            if (isUnread != message.Unread)
+                            {
+                                message.ReadPending = true;
+                                Folder folder = CIX.FolderCollection[message.TopicID];
+                                folder.Unread += (message.Unread) ? 1 : -1;
+                                if (message.Priority)
+                                {
+                                    folder.UnreadPriority += (message.Unread) ? 1 : -1;
+                                }
+                                folder.MarkReadRangePending = true;
+
+                                changed = true;
+                            }
+                        }
+                    }
+                    if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Priority))
+                    {
+                        bool oldPriority = message.Priority;
+                        message.Priority = !isClear;
+                        changed = message.Priority != oldPriority;
+                        if (changed && message.Unread)
+                        {
+                            Folder folder = CIX.FolderCollection[message.TopicID];
+                            folder.UnreadPriority += (message.Priority) ? 1 : -1;
+                        }
+                    }
+                    if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Ignored))
+                    {
+                        message.Ignored = !isClear;
+                        if (message.Ignored && message.Unread)
+                        {
+                            message.Unread = false;
                             message.ReadPending = true;
                             Folder folder = CIX.FolderCollection[message.TopicID];
-                            folder.Unread += (message.Unread) ? 1 : -1;
+                            folder.Unread -= 1;
                             if (message.Priority)
                             {
-                                folder.UnreadPriority += (message.Unread) ? 1 : -1;
+                                folder.UnreadPriority -= 1;
                             }
                             folder.MarkReadRangePending = true;
 
                             changed = true;
                         }
                     }
-                }
-                if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Priority))
-                {
-                    bool oldPriority = message.Priority;
-                    message.Priority = !isClear;
-                    changed = message.Priority != oldPriority;
-                    if (changed && message.Unread)
+                    if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Flag))
                     {
-                        Folder folder = CIX.FolderCollection[message.TopicID];
-                        folder.UnreadPriority += (message.Priority) ? 1 : -1;
-                    }
-                }
-                if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Ignored))
-                {
-                    message.Ignored = !isClear;
-                    if (message.Ignored && message.Unread)
-                    {
-                        message.Unread = false;
-                        message.ReadPending = true;
-                        Folder folder = CIX.FolderCollection[message.TopicID];
-                        folder.Unread -= 1;
-                        if (message.Priority)
+                        bool oldStarred = message.Starred;
+                        message.Starred = !isClear;
+                        if (oldStarred != message.Starred)
                         {
-                            folder.UnreadPriority -= 1;
+                            message.StarPending = true;
+                            changed = true;
                         }
-                        folder.MarkReadRangePending = true;
-
-                        changed = true;
                     }
                 }
-                if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Flag))
-                {
-                    bool oldStarred = message.Starred;
-                    message.Starred = !isClear;
-                    if (oldStarred != message.Starred)
-                    {
-                        message.StarPending = true;
-                        changed = true;
-                    }
-                }
+            }
+            catch (Exception e)
+            {
+                LogFile.WriteLine("Error: Exception processing rule \"{0}\" : {1}", ruleGroup.title, e.Message);
             }
             return changed;
         }
