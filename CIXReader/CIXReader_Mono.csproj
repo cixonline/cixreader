@@ -221,6 +221,12 @@
     <Compile Include="Forms\SettingsGeneral.Designer.cs">
       <DependentUpon>SettingsGeneral.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SettingsRules.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SettingsRules.Designer.cs">
+      <DependentUpon>SettingsRules.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SettingsSignatures.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -274,7 +280,6 @@
     <Compile Include="Utilities\Address.cs" />
     <Compile Include="Utilities\BackTrackArray.cs" />
     <Compile Include="Utilities\DrawRectElements.cs" />
-    <Compile Include="Utilities\PredicateBuilder.cs" />
     <Compile Include="Utilities\Preferences.cs" />
     <Compile Include="Utilities\ScriptManager.cs" />
     <Compile Include="Controls\CRToolbarItemCollection.cs" />
@@ -429,6 +434,12 @@
     <Compile Include="Forms\About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RuleEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RuleEditor.Designer.cs">
+      <DependentUpon>RuleEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FoldersTree.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -554,6 +565,9 @@
     <EmbeddedResource Include="Forms\SettingsUpdates.resx">
       <DependentUpon>SettingsUpdates.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SettingsRules.resx">
+      <DependentUpon>SettingsRules.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingsViewing.resx">
       <DependentUpon>SettingsViewing.cs</DependentUpon>
     </EmbeddedResource>
@@ -562,6 +576,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ThemeEditor.resx">
       <DependentUpon>ThemeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RuleEditor.resx">
+      <DependentUpon>RuleEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources_Mono.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -605,6 +622,7 @@
     <None Include="app.manifest" />
     <None Include="Resources\CIXReader_Linux.ico" />
     <None Include="Resources\CIXReaderLinux_Medium.png" />
+    <None Include="Resources\rulesPreferences.tiff" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

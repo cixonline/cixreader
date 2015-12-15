@@ -188,6 +188,24 @@ namespace CIXReader.Properties {
             }
         }
         
+		/// <summary>
+		///   Looks up a localized string similar to All existing messages and any new messages from {0} will automatically be marked as read. Are you sure?.
+		/// </summary>
+		internal static string BlockPrompt {
+			get {
+				return ResourceManager.GetString("BlockPrompt", resourceCulture);
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Block all messages from {0}.
+		/// </summary>
+		internal static string BlockTitle {
+			get {
+				return ResourceManager.GetString("BlockTitle", resourceCulture);
+			}
+		}
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
@@ -1262,6 +1280,15 @@ namespace CIXReader.Properties {
                 return ResourceManager.GetString("OpenForum", resourceCulture);
             }
         }
+
+		/// <summary>
+		///   Looks up a localized string similar to Operator.
+		/// </summary>
+		internal static string Operator {
+			get {
+				return ResourceManager.GetString("Operator", resourceCulture);
+			}
+		}
         
         /// <summary>
         ///   Looks up a localized string similar to Outbox.
@@ -1379,6 +1406,15 @@ namespace CIXReader.Properties {
                 return ResourceManager.GetString("PrivateForum", resourceCulture);
             }
         }
+
+		/// <summary>
+		///   Looks up a localized string similar to Property.
+		/// </summary>
+		internal static string Property {
+			get {
+				return ResourceManager.GetString("Property", resourceCulture);
+			}
+		}
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
@@ -1418,6 +1454,15 @@ namespace CIXReader.Properties {
                 return ResourceManager.GetString("Refresh", resourceCulture);
             }
         }
+
+		/// <summary>
+		///   Looks up a localized string similar to Refresh.
+		/// </summary>
+		internal static string RefreshText {
+			get {
+				return ResourceManager.GetString("RefreshText", resourceCulture);
+			}
+		}
         
         /// <summary>
         ///   Looks up a localized string similar to Reject.
@@ -1491,6 +1536,24 @@ namespace CIXReader.Properties {
             }
         }
         
+		/// <summary>
+		///   Looks up a localized string similar to This will reset all rules back to the CIXReader defaults and discard all custom modifications. Are you sure?.
+		/// </summary>
+		internal static string ResetRules {
+			get {
+				return ResourceManager.GetString("ResetRules", resourceCulture);
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Reset All Rules.
+		/// </summary>
+		internal static string ResetRulesTitle {
+			get {
+				return ResourceManager.GetString("ResetRulesTitle", resourceCulture);
+			}
+		}
+
         /// <summary>
         ///   Looks up a localized string similar to Resign {0}.
         /// </summary>
@@ -1564,6 +1627,16 @@ namespace CIXReader.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap rulesPreferences {
+			get {
+				object obj = ResourceManager.GetObject("rulesPreferences", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
@@ -1971,6 +2044,15 @@ namespace CIXReader.Properties {
                 return ResourceManager.GetString("Users", resourceCulture);
             }
         }
+
+		/// <summary>
+		///   Looks up a localized string similar to Value.
+		/// </summary>
+		internal static string Value {
+			get {
+				return ResourceManager.GetString("Value", resourceCulture);
+			}
+		}
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
