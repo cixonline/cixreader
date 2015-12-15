@@ -209,7 +209,10 @@ namespace CIXClient.Tables
         public CIXMessage SafeParent
         {
             set { _parent = value; }
-            get { return _parent ?? (_parent = CommentID > 0 ? Topic.Messages.MessageByID(CommentID) : new CIXMessage()); }
+            get
+            {
+                return Parent ?? new CIXMessage();
+            }
         }
 
         /// <summary>
