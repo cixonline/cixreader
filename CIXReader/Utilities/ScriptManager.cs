@@ -42,7 +42,8 @@ namespace CIXReader.Utilities
         public readonly bool InstallToToolbar;
 
         /// <summary>
-        /// Instantiate a manifest from the specified manifest file.
+        /// Initialises a new instance of the <see cref="ScriptManifest"/> class with the
+        /// specified manifest file name.
         /// </summary>
         /// <param name="manifestFile">Manifest file name</param>
         public ScriptManifest(string manifestFile)
@@ -352,7 +353,7 @@ namespace CIXReader.Utilities
         }
 
         /// <summary>
-        /// Uncompress a ZIP file to the specified directory.
+        /// Decompress a ZIP file to the specified directory.
         /// </summary>
         /// <returns>True if compression succeeded, false otherwise</returns>
         private static bool UnzipPackage(string installerPath, string destPath)

@@ -24,8 +24,8 @@ namespace CIXReader.SpecialFolders
     public sealed class TopicFolder : FolderBase
     {
         /// <summary>
-        /// Constructs a single TopicFolder instance using the given folder
-        /// as the data source.
+        /// Initialises a new instance of the <see cref="TopicFolder"/> class 
+        /// using the given folder as the data source.
         /// </summary>
         /// <param name="folder">A folder</param>
         public TopicFolder(Folder folder)

@@ -552,7 +552,7 @@ namespace CIXReader.Controls
         }
 
         /// <summary>
-        /// Relayout the button after items have been added or removed.
+        /// Layout the toolbar buttons after items have been added or removed.
         /// </summary>
         private void Relayout()
         {

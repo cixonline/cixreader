@@ -31,7 +31,8 @@ namespace CIXReader.CanvasItems
         private Profile _profileData;
 
         /// <summary>
-        /// Construct a ProfileItem object
+        /// Initialises a new instance of the <see cref="ProfileItem"/> class with
+        /// the specified Canvas and optional separator.
         /// </summary>
         public ProfileItem(Canvas.Canvas view, bool separator)
             : base(view, separator)

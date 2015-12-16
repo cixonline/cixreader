@@ -48,7 +48,8 @@ namespace CIXReader.Canvas
         private Rectangle _dragBoxFromMouseDown;
 
         /// <summary>
-        /// Implements a single canvas item.
+        /// Initialises a new instance of the <see cref="CanvasItem"/> class with the
+        /// specified Canvas and optional separator.
         /// </summary>
         protected CanvasItem(Canvas view, bool hasSeparator)
         {
@@ -321,7 +322,7 @@ namespace CIXReader.Canvas
         }
 
         /// <summary>
-        /// This must be overriden by the inherited classes to build the layout
+        /// This must be overridden by the inherited classes to build the layout
         /// on demand.
         /// </summary>
         protected virtual CanvasItemLayout BuildLayout()

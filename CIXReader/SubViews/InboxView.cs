@@ -131,10 +131,10 @@ namespace CIXReader.SubViews
         public FoldersTree FoldersTree { get; set; }
 
         /// <summary>
-        /// Indicate that we handle the cixmailbox scheme.
+        /// Indicate that we handle the "cixmailbox" scheme.
         /// </summary>
-        /// <param name="scheme"></param>
-        /// <returns></returns>
+        /// <param name="scheme">A scheme name</param>
+        /// <returns>True if the scheme name matches "cixmailbox"</returns>
         public override bool Handles(string scheme)
         {
             return scheme == "cixmailbox";
@@ -611,7 +611,7 @@ namespace CIXReader.SubViews
         }
 
         /// <summary>
-        /// Respond to links being clicked by sending them to the mainform to be processed.
+        /// Respond to links being clicked by sending them to the main form to be processed.
         /// </summary>
         private void OnLinkClicked(object sender, LinkClickedEventArgs args)
         {
@@ -800,7 +800,7 @@ namespace CIXReader.SubViews
         }
 
         /// <summary>
-        /// Fill a listview item with an entry for the conversation at the given index.
+        /// Fill a ListViewItem with an entry for the conversation at the given index.
         /// </summary>
         private void RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs args)
         {
@@ -1030,7 +1030,7 @@ namespace CIXReader.SubViews
         }
 
         /// <summary>
-        /// Resize the conversation list pane to fill the 1st splitview panel area.
+        /// Resize the conversation list pane to fill the 1st SplitView panel area.
         /// There seems to be some issues with autolayout resizing so this needs to be done manually.
         /// </summary>
         private void ResizeMessagePanel()

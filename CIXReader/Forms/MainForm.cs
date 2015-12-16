@@ -94,7 +94,7 @@ namespace CIXReader.Forms
         }
 
         /// <summary>
-        /// Constructs a MainForm instance.
+        /// Initialises a new instance of the <see cref="MainForm"/> class.
         /// </summary>
         internal MainForm()
         {
@@ -1131,7 +1131,7 @@ namespace CIXReader.Forms
         }
 
         /// <summary>
-        /// Refresh the shortcut bar by recomputing the X position of the
+        /// Refresh the shortcut bar by recalculating the X position of the
         /// labels after the count or font changes.
         /// </summary>
         private void RefreshShortcutBar()

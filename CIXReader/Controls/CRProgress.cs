@@ -79,7 +79,7 @@ namespace CIXReader.Controls
         private int _value = 1;
 
         /// <summary>
-        /// Default constructor for the CRProgress class.
+        /// Initialises a new instance of the <see cref="CRProgress"/> class..
         /// </summary>
         public CRProgress()
         {

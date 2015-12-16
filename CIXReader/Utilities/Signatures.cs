@@ -34,7 +34,7 @@ namespace CIXReader.Utilities
         }
 
         /// <summary>
-        /// Constructor
+        /// Initialises a new instance of the <see cref="Signatures"/> class.
         /// </summary>
         public Signatures()
         {

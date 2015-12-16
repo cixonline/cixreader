@@ -25,7 +25,8 @@ namespace CIXReader.CanvasItems
     public sealed partial class ForumPage : CanvasItem
     {
         /// <summary>
-        /// Construct a ForumPage object
+        /// Initialises a new instance of the <see cref="ForumPage"/> class with
+        /// the specified Canvas and optional separator.
         /// </summary>
         public ForumPage(Canvas.Canvas view, bool separator) : base(view, separator)
         {

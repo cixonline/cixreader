@@ -20,7 +20,7 @@ namespace CIXReader.Forms
         private readonly ScriptManifest _manifest;
 
         /// <summary>
-        /// Instantiates the ScriptPackage dialog class.
+        /// Initialises a new instance of the <see cref="ScriptPackage"/> class.
         /// </summary>
         public ScriptPackage(ScriptManifest manifest)
         {

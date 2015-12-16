@@ -22,7 +22,7 @@ namespace CIXReader.Lua
         private readonly LuaAPISettings _userSettings;
 
         /// <summary>
-        /// Initialise an instance of the Lua API interface
+        /// Initialises a new instance of the <see cref="LuaAPI"/> class
         /// </summary>
         /// <param name="mainForm">Main form control</param>
         public LuaAPI(MainForm mainForm)

@@ -20,7 +20,7 @@ using CIXReader.Utilities;
 namespace CIXReader.Controls
 {
     /// <summary>
-    /// Implements a themeable button with round corners
+    /// Implements a theme-able button with round corners
     /// </summary>
     internal sealed partial class CRRoundButton : Button
     {
@@ -31,7 +31,7 @@ namespace CIXReader.Controls
         private bool _isEnabled;
 
         /// <summary>
-        /// Creates an instances of a CRRoundButton
+        /// Initialises a new instance of the <see cref="CRRoundButton"/> class.
         /// </summary>
         public CRRoundButton()
         {
@@ -83,7 +83,7 @@ namespace CIXReader.Controls
 
         /// <summary>
         /// Get or set a flag which indicates whether the control shows the focus
-        /// when the user mouses over it.
+        /// when the user moves the cursor over it.
         /// </summary>
         public bool CanHaveFocus { get; set; }
 

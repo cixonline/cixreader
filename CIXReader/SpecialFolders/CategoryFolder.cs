@@ -16,11 +16,17 @@ using CIXReader.Properties;
 
 namespace CIXReader.SpecialFolders
 {
+    /// <summary>
+    /// Implements a folder tree item for directory categories
+    /// </summary>
     public sealed class CategoryFolder : FolderBase
     {
         private static Dictionary<string, Image> _categoryImageMap;
         private Image _image;
 
+        /// <summary>
+        /// Initialises a new instance of the <see cref="CategoryFolder"/> class
+        /// </summary>
         public CategoryFolder()
         {
             if (_categoryImageMap == null)

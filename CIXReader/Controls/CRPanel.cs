@@ -24,7 +24,7 @@ namespace CIXReader.Controls
     public sealed class CRPanel : Panel
     {
         /// <summary>
-        /// Initialises an instance of the CRPanel control.
+        /// Initialises a new instance of the <see cref="CRPanel"/> class.
         /// </summary>
         public CRPanel()
         {
@@ -59,7 +59,7 @@ namespace CIXReader.Controls
 
         /// <summary>
         /// Handle the control resize to invalidate the whole control so that we
-        /// overpaint the old bits when the control is resized.
+        /// paint over the old bits when the control is resized.
         /// </summary>
         protected override void OnResize(EventArgs e)
         {

@@ -18,7 +18,7 @@ namespace CIXReader.Utilities
         private string _query;
 
         /// <summary>
-        /// Create a new address from the specified URI.
+        /// Initialises a new instance of the <see cref="Address"/> class..
         /// </summary>
         /// <param name="address">A CIX-style address URI</param>
         public Address(string address)

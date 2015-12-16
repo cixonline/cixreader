@@ -13,6 +13,9 @@ using CIXClient;
 
 namespace CIXReader.SpecialFolders
 {
+    /// <summary>
+    /// Implements a folder tree item for grouping mail folders
+    /// </summary>
     public sealed class MailGroup : FolderBase
     {
         public override int Unread

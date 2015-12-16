@@ -72,7 +72,7 @@ namespace CIXReader.SubViews
         }
 
         /// <summary>
-        /// Creates a TopicView instance with the given ForumView parent.
+        /// Initialises a new instance of the <see cref="TopicView"/> class.
         /// </summary>
         /// <param name="foldersTree">The parent forum view</param>
         public TopicView(FoldersTree foldersTree) : base("Forums")
@@ -246,8 +246,8 @@ namespace CIXReader.SubViews
         /// <summary>
         /// Indicate that we handle the cix scheme.
         /// </summary>
-        /// <param name="scheme"></param>
-        /// <returns></returns>
+        /// <param name="scheme">A scheme name</param>
+        /// <returns>True if the scheme name matches cix</returns>
         public override bool Handles(string scheme)
         {
             return scheme == "cix";
@@ -1063,9 +1063,9 @@ namespace CIXReader.SubViews
         /// <summary>
         /// Display the first unread message after the specified row.
         /// </summary>
-        /// <param name="row"></param>
-        /// <param name="options"></param>
-        /// <returns></returns>
+        /// <param name="row">Row after which we begin searching</param>
+        /// <param name="options">FolderOptions flags that control the search</param>
+        /// <returns>True if we found an unread message</returns>
         private bool FirstUnreadAfterRow(int row, FolderOptions options)
         {
             while (++row < _messages.Count)
@@ -1523,7 +1523,7 @@ namespace CIXReader.SubViews
         }
 
         /// <summary>
-        /// Return whether the current messge is collapsed.
+        /// Return whether the current message is collapsed.
         /// </summary>
         private bool IsCollapsed(CIXMessage message)
         {
@@ -1625,7 +1625,7 @@ namespace CIXReader.SubViews
         }
 
         /// <summary>
-        /// Fill a listview item with an entry for the _message at the given index.
+        /// Fill a ListViewItem with an entry for the _message at the given index.
         /// </summary>
         private void tsvMessages_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs args)
         {
@@ -1898,7 +1898,7 @@ namespace CIXReader.SubViews
         }
 
         /// <summary>
-        /// Save splitter bar percent position if it is moved.
+        /// Save splitter bar percentage position if it is moved.
         /// </summary>
         private void tsvSplitview_SplitterMoved(object sender, SplitterEventArgs args)
         {
@@ -1920,7 +1920,8 @@ namespace CIXReader.SubViews
 
         /// <summary>
         /// Resize the thread pane to fill the 1st splitview panel area.
-        /// There seems to be some issues with autolayout resizing so this needs to be done manually.
+        /// There seems to be some issues with automatic layout resizing so this 
+        /// needs to be done manually.
         /// </summary>
         private void ResizeMessagePanel()
         {
@@ -2037,7 +2038,7 @@ namespace CIXReader.SubViews
         }
 
         /// <summary>
-        /// Respond to links being clicked by sending them to the mainform to be processed.
+        /// Respond to links being clicked by sending them to the main form to be processed.
         /// </summary>
         private void OnLinkClicked(object sender, LinkClickedEventArgs args)
         {

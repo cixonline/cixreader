@@ -35,7 +35,7 @@ namespace CIXReader.Forms
         private Image nextImage;
 
         /// <summary>
-        /// Constructs an AccountView instance.
+        /// Initialises a new instance of the <see cref="Account"/> class.
         /// </summary>
         public Account()
         {

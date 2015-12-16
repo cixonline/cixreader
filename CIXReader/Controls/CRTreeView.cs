@@ -15,6 +15,9 @@ using System.Windows.Forms;
 
 namespace CIXReader.Controls
 {
+    /// <summary>
+    /// Subclass of TreeView that adds support for context nodes.
+    /// </summary>
     internal sealed class CRTreeView : TreeView
     {
         // Context icon variables

@@ -36,7 +36,7 @@ namespace CIXReader.Controls
         private Color _countTextColour;
 
         /// <summary>
-        /// Instantiates an instance of the CRLabel control.
+        /// Initialises a new instance of the <see cref="CRLabel"/> class.
         /// </summary>
         public CRLabel()
         {

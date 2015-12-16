@@ -30,7 +30,7 @@ namespace CIXReader.Forms
         private readonly string _defaultRecipient;
 
         /// <summary>
-        /// Constructs a NewMessage instance for the given inbox tasks.
+        /// Initialises a new instance of the <see cref="InboxMessageEditor"/> class.
         /// </summary>
         public InboxMessageEditor()
         {
@@ -38,7 +38,8 @@ namespace CIXReader.Forms
         }
 
         /// <summary>
-        /// Constructs a NewMessage instance for the given inbox tasks.
+        /// Initialises a new instance of the <see cref="InboxMessageEditor"/> class and
+        /// populates it with data from the specified conversation.
         /// </summary>
         public InboxMessageEditor(InboxConversation conversation)
         {
@@ -47,7 +48,8 @@ namespace CIXReader.Forms
         }
 
         /// <summary>
-        /// Constructs a NewMessage instance for the given inbox tasks.
+        /// Initialises a new instance of the <see cref="InboxMessageEditor"/> class and
+        /// sets the recipient field to the specified recipient name.
         /// </summary>
         public InboxMessageEditor(string recipient)
         {
@@ -56,7 +58,8 @@ namespace CIXReader.Forms
         }
 
         /// <summary>
-        /// Constructs a NewMessage instance for the given inbox tasks.
+        /// Initialises a new instance of the <see cref="InboxMessageEditor"/> class and
+        /// populates it with data from the specified CIX message.
         /// </summary>
         public InboxMessageEditor(CIXMessage message)
         {

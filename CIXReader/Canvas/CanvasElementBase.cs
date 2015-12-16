@@ -21,7 +21,7 @@ namespace CIXReader.Canvas
     public class CanvasElementBase
     {
         /// <summary>
-        /// Instantiates an instance of the CanvasElementBase and assigns
+        /// Initialises a new instance of the <see cref="CanvasElementBase"/> class and assigns
         /// this component the default ID of ComponentTypes.None.
         /// </summary>
         public CanvasElementBase(CanvasItemLayout.ItemType type)

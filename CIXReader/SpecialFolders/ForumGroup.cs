@@ -13,6 +13,9 @@ using CIXClient;
 
 namespace CIXReader.SpecialFolders
 {
+    /// <summary>
+    /// Implements a folder tree item for grouping forums
+    /// </summary>
     public sealed class ForumGroup : FolderBase
     {
         public override int Unread

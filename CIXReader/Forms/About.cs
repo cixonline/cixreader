@@ -24,7 +24,7 @@ namespace CIXReader.Forms
     public sealed partial class About : Form
     {
         /// <summary>
-        /// Initialises the About dialog class.
+        /// Initialises a new instance of the <see cref="About"/> class.
         /// </summary>
         public About()
         {

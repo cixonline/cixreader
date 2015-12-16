@@ -16,6 +16,9 @@ using System.Windows.Forms;
 
 namespace CIXReader.Controls
 {
+    /// <summary>
+    /// Subclass of the standard TextBox that supports placeholders.
+    /// </summary>
     internal sealed class CRTextBox : TextBox
     {
         const string DEFAULT_PLACEHOLDER = "<Input>";
@@ -23,7 +26,7 @@ namespace CIXReader.Controls
         bool avoidTextChanged;
 
         /// <summary>
-        /// Initializes a new instance of the PlaceholderTextBox class.
+        /// Initialises a new instance of the <see cref="CRTextBox"/> class.
         /// </summary>
         public CRTextBox()
         {
@@ -102,7 +105,7 @@ namespace CIXReader.Controls
         }
 
         /// <summary>
-        /// Gets or sets the foreground color of the control.
+        /// Gets or sets the foreground colour of the control.
         /// </summary>
         public override Color ForeColor
         {

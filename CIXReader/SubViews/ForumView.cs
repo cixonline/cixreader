@@ -39,7 +39,7 @@ namespace CIXReader.SubViews
         private DirForum _thisForum;
 
         /// <summary>
-        /// Creates a ForumView instance with the given ForumView parent.
+        /// Initialises a new instance of the <see cref="ForumsView"/> class.
         /// </summary>
         /// <param name="foldersTree">The parent forum view</param>
         public ForumsView(FoldersTree foldersTree) : base("Forums")
@@ -207,7 +207,7 @@ namespace CIXReader.SubViews
         }
 
         /// <summary>
-        /// Respond to links being clicked by sending them to the mainform to be processed.
+        /// Respond to links being clicked by sending them to the main form to be processed.
         /// </summary>
         private void OnLinkClicked(object sender, LinkClickedEventArgs args)
         {

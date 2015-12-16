@@ -20,7 +20,8 @@ namespace CIXReader.Utilities
         private int _queueIndex;
 
         /// <summary>
-        /// Initialises a new BackTrackArray with the specified maximum number of items.
+        /// Initialises a new instance of the <see cref="BackTrackArray"/> class. with 
+        /// the specified maximum number of items.
         /// </summary>
         /// <param name="theMax">Maximum number of items</param>
         public BackTrackArray(int theMax)

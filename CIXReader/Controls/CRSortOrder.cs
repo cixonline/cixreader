@@ -14,6 +14,9 @@ using CIXReader.Utilities;
 
 namespace CIXReader.Controls
 {
+    /// <summary>
+    /// Class that manages the sorting of items within a view.
+    /// </summary>
     public sealed class CRSortOrder
     {
         /// <summary>
@@ -77,6 +80,10 @@ namespace CIXReader.Controls
         private bool _sortOrderInitialised;
         private readonly string _className;
 
+        /// <summary>
+        /// Initialises a new instance of the <see cref="CRSortOrder"/> class
+        /// </summary>
+        /// <param name="className"></param>
         public CRSortOrder(string className)
         {
             _className = className;
@@ -161,6 +168,10 @@ namespace CIXReader.Controls
             _sortOrderInitialised = true;
         }
 
+        /// <summary>
+        /// Event fired when the sort order has been changed programmatically or
+        /// by the user.
+        /// </summary>
         public event OrderingChangedEventHandler OrderingChanged;
     }
 }

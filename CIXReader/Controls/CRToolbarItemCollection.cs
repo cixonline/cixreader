@@ -39,7 +39,8 @@ namespace CIXReader.Controls
         private static readonly CRToolbarItemCollection _defaultCollection = new CRToolbarItemCollection();
 
         /// <summary>
-        /// Disallow explict allocation
+        /// Prevents a default instance of the <see cref="CRToolbarItemCollection"/> class
+        /// from being created.
         /// </summary>
         private CRToolbarItemCollection()
         {

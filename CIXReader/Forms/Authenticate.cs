@@ -21,7 +21,7 @@ namespace CIXReader.Forms
     public sealed partial class Authenticate : Form
     {
         /// <summary>
-        /// Instantiate the Authenticate dialog class.
+        /// Initialises a new instance of the <see cref="Authenticate"/> class.
         /// </summary>
         public Authenticate()
         {

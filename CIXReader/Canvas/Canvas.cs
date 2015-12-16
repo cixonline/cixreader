@@ -59,7 +59,7 @@ namespace CIXReader.Canvas
         public delegate void KeyPressedHandler(object sender, KeyEventArgs e);
 
         /// <summary>
-        /// Event handler for notifying a delegate that an action occured in a component on
+        /// Event handler for notifying a delegate that an action occurred in a component on
         /// a canvas item.
         /// </summary>
         public event CanvasItemActionHandler CanvasItemAction;
@@ -76,7 +76,7 @@ namespace CIXReader.Canvas
         public event KeyPressedHandler KeyPressed;
 
         /// <summary>
-        /// Instantiates a new, empty, Canvas control.
+        /// Initialises a new instance of the <see cref="Canvas"/> class.
         /// </summary>
         public Canvas()
         {

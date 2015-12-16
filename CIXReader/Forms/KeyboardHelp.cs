@@ -22,7 +22,7 @@ namespace CIXReader.Forms
     internal sealed partial class KeyboardHelp : Form
     {
         /// <summary>
-        /// Creates an instance of the Keyboard Help dialog.
+        /// Initialises a new instance of the <see cref="KeyboardHelp"/> class.
         /// </summary>
         public KeyboardHelp()
         {

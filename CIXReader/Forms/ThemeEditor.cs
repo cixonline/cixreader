@@ -28,7 +28,7 @@ namespace CIXReader.Forms
         private static FontFamily[] _familyList;
 
         /// <summary>
-        /// Display the Theme editor dialog.
+        /// Initialises a new instance of the <see cref="ThemeEditor"/> class.
         /// </summary>
         public ThemeEditor()
         {

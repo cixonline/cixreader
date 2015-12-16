@@ -24,7 +24,8 @@ namespace CIXReader.CanvasItems
     public sealed partial class ProfileGroupItem : CanvasItem
     {
         /// <summary>
-        /// Construct a ModeratorsItem object
+        /// Initialises a new instance of the <see cref="ProfileGroupItem"/> class with
+        /// the specified Canvas and optional separator.
         /// </summary>
         public ProfileGroupItem(Canvas.Canvas view, bool separator)
             : base(view, separator)

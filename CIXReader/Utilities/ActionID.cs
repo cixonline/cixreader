@@ -17,7 +17,7 @@ namespace CIXReader.Utilities
     public enum ActionID
     {
         /// <summary>
-        /// None.
+        /// No action ID.
         /// </summary>
         None = -1,
 

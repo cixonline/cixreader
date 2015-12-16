@@ -36,7 +36,8 @@ namespace CIXReader.CanvasItems
         private CIXMessage _message;
 
         /// <summary>
-        /// Construct a MessageItem object
+        /// Initialises a new instance of the <see cref="MessageItem"/> class
+        /// with the specified Canvas.
         /// </summary>
         public MessageItem(Canvas.Canvas view)
             : base(view, false)

@@ -18,6 +18,9 @@ using CIXReader.Properties;
 
 namespace CIXReader.Forms
 {
+    /// <summary>
+    /// Base class for the Participants and Moderators forum editor pages
+    /// </summary>
     public class UserForumEditor : Form
     {
         private ImageList _imageList;

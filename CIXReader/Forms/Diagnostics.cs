@@ -31,7 +31,7 @@ namespace CIXReader.Forms
     public sealed partial class Diagnostics : Form
     {
         /// <summary>
-        /// Creates an instance of the Diagnostics dialog.
+        /// Initialises a new instance of the <see cref="Diagnostics"/> class.
         /// </summary>
         public Diagnostics()
         {

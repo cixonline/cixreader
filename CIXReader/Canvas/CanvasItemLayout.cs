@@ -73,8 +73,8 @@ namespace CIXReader.Canvas
         private Color _backColor;
 
         /// <summary>
-        /// Instantiates a new CanvasItemLayout instance for the specified container and using
-        /// the given client bounds.
+        /// Initialises a new instance of the <see cref="CanvasItemLayout"/> class 
+        /// for the specified container and using the given client bounds.
         /// </summary>
         /// <param name="container">The CanvasItem to which this layout belongs</param>
         /// <param name="clientBounds">A rectangle that indicates the client boundaries</param>
@@ -140,7 +140,7 @@ namespace CIXReader.Canvas
         /// Returns the component with the given ID. If more than one component shares
         /// the same ID, the first one is returned.
         /// </summary>
-        /// <param name="id">ID of the componet</param>
+        /// <param name="id">ID of the component</param>
         /// <returns>A CanvasElementBase, or null</returns>
         public CanvasElementBase this[ActionID id]
         {

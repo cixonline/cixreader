@@ -28,7 +28,8 @@ namespace CIXReader.CanvasItems
         private int _headerLineHeight;
 
         /// <summary>
-        /// Construct a InboxItem object
+        /// Initialises a new instance of the <see cref="InboxItem"/> class with the
+        /// specified Canvas and optional separator.
         /// </summary>
         public InboxItem(Canvas.Canvas view, bool separator)
             : base(view, separator)

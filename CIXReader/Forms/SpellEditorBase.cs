@@ -14,6 +14,10 @@ using CIXReader.Utilities;
 
 namespace CIXReader.Forms
 {
+    /// <summary>
+    /// Subclass of MessageEditorBase that adds integrated spelling checker
+    /// support.
+    /// </summary>
     internal class SpellEditorBase : MessageEditorBase
     {
         private NHunspellExtender.NHunspellTextBoxExtender nmSpellChecker;

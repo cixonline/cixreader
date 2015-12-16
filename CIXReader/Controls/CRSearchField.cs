@@ -32,7 +32,7 @@ namespace CIXReader.Controls
         public event EventHandler<EventArgs> Cleared;
 
         /// <summary>
-        /// Instantiates an instance of the search field control.
+        /// Initialises a new instance of the <see cref="CRSearchField"/> class..
         /// </summary>
         public CRSearchField()
         {

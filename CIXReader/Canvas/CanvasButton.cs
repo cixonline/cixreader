@@ -23,7 +23,7 @@ namespace CIXReader.Canvas
         private CanvasItemLayout _layout;
 
         /// <summary>
-        /// Instantiates an instance of the CanvasButton.
+        /// Initialises a new instance of the <see cref="CanvasButton"/> class.
         /// </summary>
         public CanvasButton() : base(CanvasItemLayout.ItemType.Component)
         {

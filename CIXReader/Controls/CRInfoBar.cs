@@ -40,7 +40,7 @@ namespace CIXReader.Controls
         private readonly Timer _infoBarTimer;
 
         /// <summary>
-        /// Initialises an instance of the CRInfoBar control.
+        /// Initialises a new instance of the <see cref="CRInfoBar"/> class.
         /// </summary>
         public CRInfoBar()
         {

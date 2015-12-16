@@ -21,7 +21,7 @@ namespace CIXReader.Forms
     public sealed partial class EULA : Form
     {
         /// <summary>
-        /// Instantiate an instance of the EULA dialog
+        /// Initialises a new instance of the <see cref="EULA"/> class.
         /// </summary>
         public EULA()
         {

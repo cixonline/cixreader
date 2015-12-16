@@ -22,7 +22,7 @@ namespace CIXReader.Canvas
         private CanvasItemLayout _layout;
 
         /// <summary>
-        /// Instantiates an instance of the CanvasImage.
+        /// Initialises a new instance of the <see cref="CanvasImage"/> class
         /// </summary>
         public CanvasImage() : base(CanvasItemLayout.ItemType.Component)
         {
@@ -68,7 +68,7 @@ namespace CIXReader.Canvas
 
         /// <summary>
         /// Get or set the height of the line on which this image is drawn. This is used
-        /// to center the image vertically when drawn.
+        /// to centre the image vertically when drawn.
         /// </summary>
         public int LineHeight { get; set; }
 

@@ -150,9 +150,9 @@ namespace CIXReader.Forms
         }
 
         /// <summary>
-        /// Load all preset custom words from the custom file.
+        /// Load all pre-set custom words from the custom file.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A string array of custom words</returns>
         protected string [] LoadCustomWords()
         {
             string [] customWords = Resources.CustomWords.Split(new [] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);

@@ -121,7 +121,7 @@ namespace CIXReader.Forms
         }
 
         /// <summary>
-        /// Do stuff to prepare for the app being relaunched by Sparkle.
+        /// Do stuff to prepare for the app being restarted by Sparkle.
         /// </summary>
         private void _sparkle_installAndRelaunch(object sender, EventArgs args)
         {

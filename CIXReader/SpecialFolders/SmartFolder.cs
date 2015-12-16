@@ -19,6 +19,9 @@ using CIXReader.Utilities;
 
 namespace CIXReader.SpecialFolders
 {
+    /// <summary>
+    /// Implements a folder tree icon for smart folders
+    /// </summary>
     public sealed class SmartFolder : FolderBase
     {
         private int _count;

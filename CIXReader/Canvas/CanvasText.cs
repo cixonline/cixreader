@@ -46,7 +46,7 @@ namespace CIXReader.Canvas
         private CanvasItemLayout _layout;
 
         /// <summary>
-        /// Instantiates an instance of the CanvasText.
+        /// Initialises a new instance of the <see cref="CanvasText"/> class.
         /// </summary>
         public CanvasText() : base(CanvasItemLayout.ItemType.Component)
         {

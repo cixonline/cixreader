@@ -46,7 +46,7 @@ namespace CIXReader.Canvas
         private bool _wasDrag;
 
         /// <summary>
-        /// Instantiates an instance of the CanvasHTMLText.
+        /// Initialises a new instance of the <see cref="CanvasHTMLText"/> class
         /// </summary>
         public CanvasHTMLText() : base(CanvasItemLayout.ItemType.Component)
         {
@@ -108,7 +108,7 @@ namespace CIXReader.Canvas
 
         /// <summary>
         /// Get or set the maximum height that the text must occupy. The text will be vertically
-        /// centered within this height if it is less than the maximum height.
+        /// centred within this height if it is less than the maximum height.
         /// </summary>
         public int LineHeight { get; set; }
 
@@ -352,7 +352,7 @@ namespace CIXReader.Canvas
         /// Replace all occurrences of the specified emoticon in the string with an HTML img tag
         /// referencing the corresponding image in the Emoticons folder.
         /// </summary>
-        /// <param name="source">Stringbuilder with the text to replace</param>
+        /// <param name="source">StringBuilder with the text to replace</param>
         /// <param name="emoticon">The emoticon</param>
         private void ReplaceEmoticon(StringBuilder source, string emoticon)
         {
@@ -377,7 +377,7 @@ namespace CIXReader.Canvas
 
         /// <summary>
         /// Trigger when the mouse moves. Set a flag if a drag event occurred so that we don't fire
-        /// off a raiseevent later and de-select the control at the end of the drag.
+        /// off a RaiseEvent later and de-select the control at the end of the drag.
         /// </summary>
         private void OnMouseMove(object sender, MouseEventArgs mouseEventArgs)
         {

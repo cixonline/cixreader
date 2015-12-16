@@ -48,3 +48,4 @@ BuildLog.htm
 *.intermediate.manifest
 *.embed.manifest
 *.Cache
+*.StyleCop

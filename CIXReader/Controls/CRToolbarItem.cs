@@ -46,8 +46,15 @@ namespace CIXReader.Controls
         Space
     };
 
+    /// <summary>
+    /// Class that implements a single toolbar button or control
+    /// </summary>
     public sealed class CRToolbarItem
     {
+        /// <summary>
+        /// Initialises a new instance of the <see cref="CRToolbarItem"/> class.
+        /// </summary>
+        /// <param name="item"></param>
         public CRToolbarItem(ToolbarDataItem item)
         {
             DataItem = item;

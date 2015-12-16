@@ -15,6 +15,9 @@ using CIXReader.Properties;
 
 namespace CIXReader.SpecialFolders
 {
+    /// <summary>
+    /// Implements a folder tree item for CIX mail boxes
+    /// </summary>
     public sealed class MailFolder : FolderBase
     {
         /// <summary>

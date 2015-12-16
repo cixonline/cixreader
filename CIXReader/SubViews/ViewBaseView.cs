@@ -25,7 +25,7 @@ namespace CIXReader.SubViews
         private readonly CRSortOrder _ordering;
 
         /// <summary>
-        /// Constructs a SubViewBase instance.
+        /// Initialises a new instance of the <see cref="ViewBaseView"/> class.
         /// </summary>
         protected ViewBaseView()
         {
@@ -33,7 +33,8 @@ namespace CIXReader.SubViews
         }
 
         /// <summary>
-        /// Constructs a SubViewBase instance.
+        /// Initialises a new instance of the <see cref="ViewBaseView"/> class with
+        /// the specified view name.
         /// </summary>
         protected ViewBaseView(string name)
         {
@@ -112,8 +113,8 @@ namespace CIXReader.SubViews
         /// <summary>
         /// Override to report whether the view handles the given scheme.
         /// </summary>
-        /// <param name="scheme"></param>
-        /// <returns></returns>
+        /// <param name="scheme">A scheme name</param>
+        /// <returns>Overrides should return true if they handle the scheme, false otherwise</returns>
         public virtual bool Handles(string scheme)
         {
             return false;

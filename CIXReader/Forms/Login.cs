@@ -22,7 +22,7 @@ namespace CIXReader.Forms
     internal sealed partial class Login : Form
     {
         /// <summary>
-        /// Instantiates the Login dialog class.
+        /// Initialises a new instance of the <see cref="Login"/> class.
         /// </summary>
         public Login()
         {

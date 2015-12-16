@@ -31,7 +31,7 @@ namespace CIXReader.CanvasItems
         private Whos _onlineUsers;
 
         /// <summary>
-        /// Construct a WelcomePage object
+        /// Initialises a new instance of the <see cref="WelcomePage"/> class.
         /// </summary>
         public WelcomePage(Canvas.Canvas view) : base(view, false)
         {

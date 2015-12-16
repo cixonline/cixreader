@@ -23,11 +23,25 @@ using Microsoft.Win32;
 
 namespace CIXReader
 {
+    /// <summary>
+    /// The CIXReader program class.
+    /// </summary>
     internal static class Program
     {
+        /// <summary>
+        /// CIXReader shut down reason types
+        /// </summary>
         public enum ShutdownReasonType
         {
+            /// <summary>
+            /// Indicates that CIXReader is being shut down
+            /// </summary>
             Close,
+
+            /// <summary>
+            /// Indicates that the user has logged out of CIXReader
+            /// and will log in again as a new user.
+            /// </summary>
             Logout
         }
 
@@ -146,7 +160,7 @@ namespace CIXReader
         public static bool StartupOnline { get; set; }
 
         /// <summary>
-        /// Get or set the startup address.
+        /// Get or set the address of the message first displayed when CIXReader starts.
         /// </summary>
         public static string StartupAddress { get; set; }
 

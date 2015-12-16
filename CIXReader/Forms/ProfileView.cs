@@ -32,7 +32,7 @@ namespace CIXReader.Forms
         private readonly Font _font;
 
         /// <summary>
-        /// Constructs a ProfileView form instance.
+        /// Initialises a new instance of the <see cref="ProfileView"/> class.
         /// </summary>
         public ProfileView(MainForm mainForm)
         {
@@ -149,7 +149,7 @@ namespace CIXReader.Forms
         }
 
         /// <summary>
-        /// Respond to links being clicked by sending them to the mainform to be processed.
+        /// Respond to links being clicked by sending them to the main form to be processed.
         /// </summary>
         private void OnLinkClicked(object sender, LinkClickedEventArgs args)
         {

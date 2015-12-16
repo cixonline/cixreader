@@ -76,7 +76,7 @@ namespace CIXReader.Forms
         private enum SearchBarVisibility { Show, FastHide };
 
         /// <summary>
-        /// Constructs a FoldersTree instance.
+        /// Initialises a new instance of the <see cref="FoldersTree"/> class.
         /// </summary>
         public FoldersTree(MainForm mainForm)
         {
@@ -1540,9 +1540,9 @@ namespace CIXReader.Forms
         }
 
         /// <summary>
-        /// Show or hide the search bar.
+        /// Show or hide the search bar using the specified search bar visibility option.
         /// </summary>
-        /// <param name="v">Visibility</param>
+        /// <param name="v">The SearchBarVisibility setting</param>
         private void ShowSearchBar(SearchBarVisibility v)
         {
             _searchBarHeight = 32;
@@ -1751,7 +1751,7 @@ namespace CIXReader.Forms
         }
 
         /// <summary>
-        /// Draw the treeview node.
+        /// Draw the TreeView node.
         /// </summary>
         private void frmList_DrawNode(object sender, DrawTreeNodeEventArgs args)
         {
@@ -2011,7 +2011,7 @@ namespace CIXReader.Forms
         }
 
         /// <summary>
-        /// Handle a drag enter on the treeview. Indicate that the action is a move.
+        /// Handle a drag enter on the TreeView. Indicate that the action is a move.
         /// </summary>
         private void frmList_DragEnter(object sender, DragEventArgs e)
         {

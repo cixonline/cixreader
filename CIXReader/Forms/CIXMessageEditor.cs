@@ -28,7 +28,7 @@ namespace CIXReader.Forms
         private bool _wasPending;
 
         /// <summary>
-        /// Constructs a CIXMessageEditor instance.
+        /// Initialises a new instance of the <see cref="CIXMessageEditor"/> class.
         /// </summary>
         /// <param name="message">The CIXMessage to display in the editor</param>
         /// <param name="addSignature">True if a signature should be added</param>

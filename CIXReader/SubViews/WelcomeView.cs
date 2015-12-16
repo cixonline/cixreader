@@ -147,7 +147,7 @@ namespace CIXReader.SubViews
         }
 
         /// <summary>
-        /// Respond to links being clicked by sending them to the mainform to be processed.
+        /// Respond to links being clicked by sending them to the main form to be processed.
         /// </summary>
         private void OnLinkClicked(object sender, LinkClickedEventArgs args)
         {

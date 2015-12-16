@@ -95,10 +95,10 @@ namespace CIXReader.SubViews
         }
 
         /// <summary>
-        /// Indicate that we handle the cixmailbox scheme.
+        /// Indicate that we handle the "cixdirectory" scheme.
         /// </summary>
-        /// <param name="scheme"></param>
-        /// <returns></returns>
+        /// <param name="scheme">A scheme name</param>
+        /// <returns>True if the scheme name matches "cixdirectory"</returns>
         public override bool Handles(string scheme)
         {
             return scheme == "cixdirectory";

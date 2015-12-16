@@ -20,7 +20,7 @@ namespace CIXReader.Forms
     public sealed partial class GoToMessage : Form
     {
         /// <summary>
-        /// Instantiates the GoTo dialog class.
+        /// Initialises a new instance of the <see cref="GoToMessage"/> class.
         /// </summary>
         public GoToMessage()
         {
