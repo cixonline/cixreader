@@ -15,6 +15,61 @@ using CIXClient.Database;
 namespace CIXClient.Tables
 {
     /// <summary>
+    /// CIX Message flags.
+    /// </summary>
+    [Flags]
+    public enum CIXMessageFlags
+    {
+        /// <summary>
+        ///     Indicates that this message is unread.
+        /// </summary>
+        Unread = 1,
+
+        /// <summary>
+        ///     Indicates that this is a priority message.
+        /// </summary>
+        Priority = 2,
+
+        /// <summary>
+        ///     Indicates that this message has been starred.
+        /// </summary>
+        Starred = 4,
+
+        /// <summary>
+        ///     Indicates that this message is part of an ignored conversation.
+        /// </summary>
+        Ignored = 8,
+
+        /// <summary>
+        ///     Indicates that this message is a local draft that is ready to be
+        ///     updated on the server.
+        /// </summary>
+        PostPending = 16,
+
+        /// <summary>
+        ///     Indicates that the star state of this message needs to be synchronised with
+        ///     the server.
+        /// </summary>
+        StarPending = 128,
+
+        /// <summary>
+        ///     Indicates that this message's read state needs to be synchronized with
+        ///     the server
+        /// </summary>
+        ReadPending = 256,
+
+        /// <summary>
+        ///     Indicates that this message is to be withdrawn.
+        /// </summary>
+        WithdrawPending = 512,
+
+        /// <summary>
+        ///     Indicates that the message is read locked
+        /// </summary>
+        ReadLocked = 8192
+    }
+
+    /// <summary>
     /// Old CIXMessage table structure used to migrate data across to the
     /// new CIXMessage table.
     /// </summary>
@@ -111,60 +166,5 @@ namespace CIXClient.Tables
         /// Gets or sets the flags that specify the message state.
         /// </summary>
         public CIXMessageFlags Flags { get; set; }
-    }
-
-    /// <summary>
-    /// CIX Message flags.
-    /// </summary>
-    [Flags]
-    public enum CIXMessageFlags
-    {
-        /// <summary>
-        ///     Indicates that this message is unread.
-        /// </summary>
-        Unread = 1,
-
-        /// <summary>
-        ///     Indicates that this is a priority message.
-        /// </summary>
-        Priority = 2,
-
-        /// <summary>
-        ///     Indicates that this message has been starred.
-        /// </summary>
-        Starred = 4,
-
-        /// <summary>
-        ///     Indicates that this message is part of an ignored conversation.
-        /// </summary>
-        Ignored = 8,
-
-        /// <summary>
-        ///     Indicates that this message is a local draft that is ready to be
-        ///     updated on the server.
-        /// </summary>
-        PostPending = 16,
-
-        /// <summary>
-        ///     Indicates that the star state of this message needs to be synchronised with
-        ///     the server.
-        /// </summary>
-        StarPending = 128,
-
-        /// <summary>
-        ///     Indicates that this message's read state needs to be synchronized with
-        ///     the server
-        /// </summary>
-        ReadPending = 256,
-
-        /// <summary>
-        ///     Indicates that this message is to be withdrawn.
-        /// </summary>
-        WithdrawPending = 512,
-
-        /// <summary>
-        ///     Indicates that the message is read locked
-        /// </summary>
-        ReadLocked = 8192
     }
 }

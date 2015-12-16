@@ -64,23 +64,6 @@ namespace CIXClient
         }
 
         /// <summary>
-        /// Fix MS-Word style smart quotes by converting them to normal quotes.
-        /// </summary>
-        /// <param name="str">The string that contains the quotes</param>
-        /// <returns>The same string but with smart quotes translated to normal quotes</returns>
-        internal static string FixQuotes(this string str)
-        {
-            if (!string.IsNullOrEmpty(str))
-            {
-                return str.Replace('\u2018', '\'')
-                    .Replace('\u2019', '\'')
-                    .Replace('\u201c', '\"')
-                    .Replace('\u201d', '\"');
-            }
-            return str;
-        }
-
-        /// <summary>
         /// Return the first line of the given string. A line is assumed to be terminated
         /// by either a carriage return or newline, or by the end of the string itself.
         /// </summary>
@@ -274,45 +257,6 @@ namespace CIXClient
         }
 
         /// <summary>
-        /// Escape any illegal XML characters in the given string by replacing them with their
-        /// equivalent.
-        /// </summary>
-        /// <param name="s">The string to escape</param>
-        /// <returns>The string but with any illegal XML characters escaped.</returns>
-        public static string EscapeXml(this string s)
-        {
-            string xml = s;
-            if (!string.IsNullOrEmpty(xml))
-            {
-                xml = xml.Replace("&", "&amp;");
-                xml = xml.Replace("<", "&lt;");
-                xml = xml.Replace(">", "&gt;");
-                xml = xml.Replace("\"", "&quot;");
-                xml = xml.Replace("'", "&apos;");
-            }
-            return xml;
-        }
-
-        /// <summary>
-        /// Unescape any XML entity characters back to their raw equivalents.
-        /// </summary>
-        /// <param name="s">The string to unescape</param>
-        /// <returns>The string with XML entity codes unescaped.</returns>
-        internal static string UnescapeXml(this string s)
-        {
-            string xml = s;
-            if (!string.IsNullOrEmpty(xml))
-            {
-                xml = xml.Replace("&lt;", "<");
-                xml = xml.Replace("&gt;", ">");
-                xml = xml.Replace("&quot;", "\"");
-                xml = xml.Replace("&apos;", "'");
-                xml = xml.Replace("&amp;", "&");
-            }
-            return xml;
-        }
-
-        /// <summary>
         /// Resize the image.
         /// </summary>
         /// <param name="image">The image to resize.</param>
@@ -352,6 +296,62 @@ namespace CIXClient
                 graphics.DrawImage(image, destImage, sourceImage, GraphicsUnit.Pixel);
             }
             return result;
+        }
+
+        /// <summary>
+        /// Escape any illegal XML characters in the given string by replacing them with their
+        /// equivalent.
+        /// </summary>
+        /// <param name="s">The string to escape</param>
+        /// <returns>The string but with any illegal XML characters escaped.</returns>
+        public static string EscapeXml(this string s)
+        {
+            string xml = s;
+            if (!string.IsNullOrEmpty(xml))
+            {
+                xml = xml.Replace("&", "&amp;");
+                xml = xml.Replace("<", "&lt;");
+                xml = xml.Replace(">", "&gt;");
+                xml = xml.Replace("\"", "&quot;");
+                xml = xml.Replace("'", "&apos;");
+            }
+            return xml;
+        }
+
+        /// <summary>
+        /// Fix MS-Word style smart quotes by converting them to normal quotes.
+        /// </summary>
+        /// <param name="str">The string that contains the quotes</param>
+        /// <returns>The same string but with smart quotes translated to normal quotes</returns>
+        internal static string FixQuotes(this string str)
+        {
+            if (!string.IsNullOrEmpty(str))
+            {
+                return str.Replace('\u2018', '\'')
+                    .Replace('\u2019', '\'')
+                    .Replace('\u201c', '\"')
+                    .Replace('\u201d', '\"');
+            }
+            return str;
+        }
+
+        /// <summary>
+        /// Unescape any XML entity characters back to their raw equivalents.
+        /// </summary>
+        /// <param name="s">The string to unescape</param>
+        /// <returns>The string with XML entity codes unescaped.</returns>
+        internal static string UnescapeXml(this string s)
+        {
+            string xml = s;
+            if (!string.IsNullOrEmpty(xml))
+            {
+                xml = xml.Replace("&lt;", "<");
+                xml = xml.Replace("&gt;", ">");
+                xml = xml.Replace("&quot;", "\"");
+                xml = xml.Replace("&apos;", "'");
+                xml = xml.Replace("&amp;", "&");
+            }
+            return xml;
         }
     }
 }

@@ -32,6 +32,13 @@ namespace CIXClient.Collections
         private DateTime _lastCheckDateTime = new DateTime(1900, 1, 1);
 
         /// <summary>
+        /// Defines the delegate for InboxUpdated event notifications.
+        /// </summary>
+        /// <param name="sender">The InboxTasks object</param>
+        /// <param name="e">Additional inbox update data</param>
+        public delegate void ConversationHandler(object sender, InboxEventArgs e);
+
+        /// <summary>
         /// Event handler for notifying a delegate that an inbox item has been updated.
         /// </summary>
         public event ConversationHandler ConversationAdded;
@@ -45,13 +52,6 @@ namespace CIXClient.Collections
         /// Event handler for notifying a delegate that a conversation has been deleted.
         /// </summary>
         public event ConversationHandler ConversationDeleted;
-
-        /// <summary>
-        /// Defines the delegate for InboxUpdated event notifications.
-        /// </summary>
-        /// <param name="sender">The InboxTasks object</param>
-        /// <param name="e">Additional inbox update data</param>
-        public delegate void ConversationHandler(object sender, InboxEventArgs e);
 
         /// <summary>
         /// Gets the list of all active (non-deleted) conversations.
@@ -85,6 +85,14 @@ namespace CIXClient.Collections
             {
                 return 0;
             }
+        }
+
+        /// <summary>
+        /// Gets the list of all conversations in the database.
+        /// </summary>
+        private IEnumerable<InboxConversation> Conversations
+        {
+            get { return _conversations ?? (_conversations = CIX.DB.Table<InboxConversation>().ToList()); }
         }
 
         /// <summary>
@@ -349,31 +357,6 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Gets the list of all conversations in the database.
-        /// </summary>
-        private IEnumerable<InboxConversation> Conversations
-        {
-            get { return _conversations ?? (_conversations = CIX.DB.Table<InboxConversation>().ToList()); }
-        }
-
-        /// <summary>
-        /// Run the post message sync task. For every conversation that has
-        /// a draft pending, we sync it.
-        /// </summary>
-        private void PostMessages()
-        {
-            if (CIX.Online)
-            {
-                // Make a copy because Sync may alter the Conversations collection.
-                List<InboxConversation> localConv = new List<InboxConversation>(Conversations);
-                foreach (InboxConversation conversation in localConv)
-                {
-                    conversation.Sync();
-                }
-            }
-        }
-
-        /// <summary>
         /// Retrieve an entire conversation. Any new messages are added to the message set and
         /// an event is fired.
         /// </summary>
@@ -424,6 +407,23 @@ namespace CIXClient.Collections
                 CIX.ReportServerExceptions("ConversationCollection.GetConversation", e);
             }
             return countOfRead;
+        }
+
+        /// <summary>
+        /// Run the post message sync task. For every conversation that has
+        /// a draft pending, we sync it.
+        /// </summary>
+        private void PostMessages()
+        {
+            if (CIX.Online)
+            {
+                // Make a copy because Sync may alter the Conversations collection.
+                List<InboxConversation> localConv = new List<InboxConversation>(Conversations);
+                foreach (InboxConversation conversation in localConv)
+                {
+                    conversation.Sync();
+                }
+            }
         }
     }
 }

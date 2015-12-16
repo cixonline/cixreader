@@ -19,10 +19,10 @@ namespace CIXClient
     /// </summary>
     public static class LogFile
     {
+        private const int ArchiveMaximum = 9;
+
         private static string _debugFilePath;
         private static StreamWriter _file;
-
-        private const int ArchiveMaximum = 9;
 
         /// <summary>
         /// Gets or sets a value indicating whether or not the debug log is enabled.

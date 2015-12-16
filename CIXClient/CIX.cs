@@ -86,6 +86,32 @@ namespace CIXClient
         public static event MugshotUpdatedHandler MugshotUpdated;
 
         /// <summary>
+        /// Possible responses from the Authenticate call.
+        /// </summary>
+        public enum AuthenticateResponse
+        {
+            /// <summary>
+            /// Authentication succeeded.
+            /// </summary>
+            Success,
+
+            /// <summary>
+            /// Authentication failed.
+            /// </summary>
+            Failure,
+
+            /// <summary>
+            /// Account is valid but inactivated.
+            /// </summary>
+            Inactivated,
+
+            /// <summary>
+            /// No connection, so cannot authenticate
+            /// </summary>
+            Unconnected
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether we're in online or
         /// offline mode.
         /// </summary>
@@ -229,6 +255,37 @@ namespace CIXClient
                     _imageRequestorTask.Load();
                 }
                 return _imageRequestorTask;
+            }
+        }
+
+        /// <summary>
+        /// Gets the current version of this client.
+        /// </summary>
+        internal static int CurrentVersion
+        {
+            get { return 8; }
+        }
+
+        /// <summary>
+        /// Gets the global SQLite database handle.
+        /// </summary>
+        internal static SQLiteConnection DB { get; private set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether tasks are running
+        /// </summary>
+        internal static bool IsTasksRunning { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date of the last sync
+        /// </summary>
+        internal static DateTime LastSyncDate
+        {
+            get { return _globals.LastSyncDate; }
+            set
+            {
+                _globals.LastSyncDate = value;
+                DB.Update(_globals);
             }
         }
 
@@ -475,32 +532,6 @@ namespace CIXClient
         }
 
         /// <summary>
-        /// Possible responses from the Authenticate call.
-        /// </summary>
-        public enum AuthenticateResponse
-        {
-            /// <summary>
-            /// Authentication succeeded.
-            /// </summary>
-            Success,
-
-            /// <summary>
-            /// Authentication failed.
-            /// </summary>
-            Failure,
-
-            /// <summary>
-            /// Account is valid but inactivated.
-            /// </summary>
-            Inactivated,
-
-            /// <summary>
-            /// No connection, so cannot authenticate
-            /// </summary>
-            Unconnected
-        }
-
-        /// <summary>
         /// Authenticate the given username and password by making a simple API call
         /// and validating the results.
         /// This is static because at the point we're called, neither the database nor
@@ -614,37 +645,6 @@ namespace CIXClient
         }
 
         /// <summary>
-        /// Gets the current version of this client.
-        /// </summary>
-        internal static int CurrentVersion
-        {
-            get { return 8; }
-        }
-
-        /// <summary>
-        /// Gets the global SQLite database handle.
-        /// </summary>
-        internal static SQLiteConnection DB { get; private set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether tasks are running
-        /// </summary>
-        internal static bool IsTasksRunning { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date of the last sync
-        /// </summary>
-        internal static DateTime LastSyncDate
-        {
-            get { return _globals.LastSyncDate; }
-            set
-            {
-                _globals.LastSyncDate = value;
-                DB.Update(_globals);
-            }
-        }
-
-        /// <summary>
         /// Notify that mugshot has been updated.
         /// </summary>
         /// <param name="mugshot">The mugshot that was updated</param>
@@ -688,7 +688,7 @@ namespace CIXClient
                 {
                     if (webException.Status == WebExceptionStatus.ProtocolError)
                     {
-                        HttpStatusCode statusCode = ((HttpWebResponse) webException.Response).StatusCode;
+                        HttpStatusCode statusCode = ((HttpWebResponse)webException.Response).StatusCode;
                         if (statusCode == HttpStatusCode.Unauthorized && AuthenticationFailed != null)
                         {
                             LogFile.WriteLine("Authentication failed.Requesting new credentials from the client.");

@@ -28,30 +28,8 @@ namespace CIXClient.Collections
     /// </summary>
     public sealed class DirectoryCollection
     {
-        /// <summary>
-        /// Event handler for notifying a delegate that the directory has been updated.
-        /// </summary>
-        public event DirectoryChangedHandler DirectoryChanged;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that forum has been updated.
-        /// </summary>
-        public event ForumUpdatedHandler ForumUpdated;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that the participant list has been updated.
-        /// </summary>
-        public event ForumJoinedHandler ForumJoined;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that the participant list has been updated.
-        /// </summary>
-        public event ParticipantsUpdatedHandler ParticipantsUpdated;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that the moderators list has been updated.
-        /// </summary>
-        public event ModeratorsUpdatedHandler ModeratorsUpdated;
+        private Dictionary<string, List<DirCategory>> _allCategories;
+        private Dictionary<int, DirForum> _allForums;
 
         /// <summary>
         /// Defines the delegate for ForumJoined event notifications.
@@ -84,8 +62,30 @@ namespace CIXClient.Collections
         /// <param name="forum">The DirForum object</param>
         public delegate void ForumUpdatedHandler(DirForum forum);
 
-        private Dictionary<string, List<DirCategory>> _allCategories;
-        private Dictionary<int, DirForum> _allForums;
+        /// <summary>
+        /// Event handler for notifying a delegate that the directory has been updated.
+        /// </summary>
+        public event DirectoryChangedHandler DirectoryChanged;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that forum has been updated.
+        /// </summary>
+        public event ForumUpdatedHandler ForumUpdated;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that the participant list has been updated.
+        /// </summary>
+        public event ForumJoinedHandler ForumJoined;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that the participant list has been updated.
+        /// </summary>
+        public event ParticipantsUpdatedHandler ParticipantsUpdated;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that the moderators list has been updated.
+        /// </summary>
+        public event ModeratorsUpdatedHandler ModeratorsUpdated;
 
         /// <summary>
         /// Gets the list of categories from the database.
@@ -151,7 +151,7 @@ namespace CIXClient.Collections
                         using (XmlReader reader = XmlReader.Create(objStream))
                         {
                             XmlSerializer serializer = new XmlSerializer(typeof(CategoryResultSet));
-                            CategoryResultSet inboxSet = (CategoryResultSet) serializer.Deserialize(reader);
+                            CategoryResultSet inboxSet = (CategoryResultSet)serializer.Deserialize(reader);
 
                             List<DirCategory> newCategories = new List<DirCategory>();
 
@@ -187,7 +187,7 @@ namespace CIXClient.Collections
 
                                 if (DirectoryChanged != null)
                                 {
-                                    DirectoryChanged(this, new DirectoryEventArgs {CategoryName = null});
+                                    DirectoryChanged(this, new DirectoryEventArgs { CategoryName = null });
                                 }
                             }
 
@@ -222,7 +222,7 @@ namespace CIXClient.Collections
                             using (XmlReader reader = XmlReader.Create(objStream))
                             {
                                 XmlSerializer serializer = new XmlSerializer(typeof(ForumDetails));
-                                ForumDetails forumDetails = (ForumDetails) serializer.Deserialize(reader);
+                                ForumDetails forumDetails = (ForumDetails)serializer.Deserialize(reader);
 
                                 bool isNewForum = false;
 
@@ -388,7 +388,7 @@ namespace CIXClient.Collections
                     using (XmlReader reader = XmlReader.Create(objStream))
                     {
                         XmlSerializer serializer = new XmlSerializer(typeof(DirListings));
-                        DirListings inboxSet = (DirListings) serializer.Deserialize(reader);
+                        DirListings inboxSet = (DirListings)serializer.Deserialize(reader);
 
                         int countOfNewForums = 0;
 
@@ -436,7 +436,7 @@ namespace CIXClient.Collections
 
                             if (DirectoryChanged != null)
                             {
-                                DirectoryChanged(this, new DirectoryEventArgs {CategoryName = categoryName});
+                                DirectoryChanged(this, new DirectoryEventArgs { CategoryName = categoryName });
                             }
                         }
                     }

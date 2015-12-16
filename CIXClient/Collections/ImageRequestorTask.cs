@@ -24,38 +24,11 @@ namespace CIXClient.Collections
     /// </summary>
     public sealed class ImageRequestorTask
     {
-        /// <summary>
-        /// Internal class that defines a single image request
-        /// </summary>
-        internal sealed class SingleImageRequest
-        {
-            public string URL { get; set; }
-
-            public int MaxWidth { get; set; }
-
-            public int MaxHeight { get; set; }
-
-            public ImageRetrieved Event { get; set; }
-
-            public object Parameter { get; set; }
-        }
-
-        /// <summary>
-        /// Class that holds a single cache entry which comprises the image and
-        /// the timestamp when the image was retrieved.
-        /// </summary>
-        internal sealed class ImageCacheEntry
-        {
-            public Image Image { get; set; }
-
-            public DateTime Timestamp { get; set; }
-        }
+        private const int ImageCachePurgeFrequency = 60;  // Frequency of cache purge checks in seconds.
+        private const int ImageCacheExpiryTime = 30;      // Maximum time in minutes an image is cached
 
         private readonly Dictionary<string, ImageCacheEntry> _imageCache = new Dictionary<string, ImageCacheEntry>();
         private Timer _timer;
-
-        private const int ImageCachePurgeFrequency = 60;  // Frequency of cache purge checks in seconds.
-        private const int ImageCacheExpiryTime = 30;      // Maximum time in minutes an image is cached
 
         /// <summary>
         /// Defines the delegate for the callback when the image is retrieved.
@@ -65,37 +38,24 @@ namespace CIXClient.Collections
         public delegate void ImageRetrieved(Image image, object parameter);
 
         /// <summary>
-        /// Create a timer that runs every minute to purge old items from the cache.
+        /// Scale the specified image so that it fits within the maximum width and height.
         /// </summary>
-        internal void Load()
+        /// <param name="image">The image to scale</param>
+        /// <param name="maxWidth">The maximum width</param>
+        /// <param name="maxHeight">The maximum height</param>
+        /// <returns>The image scaled to fit</returns>
+        public static Image ScaleImage(Image image, int maxWidth, int maxHeight)
         {
-            _timer = new Timer(ImageCacheCleanup, null, ImageCachePurgeFrequency * 1000, ImageCachePurgeFrequency * 1000);
-        }
+            var ratioX = (double)maxWidth / image.Width;
+            var ratioY = (double)maxHeight / image.Height;
+            var ratio = Math.Min(ratioX, ratioY);
 
-        /// <summary>
-        /// Stop the timed task running and dispose of it.
-        /// </summary>
-        internal void Unload()
-        {
-            if (_timer != null)
-            {
-                _timer.Dispose();
-                _timer = null;
-            }
-        }
+            var newWidth = (int)(image.Width * ratio);
+            var newHeight = (int)(image.Height * ratio);
 
-        /// <summary>
-        /// Purge all images from the cache that are older than ImageCacheExpiryTime minutes.
-        /// </summary>
-        /// <param name="obj">The timer object</param>
-        private void ImageCacheCleanup(object obj)
-        {
-            DateTime expiryPoint = DateTime.Now.AddMinutes(-ImageCacheExpiryTime);
-            foreach (string url in from url in _imageCache.Keys.ToList() let entry = _imageCache[url] where entry.Timestamp < expiryPoint select url)
-            {
-                _imageCache.Remove(url);
-                LogFile.WriteLine("Image {0} removed from cache", url);
-            }
+            var newImage = new Bitmap(newWidth, newHeight);
+            Graphics.FromImage(newImage).DrawImage(image, 0, 0, newWidth, newHeight);
+            return newImage;
         }
 
         /// <summary>
@@ -141,7 +101,7 @@ namespace CIXClient.Collections
                         if (stream != null)
                         {
                             Image _tmpImage = Image.FromStream(stream);
-                            _imageCache[imageURL] = new ImageCacheEntry {Image = _tmpImage, Timestamp = DateTime.Now};
+                            _imageCache[imageURL] = new ImageCacheEntry { Image = _tmpImage, Timestamp = DateTime.Now };
 
                             Image image = ScaleImage(_tmpImage, maxWidth, maxHeight);
                             callback(image, callbackParameter);
@@ -155,7 +115,7 @@ namespace CIXClient.Collections
                     LogFile.WriteLine("Failed to load {0}: {1}", imageURL, e.Message);
 
                     // Don't try and request this image again for a while.
-                    _imageCache[imageURL] = new ImageCacheEntry {Image = null, Timestamp = DateTime.Now};
+                    _imageCache[imageURL] = new ImageCacheEntry { Image = null, Timestamp = DateTime.Now };
                 }
             });
             t.Start();
@@ -163,24 +123,64 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Scale the specified image so that it fits within the maximum width and height.
+        /// Create a timer that runs every minute to purge old items from the cache.
         /// </summary>
-        /// <param name="image">The image to scale</param>
-        /// <param name="maxWidth">The maximum width</param>
-        /// <param name="maxHeight">The maximum height</param>
-        /// <returns>The image scaled to fit</returns>
-        public static Image ScaleImage(Image image, int maxWidth, int maxHeight)
+        internal void Load()
         {
-            var ratioX = (double) maxWidth / image.Width;
-            var ratioY = (double) maxHeight / image.Height;
-            var ratio = Math.Min(ratioX, ratioY);
+            _timer = new Timer(ImageCacheCleanup, null, ImageCachePurgeFrequency * 1000, ImageCachePurgeFrequency * 1000);
+        }
 
-            var newWidth = (int)(image.Width * ratio);
-            var newHeight = (int)(image.Height * ratio);
+        /// <summary>
+        /// Stop the timed task running and dispose of it.
+        /// </summary>
+        internal void Unload()
+        {
+            if (_timer != null)
+            {
+                _timer.Dispose();
+                _timer = null;
+            }
+        }
 
-            var newImage = new Bitmap(newWidth, newHeight);
-            Graphics.FromImage(newImage).DrawImage(image, 0, 0, newWidth, newHeight);
-            return newImage;
+        /// <summary>
+        /// Purge all images from the cache that are older than ImageCacheExpiryTime minutes.
+        /// </summary>
+        /// <param name="obj">The timer object</param>
+        private void ImageCacheCleanup(object obj)
+        {
+            DateTime expiryPoint = DateTime.Now.AddMinutes(-ImageCacheExpiryTime);
+            foreach (string url in from url in _imageCache.Keys.ToList() let entry = _imageCache[url] where entry.Timestamp < expiryPoint select url)
+            {
+                _imageCache.Remove(url);
+                LogFile.WriteLine("Image {0} removed from cache", url);
+            }
+        }
+
+        /// <summary>
+        /// Internal class that defines a single image request
+        /// </summary>
+        internal sealed class SingleImageRequest
+        {
+            public string URL { get; set; }
+
+            public int MaxWidth { get; set; }
+
+            public int MaxHeight { get; set; }
+
+            public ImageRetrieved Event { get; set; }
+
+            public object Parameter { get; set; }
+        }
+
+        /// <summary>
+        /// Class that holds a single cache entry which comprises the image and
+        /// the timestamp when the image was retrieved.
+        /// </summary>
+        internal sealed class ImageCacheEntry
+        {
+            public Image Image { get; set; }
+
+            public DateTime Timestamp { get; set; }
         }
     }
 }

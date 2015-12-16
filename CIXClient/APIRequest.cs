@@ -26,6 +26,12 @@ namespace CIXClient
     /// </summary>
     public static class APIRequest
     {
+        private const string BetaAPIBaseURL = "https://betaapi.cixonline.com/v2.0/cix.svc/";
+        private const string APIBaseURL = "https://api.cixonline.com/v2.0/cix.svc/";
+
+        private static string _apiBase;
+        private static bool _useBetaAPI;
+
         /// <summary>
         /// Specifies the format of the API data.
         /// </summary>
@@ -57,12 +63,6 @@ namespace CIXClient
             /// </summary>
             POST
         }
-
-        private static string _apiBase;
-        private static bool _useBetaAPI;
-
-        private const string BetaAPIBaseURL = "https://betaapi.cixonline.com/v2.0/cix.svc/";
-        private const string APIBaseURL = "https://api.cixonline.com/v2.0/cix.svc/";
 
         /// <summary>
         /// Gets or sets a value indicating whether the Beta API is being used.
@@ -157,6 +157,57 @@ namespace CIXClient
         }
 
         /// <summary>
+        /// Read an XML response string from the server. Note that this function will throw
+        /// an exception if an HTTP error occurs.
+        /// </summary>
+        /// <param name="request">The web request handle</param>
+        /// <returns>A response string, which may be empty</returns>
+        internal static string ReadResponseString(HttpWebRequest request)
+        {
+            string responseString = string.Empty;
+
+            Stream objStream = ReadResponse(request);
+            if (objStream != null)
+            {
+                using (TextReader reader = new StreamReader(objStream))
+                {
+                    string xmlText = reader.ReadToEnd();
+                    XmlDocument doc = new XmlDocument { InnerXml = xmlText };
+
+                    if (doc.DocumentElement != null)
+                    {
+                        responseString = doc.DocumentElement.InnerText;
+                    }
+                }
+            }
+            return responseString;
+        }
+
+        /// <summary>
+        /// Read a response from the server.
+        /// </summary>
+        /// <param name="request">The web request handle</param>
+        /// <returns>The response stream</returns>
+        internal static Stream ReadResponse(WebRequest request)
+        {
+            if (request == null)
+            {
+                return null;
+            }
+
+            DateTime apiTimer = DateTime.Now;
+            Stream objStream = request.GetResponse().GetResponseStream();
+            TimeSpan apiDuration = DateTime.Now - apiTimer;
+
+            // Report API calls that take a second or more.
+            if (apiDuration.TotalSeconds >= 1)
+            {
+                LogFile.WriteLine("{0} : {1} seconds", request.RequestUri, apiDuration.TotalSeconds);
+            }
+            return objStream;
+        }
+
+        /// <summary>
         /// Construct an HttpWebRequest object using the specified CIXAPI function, format
         /// and method. Any authentication rider is attached to the header as required and
         /// the appropriate content type set.
@@ -187,14 +238,14 @@ namespace CIXClient
                     Image postImage = o;
 
                     ImageConverter converter = new ImageConverter();
-                    postMessageBytes = (byte[]) converter.ConvertTo(postImage, typeof(byte[]));
+                    postMessageBytes = (byte[])converter.ConvertTo(postImage, typeof(byte[]));
 
                     if (postMessageBytes == null)
                     {
                         return null;
                     }
 
-                    request = (HttpWebRequest) WebRequest.Create(MakeURL(apiFunction, format, queryString));
+                    request = (HttpWebRequest)WebRequest.Create(MakeURL(apiFunction, format, queryString));
                     request.Method = APIMethodToString(method);
 
                     if (ImageFormat.Jpeg.Equals(postImage.RawFormat))
@@ -250,7 +301,7 @@ namespace CIXClient
                         UTF8Encoding encoder = new UTF8Encoding();
                         postMessageBytes = encoder.GetBytes(postMessageXml);
 
-                        request = (HttpWebRequest) WebRequest.Create(MakeURL(apiFunction, format, queryString));
+                        request = (HttpWebRequest)WebRequest.Create(MakeURL(apiFunction, format, queryString));
                         request.Method = APIMethodToString(method);
 
                         request.ContentLength = encoder.GetByteCount(postMessageXml);
@@ -261,7 +312,7 @@ namespace CIXClient
             }
             else
             {
-                request = (HttpWebRequest) WebRequest.Create(MakeURL(apiFunction, format, queryString));
+                request = (HttpWebRequest)WebRequest.Create(MakeURL(apiFunction, format, queryString));
                 request.Method = APIMethodToString(method);
 
                 postMessageBytes = null;
@@ -291,57 +342,6 @@ namespace CIXClient
             }
 
             return request;
-        }
-
-        /// <summary>
-        /// Read an XML response string from the server. Note that this function will throw
-        /// an exception if an HTTP error occurs.
-        /// </summary>
-        /// <param name="request">The web request handle</param>
-        /// <returns>A response string, which may be empty</returns>
-        internal static string ReadResponseString(HttpWebRequest request)
-        {
-            string responseString = string.Empty;
-
-            Stream objStream = ReadResponse(request);
-            if (objStream != null)
-            {
-                using (TextReader reader = new StreamReader(objStream))
-                {
-                    string xmlText = reader.ReadToEnd();
-                    XmlDocument doc = new XmlDocument {InnerXml = xmlText};
-
-                    if (doc.DocumentElement != null)
-                    {
-                        responseString = doc.DocumentElement.InnerText;
-                    }
-                }
-            }
-            return responseString;
-        }
-
-        /// <summary>
-        /// Read a response from the server.
-        /// </summary>
-        /// <param name="request">The web request handle</param>
-        /// <returns>The response stream</returns>
-        internal static Stream ReadResponse(WebRequest request)
-        {
-            if (request == null)
-            {
-                return null;
-            }
-
-            DateTime apiTimer = DateTime.Now;
-            Stream objStream = request.GetResponse().GetResponseStream();
-            TimeSpan apiDuration = DateTime.Now - apiTimer;
-
-            // Report API calls that take a second or more.
-            if (apiDuration.TotalSeconds >= 1)
-            {
-                LogFile.WriteLine("{0} : {1} seconds", request.RequestUri, apiDuration.TotalSeconds);
-            }
-            return objStream;
         }
 
         /// <summary>

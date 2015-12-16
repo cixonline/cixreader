@@ -32,14 +32,6 @@ namespace CIXClient.Collections
     /// </summary>
     public sealed class FolderCollection : IEnumerable<Folder>
     {
-        private Dictionary<int, Folder> _allFolders;
-        private bool _initialised;
-        private bool _isInRefresh;
-        private int _nextId = 1;
-
-        // Used to lock access to the internal ID
-        private readonly object idLock = new object();
-
         /// <summary>
         /// Topic is read-only
         /// </summary>
@@ -55,90 +47,13 @@ namespace CIXClient.Collections
         /// </summary>
         public const int UserForumTopicFlagsNoticeboard = 0x0010;
 
-        /// <summary>
-        /// Event handler for notifying a delegate that a folder has been updated.
-        /// </summary>
-        public event FolderUpdatedHandler FolderUpdated;
+        // Used to lock access to the internal ID
+        private readonly object idLock = new object();
 
-        /// <summary>
-        /// Event handler for notifying a delegate that a folder has been added.
-        /// </summary>
-        public event FoldersAddedHandler FoldersAdded;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that a folder has been deleted.
-        /// </summary>
-        public event FolderDeletedHandler FolderDeleted;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that multiple folders have been updated.
-        /// </summary>
-        public event FolderRefreshedHandler FolderRefreshed;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that message has been deleted.
-        /// </summary>
-        public event MessageDeletedHandler MessageDeleted;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that a message has been added.
-        /// </summary>
-        public event MessageChangedHandler MessageAdded;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that a message has been changed.
-        /// </summary>
-        public event MessageChangedHandler MessageChanged;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that a message has been changed.
-        /// </summary>
-        public event ThreadChangedHandler ThreadChanged;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that an topic update has started.
-        /// </summary>
-        public event TopicUpdateStartedHandler TopicUpdateStarted;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that an topic update has completed.
-        /// </summary>
-        public event MessagePostHandler MessagePostStarted;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that an topic update has started.
-        /// </summary>
-        public event MessagePostHandler MessagePostCompleted;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that an topic update has completed.
-        /// </summary>
-        public event TopicUpdateCompletedHandler TopicUpdateCompleted;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that an forum list update has started.
-        /// </summary>
-        public event ForumUpdateStartedHandler ForumUpdateStarted;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that an forum list update has completed.
-        /// </summary>
-        public event ForumUpdateCompletedHandler ForumUpdateCompleted;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that the user account details have been updated.
-        /// </summary>
-        public event AccountUpdatedHandler AccountUpdated;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that the list of online users has been updated.
-        /// </summary>
-        public event OnlineUsersUpdatedHandler OnlineUsersUpdated;
-
-        /// <summary>
-        /// Event handler for notifying a delegate that the list of interesting threads has changed.
-        /// </summary>
-        public event InterestingThreadsUpdatedHandler InterestingThreadsUpdated;
+        private Dictionary<int, Folder> _allFolders;
+        private bool _initialised;
+        private bool _isInRefresh;
+        private int _nextId = 1;
 
         /// <summary>
         /// Defines the delegate for FolderUpdated event notifications.
@@ -241,6 +156,91 @@ namespace CIXClient.Collections
         public delegate void InterestingThreadsUpdatedHandler(object sender, InterestingThreadsEventArgs e);
 
         /// <summary>
+        /// Event handler for notifying a delegate that a folder has been updated.
+        /// </summary>
+        public event FolderUpdatedHandler FolderUpdated;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that a folder has been added.
+        /// </summary>
+        public event FoldersAddedHandler FoldersAdded;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that a folder has been deleted.
+        /// </summary>
+        public event FolderDeletedHandler FolderDeleted;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that multiple folders have been updated.
+        /// </summary>
+        public event FolderRefreshedHandler FolderRefreshed;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that message has been deleted.
+        /// </summary>
+        public event MessageDeletedHandler MessageDeleted;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that a message has been added.
+        /// </summary>
+        public event MessageChangedHandler MessageAdded;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that a message has been changed.
+        /// </summary>
+        public event MessageChangedHandler MessageChanged;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that a message has been changed.
+        /// </summary>
+        public event ThreadChangedHandler ThreadChanged;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that an topic update has started.
+        /// </summary>
+        public event TopicUpdateStartedHandler TopicUpdateStarted;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that an topic update has completed.
+        /// </summary>
+        public event MessagePostHandler MessagePostStarted;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that an topic update has started.
+        /// </summary>
+        public event MessagePostHandler MessagePostCompleted;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that an topic update has completed.
+        /// </summary>
+        public event TopicUpdateCompletedHandler TopicUpdateCompleted;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that an forum list update has started.
+        /// </summary>
+        public event ForumUpdateStartedHandler ForumUpdateStarted;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that an forum list update has completed.
+        /// </summary>
+        public event ForumUpdateCompletedHandler ForumUpdateCompleted;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that the user account details have been updated.
+        /// </summary>
+        public event AccountUpdatedHandler AccountUpdated;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that the list of online users has been updated.
+        /// </summary>
+        public event OnlineUsersUpdatedHandler OnlineUsersUpdated;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that the list of interesting threads has changed.
+        /// </summary>
+        public event InterestingThreadsUpdatedHandler InterestingThreadsUpdated;
+
+        /// <summary>
         /// Gets the collection of forum folders.
         /// </summary>
         public IEnumerable<Folder> Folders
@@ -268,6 +268,32 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
+        /// Gets a dictionary of folders, mapped by folder ID.
+        /// </summary>
+        private Dictionary<int, Folder> AllFolders
+        {
+            get
+            {
+                if (_allFolders == null)
+                {
+                    lock (idLock)
+                    {
+                        // ReSharper disable once PossibleMultipleEnumeration
+                        Folder[] folders = CIX.DB.Table<Folder>().ToArray();
+                        _allFolders = folders.ToDictionary(msg => msg.ID);
+
+                        // ReSharper disable once PossibleMultipleEnumeration
+                        if (_allFolders.Count > 0)
+                        {
+                            _nextId = folders.Max(fld => fld.ID) + 1;
+                        }
+                    }
+                }
+                return _allFolders;
+            }
+        }
+
+        /// <summary>
         /// Gets the Folder indexed by the specified ID, or null if no
         /// folder with that ID exists.
         /// </summary>
@@ -280,58 +306,6 @@ namespace CIXClient.Collections
                 Folder folder;
                 return AllFolders.TryGetValue(id, out folder) ? folder : null;
             }
-        }
-
-        /// <summary>
-        /// Returns a folder which matches the given path or null.
-        /// </summary>
-        /// <param name="name">The path name</param>
-        /// <returns>The folder if it exists, null otherwise</returns>
-        public Folder Get(string name)
-        {
-            string[] paths = name.Split(new[] {'/'});
-            Folder folder = null;
-            int parentID = -1;
-
-            foreach (string path in paths)
-            {
-                folder = Folders.SingleOrDefault(p => p.Name == path && p.ParentID == parentID);
-                if (folder == null)
-                {
-                    break;
-                }
-                parentID = folder.ID;
-            }
-            return folder;
-        }
-
-        /// <summary>
-        /// Returns a folder which matches the given name under the specified parent, or null.
-        /// </summary>
-        /// <param name="parentID">The ID of the parent folder</param>
-        /// <param name="name">The folder name</param>
-        /// <returns>The folder if it exists, null otherwise</returns>
-        public Folder Get(int parentID, string name)
-        {
-            return Folders.SingleOrDefault(p => p.Name == name && p.ParentID == parentID);
-        }
-
-        /// <summary>
-        /// Returns an enumerator for iterating over the folder collection.
-        /// </summary>
-        /// <returns>An enumerator for Folder</returns>
-        public IEnumerator<Folder> GetEnumerator()
-        {
-            return Folders.GetEnumerator();
-        }
-
-        /// <summary>
-        /// Returns an enumerator for iterating over the message collection.
-        /// </summary>
-        /// <returns>A generic enumerator</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
 
         /// <summary>
@@ -392,49 +366,6 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Return the parent folder for this folder
-        /// </summary>
-        /// <param name="thisFolder">A Folder</param>
-        /// <returns>The parent folder, or NULL</returns>
-        public Folder Parent(Folder thisFolder)
-        {
-            return (thisFolder.ParentID >= 0) ? AllFolders[thisFolder.ParentID] : null;
-        }
-
-        /// <summary>
-        /// Return all child folders for the specified parent.
-        /// </summary>
-        /// <param name="thisFolder">A Folder</param>
-        /// <returns>The parent folder, or NULL</returns>
-        public IEnumerable<Folder> Children(Folder thisFolder)
-        {
-            IEnumerable<Folder> children;
-            lock (idLock)
-            {
-                children = Folders.Where(fld => fld.ParentID == thisFolder.ID).ToList();
-            }
-            return children;
-        }
-
-        /// <summary>
-        /// Add the specified folder to the collection and add to the database if it
-        /// is not already present.
-        /// </summary>
-        /// <param name="folder">Folder to add</param>
-        public void Add(Folder folder)
-        {
-            if (!Contains(folder.ParentID, folder.Name))
-            {
-                folder.ID = NextID();
-                lock (CIX.DBLock)
-                {
-                    CIX.DB.Insert(folder);
-                }
-                AllFolders[folder.ID] = folder;
-            }
-        }
-
-        /// <summary>
         /// Return a list of interesting threads. An event is fired at the 
         /// end to alert the caller that the list is available.
         /// </summary>
@@ -458,11 +389,11 @@ namespace CIXClient.Collections
                             // Notify about the new threads.
                             List<CIXThread> messages = threads.Messages.Select(thread => new CIXThread
                             {
-                                Author = thread.Author, 
-                                Body = thread.Body, 
-                                Date = DateTimeFromCIXDate(thread.DateTime), 
+                                Author = thread.Author,
+                                Body = thread.Body,
+                                Date = DateTimeFromCIXDate(thread.DateTime),
                                 RemoteID = thread.RootID,
-                                Topic = thread.Topic, 
+                                Topic = thread.Topic,
                                 Forum = thread.Forum
                             }).ToList();
                             CIX.FolderCollection.NotifyInterestingThreadsUpdated(messages);
@@ -717,6 +648,101 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
+        /// Returns a folder which matches the given path or null.
+        /// </summary>
+        /// <param name="name">The path name</param>
+        /// <returns>The folder if it exists, null otherwise</returns>
+        public Folder Get(string name)
+        {
+            string[] paths = name.Split(new[] { '/' });
+            Folder folder = null;
+            int parentID = -1;
+
+            foreach (string path in paths)
+            {
+                folder = Folders.SingleOrDefault(p => p.Name == path && p.ParentID == parentID);
+                if (folder == null)
+                {
+                    break;
+                }
+                parentID = folder.ID;
+            }
+            return folder;
+        }
+
+        /// <summary>
+        /// Returns a folder which matches the given name under the specified parent, or null.
+        /// </summary>
+        /// <param name="parentID">The ID of the parent folder</param>
+        /// <param name="name">The folder name</param>
+        /// <returns>The folder if it exists, null otherwise</returns>
+        public Folder Get(int parentID, string name)
+        {
+            return Folders.SingleOrDefault(p => p.Name == name && p.ParentID == parentID);
+        }
+
+        /// <summary>
+        /// Returns an enumerator for iterating over the folder collection.
+        /// </summary>
+        /// <returns>An enumerator for Folder</returns>
+        public IEnumerator<Folder> GetEnumerator()
+        {
+            return Folders.GetEnumerator();
+        }
+
+        /// <summary>
+        /// Returns an enumerator for iterating over the message collection.
+        /// </summary>
+        /// <returns>A generic enumerator</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Return the parent folder for this folder
+        /// </summary>
+        /// <param name="thisFolder">A Folder</param>
+        /// <returns>The parent folder, or NULL</returns>
+        public Folder Parent(Folder thisFolder)
+        {
+            return (thisFolder.ParentID >= 0) ? AllFolders[thisFolder.ParentID] : null;
+        }
+
+        /// <summary>
+        /// Return all child folders for the specified parent.
+        /// </summary>
+        /// <param name="thisFolder">A Folder</param>
+        /// <returns>The parent folder, or NULL</returns>
+        public IEnumerable<Folder> Children(Folder thisFolder)
+        {
+            IEnumerable<Folder> children;
+            lock (idLock)
+            {
+                children = Folders.Where(fld => fld.ParentID == thisFolder.ID).ToList();
+            }
+            return children;
+        }
+
+        /// <summary>
+        /// Add the specified folder to the collection and add to the database if it
+        /// is not already present.
+        /// </summary>
+        /// <param name="folder">Folder to add</param>
+        public void Add(Folder folder)
+        {
+            if (!Contains(folder.ParentID, folder.Name))
+            {
+                folder.ID = NextID();
+                lock (CIX.DBLock)
+                {
+                    CIX.DB.Insert(folder);
+                }
+                AllFolders[folder.ID] = folder;
+            }
+        }
+
+        /// <summary>
         /// Mark messages read or unread on the server based on their local state
         /// </summary>
         public void SynchronizeReads()
@@ -869,7 +895,7 @@ namespace CIXClient.Collections
         {
             if (OnlineUsersUpdated != null)
             {
-                OnlineUsersUpdated(this, new OnlineUsersEventArgs {Users = onlineUsers});
+                OnlineUsersUpdated(this, new OnlineUsersEventArgs { Users = onlineUsers });
             }
         }
 
@@ -939,7 +965,7 @@ namespace CIXClient.Collections
         {
             if (MessagePostStarted != null)
             {
-                MessagePostStarted(this, new MessagePostEventArgs { Message = message});
+                MessagePostStarted(this, new MessagePostEventArgs { Message = message });
             }
         }
 
@@ -1017,37 +1043,6 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Refresh using Fast Sync.
-        /// </summary>
-        /// <returns>True if Fast Sync completed, False if we need to do a slow sync</returns>
-        private bool RefreshWithFastSync()
-        {
-            DateTime sinceDate = CIX.LastSyncDate;
-            if (sinceDate == default(DateTime) || sinceDate < DateTime.Now.AddDays(-5.0))
-            {
-                return false;
-            }
-            try
-            {
-                HttpWebRequest request = APIRequest.GetWithQuery("user/sync", APIRequest.APIFormat.XML, "maxresults=5000&since=" + sinceDate.ToString("yyyy-MM-dd HH:mm:ss"));
-
-                LogFile.WriteLine("Sync all forums started");
-
-                Stream objStream = APIRequest.ReadResponse(request);
-                if (objStream != null)
-                {
-                    int countOfNewMessages = AddMessages(objStream, ref sinceDate, true, false);
-                    LogFile.WriteLine("Sync completed with {0} new messages", countOfNewMessages);
-                }
-            }
-            catch (Exception e)
-            {
-                CIX.ReportServerExceptions("FolderCollection.RefreshWithFastSync", e);
-            }
-            return true;
-        }
-
-        /// <summary>
         /// Synchronise the folder collection from the server.
         /// </summary>
         internal void RefreshWithSlowSync()
@@ -1059,7 +1054,7 @@ namespace CIXClient.Collections
                 using (XmlReader reader = XmlReader.Create(objStream))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(UserForumTopicResultSet2));
-                    UserForumTopicResultSet2 listOfForums = (UserForumTopicResultSet2) serializer.Deserialize(reader);
+                    UserForumTopicResultSet2 listOfForums = (UserForumTopicResultSet2)serializer.Deserialize(reader);
 
                     List<Folder> modifiedFolders = new List<Folder>();
                     List<Folder> foldersToAdd = new List<Folder>();
@@ -1222,6 +1217,88 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
+        /// Set or remove flag on messages.
+        /// </summary>
+        private static void StarMessages()
+        {
+            TableQuery<CIXMessage> pending = CIX.DB.Table<CIXMessage>().Where(msg => msg.StarPending);
+            foreach (CIXMessage message in pending)
+            {
+                message.RealMessage.Sync();
+            }
+        }
+
+        /// <summary>
+        /// Return a DateTime object representing the specified CIX date and time string.
+        /// </summary>
+        /// <param name="cixDate">A CIX date string</param>
+        /// <returns>A DateTime object that represents the given date</returns>
+        private static DateTime DateTimeFromCIXDate(string cixDate)
+        {
+            DateTime dateTime;
+            if (!DateTime.TryParseExact(cixDate, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime))
+            {
+                LogFile.WriteLine("Found malformed date {0} in feed", cixDate);
+            }
+            return dateTime;
+        }
+
+        /// <summary>
+        /// Construct a CIXMessage from a raw server Message object.
+        /// </summary>
+        /// <param name="topic">The topic for the message</param>
+        /// <param name="message">The raw Message object from the server</param>
+        /// <returns>A CIXMessage, or null if the message object was malformed.</returns>
+        private static CIXMessage CIXMessageFromMessage(Folder topic, Message2 message)
+        {
+            CIXMessage cixMessage = new CIXMessage
+            {
+                Body = message.Body.TrimEnd(),
+                Author = message.Author,
+                Date = DateTimeFromCIXDate(message.DateTime),
+                CommentID = message.ReplyTo,
+                RootID = message.RootID,
+                RemoteID = message.ID,
+                Unread = message.Unread,
+                Starred = message.Starred,
+                Priority = message.Priority,
+                TopicID = topic.ID
+            };
+            return cixMessage;
+        }
+
+        /// <summary>
+        /// Refresh using Fast Sync.
+        /// </summary>
+        /// <returns>True if Fast Sync completed, False if we need to do a slow sync</returns>
+        private bool RefreshWithFastSync()
+        {
+            DateTime sinceDate = CIX.LastSyncDate;
+            if (sinceDate == default(DateTime) || sinceDate < DateTime.Now.AddDays(-5.0))
+            {
+                return false;
+            }
+            try
+            {
+                HttpWebRequest request = APIRequest.GetWithQuery("user/sync", APIRequest.APIFormat.XML, "maxresults=5000&since=" + sinceDate.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                LogFile.WriteLine("Sync all forums started");
+
+                Stream objStream = APIRequest.ReadResponse(request);
+                if (objStream != null)
+                {
+                    int countOfNewMessages = AddMessages(objStream, ref sinceDate, true, false);
+                    LogFile.WriteLine("Sync completed with {0} new messages", countOfNewMessages);
+                }
+            }
+            catch (Exception e)
+            {
+                CIX.ReportServerExceptions("FolderCollection.RefreshWithFastSync", e);
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Post any new messages to the server. New messages are those where RemoteID is 0, and we
         /// use the CommentID to determine whether this is a new message or a comment.
         /// </summary>
@@ -1244,18 +1321,6 @@ namespace CIXClient.Collections
         {
             TableQuery<CIXMessage> cixMessages = CIX.DB.Table<CIXMessage>().Where(fld => fld.WithdrawPending);
             foreach (CIXMessage message in cixMessages)
-            {
-                message.RealMessage.Sync();
-            }
-        }
-
-        /// <summary>
-        /// Set or remove flag on messages.
-        /// </summary>
-        private static void StarMessages()
-        {
-            TableQuery<CIXMessage> pending = CIX.DB.Table<CIXMessage>().Where(msg => msg.StarPending);
-            foreach (CIXMessage message in pending)
             {
                 message.RealMessage.Sync();
             }
@@ -1347,7 +1412,7 @@ namespace CIXClient.Collections
                     using (XmlReader reader = XmlReader.Create(objStream))
                     {
                         XmlSerializer serializer = new XmlSerializer(typeof(StarSet));
-                        StarSet allStars = (StarSet) serializer.Deserialize(reader);
+                        StarSet allStars = (StarSet)serializer.Deserialize(reader);
 
                         List<Folder> topicsToRefresh = new List<Folder>();
                         List<CIXMessage> updatedMessages = new List<CIXMessage>();
@@ -1413,32 +1478,6 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Gets a dictionary of folders, mapped by folder ID.
-        /// </summary>
-        private Dictionary<int, Folder> AllFolders
-        {
-            get
-            {
-                if (_allFolders == null)
-                {
-                    lock (idLock)
-                    {
-                        // ReSharper disable once PossibleMultipleEnumeration
-                        Folder[] folders = CIX.DB.Table<Folder>().ToArray();
-                        _allFolders = folders.ToDictionary(msg => msg.ID);
-
-                        // ReSharper disable once PossibleMultipleEnumeration
-                        if (_allFolders.Count > 0)
-                        {
-                            _nextId = folders.Max(fld => fld.ID) + 1;
-                        }
-                    }
-                }
-                return _allFolders;
-            }
-        }
-
-        /// <summary>
         /// Return the next available folder ID.
         /// </summary>
         /// <returns>The next folder ID value</returns>
@@ -1448,45 +1487,6 @@ namespace CIXClient.Collections
             {
                 return _nextId++;
             }
-        }
-
-        /// <summary>
-        /// Return a DateTime object representing the specified CIX date and time string.
-        /// </summary>
-        /// <param name="cixDate">A CIX date string</param>
-        /// <returns>A DateTime object that represents the given date</returns>
-        private static DateTime DateTimeFromCIXDate(string cixDate)
-        {
-            DateTime dateTime;
-            if (!DateTime.TryParseExact(cixDate, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime))
-            {
-                LogFile.WriteLine("Found malformed date {0} in feed", cixDate);
-            }
-            return dateTime;
-        }
-
-        /// <summary>
-        /// Construct a CIXMessage from a raw server Message object.
-        /// </summary>
-        /// <param name="topic">The topic for the message</param>
-        /// <param name="message">The raw Message object from the server</param>
-        /// <returns>A CIXMessage, or null if the message object was malformed.</returns>
-        private static CIXMessage CIXMessageFromMessage(Folder topic, Message2 message)
-        {
-            CIXMessage cixMessage = new CIXMessage
-            {
-                Body = message.Body.TrimEnd(),
-                Author = message.Author,
-                Date = DateTimeFromCIXDate(message.DateTime),
-                CommentID = message.ReplyTo,
-                RootID = message.RootID,
-                RemoteID = message.ID,
-                Unread = message.Unread,
-                Starred = message.Starred,
-                Priority = message.Priority,
-                TopicID = topic.ID
-            };
-            return cixMessage;
         }
 
         /// <summary>

@@ -89,9 +89,6 @@ namespace CIXClient.Database
         [DllImport("sqlite3", EntryPoint = "sqlite3_column_count", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ColumnCount(IntPtr stmt);
 
-        [DllImport("sqlite3", EntryPoint = "sqlite3_column_name16", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr ColumnName16Internal(IntPtr stmt, int index);
-
         public static string ColumnName16(IntPtr stmt, int index)
         {
             return Marshal.PtrToStringUni(ColumnName16Internal(stmt, index));
@@ -133,5 +130,8 @@ namespace CIXClient.Database
             }
             return result;
         }
+
+        [DllImport("sqlite3", EntryPoint = "sqlite3_column_name16", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr ColumnName16Internal(IntPtr stmt, int index);
     }
 }

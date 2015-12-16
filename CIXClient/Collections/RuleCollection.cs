@@ -221,6 +221,106 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
+        /// Apply the specified rule group to the message. On completion, the flags
+        /// in the message will be adjusted as per the rule.
+        /// <para>
+        /// The caller must persist both the message and the associated folder back
+        /// to the database if the function returns true since both will likely have
+        /// been altered.
+        /// </para>
+        /// </summary>
+        /// <param name="ruleGroup">Rule group to apply</param>
+        /// <param name="message">CIXMessage to which rule is applied</param>
+        /// <returns>True if the rule changed the message, false otherwise</returns>
+        internal static bool ApplyRule(RuleGroup ruleGroup, CIXMessage message)
+        {
+            bool changed = false;
+            try
+            {
+                Func<CIXMessage, bool> evaluateCriteria = ruleGroup.Criteria.Compile();
+                if (ruleGroup.active && evaluateCriteria(message))
+                {
+                    bool isUnread = message.Unread;
+                    bool isClear = ruleGroup.actionCode.HasFlag(RuleActionCodes.Clear);
+
+                    if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Unread))
+                    {
+                        if (!message.ReadLocked)
+                        {
+                            message.Unread = !isClear;
+                            if (isUnread != message.Unread)
+                            {
+                                message.ReadPending = true;
+                                Folder folder = CIX.FolderCollection[message.TopicID];
+                                folder.Unread += message.Unread ? 1 : -1;
+                                if (message.Priority)
+                                {
+                                    folder.UnreadPriority += message.Unread ? 1 : -1;
+                                }
+                                folder.MarkReadRangePending = true;
+
+                                changed = true;
+                            }
+                        }
+                    }
+                    if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Priority))
+                    {
+                        bool oldPriority = message.Priority;
+                        message.Priority = !isClear;
+                        changed = message.Priority != oldPriority;
+                        if (changed && message.Unread)
+                        {
+                            Folder folder = CIX.FolderCollection[message.TopicID];
+                            folder.UnreadPriority += message.Priority ? 1 : -1;
+                        }
+                    }
+                    if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Ignored))
+                    {
+                        message.Ignored = !isClear;
+                        if (message.Ignored && message.Unread)
+                        {
+                            message.Unread = false;
+                            message.ReadPending = true;
+                            Folder folder = CIX.FolderCollection[message.TopicID];
+                            folder.Unread -= 1;
+                            if (message.Priority)
+                            {
+                                folder.UnreadPriority -= 1;
+                            }
+                            folder.MarkReadRangePending = true;
+
+                            changed = true;
+                        }
+                    }
+                    if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Flag))
+                    {
+                        bool oldStarred = message.Starred;
+                        message.Starred = !isClear;
+                        if (oldStarred != message.Starred)
+                        {
+                            message.StarPending = true;
+                            changed = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                LogFile.WriteLine("Error: Exception processing rule \"{0}\" : {1}", ruleGroup.title, e.Message);
+            }
+            return changed;
+        }
+
+        /// <summary>
+        /// Apply all rules to the specified message
+        /// </summary>
+        /// <param name="message">Message to which rules are applied</param>
+        internal void ApplyRules(CIXMessage message)
+        {
+            ruleGroups.Aggregate(false, (current, ruleGroup) => current || ApplyRule(ruleGroup, message));
+        }
+
+        /// <summary>
         /// Compile any missing Criteria for each rule.
         /// </summary>
         private void CompileRules()
@@ -362,7 +462,7 @@ namespace CIXClient.Collections
                     using (XmlReader reader = XmlReader.Create(fileStream))
                     {
                         XmlSerializer serializer = new XmlSerializer(typeof(rules));
-                        rules rules = (rules) serializer.Deserialize(reader);
+                        rules rules = (rules)serializer.Deserialize(reader);
 
                         ruleGroups = new List<RuleGroup>();
                         foreach (RuleGroup ruleGroup in rules.Items)
@@ -384,106 +484,6 @@ namespace CIXClient.Collections
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Apply all rules to the specified message
-        /// </summary>
-        /// <param name="message">Message to which rules are applied</param>
-        internal void ApplyRules(CIXMessage message)
-        {
-            ruleGroups.Aggregate(false, (current, ruleGroup) => current || ApplyRule(ruleGroup, message));
-        }
-
-        /// <summary>
-        /// Apply the specified rule group to the message. On completion, the flags
-        /// in the message will be adjusted as per the rule.
-        /// <para>
-        /// The caller must persist both the message and the associated folder back
-        /// to the database if the function returns true since both will likely have
-        /// been altered.
-        /// </para>
-        /// </summary>
-        /// <param name="ruleGroup">Rule group to apply</param>
-        /// <param name="message">CIXMessage to which rule is applied</param>
-        /// <returns>True if the rule changed the message, false otherwise</returns>
-        internal static bool ApplyRule(RuleGroup ruleGroup, CIXMessage message)
-        {
-            bool changed = false;
-            try
-            {
-                Func<CIXMessage, bool> evaluateCriteria = ruleGroup.Criteria.Compile();
-                if (ruleGroup.active && evaluateCriteria(message))
-                {
-                    bool isUnread = message.Unread;
-                    bool isClear = ruleGroup.actionCode.HasFlag(RuleActionCodes.Clear);
-
-                    if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Unread))
-                    {
-                        if (!message.ReadLocked)
-                        {
-                            message.Unread = !isClear;
-                            if (isUnread != message.Unread)
-                            {
-                                message.ReadPending = true;
-                                Folder folder = CIX.FolderCollection[message.TopicID];
-                                folder.Unread += message.Unread ? 1 : -1;
-                                if (message.Priority)
-                                {
-                                    folder.UnreadPriority += message.Unread ? 1 : -1;
-                                }
-                                folder.MarkReadRangePending = true;
-
-                                changed = true;
-                            }
-                        }
-                    }
-                    if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Priority))
-                    {
-                        bool oldPriority = message.Priority;
-                        message.Priority = !isClear;
-                        changed = message.Priority != oldPriority;
-                        if (changed && message.Unread)
-                        {
-                            Folder folder = CIX.FolderCollection[message.TopicID];
-                            folder.UnreadPriority += message.Priority ? 1 : -1;
-                        }
-                    }
-                    if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Ignored))
-                    {
-                        message.Ignored = !isClear;
-                        if (message.Ignored && message.Unread)
-                        {
-                            message.Unread = false;
-                            message.ReadPending = true;
-                            Folder folder = CIX.FolderCollection[message.TopicID];
-                            folder.Unread -= 1;
-                            if (message.Priority)
-                            {
-                                folder.UnreadPriority -= 1;
-                            }
-                            folder.MarkReadRangePending = true;
-
-                            changed = true;
-                        }
-                    }
-                    if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Flag))
-                    {
-                        bool oldStarred = message.Starred;
-                        message.Starred = !isClear;
-                        if (oldStarred != message.Starred)
-                        {
-                            message.StarPending = true;
-                            changed = true;
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                LogFile.WriteLine("Error: Exception processing rule \"{0}\" : {1}", ruleGroup.title, e.Message);
-            }
-            return changed;
         }
     }
 }

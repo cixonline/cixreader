@@ -213,8 +213,8 @@ namespace CIXClient.Tables
         [Ignore]
         public CIXMessage Parent
         {
-            set { _parent = value; }
             get { return _parent ?? (_parent = CommentID > 0 ? Topic.Messages.MessageByID(CommentID) : null); }
+            set { _parent = value; }
         }
 
         /// <summary>
@@ -223,11 +223,11 @@ namespace CIXClient.Tables
         [Ignore]
         public CIXMessage SafeParent
         {
-            set { _parent = value; }
             get
             {
                 return Parent ?? new CIXMessage();
             }
+            set { _parent = value; }
         }
 
         /// <summary>
@@ -669,51 +669,6 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Mark this message as unread and update the corresponding folder
-        /// unread counts.
-        /// </summary>
-        private void InnerMarkUnread()
-        {
-            bool stateChanged = !Unread;
-            if (stateChanged)
-            {
-                Unread = true;
-                ReadPending = true;
-            }
-            lock (CIX.DBLock)
-            {
-                CIX.DB.Update(this);
-            }
-            CIX.FolderCollection.NotifyMessageChanged(this);
-            if (stateChanged)
-            {
-                Folder topic = Topic;
-                topic.Unread += 1;
-                if (Priority)
-                {
-                    topic.UnreadPriority += 1;
-                }
-                if (!IsRoot)
-                {
-                    CIXMessage root = topic.Messages.MessageByID(RootID);
-                    if (root != null)
-                    {
-                        lock (CIX.DBLock)
-                        {
-                            CIX.DB.Update(root);
-                        }
-                        CIX.FolderCollection.NotifyMessageChanged(root);
-                    }
-                }
-                lock (CIX.DBLock)
-                {
-                    CIX.DB.Update(topic);
-                }
-                CIX.FolderCollection.NotifyFolderUpdated(topic);
-            }
-        }
-
-        /// <summary>
         /// Internal method to set the ignore flag on the message and simultaneously
         /// mark the messages as read.
         /// </summary>
@@ -790,6 +745,51 @@ namespace CIXClient.Tables
             if (folderChanged)
             {
                 CIX.DB.Update(topic);
+            }
+        }
+
+        /// <summary>
+        /// Mark this message as unread and update the corresponding folder
+        /// unread counts.
+        /// </summary>
+        private void InnerMarkUnread()
+        {
+            bool stateChanged = !Unread;
+            if (stateChanged)
+            {
+                Unread = true;
+                ReadPending = true;
+            }
+            lock (CIX.DBLock)
+            {
+                CIX.DB.Update(this);
+            }
+            CIX.FolderCollection.NotifyMessageChanged(this);
+            if (stateChanged)
+            {
+                Folder topic = Topic;
+                topic.Unread += 1;
+                if (Priority)
+                {
+                    topic.UnreadPriority += 1;
+                }
+                if (!IsRoot)
+                {
+                    CIXMessage root = topic.Messages.MessageByID(RootID);
+                    if (root != null)
+                    {
+                        lock (CIX.DBLock)
+                        {
+                            CIX.DB.Update(root);
+                        }
+                        CIX.FolderCollection.NotifyMessageChanged(root);
+                    }
+                }
+                lock (CIX.DBLock)
+                {
+                    CIX.DB.Update(topic);
+                }
+                CIX.FolderCollection.NotifyFolderUpdated(topic);
             }
         }
 

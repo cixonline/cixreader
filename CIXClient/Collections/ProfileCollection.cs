@@ -26,18 +26,6 @@ namespace CIXClient.Collections
         private List<Profile> _profiles;
 
         /// <summary>
-        /// Event handler for notifying a delegate of profile updates.
-        /// </summary>
-        public event ProfileUpdatedHandler ProfileUpdated;
-
-        /// <summary>
-        /// Defines the delegate for ProfileUpdated event notifications.
-        /// </summary>
-        /// <param name="sender">The ProfileTasks object</param>
-        /// <param name="e">Additional profile update data</param>
-        public delegate void ProfileUpdatedHandler(object sender, ProfileEventArgs e);
-
-        /// <summary>
         /// Initialises a new instance of the <see cref="ProfileCollection"/> class 
         /// with a set of profiles.
         /// </summary>
@@ -47,11 +35,33 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
+        /// Defines the delegate for ProfileUpdated event notifications.
+        /// </summary>
+        /// <param name="sender">The ProfileTasks object</param>
+        /// <param name="e">Additional profile update data</param>
+        public delegate void ProfileUpdatedHandler(object sender, ProfileEventArgs e);
+
+        /// <summary>
+        /// Event handler for notifying a delegate of profile updates.
+        /// </summary>
+        public event ProfileUpdatedHandler ProfileUpdated;
+
+        /// <summary>
         /// Gets a list of all profiles.
         /// </summary>
         public List<Profile> Profiles
         {
             get { return _profiles ?? (_profiles = new List<Profile>(CIX.DB.Table<Profile>().ToList())); }
+        }
+
+        /// <summary>
+        /// Returns the Profile with the specified user name.
+        /// </summary>
+        /// <param name="name">The name</param>
+        /// <returns>A Profile, or null</returns>
+        public Profile this[string name]
+        {
+            get { return Profiles.SingleOrDefault(c => c.Username == name); }
         }
 
         /// <summary>
@@ -92,16 +102,6 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Returns the Profile with the specified user name.
-        /// </summary>
-        /// <param name="name">The name</param>
-        /// <returns>A Profile, or null</returns>
-        public Profile this[string name]
-        {
-            get { return Profiles.SingleOrDefault(c => c.Username == name); }
-        }
-
-        /// <summary>
         /// Send a notification that a profile was updated.
         /// </summary>
         /// <param name="profile">The profile that was updated</param>
@@ -134,6 +134,15 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
+        /// Returns an enumerator for iterating over the profile collection.
+        /// </summary>
+        /// <returns>A generic enumerator</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        /// <summary>
         /// Add a profile to the collection.
         /// </summary>
         /// <param name="profile">A new profile to add</param>
@@ -158,15 +167,6 @@ namespace CIXClient.Collections
             {
                 Sync();
             }
-        }
-
-        /// <summary>
-        /// Returns an enumerator for iterating over the profile collection.
-        /// </summary>
-        /// <returns>A generic enumerator</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 }

@@ -21,6 +21,28 @@ using CIXClient.Models;
 namespace CIXClient.Tables
 {
     /// <summary>
+    /// Inbox Conversation flags.
+    /// </summary>
+    [Flags]
+    public enum InboxConversationFlags
+    {
+        /// <summary>
+        /// Indicates that this message should be marked read on the server.
+        /// </summary>
+        MarkRead = 1,
+
+        /// <summary>
+        /// Indicates that this conversation should be deleted from the server.
+        /// </summary>
+        Deleted = 2,
+
+        /// <summary>
+        /// Indicates that the conversation could not be posted.
+        /// </summary>
+        Error = 4
+    }
+
+    /// <summary>
     /// The Inbox conversation table lists all inbox message conversations.
     /// </summary>
     public sealed class InboxConversation
@@ -192,12 +214,12 @@ namespace CIXClient.Tables
                             {
                                 using (TextReader reader = new StreamReader(objStream))
                                 {
-                                    XmlDocument doc = new XmlDocument {InnerXml = reader.ReadLine()};
+                                    XmlDocument doc = new XmlDocument { InnerXml = reader.ReadLine() };
 
                                     if (doc.DocumentElement != null)
                                     {
                                         string responseString = doc.DocumentElement.InnerText;
-                                        string[] splitStrings = responseString.Split(new[] {','});
+                                        string[] splitStrings = responseString.Split(new[] { ',' });
 
                                         if (splitStrings.Length == 2)
                                         {
@@ -364,27 +386,5 @@ namespace CIXClient.Tables
                 }
             }
         }
-    }
-
-    /// <summary>
-    /// Inbox Conversation flags.
-    /// </summary>
-    [Flags]
-    public enum InboxConversationFlags
-    {
-        /// <summary>
-        /// Indicates that this message should be marked read on the server.
-        /// </summary>
-        MarkRead = 1,
-
-        /// <summary>
-        /// Indicates that this conversation should be deleted from the server.
-        /// </summary>
-        Deleted = 2,
-
-        /// <summary>
-        /// Indicates that the conversation could not be posted.
-        /// </summary>
-        Error = 4
     }
 }

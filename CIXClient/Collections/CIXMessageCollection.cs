@@ -23,12 +23,12 @@ namespace CIXClient.Collections
     /// </summary>
     public sealed class CIXMessageCollection : IEnumerable<CIXMessage>
     {
+        // Used to guard access to updates to the list
+        private readonly object _changeLock = new object();
+
         private List<CIXMessage> _messages;
         private List<CIXMessage> _threadedMessages;
         private bool _isOrdered;
-
-        // Used to guard access to updates to the list
-        private readonly object _changeLock = new object();
 
         /// <summary>
         /// Initialises a new instance of the <see cref="CIXMessageCollection"/> class
@@ -337,6 +337,17 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
+        /// Return the latest of either of two date objects.
+        /// </summary>
+        /// <param name="firstDate">The first date to compare</param>
+        /// <param name="secondDate">The second date to compare</param>
+        /// <returns>The latest of either firstDate or secondDate</returns>
+        private static DateTime LatestOf(DateTime firstDate, DateTime secondDate)
+        {
+            return (firstDate < secondDate) ? secondDate : firstDate;
+        }
+
+        /// <summary>
         /// Return a pseudo ID value to assign to this new message.
         /// </summary>
         /// <returns>A new pseudo ID</returns>
@@ -348,17 +359,6 @@ namespace CIXClient.Collections
             }
             int pseudoID = _messages[_messages.Count - 1].RemoteID + 1;
             return Math.Max(pseudoID, int.MaxValue / 2);
-        }
-
-        /// <summary>
-        /// Return the latest of either of two date objects.
-        /// </summary>
-        /// <param name="firstDate">The first date to compare</param>
-        /// <param name="secondDate">The second date to compare</param>
-        /// <returns>The latest of either firstDate or secondDate</returns>
-        private static DateTime LatestOf(DateTime firstDate, DateTime secondDate)
-        {
-            return (firstDate < secondDate) ? secondDate : firstDate;
         }
     }
 }

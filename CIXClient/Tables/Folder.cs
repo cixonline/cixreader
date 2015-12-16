@@ -23,15 +23,56 @@ using CIXClient.Models;
 namespace CIXClient.Tables
 {
     /// <summary>
+    /// Folder flags
+    /// </summary>
+    [Flags]
+    public enum FolderFlags
+    {
+        /// <summary>
+        /// Indicates that this is a read-only folder.
+        /// </summary>
+        ReadOnly = 1,
+
+        /// <summary>
+        /// Indicates that the user resigned this forum.
+        /// </summary>
+        Resigned = 2,
+
+        /// <summary>
+        /// Indicates that the user cannot resign from this forum.
+        /// </summary>
+        CannotResign = 4,
+
+        /// <summary>
+        /// Indicates that the user cannot comment to messages in this
+        /// topic unless to a message they posted.
+        /// </summary>
+        OwnerCommentsOnly = 8,
+
+        /// <summary>
+        /// Indicates that the last attempt to join the forum failed due
+        /// to an unspecified error.
+        /// </summary>
+        JoinFailed = 16,
+
+        /// <summary>
+        /// Indicates that, for a folder, this is a recent folder displayed
+        /// when filtering by recent only.
+        /// </summary>
+        Recent = 32
+    }
+
+    /// <summary>
     /// The Folder class represents a single folder on the remote system.
     /// </summary>
     public sealed class Folder : IComparable
     {
+        private readonly object _allMessagesLock = new object(); 
+        
         private CIXMessageCollection _allMessages;
         private Folder _parentFolder;
         private int _parentID;
         private bool _isFolderRefreshing;
-        private readonly object _allMessagesLock = new object();
 
         /// <summary>
         /// Gets or sets an unique ID that identifies this folder.
@@ -118,12 +159,6 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this folder needs to be refreshed
-        /// </summary>
-        [Ignore]
-        internal bool RefreshRequired { get; set; }
-
-        /// <summary>
         /// Gets a value indicating whether or not this folder has been resigned.
         /// </summary>
         [Ignore]
@@ -206,6 +241,62 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
+        /// Gets a value indicating whether this is a top level folder.
+        /// </summary>
+        [Ignore]
+        public bool IsRootFolder
+        {
+            get { return ParentID == -1; }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this folder is read-only.
+        /// </summary>
+        [Ignore]
+        public bool IsReadOnly
+        {
+            get { return Flags.HasFlag(FolderFlags.ReadOnly); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether or not this is a recent folder
+        /// </summary>
+        [Ignore]
+        public bool IsRecent
+        {
+            get { return (Flags & FolderFlags.Recent) == FolderFlags.Recent; }
+            set
+            {
+                if (value)
+                {
+                    Flags |= FolderFlags.Recent;
+                }
+                else
+                {
+                    Flags &= ~FolderFlags.Recent;
+                }
+                lock (CIX.DBLock)
+                {
+                    CIX.DB.Update(this);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this folder has a pending action
+        /// </summary>
+        public bool HasPending
+        {
+            get { return ResignPending; }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this folder needs to be refreshed
+        /// </summary>
+        [Ignore]
+        internal bool RefreshRequired { get; set; }
+
+        /// <summary>
         /// Do a fixup scan of the messages in the folder and make a request to
         /// retrieve any missing ones.
         /// </summary>
@@ -279,14 +370,6 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Gets a value indicating whether this folder has a pending action
-        /// </summary>
-        public bool HasPending
-        {
-            get { return ResignPending; }
-        }
-
-        /// <summary>
         /// Sync this folder with the server.
         /// </summary>
         public void Sync()
@@ -345,81 +428,21 @@ namespace CIXClient.Tables
                 }
                 foreach (Folder folder in foldersUpdated)
                 {
-                    CIX.FolderCollection.NotifyFolderRefreshed(new FolderEventArgs {Folder = folder});
+                    CIX.FolderCollection.NotifyFolderRefreshed(new FolderEventArgs { Folder = folder });
                 }
             });
             t.Start();
         }
 
         /// <summary>
-        /// Gets a value indicating whether this is a top level folder.
-        /// </summary>
-        [Ignore]
-        public bool IsRootFolder
-        {
-            get { return ParentID == -1; }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this folder is read-only.
-        /// </summary>
-        [Ignore]
-        public bool IsReadOnly
-        {
-            get { return Flags.HasFlag(FolderFlags.ReadOnly); }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether or not this is a recent folder
-        /// </summary>
-        [Ignore]
-        public bool IsRecent
-        {
-            get { return (Flags & FolderFlags.Recent) == FolderFlags.Recent; }
-            set
-            {
-                if (value)
-                {
-                    Flags |= FolderFlags.Recent;
-                }
-                else
-                {
-                    Flags &= ~FolderFlags.Recent;
-                }
-                lock (CIX.DBLock)
-                {
-                    CIX.DB.Update(this);
-                }
-            }
-        }
-
-        /// <summary>
         /// Compare two folder names.
         /// </summary>
         /// <param name="obj">The folder to compare against this one</param>
-        /// <returns>A string comparision result</returns>
+        /// <returns>A string comparison result</returns>
         public int CompareTo(object obj)
         {
-            Folder otherFolder = (Folder) obj;
+            Folder otherFolder = (Folder)obj;
             return string.Compare(Name, otherFolder.Name, StringComparison.Ordinal);
-        }
-
-        /// <summary>
-        /// Returns an array of IDs of sub-folders of which this folder is the parent.
-        /// </summary>
-        /// <returns>An array of integers representing the IDs of the subfolders of this parent</returns>
-        private int[] SubFolderIDs()
-        {
-            List<int> subFolders = new List<int>();
-
-            // Disable ReSharper's suggestion to make this into a Linq query because that actually
-            // does NOT work and returns an array of zero integers.
-            // ReSharper disable once LoopCanBeConvertedToQuery
-            foreach (Folder fld in CIX.DB.Table<Folder>().Where(fld => fld.ParentID == ID))
-            {
-                subFolders.Add(fld.ID);
-            }
-            return subFolders.ToArray();
         }
 
         /// <summary>
@@ -512,6 +535,24 @@ namespace CIXClient.Tables
                 CIX.FolderCollection.NotifyTopicUpdateCompleted(this);
                 _isFolderRefreshing = false;
             }
+        }
+
+        /// <summary>
+        /// Returns an array of IDs of sub-folders of which this folder is the parent.
+        /// </summary>
+        /// <returns>An array of integers representing the IDs of the subfolders of this parent</returns>
+        private int[] SubFolderIDs()
+        {
+            List<int> subFolders = new List<int>();
+
+            // Disable ReSharper's suggestion to make this into a Linq query because that actually
+            // does NOT work and returns an array of zero integers.
+            // ReSharper disable once LoopCanBeConvertedToQuery
+            foreach (Folder fld in CIX.DB.Table<Folder>().Where(fld => fld.ParentID == ID))
+            {
+                subFolders.Add(fld.ID);
+            }
+            return subFolders.ToArray();
         }
 
         /// <summary>
@@ -619,45 +660,5 @@ namespace CIXClient.Tables
                 CIX.ReportServerExceptions("Folder.ResignFolder", this, e);
             }
         }
-    }
-
-    /// <summary>
-    /// Folder flags
-    /// </summary>
-    [Flags]
-    public enum FolderFlags
-    {
-        /// <summary>
-        /// Indicates that this is a read-only folder.
-        /// </summary>
-        ReadOnly = 1,
-
-        /// <summary>
-        /// Indicates that the user resigned this forum.
-        /// </summary>
-        Resigned = 2,
-
-        /// <summary>
-        /// Indicates that the user cannot resign from this forum.
-        /// </summary>
-        CannotResign = 4,
-
-        /// <summary>
-        /// Indicates that the user cannot comment to messages in this
-        /// topic unless to a message they posted.
-        /// </summary>
-        OwnerCommentsOnly = 8,
-
-        /// <summary>
-        /// Indicates that the last attempt to join the forum failed due
-        /// to an unspecified error.
-        /// </summary>
-        JoinFailed = 16,
-
-        /// <summary>
-        /// Indicates that, for a folder, this is a recent folder displayed
-        /// when filtering by recent only.
-        /// </summary>
-        Recent = 32
     }
 }

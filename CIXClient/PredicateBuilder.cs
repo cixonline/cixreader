@@ -23,6 +23,10 @@ namespace CIXClient
     /// </summary>
     public static class PredicateBuilder
     {
+        private static readonly MethodInfo ContainsMethod = typeof(string).GetMethod("Contains");
+        private static readonly MethodInfo StartsWithMethod = typeof(string).GetMethod("StartsWith", new[] { typeof(string) });
+        private static readonly MethodInfo EndsWithMethod = typeof(string).GetMethod("EndsWith", new[] { typeof(string) });
+
         /// <summary>
         /// A list of supported operations in a single
         /// filter.
@@ -74,35 +78,6 @@ namespace CIXClient
             /// </summary>
             EndsWith
         }
-
-        /// <summary>
-        /// A single filter defines one operation in an expression.
-        /// </summary>
-        public sealed class Filter
-        {
-            /// <summary>
-            /// Gets or sets the name of the property whose value is used by
-            /// the operation.
-            /// </summary>
-            public string PropertyName { get; set; }
-
-            /// <summary>
-            /// Gets or sets the operation to apply against the property value.
-            /// </summary>
-            public Op Operation { get; set; }
-
-            /// <summary>
-            /// Gets or sets the value against which the operation is applied
-            /// against the property value.
-            /// </summary>
-            public object Value { get; set; }
-        }
-
-        private static readonly MethodInfo ContainsMethod = typeof(string).GetMethod("Contains");
-        private static readonly MethodInfo StartsWithMethod =
-        typeof(string).GetMethod("StartsWith", new[] { typeof(string) });
-        private static readonly MethodInfo EndsWithMethod =
-        typeof(string).GetMethod("EndsWith", new[] { typeof(string) });
 
         /// <summary>
         /// Create an Expression from a list of filters that, applied to a collection of type T,
@@ -200,6 +175,29 @@ namespace CIXClient
             Expression bin1 = GetExpression(param, filter1);
             Expression bin2 = GetExpression(param, filter2);
             return type == RuleGroupType.All ? Expression.AndAlso(bin1, bin2) : Expression.OrElse(bin1, bin2);
+        }
+
+        /// <summary>
+        /// A single filter defines one operation in an expression.
+        /// </summary>
+        public sealed class Filter
+        {
+            /// <summary>
+            /// Gets or sets the name of the property whose value is used by
+            /// the operation.
+            /// </summary>
+            public string PropertyName { get; set; }
+
+            /// <summary>
+            /// Gets or sets the operation to apply against the property value.
+            /// </summary>
+            public Op Operation { get; set; }
+
+            /// <summary>
+            /// Gets or sets the value against which the operation is applied
+            /// against the property value.
+            /// </summary>
+            public object Value { get; set; }
         }
     }
 }
