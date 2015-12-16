@@ -27,6 +27,15 @@ namespace CIXClient.Tables
     /// </summary>
     public sealed class Mugshot
     {
+        // Maximum mugshot dimensions
+        private const int MaxMugshotWidth = 100;
+        private const int MaxMugshotHeight = 100;
+
+        // Mugshot cache, for performance
+        private static readonly Dictionary<string, Mugshot> Cache = new Dictionary<string, Mugshot>();
+
+        private static bool _loadedExternalMugshots;
+
         private Image _realImage;
         private byte[] _image;
 
@@ -59,15 +68,6 @@ namespace CIXClient.Tables
         /// </summary>
         public DateTime CreationTime { get; set; }
 
-        // Maximum mugshot dimensions
-        private const int MaxMugshotWidth = 100;
-        private const int MaxMugshotHeight = 100;
-
-        private static bool _loadedExternalMugshots;
-
-        // Mugshot cache, for performance
-        private static readonly Dictionary<string, Mugshot> Cache = new Dictionary<string, Mugshot>();
-
         /// <summary>
         /// Gets the mugshot image as an Image object
         /// </summary>
@@ -79,10 +79,19 @@ namespace CIXClient.Tables
                 if (_realImage == null)
                 {
                     TypeConverter tc = TypeDescriptor.GetConverter(typeof(Image));
-                    _realImage = (Image) tc.ConvertFrom(Image);
+                    _realImage = (Image)tc.ConvertFrom(Image);
                 }
                 return _realImage;
             }
+        }
+
+        /// <summary>
+        /// Return the default Mugshot image.
+        /// </summary>
+        /// <returns>An Image object containing the mugshot</returns>
+        public static Image GetDefaultMugshot()
+        {
+            return Resources.DefaultUser;
         }
 
         /// <summary>
@@ -194,9 +203,9 @@ namespace CIXClient.Tables
             }
             else
             {
-                Sync();
+                mugshot.Sync();
             }
-            CIX.NotifyMugshotUpdated(this);
+            CIX.NotifyMugshotUpdated(mugshot);
         }
 
         /// <summary>
@@ -328,15 +337,6 @@ namespace CIXClient.Tables
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Return the default Mugshot image.
-        /// </summary>
-        /// <returns>An Image object containing the mugshot</returns>
-        public static Image GetDefaultMugshot()
-        {
-            return Resources.DefaultUser;
         }
     }
 }
