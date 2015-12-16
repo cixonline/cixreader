@@ -47,7 +47,14 @@ namespace CIXClient
         /// </summary>
         private enum APIMethod
         {
+            /// <summary>
+            /// A server GET request
+            /// </summary>
             GET,
+
+            /// <summary>
+            /// A server POST request
+            /// </summary>
             POST
         }
 
@@ -58,7 +65,7 @@ namespace CIXClient
         private const string APIBaseURL = "https://api.cixonline.com/v2.0/cix.svc/";
 
         /// <summary>
-        /// Gets or sets a flag indicating whether the Beta API is being used.
+        /// Gets or sets a value indicating whether the Beta API is being used.
         /// </summary>
         public static bool UseBetaAPI
         {
@@ -74,7 +81,7 @@ namespace CIXClient
         }
 
         /// <summary>
-        /// Gets or sets the base API address.
+        /// Gets the base API address.
         /// </summary>
         private static string APIBase
         {
@@ -164,7 +171,7 @@ namespace CIXClient
         /// <returns>A constructed HttpWebRequest</returns>
         private static HttpWebRequest Create(string apiFunction, string username, string password, APIFormat format, APIMethod method, object postObject, string queryString)
         {
-            HttpWebRequest wrGeturl;
+            HttpWebRequest request;
             byte[] postMessageBytes;
 
             if (username == null || password == null)
@@ -180,33 +187,33 @@ namespace CIXClient
                     Image postImage = o;
 
                     ImageConverter converter = new ImageConverter();
-                    postMessageBytes = (byte[]) converter.ConvertTo(postImage, typeof (byte[]));
+                    postMessageBytes = (byte[]) converter.ConvertTo(postImage, typeof(byte[]));
 
                     if (postMessageBytes == null)
                     {
                         return null;
                     }
 
-                    wrGeturl = (HttpWebRequest) WebRequest.Create(MakeURL(apiFunction, format, queryString));
-                    wrGeturl.Method = APIMethodToString(method);
+                    request = (HttpWebRequest) WebRequest.Create(MakeURL(apiFunction, format, queryString));
+                    request.Method = APIMethodToString(method);
 
                     if (ImageFormat.Jpeg.Equals(postImage.RawFormat))
                     {
-                        wrGeturl.ContentType = "image/jpeg";
+                        request.ContentType = "image/jpeg";
                     }
                     if (ImageFormat.Gif.Equals(postImage.RawFormat))
                     {
-                        wrGeturl.ContentType = "image/gif";
+                        request.ContentType = "image/gif";
                     }
                     if (ImageFormat.Png.Equals(postImage.RawFormat))
                     {
-                        wrGeturl.ContentType = "image/png";
+                        request.ContentType = "image/png";
                     }
                     if (ImageFormat.Bmp.Equals(postImage.RawFormat))
                     {
-                        wrGeturl.ContentType = "image/bitmap";
+                        request.ContentType = "image/bitmap";
                     }
-                    wrGeturl.ContentLength = postMessageBytes.Length;
+                    request.ContentLength = postMessageBytes.Length;
                 }
                 else
                 {
@@ -218,11 +225,11 @@ namespace CIXClient
                         ASCIIEncoding encoder = new ASCIIEncoding();
                         postMessageBytes = encoder.GetBytes(postString);
 
-                        wrGeturl = (HttpWebRequest)WebRequest.Create(MakeURL(apiFunction, format, queryString));
-                        wrGeturl.Method = APIMethodToString(method);
+                        request = (HttpWebRequest)WebRequest.Create(MakeURL(apiFunction, format, queryString));
+                        request.Method = APIMethodToString(method);
 
-                        wrGeturl.ContentLength = postMessageBytes.Length;
-                        wrGeturl.ContentType = "application/text";
+                        request.ContentLength = postMessageBytes.Length;
+                        request.ContentType = "application/text";
                     }
                     else
                     {
@@ -243,60 +250,60 @@ namespace CIXClient
                         UTF8Encoding encoder = new UTF8Encoding();
                         postMessageBytes = encoder.GetBytes(postMessageXml);
 
-                        wrGeturl = (HttpWebRequest) WebRequest.Create(MakeURL(apiFunction, format, queryString));
-                        wrGeturl.Method = APIMethodToString(method);
+                        request = (HttpWebRequest) WebRequest.Create(MakeURL(apiFunction, format, queryString));
+                        request.Method = APIMethodToString(method);
 
-                        wrGeturl.ContentLength = encoder.GetByteCount(postMessageXml);
-                        wrGeturl.ContentType = "application/xml; charset=utf-8";
-                        wrGeturl.Accept = "application/xml; charset=utf-8";
+                        request.ContentLength = encoder.GetByteCount(postMessageXml);
+                        request.ContentType = "application/xml; charset=utf-8";
+                        request.Accept = "application/xml; charset=utf-8";
                     }
                 }
             }
             else
             {
-                wrGeturl = (HttpWebRequest) WebRequest.Create(MakeURL(apiFunction, format, queryString));
-                wrGeturl.Method = APIMethodToString(method);
+                request = (HttpWebRequest) WebRequest.Create(MakeURL(apiFunction, format, queryString));
+                request.Method = APIMethodToString(method);
 
                 postMessageBytes = null;
 
                 if (format == APIFormat.XML)
                 {
-                    wrGeturl.ContentType = "application/xml; charset=utf-8";
-                    wrGeturl.Accept = "application/xml; charset=utf-8";
+                    request.ContentType = "application/xml; charset=utf-8";
+                    request.Accept = "application/xml; charset=utf-8";
                 }
                 else
                 {
-                    wrGeturl.ContentType = "application/json";
-                    wrGeturl.Accept = "application/json";
+                    request.ContentType = "application/json";
+                    request.Accept = "application/json";
                 }
             }
 
             string authInfo = username + ":" + password;
             authInfo = Convert.ToBase64String(Encoding.Default.GetBytes(authInfo));
-            wrGeturl.Headers.Add("Authorization", "Basic " + authInfo);
-            wrGeturl.PreAuthenticate = true;
+            request.Headers.Add("Authorization", "Basic " + authInfo);
+            request.PreAuthenticate = true;
 
             if (postMessageBytes != null)
             {
-                Stream dataStream = wrGeturl.GetRequestStream();
+                Stream dataStream = request.GetRequestStream();
                 dataStream.Write(postMessageBytes, 0, postMessageBytes.Length);
                 dataStream.Close();
             }
 
-            return wrGeturl;
+            return request;
         }
 
         /// <summary>
         /// Read an XML response string from the server. Note that this function will throw
         /// an exception if an HTTP error occurs.
         /// </summary>
-        /// <param name="wrRequest">The web request handle</param>
+        /// <param name="request">The web request handle</param>
         /// <returns>A response string, which may be empty</returns>
-        internal static string ReadResponseString(HttpWebRequest wrRequest)
+        internal static string ReadResponseString(HttpWebRequest request)
         {
-            string responseString = "";
+            string responseString = string.Empty;
 
-            Stream objStream = ReadResponse(wrRequest);
+            Stream objStream = ReadResponse(request);
             if (objStream != null)
             {
                 using (TextReader reader = new StreamReader(objStream))
@@ -316,23 +323,23 @@ namespace CIXClient
         /// <summary>
         /// Read a response from the server.
         /// </summary>
-        /// <param name="wrRequest">The web request handle</param>
+        /// <param name="request">The web request handle</param>
         /// <returns>The response stream</returns>
-        internal static Stream ReadResponse(WebRequest wrRequest)
+        internal static Stream ReadResponse(WebRequest request)
         {
-            if (wrRequest == null)
+            if (request == null)
             {
                 return null;
             }
 
             DateTime apiTimer = DateTime.Now;
-            Stream objStream = wrRequest.GetResponse().GetResponseStream();
+            Stream objStream = request.GetResponse().GetResponseStream();
             TimeSpan apiDuration = DateTime.Now - apiTimer;
 
             // Report API calls that take a second or more.
             if (apiDuration.TotalSeconds >= 1)
             {
-                LogFile.WriteLine("{0} : {1} seconds", wrRequest.RequestUri, apiDuration.TotalSeconds);
+                LogFile.WriteLine("{0} : {1} seconds", request.RequestUri, apiDuration.TotalSeconds);
             }
             return objStream;
         }

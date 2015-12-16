@@ -30,6 +30,19 @@ namespace CIXClient
     /// </summary>
     public static class CIX
     {
+        /// <summary>
+        /// A lock object for synchronising DB access.
+        /// </summary>
+        internal static readonly object DBLock = new object();
+
+        private const string PassPhrase = "@#$%^&*";
+
+        /// <summary>
+        /// Number of milliseconds between sync.
+        /// Minutes x 60 seconds x 1000 milliseconds.
+        /// </summary>
+        private const int RefreshInterval = 1 * 60 * 1000;
+
         private static ProfileCollection _profileCollection;
         private static DirectoryCollection _directoryCollection;
         private static ImageRequestorTask _imageRequestorTask;
@@ -49,24 +62,6 @@ namespace CIXClient
         private static Globals _globals;
         private static string _unencryptedPassword;
 
-        private const string passPhrase = "@#$%^&*";
-
-        /// <summary>
-        /// Number of milliseconds between sync.
-        /// Minutes x 60 seconds x 1000 milliseconds.
-        /// </summary>
-        private const int refreshInterval = 1 * 60 * 1000;
-
-        /// <summary>
-        /// A lock object for synchronising DB access.
-        /// </summary>
-        internal static readonly object DBLock = new object();
-
-        /// <summary>
-        /// Event handler for notifying when CIX authentication fails.
-        /// </summary>
-        public static event AuthenticationFailedHandler AuthenticationFailed;
-
         /// <summary>
         /// Defines the delegate for ProfileUpdated event notifications.
         /// </summary>
@@ -75,18 +70,23 @@ namespace CIXClient
         public delegate void AuthenticationFailedHandler(object sender, EventArgs e);
 
         /// <summary>
-        /// Event handler for notifying a delegate of mugshot updates.
-        /// </summary>
-        public static event MugshotUpdatedHandler MugshotUpdated;
-
-        /// <summary>
         /// Defines the delegate for MugshotUpdated event notifications.
         /// </summary>
         /// <param name="mugshot">The mugshot that was updated</param>
         public delegate void MugshotUpdatedHandler(Mugshot mugshot);
 
         /// <summary>
-        /// Gets or sets a flag which indicates whether we're in online or
+        /// Event handler for notifying when CIX authentication fails.
+        /// </summary>
+        public static event AuthenticationFailedHandler AuthenticationFailed;
+
+        /// <summary>
+        /// Event handler for notifying a delegate of mugshot updates.
+        /// </summary>
+        public static event MugshotUpdatedHandler MugshotUpdated;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether we're in online or
         /// offline mode.
         /// </summary>
         public static bool Online
@@ -105,7 +105,7 @@ namespace CIXClient
         }
 
         /// <summary>
-        /// Return the application's home folder, where all data files
+        /// Gets or sets a value which specifies the application's home folder, where all data files
         /// are kept.
         /// </summary>
         public static string HomeFolder
@@ -142,26 +142,26 @@ namespace CIXClient
                 {
                     if (_globals.Password != null)
                     {
-                        _unencryptedPassword = StringCipher.Decrypt(_globals.Password, passPhrase);
+                        _unencryptedPassword = StringCipher.Decrypt(_globals.Password, PassPhrase);
                     }
                 }
                 return _unencryptedPassword;
             }
             set
             {
-                _globals.Password = StringCipher.Encrypt(value, passPhrase);
+                _globals.Password = StringCipher.Encrypt(value, PassPhrase);
                 _unencryptedPassword = value;
                 DB.InsertOrReplace(_globals);
             }
         }
 
         /// <summary>
-        /// Get or set the folder where the UI configuration files are stored
+        /// Gets or sets the folder where the UI configuration files are stored
         /// </summary>
         public static string UIConfigFolder { get; set; }
 
         /// <summary>
-        /// Return the global count of unread messages.
+        /// Gets the global count of unread messages.
         /// </summary>
         public static int TotalUnread
         {
@@ -169,7 +169,7 @@ namespace CIXClient
         }
 
         /// <summary>
-        /// Return the global count of unread priority messages.
+        /// Gets the global count of unread priority messages.
         /// </summary>
         public static int TotalUnreadPriority
         {
@@ -177,7 +177,7 @@ namespace CIXClient
         }
 
         /// <summary>
-        /// Returns a FolderCollection object for managing forum items.
+        /// Gets a FolderCollection object for managing forum items.
         /// </summary>
         public static FolderCollection FolderCollection
         {
@@ -185,7 +185,7 @@ namespace CIXClient
         }
 
         /// <summary>
-        /// Returns a ProfileCollection object for managing profile items.
+        /// Gets a ProfileCollection object for managing profile items.
         /// </summary>
         public static ProfileCollection ProfileCollection
         {
@@ -193,7 +193,7 @@ namespace CIXClient
         }
 
         /// <summary>
-        /// Returns a DirectoryCollection object for querying the directory.
+        /// Gets a DirectoryCollection object for querying the directory.
         /// </summary>
         public static DirectoryCollection DirectoryCollection
         {
@@ -201,7 +201,7 @@ namespace CIXClient
         }
 
         /// <summary>
-        /// Returns a RuleCollection object for querying the rules.
+        /// Gets a RuleCollection object for querying the rules.
         /// </summary>
         public static RuleCollection RuleCollection
         {
@@ -209,7 +209,7 @@ namespace CIXClient
         }
 
         /// <summary>
-        /// Returns a InboxTasks object for querying the inbox.
+        /// Gets a InboxTasks object for querying the inbox.
         /// </summary>
         public static ConversationCollection ConversationCollection
         {
@@ -217,7 +217,7 @@ namespace CIXClient
         }
 
         /// <summary>
-        /// Returns a ImageRequestorTask object for managing image requests.
+        /// Gets a ImageRequestorTask object for managing image requests.
         /// </summary>
         public static ImageRequestorTask ImageRequestorTask
         {
@@ -264,7 +264,7 @@ namespace CIXClient
         /// </summary>
         public static void StartTask()
         {
-            _timer = new Timer(Sync, null, 200, refreshInterval);
+            _timer = new Timer(Sync, null, 200, RefreshInterval);
         }
 
         /// <summary>
@@ -503,7 +503,6 @@ namespace CIXClient
         /// <summary>
         /// Authenticate the given username and password by making a simple API call
         /// and validating the results.
-        /// 
         /// This is static because at the point we're called, neither the database nor
         /// the full ForumsTask is initialised. So it needs to be lightweight and fast.
         /// </summary>
@@ -518,8 +517,8 @@ namespace CIXClient
             {
                 try
                 {
-                    HttpWebRequest wrGeturl = APIRequest.GetWithCredentials("user/account", username, password, APIRequest.APIFormat.XML);
-                    Stream objStream = APIRequest.ReadResponse(wrGeturl);
+                    HttpWebRequest request = APIRequest.GetWithCredentials("user/account", username, password, APIRequest.APIFormat.XML);
+                    Stream objStream = APIRequest.ReadResponse(request);
                     if (objStream != null)
                     {
                         using (XmlReader reader = XmlReader.Create(objStream))
@@ -615,22 +614,25 @@ namespace CIXClient
         }
 
         /// <summary>
-        /// Return the current version of this client.
+        /// Gets the current version of this client.
         /// </summary>
-        internal static int CurrentVersion { get { return 8; } }
+        internal static int CurrentVersion
+        {
+            get { return 8; }
+        }
 
         /// <summary>
-        /// Return the global SQLite database handle.
+        /// Gets the global SQLite database handle.
         /// </summary>
         internal static SQLiteConnection DB { get; private set; }
 
         /// <summary>
-        /// Flag that indicates whether tasks are running
+        /// Gets or sets a value indicating whether tasks are running
         /// </summary>
         internal static bool IsTasksRunning { get; set; }
 
         /// <summary>
-        /// Get or set the date of the last sync
+        /// Gets or sets the date of the last sync
         /// </summary>
         internal static DateTime LastSyncDate
         {
@@ -645,7 +647,7 @@ namespace CIXClient
         /// <summary>
         /// Notify that mugshot has been updated.
         /// </summary>
-        /// <param name="mugshot"></param>
+        /// <param name="mugshot">The mugshot that was updated</param>
         internal static void NotifyMugshotUpdated(Mugshot mugshot)
         {
             if (MugshotUpdated != null)
@@ -659,11 +661,14 @@ namespace CIXClient
         /// folder in which the exception occurred. For HTTP authentication errors we also
         /// invoke the authentication failed event handler.
         /// </summary>
+        /// <param name="source">The name of the function raising the exception</param>
+        /// <param name="folder">The folder in which the exception occurred</param>
+        /// <param name="e">The exception details</param>
         internal static void ReportServerExceptions(string source, Folder folder, Exception e)
         {
             if (folder != null)
             {
-                source = String.Format("{0} in {1}", source, folder.Name);
+                source = string.Format("{0} in {1}", source, folder.Name);
             }
             ReportServerExceptions(source, e);
         }
@@ -672,6 +677,8 @@ namespace CIXClient
         /// Handle server exceptions and log these with details. For HTTP authentication
         /// errors we also invoke the authentication failed event handler.
         /// </summary>
+        /// <param name="source">The name of the function raising the exception</param>
+        /// <param name="e">The exception details</param>
         internal static void ReportServerExceptions(string source, Exception e)
         {
             WebException webException = e as WebException;
@@ -700,6 +707,7 @@ namespace CIXClient
         /// Sync the list of forums and topics to which the user is joined. Does
         /// nothing if the user is offline.
         /// </summary>
+        /// <param name="obj">The timer object</param>
         private static void Sync(object obj)
         {
             if (Online && IsTasksRunning)

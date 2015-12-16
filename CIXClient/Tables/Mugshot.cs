@@ -31,30 +31,31 @@ namespace CIXClient.Tables
         private byte[] _image;
 
         /// <summary>
-        /// The CIX username of the person whose mugshot this identifies.
+        /// Gets or sets the CIX username of the person whose mugshot this identifies.
         /// </summary>
         [PrimaryKey, Indexed]
         public string Username { get; set; }
 
         /// <summary>
-        /// The actual mugshot bytes.
+        /// Gets or sets the actual mugshot bytes.
         /// </summary>
         public byte[] Image
         {
             get { return _image; } 
-            set { 
+            set 
+            { 
                 _image = value;
                 _realImage = null;
             }
         }
 
         /// <summary>
-        /// A flag which indicates if the mugshot is pending uploading.
+        /// Gets or sets a value indicating whether the mugshot is pending uploading.
         /// </summary>
         public bool Pending { get; set; }
 
         /// <summary>
-        /// The date and time when this mugshot was created.
+        /// Gets or sets the date and time when this mugshot was created.
         /// </summary>
         public DateTime CreationTime { get; set; }
 
@@ -65,10 +66,10 @@ namespace CIXClient.Tables
         private static bool _loadedExternalMugshots;
 
         // Mugshot cache, for performance
-        private static readonly Dictionary<string, Mugshot> _cache = new Dictionary<string, Mugshot>();
+        private static readonly Dictionary<string, Mugshot> Cache = new Dictionary<string, Mugshot>();
 
         /// <summary>
-        /// Return the mugshot image as an Image object
+        /// Gets the mugshot image as an Image object
         /// </summary>
         [Ignore]
         public Image RealImage
@@ -77,7 +78,7 @@ namespace CIXClient.Tables
             {
                 if (_realImage == null)
                 {
-                    TypeConverter tc = TypeDescriptor.GetConverter(typeof (Image));
+                    TypeConverter tc = TypeDescriptor.GetConverter(typeof(Image));
                     _realImage = (Image) tc.ConvertFrom(Image);
                 }
                 return _realImage;
@@ -86,11 +87,11 @@ namespace CIXClient.Tables
 
         /// <summary>
         /// Retrieve the mugshot image for the specified user.
-        /// 
+        /// <para>
         /// If no mugshot is stored locally then we will attempt to retrieve one from the server
         /// asynchronously. The caller will need to add to the MugshotUpdated to be notified when
         /// the image is retrieved. A default image is returned by this function in the meantime.
-        /// 
+        /// </para>
         /// If the specified user has no mugshot then the default image is returned.
         /// </summary>
         /// <param name="username">The username</param>
@@ -108,9 +109,9 @@ namespace CIXClient.Tables
                     _loadedExternalMugshots = true;
                 }
 
-                if (_cache.ContainsKey(username))
+                if (Cache.ContainsKey(username))
                 {
-                    mugshot = _cache[username];
+                    mugshot = Cache[username];
                 }
                 else
                 {
@@ -124,7 +125,7 @@ namespace CIXClient.Tables
                         mugshot = new Mugshot
                         {
                             Username = username,
-                            Image = (byte[]) converter.ConvertTo(mugshotImage, typeof (byte[]))
+                            Image = (byte[])converter.ConvertTo(mugshotImage, typeof(byte[]))
                         };
                         lock (CIX.DBLock)
                         {
@@ -135,7 +136,7 @@ namespace CIXClient.Tables
                             mugshot.Refresh();
                         }
                     }
-                    _cache[username] = mugshot;
+                    Cache[username] = mugshot;
                 }
             }
             return mugshot;
@@ -180,7 +181,7 @@ namespace CIXClient.Tables
                 }
             }
 
-            _cache.Remove(CIX.Username);
+            Cache.Remove(CIX.Username);
             _realImage = null;
 
             if (!CIX.Online)
@@ -209,30 +210,30 @@ namespace CIXClient.Tables
 
                 try
                 {
-                    HttpWebRequest wrGeturl = APIRequest.Get("user/" + Username + "/mugshot", APIRequest.APIFormat.XML);
-                    HttpWebResponse response = (HttpWebResponse)wrGeturl.GetResponse();
+                    HttpWebRequest request = APIRequest.Get("user/" + Username + "/mugshot", APIRequest.APIFormat.XML);
+                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
                     Stream responseStream = response.GetResponseStream();
                     if (responseStream != null)
                     {
-                        Byte[] lnByte;
+                        byte[] imageBytes;
 
                         using (BinaryReader reader = new BinaryReader(responseStream))
                         {
-                            lnByte = reader.ReadBytes((int)response.ContentLength);
+                            imageBytes = reader.ReadBytes((int)response.ContentLength);
                         }
 
                         // Crop the user mugshot and scale it down so we're only storing a centered
                         // square of the required dimensions.
                         TypeConverter tc = TypeDescriptor.GetConverter(typeof(Image));
-                        Image mugshotImage = (Image)tc.ConvertFrom(lnByte);
+                        Image mugshotImage = (Image)tc.ConvertFrom(imageBytes);
 
                         mugshotImage = mugshotImage.ResizeImage(MaxMugshotWidth, MaxMugshotHeight);
 
                         ImageConverter converter = new ImageConverter();
-                        lnByte = (byte[])converter.ConvertTo(mugshotImage, typeof(byte[]));
+                        imageBytes = (byte[])converter.ConvertTo(mugshotImage, typeof(byte[]));
 
-                        Image = lnByte;
+                        Image = imageBytes;
                         CreationTime = DateTime.Now;
 
                         lock (CIX.DBLock)
@@ -240,7 +241,7 @@ namespace CIXClient.Tables
                             CIX.DB.Update(this);
                         }
 
-                        _cache[Username] = this;
+                        Cache[Username] = this;
 
                         LogFile.WriteLine("Mugshot for {0} updated from server", Username);
                         CIX.NotifyMugshotUpdated(this);
@@ -266,8 +267,8 @@ namespace CIXClient.Tables
                 {
                     try
                     {
-                        HttpWebRequest wrPosturl = APIRequest.Post("user/setmugshot", APIRequest.APIFormat.XML, img);
-                        string responseString = APIRequest.ReadResponseString(wrPosturl);
+                        HttpWebRequest request = APIRequest.Post("user/setmugshot", APIRequest.APIFormat.XML, img);
+                        string responseString = APIRequest.ReadResponseString(request);
 
                         if (responseString == "Success")
                         {
@@ -318,7 +319,7 @@ namespace CIXClient.Tables
                             mugshot.Image = (byte[])converter.ConvertTo(mugshotImage, typeof(byte[]));
                             mugshot.Username = username;
 
-                            _cache[username] = mugshot;
+                            Cache[username] = mugshot;
                         }
                     }
                     catch (Exception e)
@@ -329,10 +330,10 @@ namespace CIXClient.Tables
             }
         }
 
-
         /// <summary>
         /// Return the default Mugshot image.
         /// </summary>
+        /// <returns>An Image object containing the mugshot</returns>
         public static Image GetDefaultMugshot()
         {
             return Resources.DefaultUser;

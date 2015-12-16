@@ -20,7 +20,7 @@ namespace CIXClient.Collections
     public sealed class ProfileEventArgs : EventArgs
     {
         /// <summary>
-        /// A copy of the profile that was recently added.
+        /// Gets the profile that was recently added.
         /// </summary>
         public Profile Profile { get; internal set; }
     }

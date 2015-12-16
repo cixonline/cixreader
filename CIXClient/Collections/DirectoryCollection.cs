@@ -88,7 +88,7 @@ namespace CIXClient.Collections
         private Dictionary<int, DirForum> _allForums;
 
         /// <summary>
-        /// Return the list of categories from the database.
+        /// Gets the list of categories from the database.
         /// </summary>
         public IEnumerable<string> Categories
         {
@@ -115,7 +115,7 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Return the list of forums from the database.
+        /// Gets the list of forums from the database.
         /// </summary>
         public IEnumerable<DirForum> Forums
         {
@@ -150,7 +150,7 @@ namespace CIXClient.Collections
                     {
                         using (XmlReader reader = XmlReader.Create(objStream))
                         {
-                            XmlSerializer serializer = new XmlSerializer(typeof (CategoryResultSet));
+                            XmlSerializer serializer = new XmlSerializer(typeof(CategoryResultSet));
                             CategoryResultSet inboxSet = (CategoryResultSet) serializer.Deserialize(reader);
 
                             List<DirCategory> newCategories = new List<DirCategory>();
@@ -215,14 +215,13 @@ namespace CIXClient.Collections
                         string encodedForumName = FolderCollection.EncodeForumName(forumName);
                         LogFile.WriteLine("Updating directory for {0}", forumName);
 
-                        HttpWebRequest wrGeturl = APIRequest.Get("forums/" + encodedForumName + "/details",
-                            APIRequest.APIFormat.XML);
+                        HttpWebRequest wrGeturl = APIRequest.Get("forums/" + encodedForumName + "/details", APIRequest.APIFormat.XML);
                         Stream objStream = APIRequest.ReadResponse(wrGeturl);
                         if (objStream != null)
                         {
                             using (XmlReader reader = XmlReader.Create(objStream))
                             {
-                                XmlSerializer serializer = new XmlSerializer(typeof (ForumDetails));
+                                XmlSerializer serializer = new XmlSerializer(typeof(ForumDetails));
                                 ForumDetails forumDetails = (ForumDetails) serializer.Deserialize(reader);
 
                                 bool isNewForum = false;
@@ -382,14 +381,13 @@ namespace CIXClient.Collections
             {
                 string safeCategoryName = categoryName.Replace("&", "+and+");
 
-                HttpWebRequest wrGeturl = APIRequest.Get("directory/" + safeCategoryName + "/forums",
-                    APIRequest.APIFormat.XML);
-                Stream objStream = APIRequest.ReadResponse(wrGeturl);
+                HttpWebRequest request = APIRequest.Get("directory/" + safeCategoryName + "/forums", APIRequest.APIFormat.XML);
+                Stream objStream = APIRequest.ReadResponse(request);
                 if (objStream != null)
                 {
                     using (XmlReader reader = XmlReader.Create(objStream))
                     {
-                        XmlSerializer serializer = new XmlSerializer(typeof (DirListings));
+                        XmlSerializer serializer = new XmlSerializer(typeof(DirListings));
                         DirListings inboxSet = (DirListings) serializer.Deserialize(reader);
 
                         int countOfNewForums = 0;
@@ -418,9 +416,13 @@ namespace CIXClient.Collections
                                     forum.DetailsPending = false;
 
                                     if (forum.ID == 0)
+                                    {
                                         CIX.DB.Insert(forum);
+                                    }
                                     else
+                                    {
                                         CIX.DB.Update(forum);
+                                    }
                                     _allForums[forum.ID] = forum;
 
                                     ++countOfNewForums;

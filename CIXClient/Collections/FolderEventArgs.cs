@@ -20,12 +20,14 @@ namespace CIXClient.Collections
     public sealed class FolderEventArgs : EventArgs
     {
         /// <summary>
-        /// Sets whether this folder was fixed-upped.
+        /// Gets or sets a value indicating whether this folder is being
+        /// refreshed as part of a call to Fixup(). This is used by the
+        /// delegate to avoid recursive fixup calls.
         /// </summary>
         public bool Fixup { get; set; }
 
         /// <summary>
-        /// A copy of the folder affected
+        /// Gets or sets a the folder affected
         /// </summary>
         public Folder Folder { get; set; }
     }

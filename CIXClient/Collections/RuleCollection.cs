@@ -80,7 +80,7 @@ namespace CIXClient.Collections
         private List<RuleGroup> ruleGroups = new List<RuleGroup>();
 
         /// <summary>
-        /// Instantiate an instance of the RuleCollection
+        /// Initialises a new instance of the <see cref="RuleCollection"/> class
         /// </summary>
         public RuleCollection()
         {
@@ -90,7 +90,7 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Return an array of all rules, both active and inactive
+        /// Gets an array of all rules, both active and inactive
         /// </summary>
         public List<RuleGroup> AllRules
         {
@@ -98,8 +98,9 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Add the specified rule group to the list.
+        /// Add the specified rule group to the collection.
         /// </summary>
+        /// <param name="newRuleGroup">The RuleGroup to add to the collection</param>
         public void AddRule(RuleGroup newRuleGroup)
         {
             ruleGroups.Add(newRuleGroup);
@@ -174,10 +175,12 @@ namespace CIXClient.Collections
                 using (XmlWriter writer = XmlWriter.Create(fileStream, settings))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(rules));
-                    serializer.Serialize(writer, new rules
-                    {
-                        Items = ruleGroups.ToArray()
-                    });
+                    serializer.Serialize(
+                        writer, 
+                        new rules
+                        {
+                            Items = ruleGroups.ToArray()
+                        });
                 }
 
                 LogFile.WriteLine("Saved rules to {0}", filename);
@@ -358,7 +361,7 @@ namespace CIXClient.Collections
                     fileStream = new StreamReader(filename);
                     using (XmlReader reader = XmlReader.Create(fileStream))
                     {
-                        XmlSerializer serializer = new XmlSerializer(typeof (rules));
+                        XmlSerializer serializer = new XmlSerializer(typeof(rules));
                         rules rules = (rules) serializer.Deserialize(reader);
 
                         ruleGroups = new List<RuleGroup>();
@@ -387,7 +390,6 @@ namespace CIXClient.Collections
         /// Apply all rules to the specified message
         /// </summary>
         /// <param name="message">Message to which rules are applied</param>
-        /// <returns>True if any rule changed the message, false otherwise</returns>
         internal void ApplyRules(CIXMessage message)
         {
             ruleGroups.Aggregate(false, (current, ruleGroup) => current || ApplyRule(ruleGroup, message));
@@ -396,10 +398,11 @@ namespace CIXClient.Collections
         /// <summary>
         /// Apply the specified rule group to the message. On completion, the flags
         /// in the message will be adjusted as per the rule.
-        /// 
+        /// <para>
         /// The caller must persist both the message and the associated folder back
         /// to the database if the function returns true since both will likely have
         /// been altered.
+        /// </para>
         /// </summary>
         /// <param name="ruleGroup">Rule group to apply</param>
         /// <param name="message">CIXMessage to which rule is applied</param>
@@ -424,10 +427,10 @@ namespace CIXClient.Collections
                             {
                                 message.ReadPending = true;
                                 Folder folder = CIX.FolderCollection[message.TopicID];
-                                folder.Unread += (message.Unread) ? 1 : -1;
+                                folder.Unread += message.Unread ? 1 : -1;
                                 if (message.Priority)
                                 {
-                                    folder.UnreadPriority += (message.Unread) ? 1 : -1;
+                                    folder.UnreadPriority += message.Unread ? 1 : -1;
                                 }
                                 folder.MarkReadRangePending = true;
 
@@ -443,7 +446,7 @@ namespace CIXClient.Collections
                         if (changed && message.Unread)
                         {
                             Folder folder = CIX.FolderCollection[message.TopicID];
-                            folder.UnreadPriority += (message.Priority) ? 1 : -1;
+                            folder.UnreadPriority += message.Priority ? 1 : -1;
                         }
                     }
                     if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Ignored))

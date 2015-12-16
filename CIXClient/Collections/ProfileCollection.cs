@@ -38,7 +38,8 @@ namespace CIXClient.Collections
         public delegate void ProfileUpdatedHandler(object sender, ProfileEventArgs e);
 
         /// <summary>
-        /// Initialises a ProfileCollection with a set of profiles.
+        /// Initialises a new instance of the <see cref="ProfileCollection"/> class 
+        /// with a set of profiles.
         /// </summary>
         public ProfileCollection()
         {
@@ -46,7 +47,7 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Return a list of all profiles.
+        /// Gets a list of all profiles.
         /// </summary>
         public List<Profile> Profiles
         {
@@ -103,7 +104,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Send a notification that a profile was updated.
         /// </summary>
-        /// <param name="profile"></param>
+        /// <param name="profile">The profile that was updated</param>
         public void NotifyProfileUpdated(Profile profile)
         {
             if (ProfileUpdated != null)
@@ -116,7 +117,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Add the new profile to the collection.
         /// </summary>
-        /// <param name="newProfile"></param>
+        /// <param name="newProfile">A completed profile object to be added</param>
         public void Add(Profile newProfile)
         {
             Profiles.Add(newProfile);
@@ -125,6 +126,8 @@ namespace CIXClient.Collections
         /// <summary>
         /// Look up a profile for the specified user.
         /// </summary>
+        /// <param name="username">The username to be looked up</param>
+        /// <returns>The profile matching the user, or null if it does not exist</returns>
         public Profile Get(string username)
         {
             return Profiles.FirstOrDefault(profile => profile.Username == username);

@@ -24,7 +24,8 @@ namespace CIXClient.Collections
         private readonly List<InboxMessage> _messages;
 
         /// <summary>
-        /// Initialises a MessageCollection with a range of messages.
+        /// Initialises a new instance of the <see cref="MailCollection"/> class 
+        /// with a range of messages.
         /// </summary>
         /// <param name="messages">An array of messages</param>
         internal MailCollection(IEnumerable<InboxMessage> messages)

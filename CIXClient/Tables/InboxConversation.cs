@@ -27,47 +27,47 @@ namespace CIXClient.Tables
     {
         private MailCollection _messages;
 
-            /// <summary>
-        /// An unique local ID that identifies this conversation.
+        /// <summary>
+        /// Gets or sets an unique local ID that identifies this conversation.
         /// </summary>
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
 
         /// <summary>
-        /// The inbox message ID that corresponds to this conversation.
+        /// Gets or sets the inbox message ID that corresponds to this conversation.
         /// This can be 0 if the message is not yet synced with the server.
         /// </summary>
         public int RemoteID { get; set; }
 
         /// <summary>
-        /// The CIX nickname of the author of this conversation.
+        /// Gets or sets the CIX nickname of the author of this conversation.
         /// </summary>
         public string Author { get; set; }
 
         /// <summary>
-        /// The date and time when the conversation was started.
+        /// Gets or sets the date and time when the conversation was started.
         /// </summary>
         public DateTime Date { get; set; }
 
         /// <summary>
-        /// The subject line of the conversation.
+        /// Gets or sets the subject line of the conversation.
         /// </summary>
         public string Subject { get; set; }
 
         /// <summary>
-        /// The total number of unread messages in the conversation.
+        /// Gets or sets the total number of unread messages in the conversation.
         /// </summary>
         public int UnreadCount { get; set; }
 
         /// <summary>
-        /// A set of flags that specify the message state.
+        /// Gets or sets the set of flags that specify the message state.
         /// </summary>
         public InboxConversationFlags Flags { get; set; }
 
         /// <summary>
-        /// Return whether this is a draft conversation. A draft
-        /// conversation is one which has no remote ID yet and thus
-        /// has not yet been posted.
+        /// Gets a value indicating whether this is a draft conversation. A draft
+        /// conversation is one which has no remote ID yet and thus has not yet 
+        /// been posted.
         /// </summary>
         [Ignore]
         public bool IsDraft
@@ -76,7 +76,7 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Return whether this conversation has an error.
+        /// Gets a value indicating whether this conversation has an error.
         /// </summary>
         [Ignore]
         public bool LastError
@@ -85,12 +85,13 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Return all the messages of this conversation
+        /// Gets all the messages of this conversation
         /// </summary>
         [Ignore]
         public MailCollection Messages
         {
-            get {
+            get 
+            {
                 return _messages ?? (_messages = new MailCollection(CIX.DB.Table<InboxMessage>().Where(msg => msg.ConversationID == ID).ToList()));
             }
         }
@@ -185,8 +186,8 @@ namespace CIXClient.Tables
                                 Subject = Subject
                             };
 
-                            WebRequest wrPosturl = APIRequest.Post("personalmessage/add", APIRequest.APIFormat.XML, newMessage);
-                            Stream objStream = APIRequest.ReadResponse(wrPosturl);
+                            WebRequest request = APIRequest.Post("personalmessage/add", APIRequest.APIFormat.XML, newMessage);
+                            Stream objStream = APIRequest.ReadResponse(request);
                             if (objStream != null)
                             {
                                 using (TextReader reader = new StreamReader(objStream))
@@ -202,8 +203,8 @@ namespace CIXClient.Tables
                                         {
                                             int messageID;
 
-                                            if (Int32.TryParse(splitStrings[0], out conversationID) &&
-                                                Int32.TryParse(splitStrings[1], out messageID))
+                                            if (int.TryParse(splitStrings[0], out conversationID) &&
+                                                int.TryParse(splitStrings[1], out messageID))
                                             {
                                                 lock (CIX.DBLock)
                                                 {
@@ -259,8 +260,8 @@ namespace CIXClient.Tables
                     ConID = RemoteID
                 };
 
-                WebRequest wrPosturl = APIRequest.Post("personalmessage/reply", APIRequest.APIFormat.XML, reply);
-                Stream objStream = APIRequest.ReadResponse(wrPosturl);
+                WebRequest request = APIRequest.Post("personalmessage/reply", APIRequest.APIFormat.XML, reply);
+                Stream objStream = APIRequest.ReadResponse(request);
                 if (objStream != null)
                 {
                     using (TextReader reader = new StreamReader(objStream))
@@ -272,7 +273,7 @@ namespace CIXClient.Tables
                             string responseString = doc.DocumentElement.InnerText;
                             int messageID;
 
-                            if (Int32.TryParse(responseString, out messageID))
+                            if (int.TryParse(responseString, out messageID))
                             {
                                 message.RemoteID = messageID;
                                 lock (CIX.DBLock)
@@ -307,16 +308,16 @@ namespace CIXClient.Tables
                         return;
                     }
 
-                    HttpWebRequest wrGeturl = APIRequest.Get("personalmessage/inbox/" + RemoteID + "/rem", APIRequest.APIFormat.XML);
-                    string responseString = APIRequest.ReadResponseString(wrGeturl);
+                    HttpWebRequest request = APIRequest.Get("personalmessage/inbox/" + RemoteID + "/rem", APIRequest.APIFormat.XML);
+                    string responseString = APIRequest.ReadResponseString(request);
                     if (responseString == "Success")
                     {
                         LogFile.WriteLine("Conversation {0} deleted from inbox", RemoteID);
                         CIX.ConversationCollection.Remove(this);
                     }
 
-                    wrGeturl = APIRequest.Get("personalmessage/outbox/" + RemoteID + "/rem", APIRequest.APIFormat.XML);
-                    responseString = APIRequest.ReadResponseString(wrGeturl);
+                    request = APIRequest.Get("personalmessage/outbox/" + RemoteID + "/rem", APIRequest.APIFormat.XML);
+                    responseString = APIRequest.ReadResponseString(request);
 
                     if (responseString == "Success")
                     {
@@ -341,8 +342,8 @@ namespace CIXClient.Tables
                 try
                 {
                     string url = string.Format("personalmessage/{0}/{1}/toggleread", RemoteID, UnreadCount > 0);
-                    HttpWebRequest wrGeturl = APIRequest.Get(url, APIRequest.APIFormat.XML);
-                    string responseString = APIRequest.ReadResponseString(wrGeturl);
+                    HttpWebRequest request = APIRequest.Get(url, APIRequest.APIFormat.XML);
+                    string responseString = APIRequest.ReadResponseString(request);
 
                     // Any non-exception response should treat the action as having completed. The two
                     // possible outcomes are either the message is marked read or the ID is invalid.

@@ -19,32 +19,32 @@ namespace CIXClient.Tables
     public sealed class CIXThread
     {
         /// <summary>
-        /// The author of the message.
+        /// Gets or sets the author of the message.
         /// </summary>
         public string Author { get; set; }
 
         /// <summary>
-        /// The body of the message.
+        /// Gets or sets the body of the message.
         /// </summary>
         public string Body { get; set; }
 
         /// <summary>
-        /// The name of the forum containing this message.
+        /// Gets or sets the name of the forum containing this message.
         /// </summary>
         public string Forum { get; set; }
 
         /// <summary>
-        /// The name of the topic within the forum.
+        /// Gets or sets the name of the topic within the forum.
         /// </summary>
         public string Topic { get; set; }
 
         /// <summary>
-        /// The date and time when this message was posted.
+        /// Gets or sets the date and time when this message was posted.
         /// </summary>
         public DateTime Date { get; set; }
 
         /// <summary>
-        /// The unique ID of this message within the topic.
+        /// Gets or sets  unique ID of this message within the topic.
         /// </summary>
         public int RemoteID { get; set; }
     }

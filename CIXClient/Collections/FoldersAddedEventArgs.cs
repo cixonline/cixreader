@@ -21,7 +21,7 @@ namespace CIXClient.Collections
     public sealed class FoldersAddedEventArgs : EventArgs
     {
         /// <summary>
-        /// List of added folders
+        /// Gets or sets the list of added folders
         /// </summary>
         public List<Folder> Folders { get; set; }
     }

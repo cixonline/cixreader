@@ -15,9 +15,12 @@ using System.Text;
 
 namespace CIXMarkup
 {
+    /// <summary>
+    /// Class that parses CIX markup to HTML
+    /// </summary>
     public static class CIXMarkup
     {
-        static int _blockQuoteDepth;
+        private static int _blockQuoteDepth;
 
         /// <summary>
         /// Convert the input string to HTML, parsing all markup codes
@@ -29,7 +32,7 @@ namespace CIXMarkup
         {
             StringBuilder outputString = new StringBuilder();
 
-            string [] lines = text.Split(new [] { '\n' });
+            string[] lines = text.Split(new[] { '\n' });
             foreach (string line in lines)
             {
                 if (outputString.Length > 0)
@@ -60,7 +63,7 @@ namespace CIXMarkup
         /// <returns>True if character can precede style</returns>
         private static bool CanPrecedeStyle(char lastChar, char thisChar)
         {
-            return lastChar != thisChar && (Char.IsWhiteSpace(lastChar) || lastChar == '*' || lastChar == '_' || lastChar == '/');
+            return lastChar != thisChar && (char.IsWhiteSpace(lastChar) || lastChar == '*' || lastChar == '_' || lastChar == '/');
         }
 
         /// <summary>
@@ -68,12 +71,12 @@ namespace CIXMarkup
         /// whether it matches a subset of HTML tags that are passed through for
         /// rendering as opposed to being escaped for presentation.
         /// </summary>
-        /// <param name="line">Line</param>
+        /// <param name="line">The line containing the tag</param>
         /// <param name="index">Index of the first character of the tag</param>
         /// <returns>True if the tag is passed through, false if escaped</returns>
         private static bool IsLegalTag(string line, int index)
         {
-            int endIndex = line.IndexOfAny(new [] { '>', ' '}, index);
+            int endIndex = line.IndexOfAny(new[] { '>', ' ' }, index);
             if (endIndex > index)
             {
                 string tagName = line.Substring(index, endIndex - index);
@@ -82,7 +85,7 @@ namespace CIXMarkup
                     tagName = tagName.Substring(1);
                 }
 
-                string [] legalTags = { "font", "b", "i", "u" };
+                string[] legalTags = { "font", "b", "i", "u" };
                 return legalTags.Contains(tagName.ToLower());
             }
             return false;
@@ -92,7 +95,7 @@ namespace CIXMarkup
         /// Look for the close tag for the specified style character. To qualify,
         /// the end tag must be followed by whitespace.
         /// </summary>
-        /// <param name="line">Line</param>
+        /// <param name="line">The line containing the tag</param>
         /// <param name="index">Index of where to search for the close tag</param>
         /// <param name="ch">The tag character</param>
         /// <returns>True if the close tag is found, false otherwise</returns>
@@ -105,8 +108,8 @@ namespace CIXMarkup
                 {
                     return true;
                 }
-                char chAfterTag = line[endIndex + 1];
-                return (Char.IsWhiteSpace(chAfterTag) || chAfterTag == '*' || chAfterTag == '_' || chAfterTag == '/' || chAfterTag == '.' || chAfterTag == ',');
+                char afterTag = line[endIndex + 1];
+                return char.IsWhiteSpace(afterTag) || afterTag == '*' || afterTag == '_' || afterTag == '/' || afterTag == '.' || afterTag == ',';
             }
             return false;
         }
@@ -114,6 +117,7 @@ namespace CIXMarkup
         /// <summary>
         /// Parse a single line and return the HTML equivalent.
         /// </summary>
+        /// <param name="line">The string containing the line to parse</param>
         /// <returns>HTML version of line</returns>
         private static string ParseLine(string line)
         {
@@ -139,7 +143,7 @@ namespace CIXMarkup
                 if (lineStart)
                 {
                     // Skip initial whitespace
-                    if (Char.IsWhiteSpace(ch))
+                    if (char.IsWhiteSpace(ch))
                     {
                         continue;
                     }

@@ -25,18 +25,18 @@ namespace CIXClient
         private const int ArchiveMaximum = 9;
 
         /// <summary>
-        /// Specifies whether or not the debug log is enabled.
+        /// Gets or sets a value indicating whether or not the debug log is enabled.
         /// </summary>
         public static bool Enabled { get; set; }
 
         /// <summary>
-        /// Specifies whether or not the debug log accumulates between
+        /// Gets or sets a value indicating whether or not the debug log accumulates between
         /// sessions.
         /// </summary>
         public static bool Cumulative { get; set; }
 
         /// <summary>
-        /// Specifies whether or not the we archive earlier copies of
+        /// Gets or sets a value indicating whether or not the we archive earlier copies of
         /// the debug log.
         /// </summary>
         public static bool Archive { get; set; }
@@ -79,7 +79,7 @@ namespace CIXClient
                     {
                         ArchiveOldLogs();
                     }
-                    FileMode fileMode = (Cumulative) ? FileMode.Append : FileMode.Create;
+                    FileMode fileMode = Cumulative ? FileMode.Append : FileMode.Create;
                     _file = new StreamWriter(File.Open(_debugFilePath, fileMode, FileAccess.Write, FileShare.Read));
                 }
                 if (_file == null)
@@ -104,7 +104,7 @@ namespace CIXClient
             {
                 string archiveNew = Path.ChangeExtension(_debugFilePath, (extMax + 1).ToString("000"));
                 string archiveCurrent = (extMax > 0)
-                    ? Path.ChangeExtension(_debugFilePath, (extMax).ToString("000"))
+                    ? Path.ChangeExtension(_debugFilePath, extMax.ToString("000"))
                     : _debugFilePath;
 
                 if (File.Exists(archiveNew))

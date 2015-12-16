@@ -21,39 +21,39 @@ namespace CIXClient.Tables
     public sealed class InboxMessage
     {
         /// <summary>
-        /// An unique local ID that identifies this message.
+        /// Gets or sets an unique local ID that identifies this message.
         /// </summary>
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
 
         /// <summary>
-        /// The inbox message ID that corresponds to this message.
+        /// Gets or sets the inbox message ID that corresponds to this message.
         /// This can be 0 if the message is not yet synced with the server.
         /// </summary>
         public int RemoteID { get; set; }
 
         /// <summary>
-        /// The author of this message.
+        /// Gets or sets the author of this message.
         /// </summary>
         public string Author { get; set; }
 
         /// <summary>
-        /// The body of the message.
+        /// Gets or sets the body of the message.
         /// </summary>
         public string Body { get; set; }
 
         /// <summary>
-        /// The date and time when this message was posted.
+        /// Gets or sets the date and time when this message was posted.
         /// </summary>
         public DateTime Date { get; set; }
 
         /// <summary>
-        /// The ID of the conversation to which this message belongs.
+        /// Gets or sets the ID of the conversation to which this message belongs.
         /// </summary>
         public int ConversationID { get; set; }
 
         /// <summary>
-        /// Gets a flag which indicates whether this message is synced
+        /// Gets a value indicating whether this message is synced
         /// with the server.
         /// </summary>
         [Ignore]
@@ -63,10 +63,13 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Gets a value that indicates whether the authenticated user was the author
+        /// Gets a value indicating whether the authenticated user was the author
         /// of this message.
         /// </summary>
         [Ignore]
-        public bool IsMine { get { return Author == CIX.Username; } }
+        public bool IsMine
+        {
+            get { return Author == CIX.Username; }
+        }
     }
 }

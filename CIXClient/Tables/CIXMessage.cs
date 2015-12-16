@@ -33,24 +33,24 @@ namespace CIXClient.Tables
         private Folder _topic;
 
         /// <summary>
-        /// An unique local ID that identifies this message across all folders.
+        /// Gets or sets an unique local ID that identifies this message across all folders.
         /// </summary>
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
 
         /// <summary>
-        /// The CIX message ID that corresponds to this message. This can be
+        /// Gets or sets the CIX message ID that corresponds to this message. This can be
         /// 0 if the message is not yet synced with CIX.
         /// </summary>
         public int RemoteID { get; set; }
 
         /// <summary>
-        /// CIX author nickname.
+        /// Gets or sets the CIX author nickname.
         /// </summary>
         public string Author { get; set; }
 
         /// <summary>
-        /// The body of the message.
+        /// Gets or sets the body of the message.
         /// </summary>
         public string Body
         {
@@ -63,72 +63,72 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// The date and time when the message was posted.
+        /// Gets or sets the date and time when the message was posted.
         /// </summary>
         public DateTime Date { get; set; }
 
         /// <summary>
-        /// The CIX ID of the message to which this message is a reply.
+        /// Gets or sets the CIX ID of the message to which this message is a reply.
         /// </summary>
         public int CommentID { get; set; }
 
         /// <summary>
-        /// The CIX ID of the root message.
+        /// Gets or sets the CIX ID of the root message.
         /// </summary>
         public int RootID { get; set; }
 
         /// <summary>
-        /// The ID of the folder containing this message.
+        /// Gets or sets the ID of the folder containing this message.
         /// </summary>
         public int TopicID { get; set; }
 
         /// <summary>
-        /// Flag that specifies if the message is unread.
+        /// Gets or sets a value indicating whether the message is unread.
         /// </summary>
         public bool Unread { get; set; }
 
         /// <summary>
-        /// Flag that specifies if the message is priority.
+        /// Gets or sets a value indicating whether the message is priority.
         /// </summary>
         public bool Priority { get; set; }
 
         /// <summary>
-        /// Flag that specifies if the message is starred.
+        /// Gets or sets a value indicating whether the message is starred.
         /// </summary>
         public bool Starred { get; set; }
 
         /// <summary>
-        /// Flag that specifies if the message is read locked.
+        /// Gets or sets a value indicating whether the message is read locked.
         /// </summary>
         public bool ReadLocked { get; set; }
 
         /// <summary>
-        /// Flag that specifies if the message is ignored.
+        /// Gets or sets a value indicating whether the message is ignored.
         /// </summary>
         public bool Ignored { get; set; }
 
         /// <summary>
-        /// Flag that specifies if the message read status change is pending.
+        /// Gets or sets a value indicating whether the message read status change is pending.
         /// </summary>
         public bool ReadPending { get; set; }
 
         /// <summary>
-        /// Flag that specifies if the message is pending posting.
+        /// Gets or sets a value indicating whether the message is pending posting.
         /// </summary>
         public bool PostPending { get; set; }
 
         /// <summary>
-        /// Flag that specifies if the message star status change is pending.
+        /// Gets or sets a value indicating whether the message star status change is pending.
         /// </summary>
         public bool StarPending { get; set; }
 
         /// <summary>
-        /// Flag that specifies if the message withdraw status change is pending.
+        /// Gets or sets a value indicating whether the message withdraw status change is pending.
         /// </summary>
         public bool WithdrawPending { get; set; }
 
         /// <summary>
-        /// Synthesize a subject from the first line, limited to 80 characters.
+        /// Gets a subject from the first line, limited to 80 characters.
         /// </summary>
         [Ignore]
         public string Subject
@@ -137,54 +137,69 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Specifies the indent level of this message from the conversation root.
+        /// Gets or sets the indent level of this message from the conversation root.
         /// </summary>
         [Ignore]
         public int Level { get; set; }
 
         /// <summary>
-        /// Gets a value that indicates whether the authenticated user was the author
+        /// Gets a value indicating whether the authenticated user was the author
         /// of this message.
         /// </summary>
         [Ignore]
-        public bool IsMine { get { return Author == CIX.Username; } }
+        public bool IsMine
+        {
+            get { return Author == CIX.Username; }
+        }
 
         /// <summary>
-        /// Gets a value that indicates whether this message is a local draft and not
+        /// Gets a value indicating whether this message is a local draft and not
         /// yet synced with the CIX server.
         /// </summary>
         [Ignore]
-        public bool IsDraft { get { return IsPseudo && !IsPending; } }
+        public bool IsDraft
+        {
+            get { return IsPseudo && !IsPending; }
+        }
 
         /// <summary>
-        /// Gets a value that indicates whether this message is does not yet have a
+        /// Gets a value indicating whether this message is does not yet have a
         /// server assigned ID value.
         /// </summary>
         [Ignore]
-        public bool IsPseudo { get { return RemoteID >= int.MaxValue / 2; } }
+        public bool IsPseudo
+        {
+            get { return RemoteID >= int.MaxValue / 2; }
+        }
 
         /// <summary>
-        /// Gets a value that indicates whether this message is pending a sync with
+        /// Gets a value indicating whether this message is pending a sync with
         /// the CIX server. If IsDraft is true but IsPending is false, the message is in
         /// the process of being edited and not ready to be synced.
         /// </summary>
         [Ignore]
-        public bool IsPending { get { return PostPending; } }
+        public bool IsPending
+        {
+            get { return PostPending; }
+        }
 
         /// <summary>
-        /// Gets a value that indicates whether this message is a root message.
+        /// Gets a value indicating whether this message is a root message.
         /// </summary>
         [Ignore]
-        public bool IsRoot { get { return CommentID == 0; } }
+        public bool IsRoot
+        {
+            get { return CommentID == 0; }
+        }
 
         /// <summary>
-        /// Get or set the count of child messages to this thread.
+        /// Gets or sets the count of child messages to this thread.
         /// </summary>
         [Ignore]
         public int ChildCount { get; set; }
 
         /// <summary>
-        /// Returns whether or not this is a withdrawn message.
+        /// Gets a value indicating whether or not this is a withdrawn message.
         /// </summary>
         [Ignore]
         public bool IsWithdrawn
@@ -193,7 +208,7 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Return the parent of this message
+        /// Gets or sets the parent of this message
         /// </summary>
         [Ignore]
         public CIXMessage Parent
@@ -203,7 +218,7 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Return the parent of this message
+        /// Gets or sets the parent of this message
         /// </summary>
         [Ignore]
         public CIXMessage SafeParent
@@ -216,7 +231,7 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Return the root message
+        /// Gets the root message
         /// </summary>
         [Ignore]
         public CIXMessage Root
@@ -233,7 +248,7 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Return the forum folder to which this message belongs.
+        /// Gets the forum folder to which this message belongs.
         /// </summary>
         [Ignore]
         public Folder Forum
@@ -242,7 +257,7 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Return the topic folder to which this message belongs.
+        /// Gets the topic folder to which this message belongs.
         /// </summary>
         [Ignore]
         public Folder Topic
@@ -251,19 +266,19 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Return the last message that is a child of this message
+        /// Gets or sets the last message that is a child of this message
         /// </summary>
         [Ignore]
         public CIXMessage LastChildMessage { get; set; }
 
         /// <summary>
-        /// The date of the latest message in this thread
+        /// Gets or sets the date of the latest message in this thread
         /// </summary>
         [Ignore]
         public DateTime LatestDate { get; set; }
 
         /// <summary>
-        /// Return the cached version of the specified message.
+        /// Gets the cached version of the specified message.
         /// </summary>
         [Ignore]
         public CIXMessage RealMessage
@@ -275,7 +290,7 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Return whether this message any child messages
+        /// Gets a value indicating whether this message any child messages
         /// </summary>
         [Ignore]
         public bool HasChildren
@@ -284,7 +299,7 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Return the total number of unread child messages.
+        /// Gets the total number of unread child messages.
         /// </summary>
         [Ignore]
         public int UnreadChildren
@@ -699,8 +714,10 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Internal method to set the ignore flag on the message.
+        /// Internal method to set the ignore flag on the message and simultaneously
+        /// mark the messages as read.
         /// </summary>
+        /// <returns>The number of unread messages marked read</returns>
         internal int InnerSetIgnore()
         {
             Folder topic = Topic;
@@ -910,7 +927,7 @@ namespace CIXClient.Tables
                 Folder topic = Topic;
                 Folder forum = topic.ParentFolder;
                 string urlFormat = string.Format("forums/{0}/{1}/{2}/withdraw", FolderCollection.EncodeForumName(forum.Name), topic.Name, RemoteID);
-                HttpWebRequest wrGeturl = APIRequest.Get(urlFormat, APIRequest.APIFormat.XML);
+                HttpWebRequest request = APIRequest.Get(urlFormat, APIRequest.APIFormat.XML);
 
                 // Don't try and withdraw again because this was an error.
                 WithdrawPending = false;
@@ -918,7 +935,7 @@ namespace CIXClient.Tables
                 {
                     CIX.DB.Update(this);
                 }
-                string responseString = APIRequest.ReadResponseString(wrGeturl);
+                string responseString = APIRequest.ReadResponseString(request);
 
                 if (responseString == "Success")
                 {
@@ -968,7 +985,7 @@ namespace CIXClient.Tables
                 string responseString = APIRequest.ReadResponseString(postUrl);
 
                 int newRemoteID;
-                if (Int32.TryParse(responseString, out newRemoteID))
+                if (int.TryParse(responseString, out newRemoteID))
                 {
                     RemoteID = newRemoteID;
                     Date = DateTime.Now;

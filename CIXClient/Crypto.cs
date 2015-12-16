@@ -21,12 +21,15 @@ namespace CIXClient
     /// </summary>
     internal static class StringCipher
     {
-        private const int saltLength = 8;
+        private const int SaltLength = 8;
 
         /// <summary>
         /// Encrypt the plaintext string with the given passphrase and returns the
         /// encrypted string in base64 format.
         /// </summary>
+        /// <param name="plainText">The string to be encrypted</param>
+        /// <param name="passPhrase">The passphrase to use in the encryption</param>
+        /// <returns>The encrypted string</returns>
         internal static string Encrypt(string plainText, string passPhrase)
         {
             AesManaged aes = null;
@@ -37,7 +40,7 @@ namespace CIXClient
 
             try
             {
-                byte[] salt1 = new byte[saltLength];
+                byte[] salt1 = new byte[SaltLength];
                 using (RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider())
                 {
                     rngCsp.GetBytes(salt1);
@@ -91,6 +94,9 @@ namespace CIXClient
         /// Decrypt the encoded string with the given passphrase and returns the
         /// plaintext string.
         /// </summary>
+        /// <param name="cipherText">The encoded string to be decrypted</param>
+        /// <param name="passPhrase">The passphrase to use in the decryption</param>
+        /// <returns>The decrypted string</returns>
         internal static string Decrypt(string cipherText, string passPhrase)
         {
             AesManaged aes = null;
@@ -104,11 +110,11 @@ namespace CIXClient
 
                 // Split the cipher text into the data and salt portions as they were
                 // combined by the encryption.
-                byte[] salt = new byte[saltLength];
-                Buffer.BlockCopy(cipherTextBytes, cipherTextBytes.Length - saltLength, salt, 0, saltLength);
+                byte[] salt = new byte[SaltLength];
+                Buffer.BlockCopy(cipherTextBytes, cipherTextBytes.Length - SaltLength, salt, 0, SaltLength);
 
-                byte[] data = new byte[cipherTextBytes.Length - saltLength];
-                Buffer.BlockCopy(cipherTextBytes, 0, data, 0, cipherTextBytes.Length - saltLength);
+                byte[] data = new byte[cipherTextBytes.Length - SaltLength];
+                Buffer.BlockCopy(cipherTextBytes, 0, data, 0, cipherTextBytes.Length - SaltLength);
 
                 Rfc2898DeriveBytes rfc2898 = new Rfc2898DeriveBytes(passPhrase, salt, 10000);
 

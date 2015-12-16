@@ -41,70 +41,70 @@ namespace CIXClient.Tables
             /// Notify when the user is tagged in a message
             /// </summary>
             TagNotification = 2
-        };
+        }
 
         /// <summary>
-        /// An unique ID that identifies this profile.
+        /// Gets or sets an unique ID that identifies this profile.
         /// </summary>
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
 
         /// <summary>
-        /// The username for which this profile.
+        /// Gets or sets the username for which this profile.
         /// </summary>
         public string Username { get; set; }
 
         /// <summary>
-        /// The user's e-mail address. May be empty.
+        /// Gets or sets the user's e-mail address. May be empty.
         /// </summary>
         public string EMailAddress { get; set; }
 
         /// <summary>
-        /// The user's full name, which may be empty.
+        /// Gets or sets the user's full name, which may be empty.
         /// </summary>
         public string FullName { get; set; }
 
         /// <summary>
-        /// The date and time when the user was last on the server.
+        /// Gets or sets the date and time when the user was last on the server.
         /// </summary>
         public DateTime LastOn { get; set; }
 
         /// <summary>
-        /// The users geographical location, typically a home town. This
+        /// Gets or sets thee users geographical location, typically a home town. This
         /// may be blank.
         /// </summary>
         public string Location { get; set; }
 
         /// <summary>
-        /// The user's gender. A blank value equates to "Don't want to say".
+        /// Gets or sets the user's gender. A blank value equates to "Don't want to say".
         /// A string beginning with 'M' is male and one beginning with 'F' is female.
         /// </summary>
         public string Sex { get; set; }
 
         /// <summary>
-        /// Some descriptive details about the user. This may be blank if they have
+        /// Gets or sets some descriptive details about the user. This may be blank if they have
         /// not provided any information.
         /// </summary>
         public string About { get; set; }
 
         /// <summary>
-        /// Specifies whether this user profile and resume are pending upload.
+        /// Gets or sets a value indicating whether this user profile and resume are pending upload.
         /// </summary>
         public bool Pending { get; set; }
 
         /// <summary>
-        /// Get or set the user's notification flags.
+        /// Gets or sets the user's notification flags.
         /// </summary>
         public NotificationFlags Flags { get; set; }
 
         /// <summary>
-        /// Return the user's full name if it is known, or the CIX username
+        /// Gets the user's full name if it is known, or the CIX username
         /// name otherwise.
         /// </summary>
         [Ignore]
         public string FriendlyName
         {
-            get { return (string.IsNullOrWhiteSpace(FullName)) ? Username : FullName; }
+            get { return string.IsNullOrWhiteSpace(FullName) ? Username : FullName; }
         }
 
         /// <summary>
@@ -163,14 +163,14 @@ namespace CIXClient.Tables
                 {
                     // First get the basic profile information
                     string profileUrl = Username == CIX.Username ? "user/profile" : "user/" + Username + "/profile";
-                    HttpWebRequest wrGeturl = APIRequest.Get(profileUrl, APIRequest.APIFormat.XML);
-                    Stream objStream = APIRequest.ReadResponse(wrGeturl);
+                    HttpWebRequest request = APIRequest.Get(profileUrl, APIRequest.APIFormat.XML);
+                    Stream objStream = APIRequest.ReadResponse(request);
                     if (objStream != null)
                     {
                         using (XmlReader reader = XmlReader.Create(objStream))
                         {
-                            XmlSerializer serializer = new XmlSerializer(typeof (ProfileSmall));
-                            ProfileSmall profileSet = (ProfileSmall) serializer.Deserialize(reader);
+                            XmlSerializer serializer = new XmlSerializer(typeof(ProfileSmall));
+                            ProfileSmall profileSet = (ProfileSmall)serializer.Deserialize(reader);
 
                             Location = profileSet.Location;
                             FullName = profileSet.Fname + " " + profileSet.Sname;
@@ -186,8 +186,8 @@ namespace CIXClient.Tables
                         }
                     }
 
-                    wrGeturl = APIRequest.Get("user/" + Username + "/resume", APIRequest.APIFormat.XML);
-                    string resumeText = APIRequest.ReadResponseString(wrGeturl);
+                    request = APIRequest.Get("user/" + Username + "/resume", APIRequest.APIFormat.XML);
+                    string resumeText = APIRequest.ReadResponseString(request);
 
                     if (!string.IsNullOrEmpty(resumeText) && CIX.DB != null)
                     {
@@ -224,7 +224,7 @@ namespace CIXClient.Tables
                 ProfileSet newProfileSmall = new ProfileSet
                 {
                     Fname = splitName[0],
-                    Sname = (splitName.Length > 1) ? splitName[1] : "",
+                    Sname = (splitName.Length > 1) ? splitName[1] : string.Empty,
                     Location = Location,
                     Email = EMailAddress,
                     Flags = (int)Flags,
@@ -233,8 +233,8 @@ namespace CIXClient.Tables
 
                 try
                 {
-                    HttpWebRequest wrPosturl = APIRequest.Post("user/setprofile", APIRequest.APIFormat.XML, newProfileSmall);
-                    string responseString = APIRequest.ReadResponseString(wrPosturl);
+                    HttpWebRequest request = APIRequest.Post("user/setprofile", APIRequest.APIFormat.XML, newProfileSmall);
+                    string responseString = APIRequest.ReadResponseString(request);
 
                     if (responseString == "Success")
                     {
@@ -242,8 +242,8 @@ namespace CIXClient.Tables
                         LogFile.WriteLine("Profile successfully uploaded");
                     }
 
-                    wrPosturl = APIRequest.Post("user/setresume", APIRequest.APIFormat.XML, About);
-                    responseString = APIRequest.ReadResponseString(wrPosturl);
+                    request = APIRequest.Post("user/setresume", APIRequest.APIFormat.XML, About);
+                    responseString = APIRequest.ReadResponseString(request);
 
                     if (responseString == "True")
                     {

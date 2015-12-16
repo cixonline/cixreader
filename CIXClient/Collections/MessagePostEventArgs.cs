@@ -20,7 +20,7 @@ namespace CIXClient.Collections
     public sealed class MessagePostEventArgs : EventArgs
     {
         /// <summary>
-        /// A copy of the message affected
+        /// Gets or sets the message affected
         /// </summary>
         public CIXMessage Message { get; set; }
     }

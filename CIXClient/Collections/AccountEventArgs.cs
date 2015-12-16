@@ -20,7 +20,7 @@ namespace CIXClient.Collections
     public sealed class AccountEventArgs : EventArgs
     {
         /// <summary>
-        /// The account details
+        /// Gets or sets the account details
         /// </summary>
         public Account Account { get; set; }
     }

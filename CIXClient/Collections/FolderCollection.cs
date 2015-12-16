@@ -38,7 +38,7 @@ namespace CIXClient.Collections
         private int _nextId = 1;
 
         // Used to lock access to the internal ID
-        private readonly Object idLock = new Object();
+        private readonly object idLock = new object();
 
         /// <summary>
         /// Topic is read-only
@@ -241,7 +241,7 @@ namespace CIXClient.Collections
         public delegate void InterestingThreadsUpdatedHandler(object sender, InterestingThreadsEventArgs e);
 
         /// <summary>
-        /// Return the collection of forum folders.
+        /// Gets the collection of forum folders.
         /// </summary>
         public IEnumerable<Folder> Folders
         {
@@ -252,7 +252,7 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Return the total number of unread messages in all folders.
+        /// Gets the total number of unread messages in all folders.
         /// </summary>
         public int TotalUnread
         {
@@ -260,7 +260,7 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Return the total number of unread priority messages in all folders.
+        /// Gets the total number of unread priority messages in all folders.
         /// </summary>
         public int TotalUnreadPriority
         {
@@ -268,17 +268,17 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Returns the Folder indexed by the specified ID, or null if no
+        /// Gets the Folder indexed by the specified ID, or null if no
         /// folder with that ID exists.
         /// </summary>
-        /// <param name="ID">Folder ID</param>
+        /// <param name="id">Folder ID</param>
         /// <returns>A Folder, or null</returns>
-        public Folder this[int ID]
+        public Folder this[int id]
         {
             get
             {
                 Folder folder;
-                return AllFolders.TryGetValue(ID, out folder) ? folder : null;
+                return AllFolders.TryGetValue(id, out folder) ? folder : null;
             }
         }
 
@@ -345,8 +345,10 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Return all messages that match the specified Linq criteria.
+        /// Return all messages from the database that match the specified criteria.
         /// </summary>
+        /// <param name="criteria">The criteria to match</param>
+        /// <returns>A CIXMessageCollection containing messages from the database that match the criteria</returns>
         public static CIXMessageCollection MessagesWithCriteria(Expression<Func<CIXMessage, bool>> criteria)
         {
             return new CIXMessageCollection(CIX.DB.Table<CIXMessage>().Where(criteria));
@@ -478,6 +480,10 @@ namespace CIXClient.Collections
         /// <summary>
         /// Given a Message2 structure array, this method adds all messages within to the database.
         /// </summary>
+        /// <param name="objStream">A data stream containing the XML to parse</param>
+        /// <param name="sinceDate">A reference to a DateTime structure that is set to the latest message retrieved</param>
+        /// <param name="fastSync">Specifies whether or not the messages were retrieved with fast sync</param>
+        /// <param name="fixup">Specifies whether these messages were retrieved as part of a folder fixup call</param>
         /// <returns>The total number of new messages added</returns>
         public static int AddMessages(Stream objStream, ref DateTime sinceDate, bool fastSync, bool fixup)
         {
@@ -495,7 +501,7 @@ namespace CIXClient.Collections
             Folder previousTopic = null;
             int countOfNewMessages = 0;
             bool needFullSync = false;
-            string lastUpdate = String.Empty;
+            string lastUpdate = string.Empty;
 
             lock (CIX.DBLock)
             {
@@ -662,8 +668,7 @@ namespace CIXClient.Collections
                             }
 
                             DateTime lastUpdateDateTime;
-                            if (DateTime.TryParseExact(lastUpdate, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture,
-                                DateTimeStyles.None, out lastUpdateDateTime))
+                            if (DateTime.TryParseExact(lastUpdate, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out lastUpdateDateTime))
                             {
                                 if (lastUpdateDateTime > localSinceDate)
                                 {
@@ -751,6 +756,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Send a notification that a thread has been changed
         /// </summary>
+        /// <param name="message">The root message of the thread that has changed</param>
         internal void NotifyThreadChanged(CIXMessage message)
         {
             if (ThreadChanged != null)
@@ -762,6 +768,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Send a notification that a message has been changed
         /// </summary>
+        /// <param name="message">The CIXMessage that has been changed</param>
         internal void NotifyMessageChanged(CIXMessage message)
         {
             if (MessageChanged != null)
@@ -773,6 +780,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Send a notification that a message has been added
         /// </summary>
+        /// <param name="message">The CIXMessage that has been added</param>
         internal void NotifyMessageAdded(CIXMessage message)
         {
             if (MessageAdded != null)
@@ -784,6 +792,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Send a notification that a message has been deleted
         /// </summary>
+        /// <param name="message">The CIXMessage that has been deleted</param>
         internal void NotifyMessageDeleted(CIXMessage message)
         {
             if (MessageDeleted != null)
@@ -795,6 +804,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Send a notification that a folder has been updated
         /// </summary>
+        /// <param name="folder">The folder that has been updated</param>
         internal void NotifyFolderUpdated(Folder folder)
         {
             if (FolderUpdated != null)
@@ -806,6 +816,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Send a notification that a folder has been refreshed
         /// </summary>
+        /// <param name="args">A FolderEventArgs structure to be passed to the delegates</param>
         internal void NotifyFolderRefreshed(FolderEventArgs args)
         {
             if (FolderRefreshed != null)
@@ -815,8 +826,9 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Send a notification that a folder has been added
+        /// Send a notification that one or more folder have been added
         /// </summary>
+        /// <param name="folders">A list of folders that have been added</param>
         internal void NotifyFoldersAdded(List<Folder> folders)
         {
             if (FoldersAdded != null)
@@ -828,6 +840,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Send a notification that a folder has been deleted
         /// </summary>
+        /// <param name="folder">The folder that has been deleted</param>
         internal void NotifyFolderDeleted(Folder folder)
         {
             if (FolderDeleted != null)
@@ -839,6 +852,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Send a notification that account details have been retrieved.
         /// </summary>
+        /// <param name="accountDetails">An Account object that contains the account details</param>
         internal void NotifyAccountUpdated(Account accountDetails)
         {
             if (AccountUpdated != null)
@@ -850,6 +864,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Send a notification that the list of online users has been refreshed.
         /// </summary>
+        /// <param name="onlineUsers">A list of online users</param>
         internal void NotifyOnlineUsersUpdated(Whos onlineUsers)
         {
             if (OnlineUsersUpdated != null)
@@ -861,17 +876,19 @@ namespace CIXClient.Collections
         /// <summary>
         /// Send a notification that the list of interesting threads has changed.
         /// </summary>
-        internal void NotifyInterestingThreadsUpdated(List<CIXThread> onlineUsers)
+        /// <param name="threads">A list of interesting threads</param>
+        internal void NotifyInterestingThreadsUpdated(List<CIXThread> threads)
         {
             if (InterestingThreadsUpdated != null)
             {
-                InterestingThreadsUpdated(this, new InterestingThreadsEventArgs { Threads = onlineUsers });
+                InterestingThreadsUpdated(this, new InterestingThreadsEventArgs { Threads = threads });
             }
         }
 
         /// <summary>
         /// Send a notification that a topic update has commenced.
         /// </summary>
+        /// <param name="folder">The folder that will be updated</param>
         internal void NotifyTopicUpdateStarted(Folder folder)
         {
             if (TopicUpdateStarted != null)
@@ -883,6 +900,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Send a notification that a topic update has completed.
         /// </summary>
+        /// <param name="folder">The folder which has been updated</param>
         internal void NotifyTopicUpdateCompleted(Folder folder)
         {
             if (TopicUpdateCompleted != null)
@@ -916,6 +934,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Send a notification that a message is going to be posted.
         /// </summary>
+        /// <param name="message">The CIXMessage that will be posted</param>
         internal void NotifyMessagePostStarted(CIXMessage message)
         {
             if (MessagePostStarted != null)
@@ -927,6 +946,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Send a notification that a message has been posted.
         /// </summary>
+        /// <param name="message">The CIXMessage that has been posted</param>
         internal void NotifyMessagePostCompleted(CIXMessage message)
         {
             if (MessagePostCompleted != null)
@@ -940,6 +960,7 @@ namespace CIXClient.Collections
         /// the ones which have unread messages, simultaneously refresh those topics so they
         /// are downloaded as soon as the user navigates to them.
         /// </summary>
+        /// <param name="useFastSync">A flag that specifies whether or not to use fast sync</param>
         internal void Refresh(bool useFastSync)
         {
             bool didSync = false;
@@ -1008,11 +1029,11 @@ namespace CIXClient.Collections
             }
             try
             {
-                HttpWebRequest wrGeturl = APIRequest.GetWithQuery("user/sync", APIRequest.APIFormat.XML, "maxresults=5000&since=" + sinceDate.ToString("yyyy-MM-dd HH:mm:ss"));
+                HttpWebRequest request = APIRequest.GetWithQuery("user/sync", APIRequest.APIFormat.XML, "maxresults=5000&since=" + sinceDate.ToString("yyyy-MM-dd HH:mm:ss"));
 
                 LogFile.WriteLine("Sync all forums started");
 
-                Stream objStream = APIRequest.ReadResponse(wrGeturl);
+                Stream objStream = APIRequest.ReadResponse(request);
                 if (objStream != null)
                 {
                     int countOfNewMessages = AddMessages(objStream, ref sinceDate, true, false);
@@ -1031,13 +1052,13 @@ namespace CIXClient.Collections
         /// </summary>
         internal void RefreshWithSlowSync()
         {
-            HttpWebRequest wrGeturl = APIRequest.GetWithQuery("user/alltopics", APIRequest.APIFormat.XML, "maxresults=5000");
-            Stream objStream = APIRequest.ReadResponse(wrGeturl);
+            HttpWebRequest request = APIRequest.GetWithQuery("user/alltopics", APIRequest.APIFormat.XML, "maxresults=5000");
+            Stream objStream = APIRequest.ReadResponse(request);
             if (objStream != null)
             {
                 using (XmlReader reader = XmlReader.Create(objStream))
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof (UserForumTopicResultSet2));
+                    XmlSerializer serializer = new XmlSerializer(typeof(UserForumTopicResultSet2));
                     UserForumTopicResultSet2 listOfForums = (UserForumTopicResultSet2) serializer.Deserialize(reader);
 
                     List<Folder> modifiedFolders = new List<Folder>();
@@ -1215,6 +1236,7 @@ namespace CIXClient.Collections
                 }
             }
         }
+
         /// <summary>
         /// Withdraw all messages.
         /// </summary>
@@ -1240,8 +1262,9 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Mark a range of messages read or unread.
+        /// Mark a range of messages read or unread depending on the range type string.
         /// </summary>
+        /// <param name="rangeType">A string set to either "read" or "unread"</param>
         private void MarkRangeRead(string rangeType)
         {
             bool markAsRead = rangeType == "read";
@@ -1283,8 +1306,8 @@ namespace CIXClient.Collections
                 try
                 {
                     string url = string.Format("forums/{0}/markreadrange", markAsRead ? "true" : "false");
-                    HttpWebRequest wrGeturl = APIRequest.Post(url, APIRequest.APIFormat.XML, listOfRanges);
-                    string responseString = APIRequest.ReadResponseString(wrGeturl);
+                    HttpWebRequest request = APIRequest.Post(url, APIRequest.APIFormat.XML, listOfRanges);
+                    string responseString = APIRequest.ReadResponseString(request);
                     if (responseString != null && responseString == "Success")
                     {
                         int readCount = 0;
@@ -1317,13 +1340,13 @@ namespace CIXClient.Collections
         {
             try
             {
-                HttpWebRequest wrGeturl = APIRequest.Get("starred", APIRequest.APIFormat.XML);
-                Stream objStream = APIRequest.ReadResponse(wrGeturl);
+                HttpWebRequest request = APIRequest.Get("starred", APIRequest.APIFormat.XML);
+                Stream objStream = APIRequest.ReadResponse(request);
                 if (objStream != null)
                 {
                     using (XmlReader reader = XmlReader.Create(objStream))
                     {
-                        XmlSerializer serializer = new XmlSerializer(typeof (StarSet));
+                        XmlSerializer serializer = new XmlSerializer(typeof(StarSet));
                         StarSet allStars = (StarSet) serializer.Deserialize(reader);
 
                         List<Folder> topicsToRefresh = new List<Folder>();
@@ -1374,7 +1397,6 @@ namespace CIXClient.Collections
                         // outside of the transaction.
                         if (updatedMessages.Count > 0)
                         {
-
                             LogFile.WriteLine("Flag added to {0} messages", updatedMessages.Count);
                             foreach (CIXMessage message in updatedMessages)
                             {
@@ -1391,7 +1413,7 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Maintain the dictionary of folders, mapped by folder ID.
+        /// Gets a dictionary of folders, mapped by folder ID.
         /// </summary>
         private Dictionary<int, Folder> AllFolders
         {
@@ -1419,6 +1441,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Return the next available folder ID.
         /// </summary>
+        /// <returns>The next folder ID value</returns>
         private int NextID()
         {
             lock (idLock)
@@ -1430,6 +1453,8 @@ namespace CIXClient.Collections
         /// <summary>
         /// Return a DateTime object representing the specified CIX date and time string.
         /// </summary>
+        /// <param name="cixDate">A CIX date string</param>
+        /// <returns>A DateTime object that represents the given date</returns>
         private static DateTime DateTimeFromCIXDate(string cixDate)
         {
             DateTime dateTime;

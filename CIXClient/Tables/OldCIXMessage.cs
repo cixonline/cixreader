@@ -21,94 +21,94 @@ namespace CIXClient.Tables
     public sealed class OldCIXMessage
     {
         /// <summary>
-        ///     An unique local ID that identifies this message across all folders.
+        /// Gets or sets an unique local ID that identifies this message across all folders.
         /// </summary>
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
 
         /// <summary>
-        ///     The CIX message ID that corresponds to this message. This can be
-        ///     0 if the message is not yet synced with CIX.
+        /// Gets or sets the CIX message ID that corresponds to this message. This can be
+        /// 0 if the message is not yet synced with CIX.
         /// </summary>
         public int RemoteID { get; set; }
 
         /// <summary>
-        ///     CIX author nickname.
+        /// Gets or sets the CIX author nickname.
         /// </summary>
         public string Author { get; set; }
 
         /// <summary>
-        ///     The body of the message.
+        /// Gets or sets the body of the message.
         /// </summary>
         public string Body { get; set; }
 
         /// <summary>
-        ///     The date and time when the message was posted.
+        /// Gets or sets the date and time when the message was posted.
         /// </summary>
         public DateTime Date { get; set; }
 
         /// <summary>
-        ///     The CIX ID of the message to which this message is a reply.
+        /// Gets or sets the CIX ID of the message to which this message is a reply.
         /// </summary>
         public int CommentID { get; set; }
 
         /// <summary>
-        ///     The CIX ID of the root message.
+        /// Gets or sets the CIX ID of the root message.
         /// </summary>
         public int RootID { get; set; }
 
         /// <summary>
-        ///     The ID of the folder containing this message.
+        /// Gets or sets the ID of the folder containing this message.
         /// </summary>
         public int TopicID { get; set; }
 
         /// <summary>
-        ///     Flag that specifies if the message is unread.
+        /// Gets or sets a value indicating whether the message is unread.
         /// </summary>
         public bool Unread { get; set; }
 
         /// <summary>
-        ///     Flag that specifies if the message is priority.
+        /// Gets or sets a value indicating whether the message is priority.
         /// </summary>
         public bool Priority { get; set; }
 
         /// <summary>
-        ///     Flag that specifies if the message is starred.
+        /// Gets or sets a value indicating whether the message is starred.
         /// </summary>
         public bool Starred { get; set; }
 
         /// <summary>
-        ///     Flag that specifies if the message is read locked.
+        /// Gets or sets a value indicating whether the message is read locked.
         /// </summary>
         public bool ReadLocked { get; set; }
 
         /// <summary>
-        ///     Flag that specifies if the message is ignored.
+        /// Gets or sets a value indicating whether the message is ignored.
         /// </summary>
         public bool Ignored { get; set; }
 
         /// <summary>
-        ///     Flag that specifies if the message read status change is pending.
+        /// Gets or sets a value indicating whether the message read status change is pending.
         /// </summary>
         public bool ReadPending { get; set; }
 
         /// <summary>
-        ///     Flag that specifies if the message is pending posting.
+        /// Gets or sets a value indicating whether the message is pending posting.
         /// </summary>
         public bool PostPending { get; set; }
 
         /// <summary>
-        ///     Flag that specifies if the message star status change is pending.
+        /// Gets or sets a value indicating whether the message star status change is pending.
         /// </summary>
         public bool StarPending { get; set; }
 
         /// <summary>
-        ///     Flag that specifies if the message withdraw status change is pending.
+        /// Gets or sets a value indicating whether the message withdraw status change is pending.
         /// </summary>
         public bool WithdrawPending { get; set; }
 
         /// <summary>
-        ///     A set of flags that specify the message state.
+        /// Gets or sets the flags that specify the message state.
         /// </summary>
         public CIXMessageFlags Flags { get; set; }
     }

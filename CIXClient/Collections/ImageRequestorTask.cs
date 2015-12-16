@@ -87,6 +87,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Purge all images from the cache that are older than ImageCacheExpiryTime minutes.
         /// </summary>
+        /// <param name="obj">The timer object</param>
         private void ImageCacheCleanup(object obj)
         {
             DateTime expiryPoint = DateTime.Now.AddMinutes(-ImageCacheExpiryTime);
@@ -107,6 +108,7 @@ namespace CIXClient.Collections
         /// <param name="maxHeight">The maximum height of the requested image</param>
         /// <param name="callback">The callback</param>
         /// <param name="callbackParameter">A user specified parameter for the callback</param>
+        /// <returns>An Image object that represents the specified image or null if it is not yet available</returns>
         public Image NewRequest(string imageURL, int maxWidth, int maxHeight, ImageRetrieved callback, object callbackParameter)
         {
             if (_imageCache.ContainsKey(imageURL))
@@ -169,12 +171,12 @@ namespace CIXClient.Collections
         /// <returns>The image scaled to fit</returns>
         public static Image ScaleImage(Image image, int maxWidth, int maxHeight)
         {
-            var ratioX = (double) maxWidth/image.Width;
-            var ratioY = (double) maxHeight/image.Height;
+            var ratioX = (double) maxWidth / image.Width;
+            var ratioY = (double) maxHeight / image.Height;
             var ratio = Math.Min(ratioX, ratioY);
 
-            var newWidth = (int) (image.Width*ratio);
-            var newHeight = (int) (image.Height*ratio);
+            var newWidth = (int)(image.Width * ratio);
+            var newHeight = (int)(image.Height * ratio);
 
             var newImage = new Bitmap(newWidth, newHeight);
             Graphics.FromImage(newImage).DrawImage(image, 0, 0, newWidth, newHeight);

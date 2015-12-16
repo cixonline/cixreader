@@ -19,7 +19,7 @@ namespace CIXClient.Collections
     public sealed class DirectoryEventArgs : EventArgs
     {
         /// <summary>
-        /// Specifies the name of the category that was updated
+        /// Gets the name of the category that was updated
         /// </summary>
         public string CategoryName { get; internal set; }
     }

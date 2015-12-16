@@ -28,10 +28,11 @@ namespace CIXClient.Collections
         private bool _isOrdered;
 
         // Used to guard access to updates to the list
-        private readonly Object _changeLock = new Object();
+        private readonly object _changeLock = new object();
 
         /// <summary>
-        /// Initialises a CIXMessageCollection with a range of messages.
+        /// Initialises a new instance of the <see cref="CIXMessageCollection"/> class
+        /// with a range of messages.
         /// </summary>
         /// <param name="messages">An array of messages</param>
         public CIXMessageCollection(IEnumerable<CIXMessage> messages)
@@ -44,7 +45,7 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Return the number of messages in this collection.
+        /// Gets the number of messages in this collection.
         /// </summary>
         public int Count
         {
@@ -55,11 +56,13 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Return all messages ordered by date
+        /// Gets all messages ordered by remote ID
         /// </summary>
+        /// <returns>An enumerable list of CIXMessages ordered by ascending remote ID</returns>
         public IEnumerable<CIXMessage> OrderedMessages
         {
-            get {
+            get 
+            {
                 if (!_isOrdered)
                 {
                     lock (_changeLock)
@@ -91,7 +94,7 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Return all messages ordered by conversation.
+        /// Gets all messages ordered by conversation.
         /// </summary>
         public List<CIXMessage> AllMessagesByConversation
         {
@@ -155,7 +158,7 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Return all root messages.
+        /// Gets all root messages.
         /// </summary>
         public IEnumerable<CIXMessage> Roots
         {
@@ -186,7 +189,9 @@ namespace CIXClient.Collections
                 {
                     CIXMessage child = conversations[index];
                     if (child.Level <= message.Level)
+                    {
                         break;
+                    }
                     children.Add(child);
                 }
             }
@@ -292,6 +297,7 @@ namespace CIXClient.Collections
         /// Adds the specified message to the collection.
         /// </summary>
         /// <param name="message">A CIXMessage to add</param>
+        /// <returns>True if the message was added, false if it already existed</returns>
         internal bool AddInternal(CIXMessage message)
         {
             lock (_changeLock)
@@ -345,14 +351,14 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Return the latest of either the date object or the specified new date.
+        /// Return the latest of either of two date objects.
         /// </summary>
-        /// <param name="datetime"></param>
-        /// <param name="newDate"></param>
-        /// <returns></returns>
-        private static DateTime LatestOf(DateTime datetime, DateTime newDate)
+        /// <param name="firstDate">The first date to compare</param>
+        /// <param name="secondDate">The second date to compare</param>
+        /// <returns>The latest of either firstDate or secondDate</returns>
+        private static DateTime LatestOf(DateTime firstDate, DateTime secondDate)
         {
-            return (datetime < newDate) ? newDate : datetime;
+            return (firstDate < secondDate) ? secondDate : firstDate;
         }
     }
 }

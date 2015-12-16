@@ -25,14 +25,16 @@ namespace CIXClient
         /// <summary>
         /// Return the friendly name for the specified date/time. The algorithm used
         /// here is as follows:
-        /// 
+        /// <para>
         /// If the date is today, we just return the current time in short format.
-        /// 
+        /// </para>
+        /// <para>
         /// Otherwise if the date was yesterday, we return "Yesterday".
-        /// 
+        /// </para>
+        /// <para>
         /// Otherwise if the date was within a week, we return the weekday name
         /// in long format ("Monday", "Tuesday", etc).
-        /// 
+        /// </para>
         /// Otherwise if the date was more than a week, we return the date in
         /// short format.
         /// </summary>
@@ -64,6 +66,8 @@ namespace CIXClient
         /// <summary>
         /// Fix MS-Word style smart quotes by converting them to normal quotes.
         /// </summary>
+        /// <param name="str">The string that contains the quotes</param>
+        /// <returns>The same string but with smart quotes translated to normal quotes</returns>
         internal static string FixQuotes(this string str)
         {
             if (!string.IsNullOrEmpty(str))
@@ -91,7 +95,7 @@ namespace CIXClient
 
             str = str.TrimStart();
 
-            int lineIndex = str.IndexOfAny(new [] { '\r', '\n' });
+            int lineIndex = str.IndexOfAny(new[] { '\r', '\n' });
             return lineIndex < 0 ? str : str.Substring(0, lineIndex);
         }
 
@@ -107,8 +111,8 @@ namespace CIXClient
             {
                 return str;
             }
-            int iNextSpace = str.LastIndexOf(" ", limit, StringComparison.Ordinal);
-            return string.Format("{0}...", str.Substring(0, (iNextSpace > 0) ? iNextSpace : limit).Trim());
+            int nextSpace = str.LastIndexOf(" ", limit, StringComparison.Ordinal);
+            return string.Format("{0}...", str.Substring(0, (nextSpace > 0) ? nextSpace : limit).Trim());
         }
 
         /// <summary>
@@ -190,7 +194,7 @@ namespace CIXClient
         /// <returns>The normalised string</returns>
         public static string FixNewlines(this string text)
         {
-            string [] splitArray = text.Split(new [] { "\n", "r\n" }, StringSplitOptions.None);
+            string[] splitArray = text.Split(new[] { "\n", "r\n" }, StringSplitOptions.None);
             return string.Join("\r\n", splitArray);
         }
 
@@ -203,7 +207,7 @@ namespace CIXClient
         {
             StringBuilder quotedText = new StringBuilder();
 
-            const int wrapColumn = 74;
+            const int WrapColumn = 74;
 
             int lastSpaceIndex = -1;
             int lastSpaceColumnIndex = 0;
@@ -225,7 +229,7 @@ namespace CIXClient
                 {
                     quotedText.AppendFormat("> {0}\r\n", text.Substring(startIndex, columnIndex));
 
-                    while (currentIndex < text.Length && Char.IsWhiteSpace(text[currentIndex]))
+                    while (currentIndex < text.Length && char.IsWhiteSpace(text[currentIndex]))
                     {
                         ++currentIndex;
                     }
@@ -233,9 +237,10 @@ namespace CIXClient
                     startIndex = currentIndex;
                     columnIndex = 0;
                 }
-                else if (columnIndex >= wrapColumn)
+                else if (columnIndex >= WrapColumn)
                 {
-                    if (lastSpaceIndex == -1) // Line with no spaces!
+                    // Line with no spaces!
+                    if (lastSpaceIndex == -1)
                     {
                         lastSpaceIndex = currentIndex;
                         lastSpaceColumnIndex = columnIndex;
@@ -243,7 +248,7 @@ namespace CIXClient
 
                     quotedText.AppendFormat("> {0}\r\n", text.Substring(startIndex, lastSpaceColumnIndex + 1));
 
-                    while (lastSpaceIndex < text.Length && Char.IsWhiteSpace(text[lastSpaceIndex]))
+                    while (lastSpaceIndex < text.Length && char.IsWhiteSpace(text[lastSpaceIndex]))
                     {
                         ++lastSpaceIndex;
                     }
@@ -332,13 +337,13 @@ namespace CIXClient
                 // For non-square source images we crop and center.
                 if (image.Width > image.Height)
                 {
-                    int xOffset = (image.Width - image.Height) / 2;
-                    sourceImage = new Rectangle(xOffset, 0, image.Height, image.Height);
+                    int xoffset = (image.Width - image.Height) / 2;
+                    sourceImage = new Rectangle(xoffset, 0, image.Height, image.Height);
                 }
                 else if (image.Width < image.Height)
                 {
-                    int yOffset = (image.Height - image.Width) / 2;
-                    sourceImage = new Rectangle(0, yOffset, image.Width, image.Width);
+                    int yoffset = (image.Height - image.Width) / 2;
+                    sourceImage = new Rectangle(0, yoffset, image.Width, image.Width);
                 }
                 else
                 {

@@ -20,7 +20,7 @@ namespace CIXClient.Collections
     public sealed class OnlineUsersEventArgs : EventArgs
     {
         /// <summary>
-        /// The list of users online.
+        /// Gets or sets the list of users online.
         /// </summary>
         public Whos Users { get; set; }
     }

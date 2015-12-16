@@ -81,27 +81,27 @@ namespace CIXClient
         public sealed class Filter
         {
             /// <summary>
-            /// The name of the property whose value is used by
+            /// Gets or sets the name of the property whose value is used by
             /// the operation.
             /// </summary>
             public string PropertyName { get; set; }
 
             /// <summary>
-            /// The operation to apply against the property value.
+            /// Gets or sets the operation to apply against the property value.
             /// </summary>
             public Op Operation { get; set; }
 
             /// <summary>
-            /// The value against which the operation is applied
+            /// Gets or sets the value against which the operation is applied
             /// against the property value.
             /// </summary>
             public object Value { get; set; }
         }
 
-        private static readonly MethodInfo containsMethod = typeof(string).GetMethod("Contains");
-        private static readonly MethodInfo startsWithMethod =
+        private static readonly MethodInfo ContainsMethod = typeof(string).GetMethod("Contains");
+        private static readonly MethodInfo StartsWithMethod =
         typeof(string).GetMethod("StartsWith", new[] { typeof(string) });
-        private static readonly MethodInfo endsWithMethod =
+        private static readonly MethodInfo EndsWithMethod =
         typeof(string).GetMethod("EndsWith", new[] { typeof(string) });
 
         /// <summary>
@@ -112,18 +112,24 @@ namespace CIXClient
         /// <param name="type">The group type (All or Any)</param>
         /// <param name="filters">A list of filters that each define one part of the expression</param>
         /// <returns>An Expression that filters a list of type T based on the filters</returns>
-        public static Expression<Func<T,bool>> GetExpression<T>(RuleGroupType type, IList<Filter> filters)
+        public static Expression<Func<T, bool>> GetExpression<T>(RuleGroupType type, IList<Filter> filters)
         {
             if (filters.Count == 0)
+            {
                 return null;
+            }
 
             ParameterExpression param = Expression.Parameter(typeof(T), "t");
             Expression exp = null;
 
             if (filters.Count == 1)
+            {
                 exp = GetExpression(param, filters[0]);
+            }
             else if (filters.Count == 2)
+            {
                 exp = GetExpression(type, param, filters[0], filters[1]);
+            }
             else
             {
                 while (filters.Count > 0)
@@ -131,11 +137,11 @@ namespace CIXClient
                     var f1 = filters[0];
                     var f2 = filters[1];
 
-                    exp = (exp == null) ? 
-                        GetExpression(type, param, filters[0], filters[1]) : 
-                        type == RuleGroupType.All ?
-                            Expression.AndAlso(exp, GetExpression(type, param, filters[0], filters[1])) :
-                            Expression.OrElse(exp, GetExpression(type, param, filters[0], filters[1]));
+                    exp = (exp == null)
+                        ? GetExpression(type, param, filters[0], filters[1])
+                        : type == RuleGroupType.All
+                            ? Expression.AndAlso(exp, GetExpression(type, param, filters[0], filters[1]))
+                            : Expression.OrElse(exp, GetExpression(type, param, filters[0], filters[1]));
 
                     filters.Remove(f1);
                     filters.Remove(f2);
@@ -177,24 +183,23 @@ namespace CIXClient
                     return Expression.LessThanOrEqual(member, constant);
 
                 case Op.Contains:
-                    return Expression.Call(member, containsMethod, constant);
+                    return Expression.Call(member, ContainsMethod, constant);
 
                 case Op.StartsWith:
-                    return Expression.Call(member, startsWithMethod, constant);
+                    return Expression.Call(member, StartsWithMethod, constant);
 
                 case Op.EndsWith:
-                    return Expression.Call(member, endsWithMethod, constant);
+                    return Expression.Call(member, EndsWithMethod, constant);
             }
 
             return null;
         }
 
-        private static BinaryExpression GetExpression(RuleGroupType type, Expression param, Filter filter1,
-            Filter filter2)
+        private static BinaryExpression GetExpression(RuleGroupType type, Expression param, Filter filter1, Filter filter2)
         {
             Expression bin1 = GetExpression(param, filter1);
             Expression bin2 = GetExpression(param, filter2);
-            return (type == RuleGroupType.All ? Expression.AndAlso(bin1, bin2) : Expression.OrElse(bin1, bin2));
+            return type == RuleGroupType.All ? Expression.AndAlso(bin1, bin2) : Expression.OrElse(bin1, bin2);
         }
     }
 }

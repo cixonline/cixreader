@@ -31,72 +31,73 @@ namespace CIXClient.Tables
         private Folder _parentFolder;
         private int _parentID;
         private bool _isFolderRefreshing;
-        private readonly Object _allMessagesLock = new Object();
+        private readonly object _allMessagesLock = new object();
 
         /// <summary>
-        /// An unique ID that identifies this folder.
+        /// Gets or sets an unique ID that identifies this folder.
         /// </summary>
         [PrimaryKey]
         public int ID { get; set; }
 
         /// <summary>
-        /// The local name of the folder.
+        /// Gets or sets the local name of the folder.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// The ID of the parent folder. If this is a root folder, the
+        /// Gets or sets the ID of the parent folder. If this is a root folder, the
         /// parent ID value will be -1.
         /// </summary>
         public int ParentID
         {
             get { return _parentID;  }
-            set { 
+            set 
+            { 
                 _parentID = value;
                 _parentFolder = null;
             }
         }
 
         /// <summary>
-        /// The folder flags.
+        /// Gets or sets the folder flags.
         /// </summary>
         public FolderFlags Flags { get; set; }
 
         /// <summary>
-        /// Index of the item within the parent collection.
+        /// Gets or sets the index of the item within the parent collection.
         /// </summary>
         public int Index { get; set; }
 
         /// <summary>
-        /// The number of unread messages in the folder
+        /// Gets or sets the number of unread messages in the folder
         /// </summary>
         public int Unread { get; set; }
 
         /// <summary>
-        /// The number of unread priority messages in the folder
+        /// Gets or sets the number of unread priority messages in the folder
         /// </summary>
         public int UnreadPriority { get; set; }
 
         /// <summary>
-        /// A resign action is pending.
+        /// Gets or sets a value indicating whether a resign action is pending.
         /// </summary>
         public bool ResignPending { get; set; }
 
         /// <summary>
-        /// Get or set a flag which indicates whether this folder
+        /// Gets or sets a value indicating whether this folder
         /// has been modified.
         /// </summary>
         public bool MarkReadRangePending { get; set; }
 
         /// <summary>
-        /// Get or set a flag which indicates whether this folder
+        /// Gets or sets a value indicating whether this folder
         /// has been modified.
         /// </summary>
         [Ignore]
         public bool IsModified { get; set; }
 
         /// <summary>
-        /// Return the parent of this folder
+        /// Gets the parent of this folder
         /// </summary>
         [Ignore]
         public Folder ParentFolder
@@ -105,7 +106,7 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Return the list of child folders of this folder
+        /// Gets the list of child folders of this folder
         /// </summary>
         [Ignore]
         public IEnumerable<Folder> Children
@@ -117,13 +118,13 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Flag that indicates whether this folder needs to be refreshed
+        /// Gets or sets a value indicating whether this folder needs to be refreshed
         /// </summary>
         [Ignore]
         internal bool RefreshRequired { get; set; }
 
         /// <summary>
-        /// Return whether or not this folder has been resigned.
+        /// Gets a value indicating whether or not this folder has been resigned.
         /// </summary>
         [Ignore]
         public bool IsResigned
@@ -132,7 +133,7 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Return whether the user can resign this folder.
+        /// Gets a value indicating whether the user can resign this folder.
         /// </summary>
         [Ignore]
         public bool CanResign
@@ -141,7 +142,7 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// True if the messages for this folder have been loaded
+        /// Gets a value indicating whether the messages for this folder have been loaded
         /// </summary>
         [Ignore]
         public bool HasMessages
@@ -278,7 +279,7 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Return whether this folder has a pending action
+        /// Gets a value indicating whether this folder has a pending action
         /// </summary>
         public bool HasPending
         {
@@ -351,19 +352,25 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// Gets a value that indicates whether this is a top level folder.
+        /// Gets a value indicating whether this is a top level folder.
         /// </summary>
         [Ignore]
-        public bool IsRootFolder { get { return ParentID == -1; } }
+        public bool IsRootFolder
+        {
+            get { return ParentID == -1; }
+        }
 
         /// <summary>
-        /// Gets whether this folder is read-only.
+        /// Gets a value indicating whether this folder is read-only.
         /// </summary>
         [Ignore]
-        public bool IsReadOnly { get { return Flags.HasFlag(FolderFlags.ReadOnly); } }
+        public bool IsReadOnly
+        {
+            get { return Flags.HasFlag(FolderFlags.ReadOnly); }
+        }
 
         /// <summary>
-        /// Returns whether or not this is a recent folder
+        /// Gets or sets a value indicating whether or not this is a recent folder
         /// </summary>
         [Ignore]
         public bool IsRecent
@@ -389,15 +396,18 @@ namespace CIXClient.Tables
         /// <summary>
         /// Compare two folder names.
         /// </summary>
+        /// <param name="obj">The folder to compare against this one</param>
+        /// <returns>A string comparision result</returns>
         public int CompareTo(object obj)
         {
             Folder otherFolder = (Folder) obj;
-            return String.Compare(Name, otherFolder.Name, StringComparison.Ordinal);
+            return string.Compare(Name, otherFolder.Name, StringComparison.Ordinal);
         }
 
         /// <summary>
         /// Returns an array of IDs of sub-folders of which this folder is the parent.
         /// </summary>
+        /// <returns>An array of integers representing the IDs of the subfolders of this parent</returns>
         private int[] SubFolderIDs()
         {
             List<int> subFolders = new List<int>();
@@ -479,12 +489,10 @@ namespace CIXClient.Tables
                     Folder forum = ParentFolder;
                     int countOfNewMessages = 0;
 
-                    string urlFormat = string.Format("forums/{0}/{1}/allmessages",
-                        FolderCollection.EncodeForumName(forum.Name), Name);
+                    string urlFormat = string.Format("forums/{0}/{1}/allmessages", FolderCollection.EncodeForumName(forum.Name), Name);
 
-                    HttpWebRequest wrGeturl = APIRequest.GetWithQuery(urlFormat, APIRequest.APIFormat.XML,
-                        "maxresults=5000&since=" + latestReply.ToString("yyyy-MM-dd HH:mm:ss"));
-                    using (Stream objStream = APIRequest.ReadResponse(wrGeturl))
+                    HttpWebRequest request = APIRequest.GetWithQuery(urlFormat, APIRequest.APIFormat.XML, "maxresults=5000&since=" + latestReply.ToString("yyyy-MM-dd HH:mm:ss"));
+                    using (Stream objStream = APIRequest.ReadResponse(request))
                     {
                         if (objStream != null)
                         {
@@ -493,8 +501,7 @@ namespace CIXClient.Tables
                     }
                     if (countOfNewMessages > 0)
                     {
-                        LogFile.WriteLine("{0}/{1} refreshed with {2} new messages", forum.Name, Name,
-                            countOfNewMessages);
+                        LogFile.WriteLine("{0}/{1} refreshed with {2} new messages", forum.Name, Name, countOfNewMessages);
                     }
                 }
                 catch (Exception e)
@@ -506,7 +513,6 @@ namespace CIXClient.Tables
                 _isFolderRefreshing = false;
             }
         }
-
 
         /// <summary>
         /// Invalidate the folder cache, forcing it to be reloaded on the reference.
@@ -520,6 +526,7 @@ namespace CIXClient.Tables
         /// Mark all messages read in this topic.
         /// Must be called while holding a lock on CIX.DBLock!
         /// </summary>
+        /// <returns>True if any messages were marked read, false otherwise</returns>
         private bool InternalMarkAllRead()
         {
             List<CIXMessage> messagesUpdated = new List<CIXMessage>();
@@ -584,7 +591,7 @@ namespace CIXClient.Tables
                     url = "forums/" + FolderCollection.EncodeForumName(forum.Name) + "/" + FolderCollection.EncodeForumName(Name) + "/resigntopic";
                 }
 
-                HttpWebRequest wrGeturl = APIRequest.Get(url, APIRequest.APIFormat.XML);
+                HttpWebRequest request = APIRequest.Get(url, APIRequest.APIFormat.XML);
 
                 // Whatever happens, clear the pending action so we don't keep trying to
                 // resign the forum repeatedly.
@@ -595,7 +602,7 @@ namespace CIXClient.Tables
                     CIX.DB.Update(this);
                 }
 
-                string responseString = APIRequest.ReadResponseString(wrGeturl);
+                string responseString = APIRequest.ReadResponseString(request);
                 if (responseString == "Success")
                 {
                     LogFile.WriteLine("Successfully resigned from {0}", Name);
@@ -612,7 +619,6 @@ namespace CIXClient.Tables
                 CIX.ReportServerExceptions("Folder.ResignFolder", this, e);
             }
         }
-
     }
 
     /// <summary>

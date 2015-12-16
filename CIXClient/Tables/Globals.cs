@@ -20,7 +20,7 @@ namespace CIXClient.Tables
     public sealed class Globals
     {
         /// <summary>
-        /// Default constructor, set the current version.
+        /// Initialises a new instance of the <see cref="Globals"/> class.
         /// </summary>
         public Globals()
         {
@@ -30,28 +30,28 @@ namespace CIXClient.Tables
         }
 
         /// <summary>
-        /// The ID of this configuration row.
+        /// Gets or sets the ID of this configuration row.
         /// </summary>
         [PrimaryKey]
         public int ID { get; set; }
 
         /// <summary>
-        /// The username.
+        /// Gets or sets the username.
         /// </summary>
         public string Username { get; set; }
 
         /// <summary>
-        /// The password.
+        /// Gets or sets the encrypted password.
         /// </summary>
         public string Password { get; set; }
 
         /// <summary>
-        /// The password.
+        /// Gets or sets the version of this database
         /// </summary>
         public int Version { get; set; }
 
         /// <summary>
-        /// The date and time of the last sync.
+        /// Gets or sets the date and time of the last sync.
         /// </summary>
         public DateTime LastSyncDate { get; set; }
     }

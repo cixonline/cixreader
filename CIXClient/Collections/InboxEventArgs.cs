@@ -20,7 +20,7 @@ namespace CIXClient.Collections
     public sealed class InboxEventArgs : EventArgs
     {
         /// <summary>
-        /// A copy of the message that was recently added to the inbox.
+        /// Gets or sets a copy of the message that was recently added to the inbox.
         /// </summary>
         public InboxConversation Conversation { get; set; }
     }

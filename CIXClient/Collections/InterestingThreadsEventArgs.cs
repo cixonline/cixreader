@@ -21,7 +21,7 @@ namespace CIXClient.Collections
     public sealed class InterestingThreadsEventArgs : EventArgs
     {
         /// <summary>
-        /// The list of interesting threads.
+        /// Gets or sets the list of interesting threads.
         /// </summary>
         public List<CIXThread> Threads { get; set; }
     }

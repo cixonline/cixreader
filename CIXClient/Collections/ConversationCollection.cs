@@ -54,7 +54,7 @@ namespace CIXClient.Collections
         public delegate void ConversationHandler(object sender, InboxEventArgs e);
 
         /// <summary>
-        /// Return the list of all active (non-deleted) conversations.
+        /// Gets the list of all active (non-deleted) conversations.
         /// </summary>
         public IEnumerable<InboxConversation> AllConversations
         {
@@ -65,7 +65,7 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Return the count of unread inbox messages
+        /// Gets the count of unread inbox messages
         /// </summary>
         public int TotalUnread
         {
@@ -76,7 +76,7 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Return the count of unread priority inbox messages. Currently
+        /// Gets the count of unread priority inbox messages. Currently
         /// this is always 0.
         /// </summary>
         public int TotalUnreadPriority
@@ -113,8 +113,8 @@ namespace CIXClient.Collections
         /// <summary>
         /// Add a new conversation with a given message.
         /// </summary>
-        /// <param name="conversation"></param>
-        /// <param name="message"></param>
+        /// <param name="conversation">The conversation to which the message is to be added</param>
+        /// <param name="message">The message to be added to the conversation</param>
         public void Add(InboxConversation conversation, InboxMessage message)
         {
             if (conversation.RemoteID == 0)
@@ -178,8 +178,8 @@ namespace CIXClient.Collections
 
                     int totalCountOfRead = 0;
 
-                    HttpWebRequest wrGeturl = APIRequest.GetWithQuery("personalmessage/inbox", APIRequest.APIFormat.XML, "since=" + _lastCheckDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
-                    Stream objStream = APIRequest.ReadResponse(wrGeturl);
+                    HttpWebRequest request = APIRequest.GetWithQuery("personalmessage/inbox", APIRequest.APIFormat.XML, "since=" + _lastCheckDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                    Stream objStream = APIRequest.ReadResponse(request);
 
                     if (objStream != null)
                     {
@@ -208,8 +208,8 @@ namespace CIXClient.Collections
                         }
                     }
 
-                    wrGeturl = APIRequest.GetWithQuery("personalmessage/outbox", APIRequest.APIFormat.XML, "since=" + _lastCheckDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
-                    objStream = APIRequest.ReadResponse(wrGeturl);
+                    request = APIRequest.GetWithQuery("personalmessage/outbox", APIRequest.APIFormat.XML, "since=" + _lastCheckDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                    objStream = APIRequest.ReadResponse(request);
 
                     _lastCheckDateTime = DateTime.Now;
 
@@ -315,6 +315,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Send a notification that a conversation has been added
         /// </summary>
+        /// <param name="conversation">The conversation that has been added</param>
         internal void NotifyConversationAdded(InboxConversation conversation)
         {
             if (ConversationAdded != null)
@@ -326,6 +327,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Send a notification that a conversation has been changed
         /// </summary>
+        /// <param name="conversation">The conversation that has changed</param>
         internal void NotifyConversationChanged(InboxConversation conversation)
         {
             if (ConversationChanged != null)
@@ -337,7 +339,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Send a notification that a conversation has been deleted
         /// </summary>
-        /// <param name="conversation"></param>
+        /// <param name="conversation">The conversation that has been deleted</param>
         internal void NotifyConversationDeleted(InboxConversation conversation)
         {
             if (ConversationDeleted != null)
@@ -347,7 +349,7 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Return the list of all conversations in the database.
+        /// Gets the list of all conversations in the database.
         /// </summary>
         private IEnumerable<InboxConversation> Conversations
         {
@@ -378,14 +380,15 @@ namespace CIXClient.Collections
         /// <param name="root">The root message to which this conversation belongs</param>
         /// <param name="latestMesssageDate">Ref to a DateTime that is set to the date of the
         /// most recent message in this conversation</param>
+        /// <returns>The number of messages retrieved</returns>
         private static int GetConversation(InboxConversation root, ref DateTime latestMesssageDate)
         {
             int countOfRead = 0;
 
             try
             {
-                HttpWebRequest wrGeturl = APIRequest.Get("personalmessage/" + root.RemoteID + "/message", APIRequest.APIFormat.XML);
-                Stream objStream = APIRequest.ReadResponse(wrGeturl);
+                HttpWebRequest request = APIRequest.Get("personalmessage/" + root.RemoteID + "/message", APIRequest.APIFormat.XML);
+                Stream objStream = APIRequest.ReadResponse(request);
                 if (objStream != null)
                 {
                     using (XmlReader reader = XmlReader.Create(objStream))
