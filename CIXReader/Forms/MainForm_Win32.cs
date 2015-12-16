@@ -32,6 +32,8 @@ namespace CIXReader.Forms
             bool useBeta = Preferences.StandardPreferences.UseBeta;
 
             _sparkle = new Sparkle(useBeta ? Constants.BetaAppCastURL : Constants.AppCastURL);
+            _sparkle.installAndRelaunch += _sparkle_installAndRelaunch;
+
             _sparkle.StartLoop(true);
         }
 
