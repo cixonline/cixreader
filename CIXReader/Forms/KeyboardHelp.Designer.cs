@@ -32,6 +32,8 @@ namespace CIXReader.Forms
         {
             this.kybdClose = new System.Windows.Forms.Button();
             this.kybdPanel = new CIXReader.Controls.CRPanel();
+            this.kybdQuoteLabel = new System.Windows.Forms.Label();
+            this.kybdQuote = new CIXReader.Controls.CRRoundButton();
             this.kybdTogglePlainTextLabel = new System.Windows.Forms.Label();
             this.kybdTogglePlainText = new CIXReader.Controls.CRRoundButton();
             this.kybdSearchLabel = new System.Windows.Forms.Label();
@@ -84,8 +86,8 @@ namespace CIXReader.Forms
             this.kybdNextUnreadLabel = new System.Windows.Forms.Label();
             this.kybdNextUnread = new CIXReader.Controls.CRRoundButton();
             this.kybdNavigatingMessagesLabel = new System.Windows.Forms.Label();
-            this.kybdQuoteLabel = new System.Windows.Forms.Label();
-            this.kybdQuote = new CIXReader.Controls.CRRoundButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.kybdMarkBlock = new CIXReader.Controls.CRRoundButton();
             this.kybdPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -109,6 +111,8 @@ namespace CIXReader.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.kybdPanel.BackColor = System.Drawing.SystemColors.Window;
             this.kybdPanel.BottomBorderWidth = 1;
+            this.kybdPanel.Controls.Add(this.label1);
+            this.kybdPanel.Controls.Add(this.kybdMarkBlock);
             this.kybdPanel.Controls.Add(this.kybdQuoteLabel);
             this.kybdPanel.Controls.Add(this.kybdQuote);
             this.kybdPanel.Controls.Add(this.kybdTogglePlainTextLabel);
@@ -173,12 +177,44 @@ namespace CIXReader.Forms
             this.kybdPanel.TabIndex = 0;
             this.kybdPanel.TopBorderWidth = 0;
             // 
+            // kybdQuoteLabel
+            // 
+            this.kybdQuoteLabel.AutoSize = true;
+            this.kybdQuoteLabel.Font = new System.Drawing.Font("Arial", 9F);
+            this.kybdQuoteLabel.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.kybdQuoteLabel.Location = new System.Drawing.Point(53, 224);
+            this.kybdQuoteLabel.Name = "kybdQuoteLabel";
+            this.kybdQuoteLabel.Size = new System.Drawing.Size(96, 15);
+            this.kybdQuoteLabel.TabIndex = 57;
+            this.kybdQuoteLabel.Text = "Reply and quote";
+            // 
+            // kybdQuote
+            // 
+            this.kybdQuote.Active = false;
+            this.kybdQuote.BackColor = System.Drawing.SystemColors.Window;
+            this.kybdQuote.CanBeSelected = false;
+            this.kybdQuote.CanHaveFocus = true;
+            this.kybdQuote.Enabled = false;
+            this.kybdQuote.ExtraData = null;
+            this.kybdQuote.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.kybdQuote.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.kybdQuote.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
+            this.kybdQuote.Font = new System.Drawing.Font("Arial", 8F);
+            this.kybdQuote.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.kybdQuote.ImageScaling = false;
+            this.kybdQuote.Location = new System.Drawing.Point(15, 220);
+            this.kybdQuote.Name = "kybdQuote";
+            this.kybdQuote.Size = new System.Drawing.Size(35, 23);
+            this.kybdQuote.TabIndex = 56;
+            this.kybdQuote.Text = "Q";
+            this.kybdQuote.UseVisualStyleBackColor = false;
+            // 
             // kybdTogglePlainTextLabel
             // 
             this.kybdTogglePlainTextLabel.AutoSize = true;
             this.kybdTogglePlainTextLabel.Font = new System.Drawing.Font("Arial", 9F);
             this.kybdTogglePlainTextLabel.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.kybdTogglePlainTextLabel.Location = new System.Drawing.Point(537, 206);
+            this.kybdTogglePlainTextLabel.Location = new System.Drawing.Point(537, 238);
             this.kybdTogglePlainTextLabel.Name = "kybdTogglePlainTextLabel";
             this.kybdTogglePlainTextLabel.Size = new System.Drawing.Size(95, 15);
             this.kybdTogglePlainTextLabel.TabIndex = 55;
@@ -198,7 +234,7 @@ namespace CIXReader.Forms
             this.kybdTogglePlainText.Font = new System.Drawing.Font("Arial", 8F);
             this.kybdTogglePlainText.ForeColor = System.Drawing.SystemColors.WindowText;
             this.kybdTogglePlainText.ImageScaling = false;
-            this.kybdTogglePlainText.Location = new System.Drawing.Point(499, 202);
+            this.kybdTogglePlainText.Location = new System.Drawing.Point(499, 234);
             this.kybdTogglePlainText.Name = "kybdTogglePlainText";
             this.kybdTogglePlainText.Size = new System.Drawing.Size(35, 23);
             this.kybdTogglePlainText.TabIndex = 54;
@@ -242,7 +278,7 @@ namespace CIXReader.Forms
             this.kybdMarkTopicReadLabel.AutoSize = true;
             this.kybdMarkTopicReadLabel.Font = new System.Drawing.Font("Arial", 9F);
             this.kybdMarkTopicReadLabel.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.kybdMarkTopicReadLabel.Location = new System.Drawing.Point(537, 302);
+            this.kybdMarkTopicReadLabel.Location = new System.Drawing.Point(537, 334);
             this.kybdMarkTopicReadLabel.Name = "kybdMarkTopicReadLabel";
             this.kybdMarkTopicReadLabel.Size = new System.Drawing.Size(110, 15);
             this.kybdMarkTopicReadLabel.TabIndex = 51;
@@ -262,7 +298,7 @@ namespace CIXReader.Forms
             this.kybdMarkTopicRead.Font = new System.Drawing.Font("Arial", 8F);
             this.kybdMarkTopicRead.ForeColor = System.Drawing.SystemColors.WindowText;
             this.kybdMarkTopicRead.ImageScaling = false;
-            this.kybdMarkTopicRead.Location = new System.Drawing.Point(499, 298);
+            this.kybdMarkTopicRead.Location = new System.Drawing.Point(499, 330);
             this.kybdMarkTopicRead.Name = "kybdMarkTopicRead";
             this.kybdMarkTopicRead.Size = new System.Drawing.Size(35, 23);
             this.kybdMarkTopicRead.TabIndex = 50;
@@ -349,7 +385,7 @@ namespace CIXReader.Forms
             this.kybdMarkReadLockLabel.AutoSize = true;
             this.kybdMarkReadLockLabel.Font = new System.Drawing.Font("Arial", 9F);
             this.kybdMarkReadLockLabel.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.kybdMarkReadLockLabel.Location = new System.Drawing.Point(536, 110);
+            this.kybdMarkReadLockLabel.Location = new System.Drawing.Point(536, 142);
             this.kybdMarkReadLockLabel.Name = "kybdMarkReadLockLabel";
             this.kybdMarkReadLockLabel.Size = new System.Drawing.Size(97, 15);
             this.kybdMarkReadLockLabel.TabIndex = 38;
@@ -369,7 +405,7 @@ namespace CIXReader.Forms
             this.kybdMarkReadLock.Font = new System.Drawing.Font("Arial", 8F);
             this.kybdMarkReadLock.ForeColor = System.Drawing.SystemColors.WindowText;
             this.kybdMarkReadLock.ImageScaling = false;
-            this.kybdMarkReadLock.Location = new System.Drawing.Point(498, 106);
+            this.kybdMarkReadLock.Location = new System.Drawing.Point(498, 138);
             this.kybdMarkReadLock.Name = "kybdMarkReadLock";
             this.kybdMarkReadLock.Size = new System.Drawing.Size(35, 23);
             this.kybdMarkReadLock.TabIndex = 37;
@@ -381,7 +417,7 @@ namespace CIXReader.Forms
             this.kybdWithdrawLabel.AutoSize = true;
             this.kybdWithdrawLabel.Font = new System.Drawing.Font("Arial", 9F);
             this.kybdWithdrawLabel.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.kybdWithdrawLabel.Location = new System.Drawing.Point(537, 238);
+            this.kybdWithdrawLabel.Location = new System.Drawing.Point(537, 270);
             this.kybdWithdrawLabel.Name = "kybdWithdrawLabel";
             this.kybdWithdrawLabel.Size = new System.Drawing.Size(114, 15);
             this.kybdWithdrawLabel.TabIndex = 36;
@@ -401,7 +437,7 @@ namespace CIXReader.Forms
             this.kybdWithdraw.Font = new System.Drawing.Font("Arial", 8F);
             this.kybdWithdraw.ForeColor = System.Drawing.SystemColors.WindowText;
             this.kybdWithdraw.ImageScaling = false;
-            this.kybdWithdraw.Location = new System.Drawing.Point(499, 234);
+            this.kybdWithdraw.Location = new System.Drawing.Point(499, 266);
             this.kybdWithdraw.Name = "kybdWithdraw";
             this.kybdWithdraw.Size = new System.Drawing.Size(35, 23);
             this.kybdWithdraw.TabIndex = 35;
@@ -596,7 +632,7 @@ namespace CIXReader.Forms
             this.kybdMarkStarLabel.AutoSize = true;
             this.kybdMarkStarLabel.Font = new System.Drawing.Font("Arial", 9F);
             this.kybdMarkStarLabel.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.kybdMarkStarLabel.Location = new System.Drawing.Point(537, 174);
+            this.kybdMarkStarLabel.Location = new System.Drawing.Point(537, 206);
             this.kybdMarkStarLabel.Name = "kybdMarkStarLabel";
             this.kybdMarkStarLabel.Size = new System.Drawing.Size(142, 15);
             this.kybdMarkStarLabel.TabIndex = 24;
@@ -616,7 +652,7 @@ namespace CIXReader.Forms
             this.kybdMarkStar.Font = new System.Drawing.Font("Arial", 8F);
             this.kybdMarkStar.ForeColor = System.Drawing.SystemColors.WindowText;
             this.kybdMarkStar.ImageScaling = false;
-            this.kybdMarkStar.Location = new System.Drawing.Point(499, 170);
+            this.kybdMarkStar.Location = new System.Drawing.Point(499, 202);
             this.kybdMarkStar.Name = "kybdMarkStar";
             this.kybdMarkStar.Size = new System.Drawing.Size(35, 23);
             this.kybdMarkStar.TabIndex = 23;
@@ -628,7 +664,7 @@ namespace CIXReader.Forms
             this.kybdMarkThreadReadLabel.AutoSize = true;
             this.kybdMarkThreadReadLabel.Font = new System.Drawing.Font("Arial", 9F);
             this.kybdMarkThreadReadLabel.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.kybdMarkThreadReadLabel.Location = new System.Drawing.Point(537, 270);
+            this.kybdMarkThreadReadLabel.Location = new System.Drawing.Point(537, 302);
             this.kybdMarkThreadReadLabel.Name = "kybdMarkThreadReadLabel";
             this.kybdMarkThreadReadLabel.Size = new System.Drawing.Size(119, 15);
             this.kybdMarkThreadReadLabel.TabIndex = 22;
@@ -648,7 +684,7 @@ namespace CIXReader.Forms
             this.kybdMarkThreadRead.Font = new System.Drawing.Font("Arial", 8F);
             this.kybdMarkThreadRead.ForeColor = System.Drawing.SystemColors.WindowText;
             this.kybdMarkThreadRead.ImageScaling = false;
-            this.kybdMarkThreadRead.Location = new System.Drawing.Point(499, 266);
+            this.kybdMarkThreadRead.Location = new System.Drawing.Point(499, 298);
             this.kybdMarkThreadRead.Name = "kybdMarkThreadRead";
             this.kybdMarkThreadRead.Size = new System.Drawing.Size(35, 23);
             this.kybdMarkThreadRead.TabIndex = 21;
@@ -692,7 +728,7 @@ namespace CIXReader.Forms
             this.kybdMarkPriorityLabel.AutoSize = true;
             this.kybdMarkPriorityLabel.Font = new System.Drawing.Font("Arial", 9F);
             this.kybdMarkPriorityLabel.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.kybdMarkPriorityLabel.Location = new System.Drawing.Point(536, 142);
+            this.kybdMarkPriorityLabel.Location = new System.Drawing.Point(536, 174);
             this.kybdMarkPriorityLabel.Name = "kybdMarkPriorityLabel";
             this.kybdMarkPriorityLabel.Size = new System.Drawing.Size(139, 15);
             this.kybdMarkPriorityLabel.TabIndex = 18;
@@ -712,7 +748,7 @@ namespace CIXReader.Forms
             this.kybdMarkPriority.Font = new System.Drawing.Font("Arial", 8F);
             this.kybdMarkPriority.ForeColor = System.Drawing.SystemColors.WindowText;
             this.kybdMarkPriority.ImageScaling = false;
-            this.kybdMarkPriority.Location = new System.Drawing.Point(498, 138);
+            this.kybdMarkPriority.Location = new System.Drawing.Point(498, 170);
             this.kybdMarkPriority.Name = "kybdMarkPriority";
             this.kybdMarkPriority.Size = new System.Drawing.Size(35, 23);
             this.kybdMarkPriority.TabIndex = 17;
@@ -852,7 +888,7 @@ namespace CIXReader.Forms
             this.kybdMarkIgnoreLabel.AutoSize = true;
             this.kybdMarkIgnoreLabel.Font = new System.Drawing.Font("Arial", 9F);
             this.kybdMarkIgnoreLabel.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.kybdMarkIgnoreLabel.Location = new System.Drawing.Point(536, 78);
+            this.kybdMarkIgnoreLabel.Location = new System.Drawing.Point(536, 110);
             this.kybdMarkIgnoreLabel.Name = "kybdMarkIgnoreLabel";
             this.kybdMarkIgnoreLabel.Size = new System.Drawing.Size(138, 15);
             this.kybdMarkIgnoreLabel.TabIndex = 8;
@@ -872,7 +908,7 @@ namespace CIXReader.Forms
             this.kybdMarkIgnore.Font = new System.Drawing.Font("Arial", 8F);
             this.kybdMarkIgnore.ForeColor = System.Drawing.SystemColors.WindowText;
             this.kybdMarkIgnore.ImageScaling = false;
-            this.kybdMarkIgnore.Location = new System.Drawing.Point(498, 74);
+            this.kybdMarkIgnore.Location = new System.Drawing.Point(498, 106);
             this.kybdMarkIgnore.Name = "kybdMarkIgnore";
             this.kybdMarkIgnore.Size = new System.Drawing.Size(35, 23);
             this.kybdMarkIgnore.TabIndex = 7;
@@ -884,7 +920,7 @@ namespace CIXReader.Forms
             this.kybdMarkReadLabel.AutoSize = true;
             this.kybdMarkReadLabel.Font = new System.Drawing.Font("Arial", 9F);
             this.kybdMarkReadLabel.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.kybdMarkReadLabel.Location = new System.Drawing.Point(536, 46);
+            this.kybdMarkReadLabel.Location = new System.Drawing.Point(536, 78);
             this.kybdMarkReadLabel.Name = "kybdMarkReadLabel";
             this.kybdMarkReadLabel.Size = new System.Drawing.Size(128, 15);
             this.kybdMarkReadLabel.TabIndex = 6;
@@ -904,7 +940,7 @@ namespace CIXReader.Forms
             this.kybdMarkRead.Font = new System.Drawing.Font("Arial", 8F);
             this.kybdMarkRead.ForeColor = System.Drawing.SystemColors.WindowText;
             this.kybdMarkRead.ImageScaling = false;
-            this.kybdMarkRead.Location = new System.Drawing.Point(498, 42);
+            this.kybdMarkRead.Location = new System.Drawing.Point(498, 74);
             this.kybdMarkRead.Name = "kybdMarkRead";
             this.kybdMarkRead.Size = new System.Drawing.Size(35, 23);
             this.kybdMarkRead.TabIndex = 5;
@@ -986,37 +1022,37 @@ namespace CIXReader.Forms
             this.kybdNavigatingMessagesLabel.TabIndex = 0;
             this.kybdNavigatingMessagesLabel.Text = "Navigating Messages";
             // 
-            // kybdQuoteLabel
+            // label1
             // 
-            this.kybdQuoteLabel.AutoSize = true;
-            this.kybdQuoteLabel.Font = new System.Drawing.Font("Arial", 9F);
-            this.kybdQuoteLabel.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.kybdQuoteLabel.Location = new System.Drawing.Point(53, 224);
-            this.kybdQuoteLabel.Name = "kybdQuoteLabel";
-            this.kybdQuoteLabel.Size = new System.Drawing.Size(96, 15);
-            this.kybdQuoteLabel.TabIndex = 57;
-            this.kybdQuoteLabel.Text = "Reply and quote";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Arial", 9F);
+            this.label1.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.label1.Location = new System.Drawing.Point(535, 46);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(116, 15);
+            this.label1.TabIndex = 59;
+            this.label1.Text = "Block current author";
             // 
-            // kybdQuote
+            // kybdMarkBlock
             // 
-            this.kybdQuote.Active = false;
-            this.kybdQuote.BackColor = System.Drawing.SystemColors.Window;
-            this.kybdQuote.CanBeSelected = false;
-            this.kybdQuote.CanHaveFocus = true;
-            this.kybdQuote.Enabled = false;
-            this.kybdQuote.ExtraData = null;
-            this.kybdQuote.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.kybdQuote.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.kybdQuote.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
-            this.kybdQuote.Font = new System.Drawing.Font("Arial", 8F);
-            this.kybdQuote.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.kybdQuote.ImageScaling = false;
-            this.kybdQuote.Location = new System.Drawing.Point(15, 220);
-            this.kybdQuote.Name = "kybdQuote";
-            this.kybdQuote.Size = new System.Drawing.Size(35, 23);
-            this.kybdQuote.TabIndex = 56;
-            this.kybdQuote.Text = "Q";
-            this.kybdQuote.UseVisualStyleBackColor = false;
+            this.kybdMarkBlock.Active = false;
+            this.kybdMarkBlock.BackColor = System.Drawing.SystemColors.Window;
+            this.kybdMarkBlock.CanBeSelected = false;
+            this.kybdMarkBlock.CanHaveFocus = true;
+            this.kybdMarkBlock.Enabled = false;
+            this.kybdMarkBlock.ExtraData = null;
+            this.kybdMarkBlock.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.kybdMarkBlock.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.kybdMarkBlock.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
+            this.kybdMarkBlock.Font = new System.Drawing.Font("Arial", 8F);
+            this.kybdMarkBlock.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.kybdMarkBlock.ImageScaling = false;
+            this.kybdMarkBlock.Location = new System.Drawing.Point(497, 42);
+            this.kybdMarkBlock.Name = "kybdMarkBlock";
+            this.kybdMarkBlock.Size = new System.Drawing.Size(35, 23);
+            this.kybdMarkBlock.TabIndex = 58;
+            this.kybdMarkBlock.Text = "B";
+            this.kybdMarkBlock.UseVisualStyleBackColor = false;
             // 
             // KeyboardHelp
             // 
@@ -1098,5 +1134,7 @@ namespace CIXReader.Forms
         private CRRoundButton kybdTogglePlainText;
         private System.Windows.Forms.Label kybdQuoteLabel;
         private CRRoundButton kybdQuote;
+        private System.Windows.Forms.Label label1;
+        private CRRoundButton kybdMarkBlock;
     }
 }

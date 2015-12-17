@@ -66,6 +66,7 @@ namespace CIXReader.Forms
             kybdMarkReadLock.Text = UI.MapActionToKeyString(ActionID.ReadLock);
             kybdMarkThreadRead.Text = UI.MapActionToKeyString(ActionID.MarkThreadRead);
             kybdTogglePlainText.Text = UI.MapActionToKeyString(ActionID.Markdown);
+            kybdMarkBlock.Text = UI.MapActionToKeyString(ActionID.Block);
 
             kybdSearch.Text = UI.MapActionToKeyString(ActionID.Search);
             kybdHelp.Text = UI.MapActionToKeyString(ActionID.KeyboardHelp);
