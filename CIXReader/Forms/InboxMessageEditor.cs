@@ -150,7 +150,7 @@ namespace CIXReader.Forms
                 {
                     Subject = nmSubject.Text,
                     Author = CIX.Username,
-                    Date = DateTime.Now
+                    Date = DateTime.UtcNow.UTCToGMTBST()
                 };
             }
             if (_currentMessage == null)
@@ -160,7 +160,7 @@ namespace CIXReader.Forms
                     Author = (_currentConversation.ID > 0) ? CIX.Username : nmRecipients.Text,
                     Body = nmMessage.Text,
                     ConversationID = _currentConversation.ID,
-                    Date = DateTime.Now
+                    Date = DateTime.UtcNow.UTCToGMTBST()
                 };
 
                 CIX.ConversationCollection.Add(_currentConversation, _currentMessage);

@@ -154,7 +154,7 @@ namespace CIXReader.Forms
         private void nmSend_Click(object sender, EventArgs e)
         {
             _message.Body = nmMessage.Text;
-            _message.Date = DateTime.Now;
+            _message.Date = DateTime.UtcNow.UTCToGMTBST();
 
             _message.Topic.Messages.Add(_message);
             _message.Post();
@@ -171,7 +171,7 @@ namespace CIXReader.Forms
         private void nmSaveAsDraft_Click(object sender, EventArgs e)
         {
             _message.Body = nmMessage.Text;
-            _message.Date = DateTime.Now;
+            _message.Date = DateTime.UtcNow.UTCToGMTBST();
 
             _message.Topic.Messages.Add(_message);
 

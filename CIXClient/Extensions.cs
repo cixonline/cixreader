@@ -23,6 +23,21 @@ namespace CIXClient
     public static class Extensions
     {
         /// <summary>
+        /// Convert a UTC date time to a date time expressed in GMT or BST
+        /// </summary>
+        /// <param name="dateTime">The date and time in UTC</param>
+        /// <returns>The date and time in either GMT or BST</returns>
+        public static DateTime UTCToGMTBST(this DateTime dateTime)
+        {
+            DateTime theDate = dateTime;
+            if (TimeZoneInfo.Local.IsDaylightSavingTime(theDate))
+            {
+                theDate = dateTime.AddHours(1);
+            }
+            return theDate;
+        }
+
+        /// <summary>
         /// Return the friendly name for the specified date/time. The algorithm used
         /// here is as follows:
         /// <para>

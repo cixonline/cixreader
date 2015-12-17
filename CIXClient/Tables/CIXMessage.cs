@@ -988,7 +988,7 @@ namespace CIXClient.Tables
                 if (int.TryParse(responseString, out newRemoteID))
                 {
                     RemoteID = newRemoteID;
-                    Date = DateTime.Now;
+                    Date = DateTime.UtcNow.UTCToGMTBST();
                     lock (CIX.DBLock)
                     {
                         CIX.DB.Update(this);

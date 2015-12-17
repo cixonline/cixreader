@@ -2058,7 +2058,7 @@ namespace CIXReader.Forms
                                 Author = CIX.Username,
                                 RemoteID = 0,
                                 Priority = true,
-                                Date = DateTime.Now,
+                                Date = DateTime.UtcNow.UTCToGMTBST(),
                                 Body = body,
                                 TopicID = topicFolder.ID,
                                 RootID = 0,

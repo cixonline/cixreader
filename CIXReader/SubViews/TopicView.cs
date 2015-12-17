@@ -474,7 +474,7 @@ namespace CIXReader.SubViews
                     Author = CIX.Username,
                     RemoteID = 0,
                     Priority = true,
-                    Date = DateTime.Now,
+                    Date = DateTime.UtcNow.UTCToGMTBST(),
                     Body = body,
                     TopicID = _currentFolder.ID,
                     RootID = 0,
@@ -1040,8 +1040,9 @@ namespace CIXReader.SubViews
                 else
                 {
                     SelectedRow = selectedRow;
+                    ShowMessage(SelectedMessage);
                 }
-            }                
+            }
         }
 
         /// <summary>
@@ -2309,7 +2310,7 @@ namespace CIXReader.SubViews
                     RemoteID = 0,
                     Priority = true,
                     Body = quotedText ?? GetQuotedText(DisplayedItem),
-                    Date = DateTime.Now,
+                    Date = DateTime.UtcNow.UTCToGMTBST(),
                     TopicID = message.TopicID,
                     RootID = message.IsRoot ? message.RemoteID : message.RootID,
                     Unread = true,
