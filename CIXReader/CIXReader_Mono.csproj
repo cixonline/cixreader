@@ -623,6 +623,7 @@
     <None Include="Resources\CIXReader_Linux.ico" />
     <None Include="Resources\CIXReaderLinux_Medium.png" />
     <None Include="Resources\rulesPreferences.tiff" />
+    <None Include="Resources\CIXReaderChristmas_Medium.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

@@ -313,6 +313,16 @@ namespace CIXReader.Properties {
             }
         }
         
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap ChristmasLogo {
+			get {
+				object obj = ResourceManager.GetObject("ChristmasLogo", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+
         /// <summary>
         ///   Looks up a localized string similar to Clear &amp;Flag.
         /// </summary>
