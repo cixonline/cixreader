@@ -222,10 +222,6 @@ namespace CIXClient.Collections
         /// <param name="message">A CIXMessage to add</param>
         public void Add(CIXMessage message)
         {
-            bool isNew = AddInternal(message);
-
-            CIX.RuleCollection.ApplyRules(message);
-
             if (message.Unread)
             {
                 Folder topic = message.Topic;
@@ -234,11 +230,12 @@ namespace CIXClient.Collections
                 {
                     topic.UnreadPriority += 1;
                 }
-                lock (CIX.DBLock)
-                {
-                    CIX.DB.Update(topic);
-                }
             }
+
+            bool isNew = AddInternal(message);
+
+            CIX.RuleCollection.ApplyRules(message);
+
             if (isNew)
             {
                 CIX.FolderCollection.NotifyMessageAdded(message);

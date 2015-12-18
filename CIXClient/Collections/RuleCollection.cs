@@ -253,11 +253,19 @@ namespace CIXClient.Collections
                                 message.ReadPending = true;
                                 Folder folder = CIX.FolderCollection[message.TopicID];
                                 folder.Unread += message.Unread ? 1 : -1;
+                                if (folder.Unread < 0)
+                                {
+                                    folder.Unread = 0;
+                                }
                                 if (message.Priority)
                                 {
                                     folder.UnreadPriority += message.Unread ? 1 : -1;
+                                    if (folder.UnreadPriority < 0)
+                                    {
+                                        folder.UnreadPriority = 0;
+                                    }
                                 }
-                                folder.MarkReadRangePending = true;
+                                folder.MarkReadRangePending = !message.IsPseudo;
 
                                 changed = true;
                             }
@@ -272,6 +280,10 @@ namespace CIXClient.Collections
                         {
                             Folder folder = CIX.FolderCollection[message.TopicID];
                             folder.UnreadPriority += message.Priority ? 1 : -1;
+                            if (folder.UnreadPriority < 0)
+                            {
+                                folder.UnreadPriority = 0;
+                            }
                         }
                     }
                     if (ruleGroup.actionCode.HasFlag(RuleActionCodes.Ignored))
@@ -286,6 +298,10 @@ namespace CIXClient.Collections
                             if (message.Priority)
                             {
                                 folder.UnreadPriority -= 1;
+                                if (folder.UnreadPriority < 0)
+                                {
+                                    folder.UnreadPriority = 0;
+                                }
                             }
                             folder.MarkReadRangePending = true;
 
