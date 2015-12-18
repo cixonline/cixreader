@@ -276,6 +276,16 @@ namespace CIXReader.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ChristmasLogo {
+            get {
+                object obj = ResourceManager.GetObject("ChristmasLogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CIXCategory {
             get {
                 object obj = ResourceManager.GetObject("CIXCategory", resourceCulture);
@@ -1105,15 +1115,6 @@ namespace CIXReader.Properties {
             get {
                 object obj = ResourceManager.GetObject("MenuDropWhite", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Message will be retrieved from the server when you next go online..
-        /// </summary>
-        internal static string MessageRetrievePending {
-            get {
-                return ResourceManager.GetString("MessageRetrievePending", resourceCulture);
             }
         }
         

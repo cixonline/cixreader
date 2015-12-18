@@ -702,6 +702,7 @@
     <None Include="Resources\smallFolder.png" />
     <None Include="Resources\Inbox.png" />
     <None Include="Resources\rulesPreferences.tiff" />
+    <None Include="Resources\CIXReaderChristmas_Medium.png" />
     <Content Include="Toolbar\toolbar_all.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
