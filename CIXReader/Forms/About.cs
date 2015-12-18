@@ -41,11 +41,7 @@ namespace CIXReader.Forms
             var attributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof (AssemblyCopyrightAttribute), false);
             string copyrightString = ((AssemblyCopyrightAttribute) attributes[0]).Copyright;
 
-            DateTime today = DateTime.Now;
-            if (today.Month == 12 && today.Day >= 18 && today.Day <= 27)
-            {
-                abtLogo.Image = Resources.ChristmasLogo;
-            }
+            abtLogo.Image = Program.CIXReaderLogo;
 
             abtCopyright.Text = string.Format("{0} {1}", copyrightString, companyString);
         }

@@ -118,7 +118,7 @@ namespace CIXReader.CanvasItems
             {
                 ImageWidth = 100,
                 ImageHeight = 100,
-                Image = Resources.CIXReaderLogo,
+                Image = Program.CIXReaderLogo,
                 Margin = new Rectangle(0, 0, 10, 0)
             });
 

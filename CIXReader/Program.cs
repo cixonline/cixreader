@@ -11,6 +11,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -18,6 +19,7 @@ using System.Threading;
 using System.Windows.Forms;
 using CIXClient;
 using CIXReader.Forms;
+using CIXReader.Properties;
 using CIXReader.Utilities;
 using Microsoft.Win32;
 
@@ -92,7 +94,7 @@ namespace CIXReader
                     Application.Run(new MainForm());
                 }
 
-                LogFile.WriteLine("{0} {1} shut down", Properties.Resources.AppTitle, VersionString);
+                LogFile.WriteLine("{0} {1} shut down", Resources.AppTitle, VersionString);
                 LogFile.Close();
 
                 // NetSparkle shuts down the app forcibly so the last command line is
@@ -168,6 +170,22 @@ namespace CIXReader
         /// Get or set the last user name.
         /// </summary>
         private static string LastUser { get; set; }
+
+        /// <summary>
+        /// Return the CIXReader logo
+        /// </summary>
+        public static Image CIXReaderLogo
+        {
+            get
+            {
+                DateTime today = DateTime.Now;
+                if (today.Month == 12 && today.Day >= 18 && today.Day <= 27)
+                {
+                    return Resources.ChristmasLogo;
+                }
+                return Resources.CIXReaderLogo;
+            }
+        }
 
         /// <summary>
         /// Do all application pre-run initialisation.
@@ -389,7 +407,7 @@ namespace CIXReader
 
             InitializeLogFile();
 
-            LogFile.WriteLine("{0} {1} started", Properties.Resources.AppTitle, VersionString);
+            LogFile.WriteLine("{0} {1} started", Resources.AppTitle, VersionString);
             LogFile.WriteLine("Opened database {0}", databasePath);
 
             // Compact the database if the time has come

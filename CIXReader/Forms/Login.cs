@@ -129,6 +129,7 @@ namespace CIXReader.Forms
         private void Login_Load(object sender, EventArgs e)
         {
             fldTitle.Text = Properties.Resources.AppTitle;
+            fldLogo.Image = Program.CIXReaderLogo;
 
             if (Username != null)
             {
