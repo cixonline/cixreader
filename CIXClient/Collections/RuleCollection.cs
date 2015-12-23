@@ -333,7 +333,10 @@ namespace CIXClient.Collections
         /// <param name="message">Message to which rules are applied</param>
         internal void ApplyRules(CIXMessage message)
         {
-            ruleGroups.Aggregate(false, (current, ruleGroup) => current || ApplyRule(ruleGroup, message));
+            foreach (RuleGroup ruleGroup in ruleGroups)
+            {
+                ApplyRule(ruleGroup, message);
+            }
         }
 
         /// <summary>
