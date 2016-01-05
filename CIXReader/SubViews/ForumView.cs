@@ -238,15 +238,18 @@ namespace CIXReader.SubViews
                 case ActionID.Delete:
                 {
                     CanvasElementBase deleteButton = args.Control.CanvasItemLayout[ActionID.Delete];
+                    CanvasElementBase resignButton = args.Control.CanvasItemLayout[ActionID.ResignForum];
                     if (deleteButton.Enabled)
                     {
                         string promptString = string.Format(Resources.ConfirmDelete, _currentFolder.Name);
                         if (MessageBox.Show(promptString, Resources.Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                         {
                             deleteButton.Enabled = false;
-                            args.Control.CanvasItemLayout[ActionID.JoinForum].Enabled = false;
-
-                            _currentFolder.Folder.Delete();
+                            if (resignButton != null)
+                            {
+                                resignButton.Enabled = false;
+                            }
+                            _currentFolder.Folder.Delete(true);
                         }
                     }
                     break;
@@ -261,7 +264,6 @@ namespace CIXReader.SubViews
                         if (MessageBox.Show(promptString, Resources.Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                         {
                             resignButton.Enabled = false;
-
                             _currentFolder.Folder.Resign();
                         }
                     }

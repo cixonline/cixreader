@@ -275,7 +275,7 @@ namespace CIXReader.Forms
                         string promptString = string.Format(Resources.ConfirmDelete, folder.Name);
                         if (MessageBox.Show(promptString, Resources.Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                         {
-                            folder.Folder.Delete();
+                            folder.Folder.Delete(true);
                         }
                     }
                     _contextMenuNode = null;

@@ -437,7 +437,7 @@ namespace CIXReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete the {0} folder?.
+        ///   Looks up a localized string similar to Are you sure you want to remove {0} from the folder list?.
         /// </summary>
         internal static string ConfirmDelete {
             get {
@@ -585,7 +585,7 @@ namespace CIXReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete Folder.
+        ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string DeleteFolder {
             get {
@@ -911,7 +911,7 @@ namespace CIXReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Join Forum.
+        ///   Looks up a localized string similar to Rejoin.
         /// </summary>
         internal static string JoinForum {
             get {
@@ -1565,7 +1565,7 @@ namespace CIXReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resign Forum.
+        ///   Looks up a localized string similar to Resign.
         /// </summary>
         internal static string ResignForum {
             get {

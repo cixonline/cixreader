@@ -275,10 +275,10 @@
     <value>1 reply</value>
   </data>
   <data name="ResignForum" xml:space="preserve">
-    <value>Resign Forum</value>
+    <value>Resign</value>
   </data>
   <data name="JoinForum" xml:space="preserve">
-    <value>Join Forum</value>
+    <value>Rejoin</value>
   </data>
   <data name="ConfirmResign" xml:space="preserve">
     <value>Do you want to resign from {0} ?</value>
@@ -320,10 +320,10 @@
     <value>Delete</value>
   </data>
   <data name="ConfirmDelete" xml:space="preserve">
-    <value>Are you sure you want to delete the {0} folder?</value>
+    <value>Are you sure you want to remove {0} from the folder list?</value>
   </data>
   <data name="DeleteFolder" xml:space="preserve">
-    <value>Delete Folder</value>
+    <value>Delete</value>
   </data>
   <data name="NewMessageTitle" xml:space="preserve">
     <value>New Message in {0} • {1}</value>

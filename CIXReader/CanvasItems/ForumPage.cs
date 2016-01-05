@@ -224,17 +224,14 @@ namespace CIXReader.CanvasItems
 
                 // Delete button
                 // Offer the option to delete the folder if we're not joined to it
-                if (Folder.IsResigned || Folder.Flags.HasFlag(FolderFlags.JoinFailed))
+                newLayout.Add(new CanvasButton
                 {
-                    newLayout.Add(new CanvasButton
-                    {
-                        ID = ActionID.Delete,
-                        Text = Resources.DeleteFolder,
-                        Font = DescriptionFont,
-                        ForeColour = UI.System.ForegroundColour,
-                        SpaceAfter = 15
-                    });
-                }
+                    ID = ActionID.Delete,
+                    Text = Resources.DeleteFolder,
+                    Font = DescriptionFont,
+                    ForeColour = UI.System.ForegroundColour,
+                    SpaceAfter = 15
+                });
 
                 // Add Participants button
                 newLayout.Add(new CanvasButton

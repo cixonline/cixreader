@@ -120,6 +120,11 @@ namespace CIXClient.Tables
         public int UnreadPriority { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether a delete action is pending.
+        /// </summary>
+        public bool DeletePending { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether a resign action is pending.
         /// </summary>
         public bool ResignPending { get; set; }
@@ -351,8 +356,19 @@ namespace CIXClient.Tables
         /// <summary>
         /// Delete this folder.
         /// </summary>
-        public void Delete()
+        public void Delete(bool resign)
         {
+            if (resign && CanResign)
+            {
+                DeletePending = true;
+                lock (CIX.DBLock)
+                {
+                    CIX.DB.Update(this);
+                }
+                Resign();
+                return;
+            }
+
             DeleteAll();
 
             IEnumerable<Folder> topicsList = CIX.FolderCollection.Where(fld => fld.ParentID == ID).ToList();
@@ -634,15 +650,6 @@ namespace CIXClient.Tables
 
                 HttpWebRequest request = APIRequest.Get(url, APIRequest.APIFormat.XML);
 
-                // Whatever happens, clear the pending action so we don't keep trying to
-                // resign the forum repeatedly.
-                ResignPending = false;
-                Flags |= FolderFlags.Resigned;
-                lock (CIX.DBLock)
-                {
-                    CIX.DB.Update(this);
-                }
-
                 string responseString = APIRequest.ReadResponseString(request);
                 if (responseString == "Success")
                 {
@@ -653,6 +660,22 @@ namespace CIXClient.Tables
                 else
                 {
                     LogFile.WriteLine("Error resigning {0}. Response is: {1}", Name, responseString);
+                }
+
+                if (DeletePending)
+                {
+                    DeletePending = false;
+                    Delete(false);
+                    return;
+                }
+
+                // Whatever happens, clear the pending action so we don't keep trying to
+                // resign the forum repeatedly.
+                ResignPending = false;
+                Flags |= FolderFlags.Resigned;
+                lock (CIX.DBLock)
+                {
+                    CIX.DB.Update(this);
                 }
             }
             catch (Exception e)
