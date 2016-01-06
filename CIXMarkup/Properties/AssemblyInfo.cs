@@ -17,7 +17,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("CIXMarkup")]
 [assembly: AssemblyDescription("CIX Markup Parser")]
-[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyConfiguration("Beta")]
 [assembly: AssemblyCompany("CIXOnline Ltd")]
 [assembly: AssemblyProduct("CIXMarkup")]
 [assembly: AssemblyCopyright("Copyright © 2014-2016")]
@@ -34,5 +34,5 @@ using System.Runtime.InteropServices;
 
 // Version information for this assembly. The values are dynamically replaced
 // when running the build script.
-[assembly: AssemblyVersion("1.61.1114")]
-[assembly: AssemblyFileVersion("1.61.1114")]
+[assembly: AssemblyVersion("1.61.1115")]
+[assembly: AssemblyFileVersion("1.61.1115")]
