@@ -237,7 +237,7 @@ namespace CIXClient.Collections
                                     Date = conv.Date,
                                     ID = conv.ID,
                                     Sender = conv.Recipient,
-                                    Subject = conv.Body.FirstLine(),
+                                    Subject = conv.Subject,
                                     Unread = "false"
                                 });
                                 InboxConversation root = ConversationByID(conv.ID);
@@ -247,7 +247,7 @@ namespace CIXClient.Collections
                                     {
                                         RemoteID = conv.ID,
                                         Date = DateTime.Parse(conv.Date),
-                                        Subject = conv.Body.FirstLine(),
+                                        Subject = conv.Subject,
                                         Author = conv.Recipient
                                     };
                                     Add(root);

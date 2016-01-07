@@ -263,7 +263,7 @@ namespace CIXClient
         /// </summary>
         internal static int CurrentVersion
         {
-            get { return 8; }
+            get { return 9; }
         }
 
         /// <summary>
@@ -473,6 +473,14 @@ namespace CIXClient
                 }
                 DB.UpdateAll(allFolders);
                 DB.Commit();
+            }
+
+            // Force resync of the inbox to use the subject line from
+            // the API.
+            if (_globals.Version < 9)
+            {
+                DB.DeleteAll<InboxConversation>();
+                DB.DeleteAll<InboxMessage>();
             }
 
             // Set new version
