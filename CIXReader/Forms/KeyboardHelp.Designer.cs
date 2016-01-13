@@ -32,6 +32,8 @@ namespace CIXReader.Forms
         {
             this.kybdClose = new System.Windows.Forms.Button();
             this.kybdPanel = new CIXReader.Controls.CRPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.kybdMarkBlock = new CIXReader.Controls.CRRoundButton();
             this.kybdQuoteLabel = new System.Windows.Forms.Label();
             this.kybdQuote = new CIXReader.Controls.CRRoundButton();
             this.kybdTogglePlainTextLabel = new System.Windows.Forms.Label();
@@ -86,8 +88,6 @@ namespace CIXReader.Forms
             this.kybdNextUnreadLabel = new System.Windows.Forms.Label();
             this.kybdNextUnread = new CIXReader.Controls.CRRoundButton();
             this.kybdNavigatingMessagesLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.kybdMarkBlock = new CIXReader.Controls.CRRoundButton();
             this.kybdPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -176,6 +176,38 @@ namespace CIXReader.Forms
             this.kybdPanel.Size = new System.Drawing.Size(701, 370);
             this.kybdPanel.TabIndex = 0;
             this.kybdPanel.TopBorderWidth = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Arial", 9F);
+            this.label1.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.label1.Location = new System.Drawing.Point(535, 46);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(116, 15);
+            this.label1.TabIndex = 59;
+            this.label1.Text = "Block current author";
+            // 
+            // kybdMarkBlock
+            // 
+            this.kybdMarkBlock.Active = false;
+            this.kybdMarkBlock.BackColor = System.Drawing.SystemColors.Window;
+            this.kybdMarkBlock.CanBeSelected = false;
+            this.kybdMarkBlock.CanHaveFocus = true;
+            this.kybdMarkBlock.Enabled = false;
+            this.kybdMarkBlock.ExtraData = null;
+            this.kybdMarkBlock.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.kybdMarkBlock.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.kybdMarkBlock.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
+            this.kybdMarkBlock.Font = new System.Drawing.Font("Arial", 8F);
+            this.kybdMarkBlock.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.kybdMarkBlock.ImageScaling = false;
+            this.kybdMarkBlock.Location = new System.Drawing.Point(497, 42);
+            this.kybdMarkBlock.Name = "kybdMarkBlock";
+            this.kybdMarkBlock.Size = new System.Drawing.Size(35, 23);
+            this.kybdMarkBlock.TabIndex = 58;
+            this.kybdMarkBlock.Text = "B";
+            this.kybdMarkBlock.UseVisualStyleBackColor = false;
             // 
             // kybdQuoteLabel
             // 
@@ -730,9 +762,9 @@ namespace CIXReader.Forms
             this.kybdMarkPriorityLabel.ForeColor = System.Drawing.SystemColors.WindowText;
             this.kybdMarkPriorityLabel.Location = new System.Drawing.Point(536, 174);
             this.kybdMarkPriorityLabel.Name = "kybdMarkPriorityLabel";
-            this.kybdMarkPriorityLabel.Size = new System.Drawing.Size(139, 15);
+            this.kybdMarkPriorityLabel.Size = new System.Drawing.Size(121, 15);
             this.kybdMarkPriorityLabel.TabIndex = 18;
-            this.kybdMarkPriorityLabel.Text = "Toggle message priority";
+            this.kybdMarkPriorityLabel.Text = "Toggle thread priority";
             // 
             // kybdMarkPriority
             // 
@@ -890,9 +922,9 @@ namespace CIXReader.Forms
             this.kybdMarkIgnoreLabel.ForeColor = System.Drawing.SystemColors.WindowText;
             this.kybdMarkIgnoreLabel.Location = new System.Drawing.Point(536, 110);
             this.kybdMarkIgnoreLabel.Name = "kybdMarkIgnoreLabel";
-            this.kybdMarkIgnoreLabel.Size = new System.Drawing.Size(138, 15);
+            this.kybdMarkIgnoreLabel.Size = new System.Drawing.Size(120, 15);
             this.kybdMarkIgnoreLabel.TabIndex = 8;
-            this.kybdMarkIgnoreLabel.Text = "Toggle message ignore";
+            this.kybdMarkIgnoreLabel.Text = "Toggle thread ignore";
             // 
             // kybdMarkIgnore
             // 
@@ -1021,38 +1053,6 @@ namespace CIXReader.Forms
             this.kybdNavigatingMessagesLabel.Size = new System.Drawing.Size(141, 16);
             this.kybdNavigatingMessagesLabel.TabIndex = 0;
             this.kybdNavigatingMessagesLabel.Text = "Navigating Messages";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial", 9F);
-            this.label1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.label1.Location = new System.Drawing.Point(535, 46);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(116, 15);
-            this.label1.TabIndex = 59;
-            this.label1.Text = "Block current author";
-            // 
-            // kybdMarkBlock
-            // 
-            this.kybdMarkBlock.Active = false;
-            this.kybdMarkBlock.BackColor = System.Drawing.SystemColors.Window;
-            this.kybdMarkBlock.CanBeSelected = false;
-            this.kybdMarkBlock.CanHaveFocus = true;
-            this.kybdMarkBlock.Enabled = false;
-            this.kybdMarkBlock.ExtraData = null;
-            this.kybdMarkBlock.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.kybdMarkBlock.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.kybdMarkBlock.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
-            this.kybdMarkBlock.Font = new System.Drawing.Font("Arial", 8F);
-            this.kybdMarkBlock.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.kybdMarkBlock.ImageScaling = false;
-            this.kybdMarkBlock.Location = new System.Drawing.Point(497, 42);
-            this.kybdMarkBlock.Name = "kybdMarkBlock";
-            this.kybdMarkBlock.Size = new System.Drawing.Size(35, 23);
-            this.kybdMarkBlock.TabIndex = 58;
-            this.kybdMarkBlock.Text = "B";
-            this.kybdMarkBlock.UseVisualStyleBackColor = false;
             // 
             // KeyboardHelp
             // 
