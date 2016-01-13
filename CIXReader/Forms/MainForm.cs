@@ -330,7 +330,7 @@ namespace CIXReader.Forms
                         }
                     }
 
-                    if (address.Scheme != null)
+                    if (address.Scheme != null && address.Scheme == "cix")
                     {
                         // Special case the cix:/topic convention here because it requires us to
                         // know the forum from the selection which is only possible when we have
