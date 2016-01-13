@@ -23,6 +23,8 @@ namespace CIXReader.Forms
     /// </summary>
     public class MessageEditorBase : Form
     {
+        private const int MaximumTextLength = 16384;
+
         private string _currentSignature;
 
         /// <summary>
@@ -99,6 +101,8 @@ namespace CIXReader.Forms
             {
                 InsertSignature(defaultSignature);
             }
+
+            Editor.MaxLength = MaximumTextLength;
 
             Editor.SelectionStart = textLength;
             Editor.SelectionLength = 0;
