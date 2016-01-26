@@ -468,6 +468,11 @@ namespace CIXReader.Canvas
                 r = new Regex(cixRegex, RegexOptions.IgnoreCase);
                 text = r.Replace(text, "<a href=\"$1\">$1</a>");
 
+                // Handle mailto links
+                const string mailtoRegex = @"(mailto:\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b)";
+                r = new Regex(mailtoRegex, RegexOptions.IgnoreCase);
+                text = r.Replace(text, "<a href=\"$1\">$1</a>");
+
                 // Look for image links and replace with img tags
                 // Only HTTP links are used for now.
                 if (ExpandInlineImages)
