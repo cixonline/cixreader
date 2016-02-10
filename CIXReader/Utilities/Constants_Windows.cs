@@ -19,17 +19,17 @@ namespace CIXReader.Utilities
         /// <summary>
         /// URL to the appcast link.
         /// </summary>
-        public const string AppCastURL = "http://cixreader.cixhosting.co.uk/cixreader/windows/release/appcast.xml";
+        public const string AppCastURL = "https://cixreader.cixhosting.co.uk/cixreader/windows/release/appcast.xml";
 
         /// <summary>
         /// URL to the beta appcast link.
         /// </summary>
-        public const string BetaAppCastURL = "http://cixreader.cixhosting.co.uk/cixreader/windows/beta/appcast.xml";
+        public const string BetaAppCastURL = "https://cixreader.cixhosting.co.uk/cixreader/windows/beta/appcast.xml";
 
         /// <summary>
         /// Change log file link.
         /// </summary>
-        public const string ChangeLogURL = "http://cixreader.cixhosting.co.uk/cixreader/windows/{0}/changes.html";
+        public const string ChangeLogURL = "https://cixreader.cixhosting.co.uk/cixreader/windows/{0}/changes.html";
 
         /// <summary>
         /// Support forum for this version of CIXReader
