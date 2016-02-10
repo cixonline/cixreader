@@ -427,8 +427,8 @@ namespace CIXReader
             StartupOnline = (!_forceOffline) && !Preferences.StandardPreferences.StartOffline;
             StartupAddress = _address ?? Preferences.StandardPreferences.LastAddress;
 
-            // Use the beta API only if the user has manually specified it.
-            APIRequest.UseBetaAPI = Preferences.StandardPreferences.UseBetaAPI;
+            // Use the beta API if the user has opted into beta.
+            APIRequest.UseBetaAPI = Preferences.StandardPreferences.UseBeta;
             return true;
         }
 

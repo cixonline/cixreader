@@ -43,7 +43,6 @@ namespace CIXReader.Utilities
         private bool _archiveLogFile;
         private bool _cumulativeLogFile;
         private bool _enableSmartFolderCounts;
-        private readonly bool _useBetaAPI;
         private string _lastAddress;
         private string _defaultSearchEngine;
         private string _defaultSignature;
@@ -75,7 +74,6 @@ namespace CIXReader.Utilities
         public const string MAPref_DefaultSignature = "DefaultSignature";
         public const string MAPref_CurrentTheme = "CurrentTheme";
         public const string MAPref_MaxCount = "MaxCount";
-        public const string MAPref_UseBetaAPI = "UseBetaAPI";
         public const string MAPref_FolderSplitPosition = "SplitPosition2";
         public const string MAPref_ThreadSplitPosition = "SplitPosition";
         public const string MAPref_StartInHomePage = "StartInHomePage";
@@ -121,7 +119,6 @@ namespace CIXReader.Utilities
             _defaultSignature = ReadString(MAPref_DefaultSignature, Signatures.NoSignatureString);
             _currentTheme = ReadString(MAPref_CurrentTheme, Resources.Default);
             _maxCount = ReadInteger(MAPref_MaxCount, 999);
-            _useBetaAPI = ReadBoolean(MAPref_UseBetaAPI);
             _folderSplitPosition = ReadFloat(MAPref_FolderSplitPosition);
             _threadSplitPosition = ReadFloat(MAPref_ThreadSplitPosition);
             _lastAddress = ReadString(MAPref_LastAddress);
@@ -577,14 +574,6 @@ namespace CIXReader.Utilities
         public int MaxCount
         {
             get { return _maxCount; }
-        }
-
-        /// <summary>
-        /// Return whether we use the beta API server.
-        /// </summary>
-        public bool UseBetaAPI
-        {
-            get { return _useBetaAPI; }
         }
 
         /// <summary>
