@@ -343,8 +343,10 @@ namespace CIXReader.Canvas
         /// </summary>
         /// <param name="item">The item that raised this event</param>
         /// <param name="args">The hover arguments</param>
-        public void HandleHover(CanvasItem item, CanvasHoverArgs args) 
+        public void HandleHover(CanvasItem item, CanvasHoverArgs args)
         {
+            Point scrollOffset = AutoScrollPosition;
+            args.Location = new Point(args.Location.X + scrollOffset.X, args.Location.Y + scrollOffset.Y);
             if (LinkHover != null)
             {
                 LinkHover(item, args);
