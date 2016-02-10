@@ -51,7 +51,6 @@ namespace CIXClient.Collections
         private readonly object idLock = new object();
 
         private Dictionary<int, Folder> _allFolders;
-        private bool _initialised;
         private bool _isInRefresh;
         private int _nextId = 1;
 
@@ -989,20 +988,12 @@ namespace CIXClient.Collections
         /// <param name="useFastSync">A flag that specifies whether or not to use fast sync</param>
         internal void Refresh(bool useFastSync)
         {
-            bool didSync = false;
-
             if (!CIX.Online || _isInRefresh)
             {
                 return;
             }
 
-            if (!_initialised)
-            {
-                CIX.FolderCollection.RefreshWithSlowSync();
-                _initialised = true;
-                didSync = true;
-            }
-            else if (useFastSync && RefreshWithFastSync())
+            if (useFastSync && RefreshWithFastSync())
             {
                 _isInRefresh = false;
                 return;
@@ -1019,10 +1010,7 @@ namespace CIXClient.Collections
 
                 // Only sync if we didn't do one earlier as part of
                 // first-time initialisation.
-                if (!didSync)
-                {
-                    CIX.FolderCollection.RefreshWithSlowSync();
-                }
+                CIX.FolderCollection.RefreshWithSlowSync();
 
                 // Force a refresh on all folders
                 List<Folder> refreshList = CIX.FolderCollection.Where(fld => fld.RefreshRequired).ToList();
@@ -1274,7 +1262,7 @@ namespace CIXClient.Collections
         private bool RefreshWithFastSync()
         {
             DateTime sinceDate = CIX.LastSyncDate;
-            if (sinceDate == default(DateTime) || sinceDate < DateTime.Now.AddDays(-5.0))
+            if (sinceDate == default(DateTime) || sinceDate < DateTime.Now.AddDays(-30.0))
             {
                 return false;
             }
