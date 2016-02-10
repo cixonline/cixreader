@@ -416,6 +416,15 @@ namespace CIXReader.Canvas
         }
 
         /// <summary>
+        /// Raises a hover on a component in the canvas item.
+        /// </summary>
+        /// <param name="args">Link hover arguments</param>
+        public void RaiseHover(CanvasHoverArgs args)
+        {
+            _view.HandleHover(this, args);
+        }
+
+        /// <summary>
         /// Force a re-layout of the view starting with this control. This is raised when
         /// the layout determines that the control size has changed asynchronously.
         /// </summary>

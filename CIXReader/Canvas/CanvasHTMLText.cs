@@ -183,6 +183,7 @@ namespace CIXReader.Canvas
             label.PreviewKeyDown += OnPreviewKeyDown;
             label.KeyDown += OnKeyDown;
             label.ContextMenuInvoked += OnContextMenuInvoked;
+            label.LinkHover += OnLinkHover;
 
             try
             {
@@ -421,6 +422,22 @@ namespace CIXReader.Canvas
         {
             _layout.Container.RaiseLink(args.Link);
             args.Handled = true;
+        }
+
+        /// <summary>
+        /// Handle hover over a link.
+        /// </summary>
+        /// <param name="sender">The control</param>
+        /// <param name="args">The link hover arguments</param>
+        private void OnLinkHover(object sender, HtmlLinkHoverEventArgs args)
+        {
+            CanvasHoverArgs newArgs = new CanvasHoverArgs
+            {
+                Component = this,
+                Link = args.Link,
+                Location = new Point((int) args.Location.X + Bounds.X, (int) args.Location.Y + Bounds.Y)
+            };
+            _layout.Container.RaiseHover(newArgs);
         }
 
         /// <summary>

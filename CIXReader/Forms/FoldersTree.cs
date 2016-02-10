@@ -479,6 +479,16 @@ namespace CIXReader.Forms
         }
 
         /// <summary>
+        /// Returns the folder whose address corresponds to the given address.
+        /// </summary>
+        /// <param name="address">Address of the folder to locate</param>
+        /// <returns>The FolderBase of the folder at the address or null if it was not found</returns>
+        public FolderBase FolderFromAddress(string address)
+        {
+            return FolderFromAddress(address, frmList.Nodes);
+        }
+
+        /// <summary>
         /// Show the info bar with the specified message for 2.5 seconds then
         /// automatically hide it.
         /// </summary>
@@ -1328,16 +1338,6 @@ namespace CIXReader.Forms
                 }
             }
             return null;
-        }
-
-        /// <summary>
-        /// Returns the folder whose address corresponds to the given address.
-        /// </summary>
-        /// <param name="address">Address of the folder to locate</param>
-        /// <returns>The FolderBase of the folder at the address or null if it was not found</returns>
-        private FolderBase FolderFromAddress(string address)
-        {
-            return FolderFromAddress(address, frmList.Nodes);
         }
 
         /// <summary>

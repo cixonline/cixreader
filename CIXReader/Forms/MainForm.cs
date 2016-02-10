@@ -318,41 +318,33 @@ namespace CIXReader.Forms
                         return;
                     }
 
-                    if (address.Scheme != "welcome" && string.IsNullOrEmpty(address.Query))
-                    {
-                        string oldAddress = address.Data;
-                        TreeNode node = _foldersTree.SelectedNode;
-                        if (node != null)
-                        {
-                            FolderBase folder = (FolderBase)node.Tag;
-                            string newAddress = folder.Address;
-                            address = new Address(newAddress) { Data = oldAddress };
-                        }
-                    }
-
-                    if (address.Scheme != null && address.Scheme == "cix")
-                    {
-                        // Special case the cix:/topic convention here because it requires us to
-                        // know the forum from the selection which is only possible when we have
-                        // the UI from which to determine the selection.
-                        if (address.Query != null && address.Query.StartsWith("/", StringComparison.Ordinal))
-                        {
-                            TreeNode node = _foldersTree.SelectedNode;
-                            if (node != null)
-                            {
-                                FolderBase folder = (FolderBase)node.Tag;
-                                if (folder is TopicFolder && !((TopicFolder)folder).Folder.IsRootFolder)
-                                {
-                                    Folder forum = ((TopicFolder)folder).Folder.ParentFolder;
-                                    address.Query = string.Format("{0}{1}", forum.Name, address.Query);
-                                }
-                            }
-                        }
-                    }
-
-                    _foldersTree.SetAddress(address);
+                    _foldersTree.SetAddress(NormaliseAddress(address));
                 }
             }
+        }
+
+        /// <summary>
+        /// Return the message that corresponds to a given CIX address if possible, or null if
+        /// the input does not reference a valid message.
+        /// </summary>
+        public CIXMessage MessageFromAddress(string addressString)
+        {
+            Address address = new Address(addressString);
+            int messageID;
+
+            if (address.Scheme != null && Int32.TryParse(address.Data, out messageID))
+            {
+                address = NormaliseAddress(address);
+
+                string[] splitAddress = address.Query.Split(new[] {'/'});
+                if (splitAddress.Length == 2)
+                {
+                    Folder forum = CIX.FolderCollection.Get(-1, splitAddress[0]);
+                    Folder topic = CIX.FolderCollection.Get(forum.ID, splitAddress[1]);
+                    return topic.Messages.MessageByID(messageID);
+                }
+            }
+            return null;
         }
 
         /// <summary>
@@ -856,6 +848,45 @@ namespace CIXReader.Forms
                 g.Dispose();
             }
             return (int)dy;
+        }
+
+        /// <summary>
+        /// Normalise the query in the address so that the full address is specified.
+        /// </summary>
+        private Address NormaliseAddress(Address address) 
+        {
+            if (address.Scheme != null && address.Scheme == "cix")
+            {
+                if (string.IsNullOrEmpty(address.Query))
+                {
+                    string oldAddress = address.Data;
+                    TreeNode node = FoldersTree.SelectedNode;
+                    if (node != null)
+                    {
+                        FolderBase folder = (FolderBase)node.Tag;
+                        string newAddress = folder.Address;
+                        address = new Address(newAddress) { Data = oldAddress };
+                    }
+                }
+
+                // Special case the cix:/topic convention here because it requires us to
+                // know the forum from the selection which is only possible when we have
+                // the UI from which to determine the selection.
+                else if (address.Query.StartsWith("/", StringComparison.Ordinal))
+                {
+                    TreeNode node = FoldersTree.SelectedNode;
+                    if (node != null)
+                    {
+                        FolderBase folder = (FolderBase)node.Tag;
+                        if (folder is TopicFolder && !((TopicFolder)folder).Folder.IsRootFolder)
+                        {
+                            Folder forum = ((TopicFolder)folder).Folder.ParentFolder;
+                            address.Query = string.Format("{0}{1}", forum.Name, address.Query);
+                        }
+                    }
+                }
+            }
+            return address;
         }
 
         /// <summary>

@@ -120,6 +120,7 @@
     <Compile Include="CanvasItems\WelcomePage.Designer.cs">
       <DependentUpon>WelcomePage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Canvas\CanvasHoverArgs.cs" />
     <Compile Include="Canvas\CanvasItemArgs.cs" />
     <Compile Include="Controls\CRInfoBar.cs">
       <SubType>UserControl</SubType>

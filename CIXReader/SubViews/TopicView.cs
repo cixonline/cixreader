@@ -52,6 +52,7 @@ namespace CIXReader.SubViews
         private string _currentFilterString;
         private ListViewItem[] _itemCache;
         private List<CIXMessage> _messages;
+        private readonly ToolTip _tooltip;
 
         private const int MaximumIndent = 10000;
 
@@ -81,6 +82,8 @@ namespace CIXReader.SubViews
 
             FoldersTree = foldersTree;
             SortOrderBase.DefaultSortOrder = CRSortOrder.SortOrder.Date;
+
+            _tooltip = new ToolTip();
         }
 
         /// <summary>
@@ -250,7 +253,7 @@ namespace CIXReader.SubViews
         /// <returns>True if the scheme name matches cix</returns>
         public override bool Handles(string scheme)
         {
-            return scheme == "cix";
+            return scheme.ToLower() == "cix";
         }
 
         /// <summary>
@@ -523,6 +526,7 @@ namespace CIXReader.SubViews
 
             tsvMessagePane.CanvasItemAction += OnItemAction;
             tsvMessagePane.LinkClicked += OnLinkClicked;
+            tsvMessagePane.LinkHover += OnLinkHovered;
 
             tsvMessagePane.ExpandInlineImages = Preferences.StandardPreferences.DownloadInlineImages;
             tsvMessagePane.DisableMarkup = Preferences.StandardPreferences.IgnoreMarkup;
@@ -536,6 +540,26 @@ namespace CIXReader.SubViews
             UI.ThemeChanged += OnThemeChanged;
 
             _initialising = false;
+        }
+
+        /// <summary>
+        /// User hovered over a link in the message. If it is a CIX link, get the message it
+        /// references and show the initial part as a tooltip.
+        /// </summary>
+        private void OnLinkHovered(object sender, CanvasHoverArgs e) 
+        {
+            if (e.Link.StartsWith("cix:", StringComparison.OrdinalIgnoreCase))
+            {
+                CIXMessage message = FoldersTree.MainForm.MessageFromAddress(e.Link);
+                if (message != null)
+                {
+                    _tooltip.Show(message.Body.TruncateByWordWithLimit(200),
+                                    tsvMessagePane,
+                                    e.Location.X,
+                                    e.Location.Y,
+                                    2500);
+                }
+            }
         }
 
         /// <summary>

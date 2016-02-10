@@ -52,6 +52,13 @@ namespace CIXReader.Canvas
         public delegate void LinkClickedHandler(object sender, LinkClickedEventArgs e);
 
         /// <summary>
+        /// Defines the delegate for LinkHover event notifications.
+        /// </summary>
+        /// <param name="sender">The Canvas object</param>
+        /// <param name="e">Additional event data for the layout</param>
+        public delegate void LinkHoverHandler(object sender, CanvasHoverArgs e);
+
+        /// <summary>
         /// Defines the delegate for KeyPress event notifications.
         /// </summary>
         /// <param name="sender">The canvas object</param>
@@ -69,6 +76,12 @@ namespace CIXReader.Canvas
         /// in the list.
         /// </summary>
         public event LinkClickedHandler LinkClicked;
+
+        /// <summary>
+        /// Event handler for notifying a delegate that a link was hovered within an item
+        /// in the list.
+        /// </summary>
+        public event LinkHoverHandler LinkHover;
 
         /// <summary>
         /// Event handler for notifying a delegate that a key was pressed.
@@ -322,6 +335,19 @@ namespace CIXReader.Canvas
             if (LinkClicked != null)
             {
                 LinkClicked(item, new LinkClickedEventArgs(link));
+            }
+        }
+
+        /// <summary>
+        /// Respond to a hover over a link in a static text item
+        /// </summary>
+        /// <param name="item">The item that raised this event</param>
+        /// <param name="args">The hover arguments</param>
+        public void HandleHover(CanvasItem item, CanvasHoverArgs args) 
+        {
+            if (LinkHover != null)
+            {
+                LinkHover(item, args);
             }
         }
 

@@ -615,7 +615,7 @@ namespace CIXReader.SubViews
         /// </summary>
         private void OnLinkClicked(object sender, LinkClickedEventArgs args)
         {
-            if (args.LinkText.StartsWith("cix", StringComparison.Ordinal))
+            if (args.LinkText.StartsWith("cix", StringComparison.OrdinalIgnoreCase))
             {
                 FoldersTree.MainForm.Address = args.LinkText;
             }
