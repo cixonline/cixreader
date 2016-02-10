@@ -70,6 +70,7 @@
     <Compile Include="Core\Entities\HtmlImageLoadEventArgs.cs" />
     <Compile Include="Core\Entities\HtmlLinkClickedEventArgs.cs" />
     <Compile Include="Core\Entities\HtmlLinkClickedException.cs" />
+    <Compile Include="Core\Entities\HtmlLinkHoverEventArgs.cs" />
     <Compile Include="Core\Entities\HtmlRefreshEventArgs.cs" />
     <Compile Include="Core\Entities\HtmlRenderErrorEventArgs.cs" />
     <Compile Include="Core\Entities\HtmlRenderErrorType.cs" />

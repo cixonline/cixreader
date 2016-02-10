@@ -228,6 +228,11 @@ namespace TheArtOfDev.HtmlRenderer.Core
         public event EventHandler<HtmlLinkClickedEventArgs> LinkClicked;
 
         /// <summary>
+        /// Raised when the user hovers on a link in the html.<br/>
+        /// </summary>
+        public event EventHandler<HtmlLinkHoverEventArgs> LinkHover;
+
+        /// <summary>
         /// Raised when html renderer requires refresh of the control hosting (invalidation and re-layout).
         /// </summary>
         /// <remarks>
@@ -877,6 +882,29 @@ namespace TheArtOfDev.HtmlRenderer.Core
                 catch (Exception ex)
                 {
                     throw new Exception("Error in context menu intercept", ex);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Handle link hover going over <see cref="LinkHover"/> event.
+        /// </summary>
+        /// <param name="parent">the control hosting the html to invalidate</param>
+        /// <param name="location">the location of the mouse</param>
+        /// <param name="link">the link that was hovered</param>
+        internal void HandleLinkHover(RControl parent, RPoint location, CssBox link) 
+        {
+            EventHandler<HtmlLinkHoverEventArgs> hoverHandler = LinkHover;
+            if (hoverHandler != null)
+            {
+                var args = new HtmlLinkHoverEventArgs(link.HrefLink, location, link.HtmlTag.Attributes);
+                try
+                {
+                    hoverHandler(this, args);
+                }
+                catch (Exception ex)
+                {
+                    throw new HtmlLinkClickedException("Error in link hover intercept", ex);
                 }
             }
         }

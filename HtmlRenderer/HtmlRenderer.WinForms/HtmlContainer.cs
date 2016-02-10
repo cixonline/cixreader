@@ -85,6 +85,15 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
         }
 
         /// <summary>
+        /// Raised when the user hovers on a link in the html.<br/>
+        /// </summary>
+        public event EventHandler<HtmlLinkHoverEventArgs> LinkHover 
+        {
+            add { _htmlContainerInt.LinkHover += value; }
+            remove { _htmlContainerInt.LinkHover -= value; }
+        }
+
+        /// <summary>
         /// Raised when html renderer requires refresh of the control hosting (invalidation and re-layout).
         /// </summary>
         /// <remarks>

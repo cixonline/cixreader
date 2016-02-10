@@ -48,6 +48,11 @@ namespace TheArtOfDev.HtmlRenderer.Core.Handlers
         private CssRect _selectionStart;
 
         /// <summary>
+        /// Caching the last link.
+        /// </summary>
+        private CssBox _lastLink;
+
+        /// <summary>
         /// the ending word of html selection<br/>
         /// where the user ended the selection, if the selection is backwards then it will be the first selected word.
         /// </summary>
@@ -264,6 +269,12 @@ namespace TheArtOfDev.HtmlRenderer.Core.Handlers
                 {
                     _cursorChanged = true;
                     parent.SetCursorHand();
+
+                    if (link != _lastLink)
+                    {
+                        _root.HtmlContainer.HandleLinkHover(parent, loc, link);
+                        _lastLink = link;
+                    }
                 }
                 else if (_root.HtmlContainer.IsSelectionEnabled)
                 {
@@ -273,10 +284,12 @@ namespace TheArtOfDev.HtmlRenderer.Core.Handlers
                         parent.SetCursorIBeam();
                     else
                         parent.SetCursorDefault();
+                    _lastLink = null;
                 }
                 else if (_cursorChanged)
                 {
                     parent.SetCursorDefault();
+                    _lastLink = null;
                 }
             }
         }

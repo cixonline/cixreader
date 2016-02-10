@@ -134,6 +134,7 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             _htmlContainer.MaxSize = MaximumSize;
             _htmlContainer.LoadComplete += OnLoadComplete;
             _htmlContainer.LinkClicked += OnLinkClicked;
+            _htmlContainer.LinkHover += OnLinkHover;
             _htmlContainer.ContextMenuInvoked += OnContextMenuInvoked;
             _htmlContainer.RenderError += OnRenderError;
             _htmlContainer.Refresh += OnRefresh;
@@ -165,6 +166,11 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
         /// Allows canceling the execution of the link.
         /// </summary>
         public event EventHandler<HtmlLinkClickedEventArgs> LinkClicked;
+
+        /// <summary>
+        /// Raised when the user hovers on a link in the html.<br/>
+        /// </summary>
+        public event EventHandler<HtmlLinkHoverEventArgs> LinkHover;
 
         /// <summary>
         /// Raised when an error occurred during html rendering.<br/>
@@ -630,6 +636,15 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
         }
 
         /// <summary>
+        /// Propagate the LinkHover event from root container.
+        /// </summary>
+        protected virtual void OnLinkHover(HtmlLinkHoverEventArgs e) {
+            var handler = LinkHover;
+            if (handler != null)
+                handler(this, e);
+        }
+
+        /// <summary>
         /// Propagate the Render Error event from root container.
         /// </summary>
         protected virtual void OnRenderError(HtmlRenderErrorEventArgs e)
@@ -704,6 +719,7 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             {
                 _htmlContainer.LoadComplete -= OnLoadComplete;
                 _htmlContainer.LinkClicked -= OnLinkClicked;
+                _htmlContainer.LinkHover -= OnLinkHover;
                 _htmlContainer.ContextMenuInvoked -= OnContextMenuInvoked;
                 _htmlContainer.RenderError -= OnRenderError;
                 _htmlContainer.Refresh -= OnRefresh;
@@ -731,6 +747,11 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
         private void OnLinkClicked(object sender, HtmlLinkClickedEventArgs e)
         {
             OnLinkClicked(e);
+        }
+
+        private void OnLinkHover(object sender, HtmlLinkHoverEventArgs e) 
+        {
+            OnLinkHover(e);
         }
 
         private void OnRenderError(object sender, HtmlRenderErrorEventArgs e)
