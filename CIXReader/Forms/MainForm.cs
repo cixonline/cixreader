@@ -20,6 +20,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Windows.Forms;
 using CIXClient;
+using CIXClient.Collections;
 using CIXClient.Tables;
 using CIXReader.Controls;
 using CIXReader.Properties;
@@ -1335,7 +1336,7 @@ namespace CIXReader.Forms
             // Do a final sync of reads
             if (!quick)
             {
-                CIX.FolderCollection.SynchronizeReads();
+                FolderCollection.SynchronizeReads();
             }
 
             Preferences.StandardPreferences.LastAddress = _foldersTree.Address;

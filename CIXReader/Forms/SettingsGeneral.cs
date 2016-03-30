@@ -142,5 +142,16 @@ namespace CIXReader.Forms
                 }
             }
         }
+
+        /// <summary>
+        /// Mark all messages in the database as read.
+        /// </summary>
+        private void settingsMarkAllRead_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(Resources.MarkAllRead, Resources.MarkAllReadPrompt, MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                CIX.FolderCollection.MarkAllRead();
+            }
+        }
     }
 }

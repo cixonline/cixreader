@@ -744,10 +744,21 @@ namespace CIXClient.Collections
         /// <summary>
         /// Mark messages read or unread on the server based on their local state
         /// </summary>
-        public void SynchronizeReads()
+        public static void SynchronizeReads()
         {
             MarkRangeRead("read");
             MarkRangeRead("unread");
+        }
+
+        /// <summary>
+        /// Mark all messages in the database as read.
+        /// </summary>
+        public void MarkAllRead()
+        {
+            foreach (Folder folder in Folders.Where(folder => folder.Unread > 0))
+            {
+                folder.MarkAllRead();
+            }
         }
 
         /// <summary>
@@ -1259,7 +1270,7 @@ namespace CIXClient.Collections
         /// Refresh using Fast Sync.
         /// </summary>
         /// <returns>True if Fast Sync completed, False if we need to do a slow sync</returns>
-        private bool RefreshWithFastSync()
+        private static bool RefreshWithFastSync()
         {
             DateTime sinceDate = CIX.LastSyncDate;
             if (sinceDate == default(DateTime) || sinceDate < DateTime.Now.AddDays(-30.0))
@@ -1290,7 +1301,7 @@ namespace CIXClient.Collections
         /// Post any new messages to the server. New messages are those where RemoteID is 0, and we
         /// use the CommentID to determine whether this is a new message or a comment.
         /// </summary>
-        private void PostMessages()
+        private static void PostMessages()
         {
             if (CIX.Online)
             {
@@ -1305,7 +1316,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Withdraw all messages.
         /// </summary>
-        private void WithdrawMessages()
+        private static void WithdrawMessages()
         {
             TableQuery<CIXMessage> cixMessages = CIX.DB.Table<CIXMessage>().Where(fld => fld.WithdrawPending);
             foreach (CIXMessage message in cixMessages)
@@ -1318,7 +1329,7 @@ namespace CIXClient.Collections
         /// Mark a range of messages read or unread depending on the range type string.
         /// </summary>
         /// <param name="rangeType">A string set to either "read" or "unread"</param>
-        private void MarkRangeRead(string rangeType)
+        private static void MarkRangeRead(string rangeType)
         {
             bool markAsRead = rangeType == "read";
             List<CIXMessage> cixMessages = CIX.DB.Table<CIXMessage>().Where(fld => fld.ReadPending && fld.Unread != markAsRead).ToList();
@@ -1480,7 +1491,7 @@ namespace CIXClient.Collections
         /// <summary>
         /// Flush all modified folders back to the database.
         /// </summary>
-        private void FlushFolders()
+        private static void FlushFolders()
         {
             if (CIX.Online)
             {

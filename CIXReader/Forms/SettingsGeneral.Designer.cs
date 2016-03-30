@@ -41,6 +41,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.settingsCleanUpCacheList = new System.Windows.Forms.ComboBox();
             this.settingsStartInHomePage = new System.Windows.Forms.CheckBox();
+            this.settingsSeparator3 = new System.Windows.Forms.GroupBox();
+            this.settingsDatabaseLabel = new System.Windows.Forms.Label();
+            this.settingsMarkAllRead = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // settingsSearchEngines
@@ -191,12 +194,46 @@
             this.settingsStartInHomePage.UseVisualStyleBackColor = true;
             this.settingsStartInHomePage.CheckedChanged += new System.EventHandler(this.settingsStartInHomePage_CheckedChanged);
             // 
+            // settingsSeparator3
+            // 
+            this.settingsSeparator3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.settingsSeparator3.Location = new System.Drawing.Point(5, 224);
+            this.settingsSeparator3.Name = "settingsSeparator3";
+            this.settingsSeparator3.Size = new System.Drawing.Size(372, 2);
+            this.settingsSeparator3.TabIndex = 13;
+            this.settingsSeparator3.TabStop = false;
+            // 
+            // settingsDatabaseLabel
+            // 
+            this.settingsDatabaseLabel.AutoSize = true;
+            this.settingsDatabaseLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.settingsDatabaseLabel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.settingsDatabaseLabel.Location = new System.Drawing.Point(41, 240);
+            this.settingsDatabaseLabel.Name = "settingsDatabaseLabel";
+            this.settingsDatabaseLabel.Size = new System.Drawing.Size(65, 13);
+            this.settingsDatabaseLabel.TabIndex = 14;
+            this.settingsDatabaseLabel.Text = "Database:";
+            // 
+            // settingsMarkAllRead
+            // 
+            this.settingsMarkAllRead.Location = new System.Drawing.Point(117, 235);
+            this.settingsMarkAllRead.Name = "settingsMarkAllRead";
+            this.settingsMarkAllRead.Size = new System.Drawing.Size(100, 23);
+            this.settingsMarkAllRead.TabIndex = 15;
+            this.settingsMarkAllRead.Text = "Mar&k All Read";
+            this.settingsMarkAllRead.UseVisualStyleBackColor = true;
+            this.settingsMarkAllRead.Click += new System.EventHandler(this.settingsMarkAllRead_Click);
+            // 
             // SettingsGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(385, 235);
+            this.ClientSize = new System.Drawing.Size(385, 272);
             this.ControlBox = false;
+            this.Controls.Add(this.settingsMarkAllRead);
+            this.Controls.Add(this.settingsDatabaseLabel);
+            this.Controls.Add(this.settingsSeparator3);
             this.Controls.Add(this.settingsStartInHomePage);
             this.Controls.Add(this.settingsCleanUpCacheList);
             this.Controls.Add(this.label3);
@@ -239,5 +276,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox settingsCleanUpCacheList;
         private System.Windows.Forms.CheckBox settingsStartInHomePage;
+        private System.Windows.Forms.GroupBox settingsSeparator3;
+        private System.Windows.Forms.Label settingsDatabaseLabel;
+        private System.Windows.Forms.Button settingsMarkAllRead;
     }
 }

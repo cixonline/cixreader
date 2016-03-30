@@ -1080,6 +1080,24 @@ namespace CIXReader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All messages in all forums will be marked read with the exception of read locked messages. Are you sure?.
+        /// </summary>
+        internal static string MarkAllRead {
+            get {
+                return ResourceManager.GetString("MarkAllRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark All Read.
+        /// </summary>
+        internal static string MarkAllReadPrompt {
+            get {
+                return ResourceManager.GetString("MarkAllReadPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mark all messages in {0} read?.
         /// </summary>
         internal static string MarkFolderRead {
