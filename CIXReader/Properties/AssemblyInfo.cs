@@ -17,7 +17,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("CIXReader")]
 [assembly: AssemblyDescription("CIX Client Reader")]
-[assembly: AssemblyConfiguration("Beta")]
+[assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("CIXOnline Ltd")]
 [assembly: AssemblyProduct("CIXReader")]
 [assembly: AssemblyCopyright("Copyright © 2014-2016")]
@@ -34,5 +34,5 @@ using System.Runtime.InteropServices;
 
 // Version information for this assembly. The values are dynamically replaced
 // when running the build script.
-[assembly: AssemblyVersion("1.62.1121")]
-[assembly: AssemblyFileVersion("1.62.1121")]
+[assembly: AssemblyVersion("1.62.1122")]
+[assembly: AssemblyFileVersion("1.62.1122")]
