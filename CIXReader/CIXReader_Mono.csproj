@@ -617,6 +617,7 @@
     <Compile Include="CanvasItems\WelcomePage.Designer.cs">
       <DependentUpon>WelcomePage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Canvas\CanvasHoverArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />

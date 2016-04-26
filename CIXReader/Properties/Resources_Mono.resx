@@ -793,4 +793,10 @@
   <data name="Value" xml:space="preserve">
     <value>Value</value>
   </data>
+    <data name="MarkAllRead" xml:space="preserve">
+    <value>All messages in all forums will be marked read with the exception of read locked messages. Are you sure?</value>
+  </data>
+  <data name="MarkAllReadPrompt" xml:space="preserve">
+    <value>Mark All Read</value>
+  </data>
   </root>
