@@ -79,9 +79,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="NativeMethods.vb" />
-    <Compile Include="NHunspellTextBoxExtender.vb">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="NHunspellTextBoxExtender.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

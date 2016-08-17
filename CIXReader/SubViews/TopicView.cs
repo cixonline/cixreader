@@ -198,10 +198,16 @@ namespace CIXReader.SubViews
             _currentFilterString = searchString.Trim().ToLower();
             CIXMessage selectedMessage = SelectedMessage;
 
+            bool tempCollapseConv = _collapseConv;
+
+            _collapseConv = false;
+
             tsvMessages.SelectedIndices.Clear();
             AssignArrayOfMessages();
 
             _isFiltering = !string.IsNullOrEmpty(_currentFilterString);
+            _collapseConv = tempCollapseConv;
+
             if (_isFiltering)
             {
                 _messages = _messages.Where(msg => 
