@@ -18,6 +18,7 @@
 !winsparkle.dll
 !regexp.dll
 !regexp9x.dll
+!isxdl.dll
 
 # Folders
 bin/
