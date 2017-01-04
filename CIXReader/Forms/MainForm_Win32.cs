@@ -67,7 +67,10 @@ namespace CIXReader.Forms
                 case NativeMethods.WM_MOUSEWHEEL:
                 case NativeMethods.WM_LBUTTONDOWN:
                 case NativeMethods.WM_KEYDOWN:
-                    _toolbar.RefreshButtons();
+                    if (_toolbar != null) 
+                    {
+                        _toolbar.RefreshButtons();
+                    }
                     break;
             }
             return false;
