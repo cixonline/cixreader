@@ -49,7 +49,7 @@ namespace CIXReader.Forms
             _imageList = new ImageList();
 
             ListControl.SmallImageList = _imageList;
-            ListControl.VirtualListSize = _fullList.Count();
+            ListControl.VirtualListSize = _fullList.Count;
 
             ReloadData();
         }
@@ -76,8 +76,8 @@ namespace CIXReader.Forms
         {
             if (_fullList.Any())
             {
-                ListControl.VirtualListSize = _fullList.Count();
-                ListControl.RedrawItems(0, _fullList.Count() - 1, false);
+                ListControl.VirtualListSize = _fullList.Count;
+                ListControl.RedrawItems(0, _fullList.Count - 1, false);
             }
         }
 

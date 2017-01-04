@@ -653,7 +653,7 @@ namespace CIXClient.Collections
         /// <returns>The folder if it exists, null otherwise</returns>
         public Folder Get(string name)
         {
-            string[] paths = name.Split(new[] { '/' });
+            string[] paths = name.Split('/');
             Folder folder = null;
             int parentID = -1;
 

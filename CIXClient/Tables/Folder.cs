@@ -474,12 +474,12 @@ namespace CIXClient.Tables
                 if (IsRootFolder)
                 {
                     int[] subFolders = SubFolderIDs();
-                    if (subFolders.Count() == 0)
+                    if (subFolders.Length == 0)
                     {
                         return;
                     }
                     deleteCmd.AppendFormat("delete from {0} where ", map.TableName);
-                    for (int c = 0; c < subFolders.Count(); ++c)
+                    for (int c = 0; c < subFolders.Length; ++c)
                     {
                         if (c > 0)
                         {

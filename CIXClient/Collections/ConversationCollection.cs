@@ -181,7 +181,6 @@ namespace CIXClient.Collections
             {
                 try
                 {
-                    List<InboxConversation> newFolders = new List<InboxConversation>();
                     List<CIXInboxItem> inboxItems = new List<CIXInboxItem>();
 
                     int totalCountOfRead = 0;
@@ -210,7 +209,6 @@ namespace CIXClient.Collections
                                         Author = conv.Sender
                                     };
                                     Add(root);
-                                    newFolders.Add(root);
                                 }
                             }
                         }
@@ -251,7 +249,6 @@ namespace CIXClient.Collections
                                         Author = conv.Recipient
                                     };
                                     Add(root);
-                                    newFolders.Add(root);
                                 }
                             }
                         }

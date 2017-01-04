@@ -1056,7 +1056,7 @@ namespace CIXReader.SubViews
             
             InitialiseList();
 
-            if (selectedRow == _messages.Count())
+            if (selectedRow == _messages.Count)
             {
                 --selectedRow;
             }
@@ -2377,7 +2377,7 @@ namespace CIXReader.SubViews
                 };
                 if (pdi.ShowDialog() == DialogResult.OK)
                 {
-                    string[] lines = message.Body.Split(new[] { '\n' });
+                    string[] lines = message.Body.Split('\n');
                     int lineIndex = 0;
                     try
                     {
@@ -2388,7 +2388,7 @@ namespace CIXReader.SubViews
 
                             // Print each line of the file.
                             float yPos = topMargin;
-                            while (lineIndex < lines.Count())
+                            while (lineIndex < lines.Length)
                             {
                                 string line = lines[lineIndex];
                                 SizeF sf = ev.Graphics.MeasureString(line, printFont, ev.MarginBounds.Width);
@@ -2406,7 +2406,7 @@ namespace CIXReader.SubViews
                             }
 
                             // If more lines exist, print another page. 
-                            ev.HasMorePages = lineIndex < lines.Count();
+                            ev.HasMorePages = lineIndex < lines.Length;
                         };
                         printDoc.Print();
                     }

@@ -75,13 +75,13 @@ namespace CIXReader.Forms
             _imageList = new ImageList();
 
             parList.SmallImageList = _imageList;
-            parList.VirtualListSize = _participants.Count();
+            parList.VirtualListSize = _participants.Length;
             if (_participants.Any())
             {
-                parList.RedrawItems(0, _participants.Count() - 1, false);
+                parList.RedrawItems(0, _participants.Length - 1, false);
             }
 
-            parCount.Text = string.Format(Resources.ParticipantsCount, _participants.Count());
+            parCount.Text = string.Format(Resources.ParticipantsCount, _participants.Length);
 
             UpdateButtons();
         }

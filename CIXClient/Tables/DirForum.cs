@@ -152,7 +152,7 @@ namespace CIXClient.Tables
         {
             get
             {
-                return string.IsNullOrEmpty(AddedParts) ? new string[0] : AddedParts.Split(new[] { ',' });
+                return string.IsNullOrEmpty(AddedParts) ? new string[0] : AddedParts.Split(',');
             }
             set
             {
@@ -169,7 +169,7 @@ namespace CIXClient.Tables
         {
             get
             {
-                return string.IsNullOrEmpty(RemovedParts) ? new string[0] : RemovedParts.Split(new[] { ',' });
+                return string.IsNullOrEmpty(RemovedParts) ? new string[0] : RemovedParts.Split(',');
             }
             set
             {
@@ -186,7 +186,7 @@ namespace CIXClient.Tables
         {
             get
             {
-                return string.IsNullOrEmpty(AddedMods) ? new string[0] : AddedMods.Split(new[] { ',' });
+                return string.IsNullOrEmpty(AddedMods) ? new string[0] : AddedMods.Split(',');
             }
             set
             {
@@ -203,7 +203,7 @@ namespace CIXClient.Tables
         {
             get
             {
-                return string.IsNullOrEmpty(RemovedMods) ? new string[0] : RemovedMods.Split(new[] { ',' });
+                return string.IsNullOrEmpty(RemovedMods) ? new string[0] : RemovedMods.Split(',');
             }
             set
             {
@@ -281,7 +281,7 @@ namespace CIXClient.Tables
                 });
                 t.Start();
             }
-            return string.IsNullOrEmpty(Parts) ? new string[0] : Parts.Split(new[] { ',' });
+            return string.IsNullOrEmpty(Parts) ? new string[0] : Parts.Split(',');
         }
 
         /// <summary>
@@ -333,7 +333,7 @@ namespace CIXClient.Tables
                 });
                 t.Start();
             }
-            return string.IsNullOrEmpty(Mods) ? new string[0] : Mods.Split(new[] { ',' });
+            return string.IsNullOrEmpty(Mods) ? new string[0] : Mods.Split(',');
         }
 
         /// <summary>

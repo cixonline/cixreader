@@ -22,7 +22,7 @@ namespace CIXReader.Utilities
         /// <summary>
         /// Ensure code is run on the UI thread.
         /// </summary>
-        static public void UIThread(Control form, MethodInvoker code)
+        public static void UIThread(Control form, MethodInvoker code)
         {
             if (form.InvokeRequired)
             {

@@ -50,3 +50,4 @@ BuildLog.htm
 *.embed.manifest
 *.Cache
 *.StyleCop
+*.DotSettings

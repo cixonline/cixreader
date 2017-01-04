@@ -352,7 +352,7 @@ namespace CIXReader.UIConfig
         /// </summary>
         public static Font GetFont(string name, float size, FontStyle style = FontStyle.Regular)
         {
-            string[] fontParts = name.Split(new[] { ',' });
+            string[] fontParts = name.Split(',');
             foreach (string fontName in fontParts)
             {
                 string rwFontName = fontName;

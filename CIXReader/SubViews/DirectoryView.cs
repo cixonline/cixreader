@@ -250,7 +250,7 @@ namespace CIXReader.SubViews
                     dvForumsList.SetSortIcon(3, sortOrder);
                     break;
             }
-            dvForumsList.VirtualListSize = _items.Count();
+            dvForumsList.VirtualListSize = _items.Count;
             if (_items.Any())
             {
                 dvForumsList.RedrawItems(0, _items.Count - 1, false);

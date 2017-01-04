@@ -20,7 +20,7 @@ namespace CIXReader.Forms
     {
         private bool _isInitialising;
 
-        static private ThemeEditor _themeEditor;
+        private static ThemeEditor _themeEditor;
 
         public SettingsViewing()
         {

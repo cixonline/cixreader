@@ -87,7 +87,7 @@ namespace CIXClient
                     Enabled = false;
                     return;
                 }
-                _file.WriteLine("{0} : {1}", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), string.Format(formatString, args));
+                _file.WriteLine("{0:dd/MM/yyyy HH:mm:ss} : {1}", DateTime.Now, string.Format(formatString, args));
                 if (_file != null)
                 {
                     _file.Flush();

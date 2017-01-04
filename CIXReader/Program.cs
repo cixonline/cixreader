@@ -252,7 +252,7 @@ namespace CIXReader
         /// <param name="commandLine"></param>
         private static bool ParseCommandLine(string commandLine)
         {
-            string [] args = commandLine.Split(new [] {' '});
+            string [] args = commandLine.Split(' ');
             foreach (string arg in args)
             {
                 if (arg.Equals("/offline"))
@@ -262,7 +262,7 @@ namespace CIXReader
                 }
                 if (arg.StartsWith("/cix=", StringComparison.Ordinal))
                 {
-                    _address = arg.Substring(5).Trim(new [] { '\"'});
+                    _address = arg.Substring(5).Trim('\"');
                     continue;
                 }
                 if (!File.Exists(arg))
@@ -446,7 +446,6 @@ namespace CIXReader
                 }
                 LogFile.Create(logFilePath);
                 LogFile.Enabled = Preferences.StandardPreferences.EnableLogFile;
-                LogFile.Cumulative = Preferences.StandardPreferences.CumulativeLogFile;
                 LogFile.Archive = Preferences.StandardPreferences.ArchiveLogFile;
             }
             catch (Exception e)

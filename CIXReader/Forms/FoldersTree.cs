@@ -604,7 +604,7 @@ namespace CIXReader.Forms
         {
             if (address.Scheme == "cix")
             {
-                string[] splitAddress = address.Query.Split(new[] {'/'});
+                string[] splitAddress = address.Query.Split('/');
                 if (splitAddress.Length > 0)
                 {
                     JoinForum joinForum = new JoinForum(splitAddress[0]);
@@ -1399,7 +1399,7 @@ namespace CIXReader.Forms
             Address addr = new Address(address);
             if (addr.Scheme == "cix" && addr.Query != null)
             {
-                string[] splitAddress = addr.Query.Split(new[] {'\\'});
+                string[] splitAddress = addr.Query.Split('\\');
                 if (splitAddress.Length == 2)
                 {
                     Folder forum = CIX.FolderCollection.Get(-1, splitAddress[0]);
@@ -2127,7 +2127,7 @@ namespace CIXReader.Forms
                 body.AppendFormat("***COPIED FROM: >>>{0}/{1} {2} ", forum.Name, topic.Name,
                     sourceMessage.RemoteID);
                 body.AppendFormat("{0}({1})", sourceMessage.Author, sourceMessage.Body.Length);
-                body.AppendFormat("{0} ", sourceMessage.Date.ToString("ddMMMyyyy HH:MM"));
+                body.AppendFormat("{0:ddMMMyyyy HH:MM} ", sourceMessage.Date);
 
                 if (sourceMessage.CommentID > 0)
                     body.AppendFormat("c{0}", sourceMessage.CommentID);
@@ -2141,7 +2141,7 @@ namespace CIXReader.Forms
 
                 body.AppendFormat("***COPIED FROM PMESSAGE: >>>{0} ", conv.Author);
                 body.AppendFormat("{0}({1})", conv.Author, conv.Subject);
-                body.AppendFormat("{0} ", conv.Date.ToString("ddMMMyyyy HH:MM"));
+                body.AppendFormat("{0:ddMMMyyyy HH:MM} ", conv.Date);
 
                 body.AppendLine();
 

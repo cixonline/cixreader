@@ -219,7 +219,7 @@ namespace CIXClient.Tables
                                     if (doc.DocumentElement != null)
                                     {
                                         string responseString = doc.DocumentElement.InnerText;
-                                        string[] splitStrings = responseString.Split(new[] { ',' });
+                                        string[] splitStrings = responseString.Split(',');
 
                                         if (splitStrings.Length == 2)
                                         {

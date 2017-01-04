@@ -55,16 +55,6 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Returns the Profile with the specified user name.
-        /// </summary>
-        /// <param name="name">The name</param>
-        /// <returns>A Profile, or null</returns>
-        public Profile this[string name]
-        {
-            get { return Profiles.SingleOrDefault(c => c.Username == name); }
-        }
-
-        /// <summary>
         /// Synchronise the profile collection, updating any changes to the local
         /// profile and resume that was made offline to the server.
         /// </summary>

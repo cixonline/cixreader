@@ -41,7 +41,6 @@ namespace CIXReader.Utilities
         private bool _startInHomePage;
         private bool _enableLogFile;
         private bool _archiveLogFile;
-        private bool _cumulativeLogFile;
         private bool _enableSmartFolderCounts;
         private string _lastAddress;
         private string _defaultSearchEngine;
@@ -79,7 +78,6 @@ namespace CIXReader.Utilities
         public const string MAPref_StartInHomePage = "StartInHomePage";
         public const string MAPref_EnableLogFile = "EnableLogFile";
         public const string MAPref_ArchiveLogFile = "ArchiveLogFile";
-        public const string MAPref_CumulativeLogFile = "CumulativeLogFile";
         public const string MAPref_EnableSmartFolderCounts = "MAPref_EnableSmartFolderCounts";
 
         // Preferences file variables
@@ -100,7 +98,6 @@ namespace CIXReader.Utilities
             _groupByConv = ReadBoolean(MAPref_GroupByConv, true);
             _enableLogFile = ReadBoolean(MAPref_EnableLogFile, true);
             _archiveLogFile = ReadBoolean(MAPref_ArchiveLogFile);
-            _cumulativeLogFile = ReadBoolean(MAPref_CumulativeLogFile);
             _collapseConv = ReadBoolean(MAPref_CollapseConv);
             _showAllTopics = ReadBoolean(MAPref_ShowAllTopics);
             _checkSpellAsYouType = !ReadBoolean(MAPref_CheckSpellAsYouType);
@@ -338,23 +335,6 @@ namespace CIXReader.Utilities
                 {
                     _archiveLogFile = value;
                     WriteBoolean(MAPref_ArchiveLogFile, value);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Get or set a flag which specifies whether log files accumulate
-        /// in the same file.
-        /// </summary>
-        public bool CumulativeLogFile
-        {
-            get { return _cumulativeLogFile; }
-            set
-            {
-                if (_cumulativeLogFile != value)
-                {
-                    _cumulativeLogFile = value;
-                    WriteBoolean(MAPref_CumulativeLogFile, value);
                 }
             }
         }

@@ -21,17 +21,11 @@ namespace CIXReader.Utilities
     {
         public const int HWND_BROADCAST = 0xffff;
 
-        public const int TVM_SETEXTENDEDSTYLE = 0x1100 + 44;
-        public const int TVS_EX_DOUBLEBUFFER = 0x0004;
-
         public const int WM_VSCROLL = 0x0115;
-        public const int WM_NCLBUTTONDOWN = 0x00A1;
         public const int WM_MOUSEWHEEL = 0x020A;
         public const int WM_LBUTTONDOWN = 0x0201;
         public const int WM_KEYDOWN = 0x0100;
         public const int WM_THEMECHANGED = 0x031A;
-
-        public const int HT_CAPTION = 0x2;
 
         public const int AW_ACTIVATE = 0x20000;
         public const int AW_HIDE = 0x10000;

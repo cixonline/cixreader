@@ -32,7 +32,7 @@ namespace CIXMarkup
         {
             StringBuilder outputString = new StringBuilder();
 
-            string[] lines = text.Split(new[] { '\n' });
+            string[] lines = text.Split('\n');
             foreach (string line in lines)
             {
                 if (outputString.Length > 0)

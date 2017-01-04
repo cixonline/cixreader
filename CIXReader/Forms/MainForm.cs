@@ -337,7 +337,7 @@ namespace CIXReader.Forms
             {
                 address = NormaliseAddress(address);
 
-                string[] splitAddress = address.Query.Split(new[] {'/'});
+                string[] splitAddress = address.Query.Split('/');
                 if (splitAddress.Length == 2)
                 {
                     Folder forum = CIX.FolderCollection.Get(-1, splitAddress[0]);
@@ -668,6 +668,10 @@ namespace CIXReader.Forms
                 case ActionID.Offline:
                     ChangeOnlineState(!CIX.Online);
                     LogFile.WriteLine("User changed online state to {0}", CIX.Online);
+                    break;
+
+                case ActionID.GoForward:
+                    GoForward();
                     break;
 
                 case ActionID.BackTrack:

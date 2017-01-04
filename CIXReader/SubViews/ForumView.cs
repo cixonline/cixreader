@@ -55,7 +55,7 @@ namespace CIXReader.SubViews
         {
             if (folder is TopicFolder)
             {
-                _currentFolder = folder as TopicFolder;
+                _currentFolder = (TopicFolder) folder;
                 _thisForum = CIX.DirectoryCollection.ForumByName(_currentFolder.Name);
 
                 FoldersTree.SetTopicName(folder.Name);

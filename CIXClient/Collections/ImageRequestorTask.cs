@@ -158,22 +158,6 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Internal class that defines a single image request
-        /// </summary>
-        internal sealed class SingleImageRequest
-        {
-            public string URL { get; set; }
-
-            public int MaxWidth { get; set; }
-
-            public int MaxHeight { get; set; }
-
-            public ImageRetrieved Event { get; set; }
-
-            public object Parameter { get; set; }
-        }
-
-        /// <summary>
         /// Class that holds a single cache entry which comprises the image and
         /// the timestamp when the image was retrieved.
         /// </summary>
