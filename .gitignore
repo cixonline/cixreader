@@ -51,3 +51,4 @@ BuildLog.htm
 *.Cache
 *.StyleCop
 *.DotSettings
+/.vs/CIXReader/v15/Server/sqlite3

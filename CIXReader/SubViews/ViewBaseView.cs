@@ -109,15 +109,5 @@ namespace CIXReader.SubViews
         public virtual void FilterViewByString(string searchString)
         {
         }
-
-        /// <summary>
-        /// Override to report whether the view handles the given scheme.
-        /// </summary>
-        /// <param name="scheme">A scheme name</param>
-        /// <returns>Overrides should return true if they handle the scheme, false otherwise</returns>
-        public virtual bool Handles(string scheme)
-        {
-            return false;
-        }
     }
 }

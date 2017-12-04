@@ -179,6 +179,26 @@ namespace TheArtOfDev.HtmlRenderer.Core
         /// </summary>
         private RSize _actualSize;
 
+        /// <summary>
+        /// the top margin between the page start and the text
+        /// </summary>
+        private int _marginTop;
+
+        /// <summary>
+        /// the bottom margin between the page end and the text
+        /// </summary>
+        private int _marginBottom;
+
+        /// <summary>
+        /// the left margin between the page start and the text
+        /// </summary>
+        private int _marginLeft;
+
+        /// <summary>
+        /// the right margin between the page end and the text
+        /// </summary>
+        private int _marginRight;
+
         #endregion
 
 
@@ -382,6 +402,70 @@ namespace TheArtOfDev.HtmlRenderer.Core
         {
             get { return _actualSize; }
             set { _actualSize = value; }
+        }
+
+        public RSize PageSize { get; set; }
+
+        /// <summary>
+        /// the top margin between the page start and the text
+        /// </summary>
+        public int MarginTop
+        {
+            get { return _marginTop; }
+            set
+            {
+                if (value > -1)
+                    _marginTop = value;
+            }
+        }
+
+        /// <summary>
+        /// the bottom margin between the page end and the text
+        /// </summary>
+        public int MarginBottom
+        {
+            get { return _marginBottom; }
+            set
+            {
+                if (value > -1)
+                    _marginBottom = value;
+            }
+        }
+
+        /// <summary>
+        /// the left margin between the page start and the text
+        /// </summary>
+        public int MarginLeft
+        {
+            get { return _marginLeft; }
+            set
+            {
+                if (value > -1)
+                    _marginLeft = value;
+            }
+        }
+
+        /// <summary>
+        /// the right margin between the page end and the text
+        /// </summary>
+        public int MarginRight
+        {
+            get { return _marginRight; }
+            set
+            {
+                if (value > -1)
+                    _marginRight = value;
+            }
+        }
+
+        /// <summary>
+        /// Set all 4 margins to the given value.
+        /// </summary>
+        /// <param name="value"></param>
+        public void SetMargins(int value)
+        {
+            if (value > -1)
+                _marginBottom = _marginLeft = _marginTop = _marginRight = value;
         }
 
         /// <summary>
@@ -605,11 +689,13 @@ namespace TheArtOfDev.HtmlRenderer.Core
         {
             ArgChecker.AssertArgNotNull(g, "g");
 
-            bool pushedClip = false;
             if (MaxSize.Height > 0)
             {
-                pushedClip = true;
-                g.PushClip(new RRect(_location, _maxSize));
+                g.PushClip(new RRect(_location.X, _location.Y, Math.Min(_maxSize.Width, PageSize.Width), Math.Min(_maxSize.Height, PageSize.Height)));
+            }
+            else
+            {
+                g.PushClip(new RRect(MarginLeft, MarginTop, PageSize.Width, PageSize.Height));
             }
 
             if (_root != null)
@@ -617,10 +703,7 @@ namespace TheArtOfDev.HtmlRenderer.Core
                 _root.Paint(g);
             }
 
-            if (pushedClip)
-            {
-                g.PopClip();
-            }
+            g.PopClip();
         }
 
         /// <summary>
@@ -892,7 +975,7 @@ namespace TheArtOfDev.HtmlRenderer.Core
         /// <param name="parent">the control hosting the html to invalidate</param>
         /// <param name="location">the location of the mouse</param>
         /// <param name="link">the link that was hovered</param>
-        internal void HandleLinkHover(RControl parent, RPoint location, CssBox link) 
+        internal void HandleLinkHover(RControl parent, RPoint location, CssBox link)
         {
             EventHandler<HtmlLinkHoverEventArgs> hoverHandler = LinkHover;
             if (hoverHandler != null)
@@ -902,7 +985,7 @@ namespace TheArtOfDev.HtmlRenderer.Core
                 {
                     hoverHandler(this, args);
                 }
-                catch (Exception ex)
+                catch (Exception ex) 
                 {
                     throw new HtmlLinkClickedException("Error in link hover intercept", ex);
                 }

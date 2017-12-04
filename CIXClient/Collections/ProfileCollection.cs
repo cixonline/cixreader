@@ -133,19 +133,6 @@ namespace CIXClient.Collections
         }
 
         /// <summary>
-        /// Add a profile to the collection.
-        /// </summary>
-        /// <param name="profile">A new profile to add</param>
-        internal void AddInternal(Profile profile)
-        {
-            lock (CIX.DBLock)
-            {
-                CIX.DB.Insert(profile);
-            }
-            Profiles.Add(profile);
-        }
-
-        /// <summary>
         /// Respond to network state change by triggering an update to download profiles if there
         /// are any pending requests that were blocked due to being offline.
         /// </summary>

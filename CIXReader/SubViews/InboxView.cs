@@ -131,16 +131,6 @@ namespace CIXReader.SubViews
         public FoldersTree FoldersTree { get; set; }
 
         /// <summary>
-        /// Indicate that we handle the "cixmailbox" scheme.
-        /// </summary>
-        /// <param name="scheme">A scheme name</param>
-        /// <returns>True if the scheme name matches "cixmailbox"</returns>
-        public override bool Handles(string scheme)
-        {
-            return scheme == "cixmailbox";
-        }
-
-        /// <summary>
         /// Return whether the specified action can be carried out.
         /// </summary>
         /// <param name="id">An action ID</param>

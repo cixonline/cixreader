@@ -394,9 +394,9 @@ namespace CIXReader
                 }
             }
 
-            // If no cached username and password, then this is a new database
-            // so persist the username there.
-            if (CIX.Username == null || CIX.Password == null)
+            // Perists the username and database to CIXClient if they have
+            // changed.
+            if (CIX.Username != username || CIX.Password != password)
             {
                 CIX.Username = username;
                 CIX.Password = password;

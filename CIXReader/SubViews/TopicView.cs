@@ -253,16 +253,6 @@ namespace CIXReader.SubViews
         }
 
         /// <summary>
-        /// Indicate that we handle the cix scheme.
-        /// </summary>
-        /// <param name="scheme">A scheme name</param>
-        /// <returns>True if the scheme name matches cix</returns>
-        public override bool Handles(string scheme)
-        {
-            return scheme.ToLower() == "cix";
-        }
-
-        /// <summary>
         /// Return the sort menu for this view.
         /// </summary>
         public override ContextMenuStrip SortMenu

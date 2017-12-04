@@ -65,11 +65,8 @@ namespace CIXReader.Controls
                 if (_allButtons == null)
                 {
                     string appPath = Path.GetDirectoryName(Application.ExecutablePath);
-                    if (appPath != null)
-                    {
-                        string toolbarFile = Path.Combine(appPath, "Toolbar", "toolbar_all.xml");
-                        _allButtons = LoadToolbarFromFile(toolbarFile);
-                    }
+                    string toolbarFile = Path.Combine(appPath, "Toolbar", "toolbar_all.xml");
+                    _allButtons = LoadToolbarFromFile(toolbarFile);
                 }
                 if (_allButtons != null)
                 {
@@ -248,12 +245,8 @@ namespace CIXReader.Controls
         private static toolbar LoadDefaultToolbar()
         {
             string appPath = Path.GetDirectoryName(Application.ExecutablePath);
-            if (appPath != null)
-            {
-                string toolbarFile = Path.Combine(appPath, "Toolbar", "toolbar.xml");
-                return LoadToolbarFromFile(toolbarFile);
-            }
-            return null;
+            string toolbarFile = Path.Combine(appPath, "Toolbar", "toolbar.xml");
+            return LoadToolbarFromFile(toolbarFile);
         }
 
         /// <summary>
@@ -404,10 +397,7 @@ namespace CIXReader.Controls
                 if (imageField != null && imageField.StartsWith("app:", StringComparison.Ordinal))
                 {
                     appPath = Path.GetDirectoryName(Application.ExecutablePath);
-                    if (appPath != null)
-                    {
-                        appPath = Path.Combine(appPath, "Images", imageField.Substring(4));
-                    }
+                    appPath = Path.Combine(appPath, "Images", imageField.Substring(4));
                 }
                 else if (imageField != null && imageField.StartsWith("usr:", StringComparison.Ordinal))
                 {

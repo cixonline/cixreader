@@ -37,22 +37,19 @@ namespace CIXReader.UIConfig
                     _allThemes = new List<UITheme>();
 
                     string appPath = Path.GetDirectoryName(Application.ExecutablePath);
-                    if (appPath != null)
+                    string themesFolder = Path.Combine(appPath, "Themes");
+                    foreach (string themeName in Directory.EnumerateDirectories(themesFolder))
                     {
-                        string themesFolder = Path.Combine(appPath, "Themes");
-                        foreach (string themeName in Directory.EnumerateDirectories(themesFolder))
+                        UITheme theme = new UITheme
                         {
-                            UITheme theme = new UITheme
-                            {
-                                IsCustom = false,
-                                Name = Path.GetFileName(themeName)
-                            };
-                            _allThemes.Add(theme);
-                        }
+                            IsCustom = false,
+                            Name = Path.GetFileName(themeName)
+                        };
+                        _allThemes.Add(theme);
                     }
                     if (CIX.HomeFolder != null)
                     {
-                        string themesFolder = Path.Combine(CIX.HomeFolder, "Themes");
+                        themesFolder = Path.Combine(CIX.HomeFolder, "Themes");
                         if (Directory.Exists(themesFolder))
                         {
                             foreach (string themeName in Directory.EnumerateDirectories(themesFolder))

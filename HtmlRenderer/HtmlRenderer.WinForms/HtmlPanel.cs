@@ -498,7 +498,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             {
                 e.Graphics.TextRenderingHint = _textRenderingHint;
                 e.Graphics.SetClip(ClientRectangle);
-
                 _htmlContainer.Location = new PointF(Padding.Left, Padding.Top);
                 _htmlContainer.ScrollOffset = AutoScrollPosition;
                 _htmlContainer.PerformPaint(e.Graphics);
@@ -555,7 +554,7 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
         /// </summary>
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            base.OnMouseUp(e);
+			base.OnMouseUp(e);
             if (_htmlContainer != null)
                 _htmlContainer.HandleMouseUp(this, e);
         }

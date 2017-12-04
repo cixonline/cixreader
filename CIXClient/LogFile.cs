@@ -107,11 +107,11 @@ namespace CIXClient
                     ? Path.ChangeExtension(_debugFilePath, extMax.ToString("000"))
                     : _debugFilePath;
 
-                if (File.Exists(archiveNew))
+                if (archiveNew != null && File.Exists(archiveNew))
                 {
                     File.Delete(archiveNew);
                 }
-                if (File.Exists(archiveCurrent))
+                if (archiveCurrent != null && archiveNew != null && File.Exists(archiveCurrent))
                 {
                     File.Move(archiveCurrent, archiveNew);
                 }

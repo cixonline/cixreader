@@ -61,14 +61,6 @@ namespace CIXReader.SubViews
         }
 
         /// <summary>
-        /// Indicate that we handle the welcome scheme.
-        /// </summary>
-        public override bool Handles(string scheme)
-        {
-            return scheme == "welcome";
-        }
-
-        /// <summary>
         /// Called when the form is loaded for the first time.
         /// </summary>
         private void WelcomeView_Load(object sender, EventArgs e)

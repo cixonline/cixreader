@@ -3,11 +3,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{1B058920-24B4-4140-8AE7-C8C6C38CA52D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TheArtOfDev.HtmlRenderer.WinForms</RootNamespace>
     <AssemblyName>HtmlRenderer.WinForms</AssemblyName>
+    <StartupObject>
+    </StartupObject>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -37,19 +41,20 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\DebugNet20\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;MONO</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\ReleaseNet20\</OutputPath>
-    <DefineConstants>TRACE;MONO</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -82,6 +87,7 @@
     <Compile Include="HtmlToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="MetafileExtensions.cs" />
     <Compile Include="Utilities\ClipboardHelper.cs" />
     <Compile Include="Utilities\Utils.cs" />
     <Compile Include="Utilities\Win32Utils.cs" />
@@ -105,7 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HtmlRenderer\HtmlRenderer.csproj">
-      <Project>{FE611685-391F-4E3E-B27E-D3150E51E49B}</Project>
+      <Project>{fe611685-391f-4e3e-b27e-d3150e51e49b}</Project>
       <Name>HtmlRenderer</Name>
     </ProjectReference>
   </ItemGroup>

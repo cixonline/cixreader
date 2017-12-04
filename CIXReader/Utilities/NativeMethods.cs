@@ -102,9 +102,6 @@ namespace CIXReader.Utilities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Portability", "CA1901:PInvokeDeclarationsShouldBePortable", MessageId = "0"), DllImport("user32.dll")]
         internal static extern IntPtr WindowFromPoint(POINT pt);
 
-        [DllImport("user32.dll")]
-        internal static extern bool ReleaseCapture();
-
         [DllImport("user32")]
         internal static extern bool PostMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 

@@ -31,13 +31,13 @@
         margin: 0 0 16.1px 0;
         font-size: 14.0px;
         color: #000000;
-        -webkit-text-stroke: #000000
+        -webkit-text-stroke: 4px #000000
     }
     li.li2 {
         margin: 0;
         font-size: 12.0px;
         color: #000000;
-        -webkit-text-stroke: #000000
+        -webkit-text-stroke: 4px #000000
     }
     span.s1 {
         -webkit-font-kerning: none;
@@ -94,6 +94,12 @@ $ifscript
 $endif
 <div>
 <h2>Version $(version)</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Fix bug which may cause CIXReader to crash on first run.</span></li>
+</ul>
+</div>
+<div>
+<h2>Version 1.63.1150</h2>
 <ul class="ul1">
     <li class="li2"><span class="s1">Filtering now works properly when conversations are collapsed.</span></li>
 </ul>

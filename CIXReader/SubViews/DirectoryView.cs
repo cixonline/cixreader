@@ -95,16 +95,6 @@ namespace CIXReader.SubViews
         }
 
         /// <summary>
-        /// Indicate that we handle the "cixdirectory" scheme.
-        /// </summary>
-        /// <param name="scheme">A scheme name</param>
-        /// <returns>True if the scheme name matches "cixdirectory"</returns>
-        public override bool Handles(string scheme)
-        {
-            return scheme == "cixdirectory";
-        }
-
-        /// <summary>
         /// Override to return the URL of the view being displayed.
         /// </summary>
         public override string Address

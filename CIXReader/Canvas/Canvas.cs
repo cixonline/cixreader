@@ -38,13 +38,6 @@ namespace CIXReader.Canvas
         public delegate void CanvasItemActionHandler(object sender, CanvasItemArgs e);
 
         /// <summary>
-        /// Defines the delegate for CanvasItemClick event notifications.
-        /// </summary>
-        /// <param name="sender">The Canvas object</param>
-        /// <param name="e">Additional event data for item</param>
-        public delegate void CanvasItemClickHandler(object sender, CanvasItemArgs e);
-
-        /// <summary>
         /// Defines the delegate for LinkClicked event notifications.
         /// </summary>
         /// <param name="sender">The Canvas object</param>

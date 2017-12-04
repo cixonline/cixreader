@@ -46,21 +46,16 @@ namespace CIXReader.UIConfig
         {
             get
             {
+                string themesFolder;
                 if (!IsCustom)
                 {
                     string appPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
-                    if (appPath != null)
-                    {
-                        string themesFolder = System.IO.Path.Combine(appPath, "Themes");
-                        return System.IO.Path.Combine(themesFolder, Name, "ui.xml");
-                    }
-                }
-                else
-                {
-                    string themesFolder = System.IO.Path.Combine(CIX.HomeFolder, "Themes");
+                    themesFolder = System.IO.Path.Combine(appPath, "Themes");
                     return System.IO.Path.Combine(themesFolder, Name, "ui.xml");
                 }
-                return null;
+
+                themesFolder = System.IO.Path.Combine(CIX.HomeFolder, "Themes");
+                return System.IO.Path.Combine(themesFolder, Name, "ui.xml");
             }
         }
     }
