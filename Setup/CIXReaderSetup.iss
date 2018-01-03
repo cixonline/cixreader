@@ -19,13 +19,12 @@ Name: "de"; MessagesFile: "compiler:Languages\German.isl"
 AppId={{37AE9380-5018-490B-8C51-3EB6D75C5658}
 AppName=CIXReader
 AppVersion={#PRODUCT_MAX_VER}.{#PRODUCT_MIN_VER}.{#PRODUCT_BUILD}
-AppPublisher=CIXOnline Ltd
-AppPublisherURL=http://www.cixonline.com/
-AppSupportURL=http://www.cixonline.com/
-AppUpdatesURL=http://www.cixonline.com/
+AppPublisher=ICUK Ltd
+AppPublisherURL=https://www.cix.uk/
+AppSupportURL=https://www.cix.uk/
+AppUpdatesURL=https://www.cix.uk/
 DefaultDirName={reg:HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\CIXReader.exe,Path|{pf}\CIXReader}
 DefaultGroupName=CIX Software
-LicenseFile=..\CIXReader\Resources\licence.rtf
 OutputDir=..\drops
 OutputBaseFilename=cr{#PRODUCT_MAX_VER}.{#PRODUCT_MIN_VER}.{#PRODUCT_BUILD}
 SetupIconFile=..\CIXReader\Resources\CixReader.ico
