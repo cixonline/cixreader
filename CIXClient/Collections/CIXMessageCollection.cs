@@ -167,7 +167,7 @@ namespace CIXClient.Collections
                 List<CIXMessage> conversations = AllMessagesByConversation;
                 lock (_changeLock)
                 {
-                    return conversations.Where(msg => msg.CommentID == 0).ToList();
+                    return conversations.Where(msg => msg.Level == 0).ToList();
                 }
             }
         }
