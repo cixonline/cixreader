@@ -388,12 +388,6 @@
     <Compile Include="Forms\Diagnostics.Designer.cs">
       <DependentUpon>Diagnostics.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\EULA.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\EULA.Designer.cs">
-      <DependentUpon>EULA.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\KeyboardHelp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -554,9 +548,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Diagnostics.resx">
       <DependentUpon>Diagnostics.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EULA.resx">
-      <DependentUpon>EULA.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\KeyboardHelp.resx">
       <DependentUpon>KeyboardHelp.cs</DependentUpon>
@@ -807,7 +798,6 @@
     <Content Include="Resources\CixReader.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\licence.rtf" />
     <None Include="Resources\rightArrow.png" />
     <None Include="Resources\downArrow.png" />
     <None Include="Resources\Topic.png" />

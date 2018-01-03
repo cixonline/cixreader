@@ -51,7 +51,6 @@ namespace IniParser.Model.Configuration
             SectionEndChar = ']';
             KeyValueAssigmentChar = '=';
             AssigmentSpacer = " ";
-            ConcatenateDuplicateKeys = false;
             AllowKeysWithoutSection = true;
             AllowDuplicateKeys = false;
             AllowDuplicateSections = false;
@@ -217,15 +216,6 @@ namespace IniParser.Model.Configuration
         ///     Defaults to <c>false</c>.
         /// </remarks>
         public bool OverrideDuplicateKeys { get; set; }
-
-        /// <summary>
-        ///     Gets or sets a value indicating whether duplicate keys are concatenate
-        ///     together by <see cref="ConcatenateSeparator"/>.
-        /// </summary>
-        /// <value>
-        ///     Defaults to <c>false</c>.
-        /// </value>
-        public bool ConcatenateDuplicateKeys { get; set; }
 
         /// <summary>
         ///     If <c>true</c> the <see cref="IniDataParser"/> instance will thrown an exception

@@ -19,7 +19,7 @@ namespace CIXReader.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -674,26 +674,6 @@ namespace CIXReader.Properties {
             get {
                 object obj = ResourceManager.GetObject("Error1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang2057\deflangfe2057{\fonttbl{\f0\fswiss\fprq2\fcharset0 Verdana Ref;}}
-        ///{\colortbl ;\red0\green0\blue255;}
-        ///{\*\generator Riched20 10.0.14361}{\*\mmathPr\mnaryLim0\mdispDef1\mwrapIndent1440 }\viewkind4\uc1 
-        ///\pard\nowidctlpar\b\f0\fs22 CIXReader Licence Agreement\b0\par
-        ///\fs20\par
-        ///Copyright (c) CIX Online Limited. 2014-2017 all rights reserved.\par
-        ///\par
-        ///CIX Online Limited\line Suite 5, Metropolitan House\par
-        ///38-40 High Street\par
-        ///Croydon\par
-        ///Surrey\par
-        ///C [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string EULA {
-            get {
-                return ResourceManager.GetString("EULA", resourceCulture);
             }
         }
         

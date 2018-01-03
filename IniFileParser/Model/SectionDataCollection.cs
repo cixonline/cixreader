@@ -42,6 +42,9 @@ namespace IniParser.Model
         /// <param name="ori">
         /// The instance of the <see cref="SectionDataCollection"/> class 
         /// used to create the new instance.</param>
+        /// <param name="searchComparer">
+        ///     Search comparer used to find the key by name in the collection
+        /// </param>
         public SectionDataCollection(SectionDataCollection ori, IEqualityComparer<string> searchComparer)
         {
             _searchComparer = searchComparer ?? EqualityComparer<string>.Default;

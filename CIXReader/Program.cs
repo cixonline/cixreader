@@ -293,17 +293,6 @@ namespace CIXReader
                     regKey.Close();
                 }
 
-                // Always ask for EULA on first run
-                if (firstRunLicense == 0)
-                {
-                    EULA eulaDialog = new EULA();
-                    if (eulaDialog.ShowDialog() == DialogResult.Cancel)
-                    {
-                        LogFile.WriteLine("EULA not accepted. Exit now.");
-                        return false;
-                    }
-                }
-
                 Settings.CurrentUser.SetBoolean("FirstRun", false);
             }
 
@@ -375,16 +364,13 @@ namespace CIXReader
             {
                 // Prompt for credentials if we don't have them and ensure they match
                 // what is in the database.
-                if (username == null || password == null)
-                {
-                    Login loginDialog = new Login
-                    {
+                if (username == null || password == null) {
+                    Login loginDialog = new Login {
                         Username = CIX.Username,
                         Password = CIX.Password
                     };
 
-                    if (loginDialog.ShowDialog() == DialogResult.Cancel)
-                    {
+                    if (loginDialog.ShowDialog() == DialogResult.Cancel) {
                         Application.Exit();
                         return false;
                     }
@@ -392,12 +378,7 @@ namespace CIXReader
                     username = loginDialog.Username;
                     password = loginDialog.Password;
                 }
-            }
 
-            // Perists the username and database to CIXClient if they have
-            // changed.
-            if (CIX.Username != username || CIX.Password != password)
-            {
                 CIX.Username = username;
                 CIX.Password = password;
             }

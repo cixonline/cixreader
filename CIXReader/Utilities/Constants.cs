@@ -21,17 +21,17 @@ namespace CIXReader.Utilities
         /// <summary>
         /// URL for recovering password.
         /// </summary>
-        public const string ForgottenPasswordURL = "http://forums.cixonline.com/recoverpassword.aspx";
+        public const string ForgottenPasswordURL = "https://forums.cix.co.uk/recoverpassword.aspx";
 
         /// <summary>
         /// URL to the support webpage.
         /// </summary>
-        public const string SupportURL = "http://www.cix.co.uk/support";
+        public const string SupportURL = "https://www.cix.uk/support";
 
         /// <summary>
         /// Account upgrade webpage.
         /// </summary>
-        public const string AccountUpgradeURL = "http://www.cix.co.uk/upgrade";
+        public const string AccountUpgradeURL = "http://www.cix.uk/upgrade";
 
         /// <summary>
         /// URL to open a location in Google maps

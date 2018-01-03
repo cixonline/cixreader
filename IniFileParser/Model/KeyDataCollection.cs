@@ -43,6 +43,9 @@ namespace IniParser.Model
         ///     The instance of the <see cref="KeyDataCollection"/> class 
         ///     used to create the new instance.
         /// </param>
+        /// <param name="searchComparer">
+        ///     Search comparer used to find the key by name in the collection
+        /// </param>
         public KeyDataCollection(KeyDataCollection ori, IEqualityComparer<string> searchComparer)
             : this(searchComparer)
         {
@@ -116,6 +119,7 @@ namespace IniParser.Model
         /// <param name="keyName">
         ///     New key to be added.
         /// </param>
+        /// <returns>
         ///     <c>true</c> if the key was added  <c>false</c> if a key with the same name already exist 
         ///     in the collection
         /// </returns>
