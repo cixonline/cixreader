@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("CIXClient")]
 [assembly: AssemblyDescription("CIXReader Backend")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("CIXOnline Ltd")]
+[assembly: AssemblyCompany("ICUK Ltd")]
 [assembly: AssemblyProduct("CIXClient")]
 [assembly: AssemblyCopyright("Copyright © 2014-2018")]
 [assembly: AssemblyTrademark("")]

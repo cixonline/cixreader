@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("CIXMarkup")]
 [assembly: AssemblyDescription("CIX Markup Parser")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("CIXOnline Ltd")]
+[assembly: AssemblyCompany("ICUK Ltd")]
 [assembly: AssemblyProduct("CIXMarkup")]
 [assembly: AssemblyCopyright("Copyright © 2014-2018")]
 [assembly: AssemblyTrademark("")]

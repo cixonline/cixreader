@@ -19,9 +19,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("CIXMarkupTests")]
 [assembly: AssemblyDescription("Unit tests for CIXMarkup library")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("CIXOnline Ltd")]
+[assembly: AssemblyCompany("ICUK Ltd")]
 [assembly: AssemblyProduct("CIXMarkupTests")]
-[assembly: AssemblyCopyright("Copyright © 2015-2017")]
+[assembly: AssemblyCopyright("Copyright © 2015-2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

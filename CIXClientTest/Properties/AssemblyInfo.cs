@@ -19,9 +19,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("CIXClientTest")]
 [assembly: AssemblyDescription("Unit tests for CIXClient library")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("CIXOnline Ltd")]
+[assembly: AssemblyCompany("ICUK Ltd")]
 [assembly: AssemblyProduct("CIXClientTest")]
-[assembly: AssemblyCopyright("Copyright © 2015-2017")]
+[assembly: AssemblyCopyright("Copyright © 2015-2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
