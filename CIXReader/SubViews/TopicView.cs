@@ -869,8 +869,6 @@ namespace CIXReader.SubViews
         {
             Platform.UIThread(this, delegate
             {
-                RefreshList();
-
                 // Update any mugshot in the message pane too
                 if (tsvMessagePane.Items.Count > 0)
                 {
