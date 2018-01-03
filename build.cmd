@@ -2,6 +2,10 @@
 setlocal
 
 if "%_CRDEVROOT%" == "" goto NoRoot
+if "%VSCMD_VER" == "" goto MissingVS
+
+perl -V > nul
+if errorlevel 1 goto MissingPerl
 
 set _CONFIG="Release"
 set _OPTION=rebuild
@@ -11,11 +15,6 @@ if "%1" == "" goto DoBuild
 if "%1" == "release" set _BETA=
 
 :DoBuild
-set _VSVARS="%ProgramFiles%\Microsoft Visual Studio 11.0\Common7\Tools\vsvars32.bat"
-if not exist %_VSVARS% set _VSVARS="%ProgramFiles(x86)%\Microsoft Visual Studio 11.0\Common7\Tools\vsvars32.bat"
-if not exist %_VSVARS% goto MissingVS
-call %_VSVARS%
-
 for /f "tokens=2,3" %%a in (%_CRDEVROOT%\version.bld) do set %%a=%%b
 
 set _VERSTRING=%PRODUCT_MAX_VER%.%PRODUCT_MIN_VER%.%PRODUCT_BUILD%
@@ -47,8 +46,11 @@ echo Error: Build failed. Stopping
 goto Exit
 
 :MissingVS
-echo Error: Microsoft Visual Studio not found.
-echo        Cannot locate %_VSVARS%
+echo Error: This batch file should be run from a Visual Studio developer command prompt
+goto Exit
+
+:MissingPerl
+echo Error: Perl is not installed
 goto Exit
 
 :NoRoot

@@ -22,8 +22,6 @@ rem Force setup to always use release binaries!
 
 set _CONFIG="Release"
 
-rem Build script for Ameol2 setup.
-
 setlocal
 if "%_CRDEVROOT%" == "" goto NoRoot
 if not exist %_CRDEVROOT%\cixreader\bin\%_CONFIG% goto NoBuild
@@ -65,10 +63,6 @@ xcopy /dyqi %_CRDEVROOT%\setup\Acknowledgements.html %_CRDEVROOT%\setup\source\
 
 if "%_AM2SIGNPWD%" == "" goto SkipSign1
 echo Signing files...
-
-set _VSVARS="%ProgramFiles%\Microsoft Visual Studio 11.0\Common7\Tools\vsvars32.bat"
-if not exist %_VSVARS% set _VSVARS="%ProgramFiles(x86)%\Microsoft Visual Studio 11.0\Common7\Tools\vsvars32.bat"
-call %_VSVARS%
 
 set _CODEURL=http://timestamp.comodoca.com/authenticode
 signtool sign /f "%_PFXPATH%" /p %_AM2SIGNPWD% /t %_CODEURL% /v %_CRDEVROOT%\setup\source\CIXReader.exe
