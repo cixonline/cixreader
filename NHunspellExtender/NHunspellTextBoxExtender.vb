@@ -665,9 +665,6 @@ CreateNewHunspell:
 
         Dim callingDir As String = Path.GetDirectoryName(Assembly.GetExecutingAssembly.Location)
 
-        'Check if the spell check directory already exists.  If not, add it
-        EnsureSpellCheckFolder(callingDir)
-
         If regKey Is Nothing Then
             regKey = Registry.CurrentUser.OpenSubKey("SOFTWARE", True).CreateSubKey("NHunspellTextBoxExtender")
             Dim regKeyLanguage As RegistryKey = regKey.CreateSubKey("Languages")
@@ -807,14 +804,6 @@ CreateNewHunspell:
         End If
 
         regKey.Close()
-    End Sub
-
-    Private Sub EnsureSpellCheckFolder(ByVal callingDir As String)
-        If Not Directory.Exists(callingDir & "\SpellCheck") Then
-            Directory.CreateDirectory(callingDir & "\SpellCheck")
-            Dim newDirInfo As New DirectoryInfo(callingDir & "\SpellCheck")
-            newDirInfo.Attributes = FileAttributes.Hidden
-        End If
     End Sub
 
 #Region "Enable/Disable"
@@ -1560,7 +1549,6 @@ CreateNewHunspell:
                 .Items.Add(Suggestion1)
             Else
                 For i = 0 To UBound(suggestions)
-                    Dim onClickHandler As New EventHandler(AddressOf ContextMenuItem_Click)
 
                     'The tag on the suggestion items is the misspelled word
                     Select Case i
@@ -2390,7 +2378,6 @@ CreateNewHunspell:
         End If
 
         'If the textbox is a rich text box, we have to get the selection fonts
-        Dim fontHashTable As New Hashtable
         Dim rtf As String = ""
         Dim zoomFactor As Double = 1
 

@@ -604,28 +604,31 @@ namespace CIXReader.Controls
                             int width = (button.Type == CRToolbarItemType.FlexibleSpace)
                                 ? flexSpaceWidth
                                 : fixedSpaceWidth;
-                            Bitmap image = new Bitmap(width - interButtonSpacing, buttonHeight);
-                            using (var graphics = Graphics.FromImage(image))
+                            if (width > interButtonSpacing) 
                             {
-                                using (Brush backBrush = new SolidBrush(BackColor))
+                                Bitmap image = new Bitmap(width - interButtonSpacing, buttonHeight);
+                                using (var graphics = Graphics.FromImage(image))
                                 {
-                                    graphics.FillRectangle(backBrush, 0, 0, image.Width, image.Height);
+                                    using (Brush backBrush = new SolidBrush(BackColor))
+                                    {
+                                        graphics.FillRectangle(backBrush, 0, 0, image.Width, image.Height);
+                                    }
+                                    using (Pen borderPen = new Pen(Color.White))
+                                    {
+                                        graphics.DrawRectangle(borderPen, 0, 0, image.Width - 1, image.Height - 1);
+                                    }
                                 }
-                                using (Pen borderPen = new Pen(Color.White))
+                                ((PictureBox) button.Control).Image = image;
+                                button.Control.Anchor = AnchorStyles.Top | horizontalAnchor;
+                                button.Control.Location = new Point(xPosition, yPosition);
+                                button.Control.Size = new Size(width, buttonHeight);
+                                if (button.Type == CRToolbarItemType.FlexibleSpace)
                                 {
-                                    graphics.DrawRectangle(borderPen, 0, 0, image.Width - 1, image.Height - 1);
+                                    horizontalAnchor = AnchorStyles.Right;
                                 }
-                            }
-                            ((PictureBox) button.Control).Image = image;
-                            button.Control.Anchor = AnchorStyles.Top | horizontalAnchor;
-                            button.Control.Location = new Point(xPosition, yPosition);
-                            button.Control.Size = new Size(width, buttonHeight);
-                            if (button.Type == CRToolbarItemType.FlexibleSpace)
-                            {
-                                horizontalAnchor = AnchorStyles.Right;
-                            }
 
-                            xPosition += width;
+                                xPosition += width;
+                            }
                             break;
                         }
                     }

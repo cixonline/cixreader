@@ -60,8 +60,6 @@ namespace CIXReader.Forms
         private bool _searchBarVisible;
         private readonly Timer _searchBarTimer;
         private readonly System.Timers.Timer _smartFolderRefresh;
-        private int _searchBarIncrement;
-        private int _searchBarIteration;
         private int _searchBarHeight;
         private string _currentSearchText;
         private Address _lastAddress;
@@ -90,7 +88,6 @@ namespace CIXReader.Forms
                 Enabled = false,
                 Interval = 5
             };
-            _searchBarTimer.Tick += SearchBarTimerOnTick;
 
             _smartFolderRefresh = new System.Timers.Timer(500);
             _smartFolderRefresh.Elapsed += SmartFolderRefresh;
@@ -1564,9 +1561,10 @@ namespace CIXReader.Forms
             }
             if (v == SearchBarVisibility.Show && !_searchBarVisible)
             {
-                _searchBarIncrement = 4;
-                _searchBarIteration = 0;
-                _searchBarTimer.Enabled = true;
+                _searchBar.Size = new Size(frmSplitContainer.Width, _searchBarHeight);
+                frmSplitContainer.Location = new Point(0, frmSplitContainer.Top + _searchBarHeight);
+                frmSplitContainer.Size = new Size(frmSplitContainer.Width, frmSplitContainer.Height - _searchBarHeight);
+                _searchBar.Invalidate();
                 _searchBarVisible = true;
             }
             if (v == SearchBarVisibility.FastHide && _searchBarVisible)
@@ -1698,23 +1696,6 @@ namespace CIXReader.Forms
         {
             ShowSearchBar(SearchBarVisibility.FastHide);
             RefreshFolder(_selectedNode, FolderOptions.ClearFilter);
-        }
-
-        /// <summary>
-        /// Timer tick to animate scrolling the search bar in and out of view.
-        /// </summary>
-        private void SearchBarTimerOnTick(object sender, EventArgs eventArgs)
-        {
-            _searchBar.Size = new Size(frmSplitContainer.Width, _searchBar.Height + _searchBarIncrement);
-            _searchBar.Invalidate();
-
-            frmSplitContainer.Location = new Point(0, frmSplitContainer.Top + _searchBarIncrement);
-            frmSplitContainer.Size = new Size(frmSplitContainer.Width, frmSplitContainer.Height - _searchBarIncrement);
-
-            if (++_searchBarIteration == (_searchBarHeight / 4))
-            {
-                _searchBarTimer.Stop();
-            }
         }
 
         /// <summary>

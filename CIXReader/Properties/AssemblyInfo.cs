@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ICUK Ltd")]
 [assembly: AssemblyProduct("CIXReader")]
-[assembly: AssemblyCopyright("Copyright © 2014-2018")]
+[assembly: AssemblyCopyright("Copyright © 2014-2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,5 +34,5 @@ using System.Runtime.InteropServices;
 
 // Version information for this assembly. The values are dynamically replaced
 // when running the build script.
-[assembly: AssemblyVersion("1.65.1170")]
-[assembly: AssemblyFileVersion("1.65.1170")]
+[assembly: AssemblyVersion("1.66.1200")]
+[assembly: AssemblyFileVersion("1.66.1200")]
