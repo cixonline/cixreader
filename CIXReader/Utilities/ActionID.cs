@@ -274,6 +274,11 @@ namespace CIXReader.Utilities
         /// <summary>
         /// Block the selected user
         /// </summary>
-        Block
+        Block,
+
+        /// <summary>
+        /// Do a refresh when offline
+        /// </summary>
+        RefreshAll
     }
 }

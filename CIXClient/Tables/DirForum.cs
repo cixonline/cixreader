@@ -404,8 +404,19 @@ namespace CIXClient.Tables
                 CIX.DB.Update(this);
             }
             CIX.DirectoryCollection.NotifyForumUpdated(this);
-            SyncDetails();
-            SyncParticipantsAndModerators();
+            if (!CIX.Online)
+            {
+                DetailsPending = true;
+                lock (CIX.DBLock)
+                {
+                    CIX.DB.Update(this);
+                }
+            }
+            else
+            {
+                SyncDetails();
+                SyncParticipantsAndModerators();
+            }
         }
 
         /// <summary>
@@ -490,15 +501,6 @@ namespace CIXClient.Tables
         /// </summary>
         private void SyncDetails()
         {
-            if (!CIX.Online)
-            {
-                DetailsPending = true;
-                lock (CIX.DBLock)
-                {
-                    CIX.DB.Update(this);
-                }
-                return;
-            }
             Thread t = new Thread(() =>
             {
                 try
@@ -541,55 +543,52 @@ namespace CIXClient.Tables
         /// </summary>
         private void SyncParticipants()
         {
-            if (CIX.Online)
+            Thread t = new Thread(() =>
             {
-                Thread t = new Thread(() =>
+                try
                 {
-                    try
+                    string encodedForumName = FolderCollection.EncodeForumName(Name);
+                    foreach (string part in AddedParticipants)
                     {
-                        string encodedForumName = FolderCollection.EncodeForumName(Name);
-                        foreach (string part in AddedParticipants)
+                        string url = string.Format("moderator/{0}/{1}/partadd", encodedForumName, part);
+                        HttpWebRequest getUrl = APIRequest.Get(url, APIRequest.APIFormat.XML);
+                        string responseString = APIRequest.ReadResponseString(getUrl);
+
+                        if (responseString == "Success")
                         {
-                            string url = string.Format("moderator/{0}/{1}/partadd", encodedForumName, part);
-                            HttpWebRequest getUrl = APIRequest.Get(url, APIRequest.APIFormat.XML);
-                            string responseString = APIRequest.ReadResponseString(getUrl);
-
-                            if (responseString == "Success")
-                            {
-                                LogFile.WriteLine("User {0} successfully added to {1}", part, Name);
-                            }
+                            LogFile.WriteLine("User {0} successfully added to {1}", part, Name);
                         }
-                        foreach (string part in RemovedParticipants)
-                        {
-                            string url = string.Format("moderator/{0}/{1}/partrem", encodedForumName, part);
-                            HttpWebRequest getUrl = APIRequest.Get(url, APIRequest.APIFormat.XML);
-                            string responseString = APIRequest.ReadResponseString(getUrl);
-
-                            if (responseString == "Success")
-                            {
-                                LogFile.WriteLine("User {0} successfully removed from {1}", part, Name);
-                            }
-                        }
-
-                        // Clear out the current participant lists to force a refresh from the server
-                        AddedParts = string.Empty;
-                        RemovedParts = string.Empty;
-                        Parts = string.Empty;
-                        lock (CIX.DBLock)
-                        {
-                            CIX.DB.Update(this);
-                        }
-
-                        // Notify interested parties that the participant list has changed
-                        CIX.DirectoryCollection.NotifyParticipantsUpdated(this);
                     }
-                    catch (Exception e)
+                    foreach (string part in RemovedParticipants)
                     {
-                        CIX.ReportServerExceptions("DirForum.SyncParticipants", e);
+                        string url = string.Format("moderator/{0}/{1}/partrem", encodedForumName, part);
+                        HttpWebRequest getUrl = APIRequest.Get(url, APIRequest.APIFormat.XML);
+                        string responseString = APIRequest.ReadResponseString(getUrl);
+
+                        if (responseString == "Success")
+                        {
+                            LogFile.WriteLine("User {0} successfully removed from {1}", part, Name);
+                        }
                     }
-                });
-                t.Start();
-            }
+
+                    // Clear out the current participant lists to force a refresh from the server
+                    AddedParts = string.Empty;
+                    RemovedParts = string.Empty;
+                    Parts = string.Empty;
+                    lock (CIX.DBLock)
+                    {
+                        CIX.DB.Update(this);
+                    }
+
+                    // Notify interested parties that the participant list has changed
+                    CIX.DirectoryCollection.NotifyParticipantsUpdated(this);
+                }
+                catch (Exception e)
+                {
+                    CIX.ReportServerExceptions("DirForum.SyncParticipants", e);
+                }
+            });
+            t.Start();
         }
 
         /// <summary>
@@ -597,55 +596,52 @@ namespace CIXClient.Tables
         /// </summary>
         private void SyncModerators()
         {
-            if (CIX.Online)
+            Thread t = new Thread(() =>
             {
-                Thread t = new Thread(() =>
+                try
                 {
-                    try
+                    string encodedForumName = FolderCollection.EncodeForumName(Name);
+                    foreach (string part in AddedModerators)
                     {
-                        string encodedForumName = FolderCollection.EncodeForumName(Name);
-                        foreach (string part in AddedModerators)
+                        string url = string.Format("moderator/{0}/{1}/modadd", encodedForumName, part);
+                        HttpWebRequest getUrl = APIRequest.Get(url, APIRequest.APIFormat.XML);
+                        string responseString = APIRequest.ReadResponseString(getUrl);
+
+                        if (responseString == "Success")
                         {
-                            string url = string.Format("moderator/{0}/{1}/modadd", encodedForumName, part);
-                            HttpWebRequest getUrl = APIRequest.Get(url, APIRequest.APIFormat.XML);
-                            string responseString = APIRequest.ReadResponseString(getUrl);
-
-                            if (responseString == "Success")
-                            {
-                                LogFile.WriteLine("Moderator {0} successfully added to {1}", part, Name);
-                            }
+                            LogFile.WriteLine("Moderator {0} successfully added to {1}", part, Name);
                         }
-                        foreach (string part in RemovedModerators)
-                        {
-                            string url = string.Format("moderator/{0}/{1}/modrem", encodedForumName, part);
-                            HttpWebRequest getUrl = APIRequest.Get(url, APIRequest.APIFormat.XML);
-                            string responseString = APIRequest.ReadResponseString(getUrl);
-
-                            if (responseString == "Success")
-                            {
-                                LogFile.WriteLine("Moderator {0} successfully removed from {1}", part, Name);
-                            }
-                        }
-
-                        // Clear out the current moderators lists to force a refresh from the server
-                        AddedMods = string.Empty;
-                        RemovedMods = string.Empty;
-                        Mods = string.Empty;
-                        lock (CIX.DBLock)
-                        {
-                            CIX.DB.Update(this);
-                        }
-
-                        // Notify interested parties that the moderators list has changed
-                        CIX.DirectoryCollection.NotifyModeratorsUpdated(this);
                     }
-                    catch (Exception e)
+                    foreach (string part in RemovedModerators)
                     {
-                        CIX.ReportServerExceptions("DirForum.SyncModerators", e);
+                        string url = string.Format("moderator/{0}/{1}/modrem", encodedForumName, part);
+                        HttpWebRequest getUrl = APIRequest.Get(url, APIRequest.APIFormat.XML);
+                        string responseString = APIRequest.ReadResponseString(getUrl);
+
+                        if (responseString == "Success")
+                        {
+                            LogFile.WriteLine("Moderator {0} successfully removed from {1}", part, Name);
+                        }
                     }
-                });
-                t.Start();
-            }
+
+                    // Clear out the current moderators lists to force a refresh from the server
+                    AddedMods = string.Empty;
+                    RemovedMods = string.Empty;
+                    Mods = string.Empty;
+                    lock (CIX.DBLock)
+                    {
+                        CIX.DB.Update(this);
+                    }
+
+                    // Notify interested parties that the moderators list has changed
+                    CIX.DirectoryCollection.NotifyModeratorsUpdated(this);
+                }
+                catch (Exception e)
+                {
+                    CIX.ReportServerExceptions("DirForum.SyncModerators", e);
+                }
+            });
+            t.Start();
         }
     }
 }

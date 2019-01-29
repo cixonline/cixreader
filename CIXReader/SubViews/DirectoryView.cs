@@ -112,8 +112,10 @@ namespace CIXReader.SubViews
         {
             switch (id)
             {
-                case ActionID.JoinForum:
                 case ActionID.Refresh:
+                    return CIX.Online;
+
+                case ActionID.JoinForum:
                     return true;
             }
             return false;
@@ -266,11 +268,11 @@ namespace CIXReader.SubViews
 
             switch (popularityValue)
             {
-                case 1: popularity = "★"; break;
-                case 2: popularity = "★★"; break;
-                case 3: popularity = "★★★"; break;
-                case 4: popularity = "★★★★"; break;
-                case 5: popularity = "★★★★★"; break;
+                case 1: popularity = "*"; break;
+                case 2: popularity = "**"; break;
+                case 3: popularity = "***"; break;
+                case 4: popularity = "****"; break;
+                case 5: popularity = "*****"; break;
             }
 
             e.Item.SubItems.Add(new ListViewItem.ListViewSubItem(e.Item, popularity));

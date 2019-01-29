@@ -350,6 +350,11 @@ namespace CIXReader.Forms
                     return folder != null && folder.CanResign && !folder.IsResigned;
                 }
 
+                case ActionID.Refresh:
+                {
+                    return CIX.Online;
+                }
+
                 case ActionID.Delete:
                 case ActionID.Participants:
                 case ActionID.MarkTopicRead:

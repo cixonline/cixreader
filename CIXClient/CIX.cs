@@ -63,7 +63,21 @@ namespace CIXClient
         private static string _unencryptedPassword;
 
         /// <summary>
-        /// Defines the delegate for ProfileUpdated event notifications.
+        /// Defines the delegate for RefreshStatusStarted event notifications.
+        /// </summary>
+        /// <param name="sender">The CIX object</param>
+        /// <param name="e">Additional update data</param>
+        public delegate void RefreshStatusStartedHandler(object sender, EventArgs e);
+
+        /// <summary>
+        /// Defines the delegate for RefreshStatusEnded event notifications.
+        /// </summary>
+        /// <param name="sender">The CIX object</param>
+        /// <param name="e">Additional update data</param>
+        public delegate void RefreshStatusEndedHandler(object sender, EventArgs e);
+
+        /// <summary>
+        /// Defines the delegate for AuthenticationFailedHandler event notifications.
         /// </summary>
         /// <param name="sender">The ProfileTasks object</param>
         /// <param name="e">Additional profile update data</param>
@@ -74,6 +88,16 @@ namespace CIXClient
         /// </summary>
         /// <param name="mugshot">The mugshot that was updated</param>
         public delegate void MugshotUpdatedHandler(Mugshot mugshot);
+
+        /// <summary>
+        /// Event handler for notifying when a CIX refresh starts.
+        /// </summary>
+        public static event RefreshStatusStartedHandler RefreshStatusStarted;
+
+        /// <summary>
+        /// Event handler for notifying when a CIX refresh completes.
+        /// </summary>
+        public static event RefreshStatusEndedHandler RefreshStatusEnded;
 
         /// <summary>
         /// Event handler for notifying when CIX authentication fails.
@@ -272,9 +296,46 @@ namespace CIXClient
         internal static SQLiteConnection DB { get; private set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether tasks are running
+        /// Gets or sets a value indicating whether or not tasks can be run
         /// </summary>
-        internal static bool IsTasksRunning { get; set; }
+        public static bool CanRunTasks { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether or not tasks are running
+        /// </summary>
+        public static bool AreTasksRunning
+        {
+            get 
+            {
+                return _syncRunning;
+            }
+        }
+
+        /// <summary>
+        /// Do a sync of all tasks when offline
+        /// </summary>
+        public static void RunAllTasks()
+        {
+            Thread t = new Thread(() =>
+            {
+                RunAllTasksInternal();
+            });
+            t.Start();
+        }
+
+        /// <summary>
+        /// Run all tasks
+        /// </summary>
+        internal static void RunAllTasksInternal()
+        {
+            RefreshStatusStarted(null, new EventArgs());
+            _syncRunning = true;
+            FolderCollection.Sync();
+            ConversationCollection.Sync();
+            DirectoryCollection.Sync();
+            _syncRunning = false;
+            RefreshStatusEnded(null, new EventArgs());
+        }
 
         /// <summary>
         /// Gets or sets the date of the last sync
@@ -305,7 +366,7 @@ namespace CIXClient
         /// </summary>
         public static void SuspendTasks()
         {
-            IsTasksRunning = false;
+            CanRunTasks = false;
         }
 
         /// <summary>
@@ -313,7 +374,7 @@ namespace CIXClient
         /// </summary>
         public static void ResumeTasks()
         {
-            IsTasksRunning = true;
+            CanRunTasks = true;
         }
 
         /// <summary>
@@ -354,7 +415,7 @@ namespace CIXClient
             _onlineState = true;
             _initialised = true;
 
-            IsTasksRunning = true;
+            CanRunTasks = true;
 
             // Persist any globals from the database
             _globals = DB.Table<Globals>().FirstOrDefault() ?? new Globals();
@@ -658,10 +719,7 @@ namespace CIXClient
         /// <param name="mugshot">The mugshot that was updated</param>
         internal static void NotifyMugshotUpdated(Mugshot mugshot)
         {
-            if (MugshotUpdated != null)
-            {
-                MugshotUpdated(mugshot);
-            }
+            MugshotUpdated?.Invoke(mugshot);
         }
 
         /// <summary>
@@ -718,13 +776,9 @@ namespace CIXClient
         /// <param name="obj">The timer object</param>
         private static void Sync(object obj)
         {
-            if (Online && IsTasksRunning)
+            if (Online && CanRunTasks)
             {
-                _syncRunning = true;
-                FolderCollection.Sync();
-                ConversationCollection.Sync();
-                DirectoryCollection.Sync();
-                _syncRunning = false;
+                RunAllTasksInternal();
             }
         }
     }

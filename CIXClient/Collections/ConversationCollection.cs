@@ -177,126 +177,123 @@ namespace CIXClient.Collections
         /// </summary>
         public void Refresh()
         {
-            if (CIX.Online)
+            try
             {
-                try
+                List<CIXInboxItem> inboxItems = new List<CIXInboxItem>();
+
+                int totalCountOfRead = 0;
+
+                HttpWebRequest request = APIRequest.GetWithQuery("personalmessage/inbox", APIRequest.APIFormat.XML, "since=" + _lastCheckDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                Stream objStream = APIRequest.ReadResponse(request);
+
+                if (objStream != null)
                 {
-                    List<CIXInboxItem> inboxItems = new List<CIXInboxItem>();
-
-                    int totalCountOfRead = 0;
-
-                    HttpWebRequest request = APIRequest.GetWithQuery("personalmessage/inbox", APIRequest.APIFormat.XML, "since=" + _lastCheckDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
-                    Stream objStream = APIRequest.ReadResponse(request);
-
-                    if (objStream != null)
+                    using (XmlReader reader = XmlReader.Create(objStream))
                     {
-                        using (XmlReader reader = XmlReader.Create(objStream))
+                    XmlSerializer serializer = new XmlSerializer(typeof(ConversationInboxSet));
+                    ConversationInboxSet inboxSet = (ConversationInboxSet)serializer.Deserialize(reader);
+
+                        foreach (CIXInboxItem conv in inboxSet.Conversations)
                         {
-                        XmlSerializer serializer = new XmlSerializer(typeof(ConversationInboxSet));
-                        ConversationInboxSet inboxSet = (ConversationInboxSet)serializer.Deserialize(reader);
-
-                            foreach (CIXInboxItem conv in inboxSet.Conversations)
+                            inboxItems.Add(conv);
+                            InboxConversation root = ConversationByID(conv.ID);
+                            if (root == null)
                             {
-                                inboxItems.Add(conv);
-                                InboxConversation root = ConversationByID(conv.ID);
-                                if (root == null)
+                                root = new InboxConversation
                                 {
-                                    root = new InboxConversation
-                                    {
-                                        RemoteID = conv.ID,
-                                        Date = DateTime.Parse(conv.Date),
-                                        Subject = conv.Subject,
-                                        Author = conv.Sender
-                                    };
-                                    Add(root);
-                                }
-                            }
-                        }
-                    }
-
-                    request = APIRequest.GetWithQuery("personalmessage/outbox", APIRequest.APIFormat.XML, "since=" + _lastCheckDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
-                    objStream = APIRequest.ReadResponse(request);
-
-                    _lastCheckDateTime = DateTime.Now;
-
-                    if (objStream != null)
-                    {
-                        using (XmlReader reader = XmlReader.Create(objStream))
-                        {
-                        XmlSerializer serializer = new XmlSerializer(typeof(ConversationOutboxSet));
-                        ConversationOutboxSet inboxSet = (ConversationOutboxSet)serializer.Deserialize(reader);
-
-                            foreach (CIXOutboxItem conv in inboxSet.Conversations)
-                            {
-                                // Make a fake CIXInboxItem for each CIXOutboxItem so we can treat
-                                // them equally later.
-                                inboxItems.Add(new CIXInboxItem
-                                {
-                                    Date = conv.Date,
-                                    ID = conv.ID,
-                                    Sender = conv.Recipient,
+                                    RemoteID = conv.ID,
+                                    Date = DateTime.Parse(conv.Date),
                                     Subject = conv.Subject,
-                                    Unread = "false"
-                                });
-                                InboxConversation root = ConversationByID(conv.ID);
-                                if (root == null)
-                                {
-                                    root = new InboxConversation
-                                    {
-                                        RemoteID = conv.ID,
-                                        Date = DateTime.Parse(conv.Date),
-                                        Subject = conv.Subject,
-                                        Author = conv.Recipient
-                                    };
-                                    Add(root);
-                                }
+                                    Author = conv.Sender
+                                };
+                                Add(root);
                             }
                         }
-                    }
-
-                    // Defer sending the notification of new root messages until we've got the whole list added
-                    // to the database for performance reasons.
-                    if (inboxItems.Count > 0)
-                    {
-                        NotifyConversationAdded(null);
-                    }
-
-                    // Once we've got the roots added, check each one for additions to the
-                    // conversation.
-                    foreach (CIXInboxItem conv in inboxItems)
-                    {
-                        InboxConversation root = ConversationByID(conv.ID);
-                        if (root == null)
-                        {
-                            continue;
-                        }
-
-                        DateTime latestMessageDate = root.Date;
-
-                        int countOfRead = GetConversation(root, ref latestMessageDate);
-                        if (countOfRead > 0)
-                        {
-                            root.UnreadCount = (conv.Unread == "true") ? countOfRead : 0;
-                            root.Flags &= ~InboxConversationFlags.MarkRead;
-                            root.Date = latestMessageDate;
-                            lock (CIX.DBLock)
-                            {
-                                CIX.DB.Update(root);
-                            }
-                        }
-
-                        totalCountOfRead += countOfRead;
-                    }
-                    if (totalCountOfRead > 0)
-                    {
-                        NotifyConversationChanged(null);
-                        LogFile.WriteLine("{0} new private messages retrieved from inbox", totalCountOfRead);
                     }
                 }
-                catch (Exception e)
+
+                request = APIRequest.GetWithQuery("personalmessage/outbox", APIRequest.APIFormat.XML, "since=" + _lastCheckDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                objStream = APIRequest.ReadResponse(request);
+
+                _lastCheckDateTime = DateTime.Now;
+
+                if (objStream != null)
                 {
-                    CIX.ReportServerExceptions("ConversationCollection.Refresh", e);
+                    using (XmlReader reader = XmlReader.Create(objStream))
+                    {
+                    XmlSerializer serializer = new XmlSerializer(typeof(ConversationOutboxSet));
+                    ConversationOutboxSet inboxSet = (ConversationOutboxSet)serializer.Deserialize(reader);
+
+                        foreach (CIXOutboxItem conv in inboxSet.Conversations)
+                        {
+                            // Make a fake CIXInboxItem for each CIXOutboxItem so we can treat
+                            // them equally later.
+                            inboxItems.Add(new CIXInboxItem
+                            {
+                                Date = conv.Date,
+                                ID = conv.ID,
+                                Sender = conv.Recipient,
+                                Subject = conv.Subject,
+                                Unread = "false"
+                            });
+                            InboxConversation root = ConversationByID(conv.ID);
+                            if (root == null)
+                            {
+                                root = new InboxConversation
+                                {
+                                    RemoteID = conv.ID,
+                                    Date = DateTime.Parse(conv.Date),
+                                    Subject = conv.Subject,
+                                    Author = conv.Recipient
+                                };
+                                Add(root);
+                            }
+                        }
+                    }
                 }
+
+                // Defer sending the notification of new root messages until we've got the whole list added
+                // to the database for performance reasons.
+                if (inboxItems.Count > 0)
+                {
+                    NotifyConversationAdded(null);
+                }
+
+                // Once we've got the roots added, check each one for additions to the
+                // conversation.
+                foreach (CIXInboxItem conv in inboxItems)
+                {
+                    InboxConversation root = ConversationByID(conv.ID);
+                    if (root == null)
+                    {
+                        continue;
+                    }
+
+                    DateTime latestMessageDate = root.Date;
+
+                    int countOfRead = GetConversation(root, ref latestMessageDate);
+                    if (countOfRead > 0)
+                    {
+                        root.UnreadCount = (conv.Unread == "true") ? countOfRead : 0;
+                        root.Flags &= ~InboxConversationFlags.MarkRead;
+                        root.Date = latestMessageDate;
+                        lock (CIX.DBLock)
+                        {
+                            CIX.DB.Update(root);
+                        }
+                    }
+
+                    totalCountOfRead += countOfRead;
+                }
+                if (totalCountOfRead > 0)
+                {
+                    NotifyConversationChanged(null);
+                    LogFile.WriteLine("{0} new private messages retrieved from inbox", totalCountOfRead);
+                }
+            }
+            catch (Exception e)
+            {
+                CIX.ReportServerExceptions("ConversationCollection.Refresh", e);
             }
         }
 
@@ -412,14 +409,11 @@ namespace CIXClient.Collections
         /// </summary>
         private void PostMessages()
         {
-            if (CIX.Online)
+            // Make a copy because Sync may alter the Conversations collection.
+            List<InboxConversation> localConv = new List<InboxConversation>(Conversations);
+            foreach (InboxConversation conversation in localConv)
             {
-                // Make a copy because Sync may alter the Conversations collection.
-                List<InboxConversation> localConv = new List<InboxConversation>(Conversations);
-                foreach (InboxConversation conversation in localConv)
-                {
-                    conversation.Sync();
-                }
+                conversation.Sync();
             }
         }
     }

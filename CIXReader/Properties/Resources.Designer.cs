@@ -1906,6 +1906,15 @@ namespace CIXReader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Refresh.
+        /// </summary>
+        internal static string StartRefresh {
+            get {
+                return ResourceManager.GetString("StartRefresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Refreshing private messages....
         /// </summary>
         internal static string StatusInboxRefresh {
@@ -1938,6 +1947,15 @@ namespace CIXReader.Properties {
         internal static string STopic {
             get {
                 return ResourceManager.GetString("STopic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop &amp;Refresh.
+        /// </summary>
+        internal static string StopRefresh {
+            get {
+                return ResourceManager.GetString("StopRefresh", resourceCulture);
             }
         }
         

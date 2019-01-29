@@ -484,6 +484,7 @@ namespace CIXReader.Forms
                 mainStatusText.Show();
             }
             mainStatusText.Text = statusText ?? String.Empty;
+            mainStatusText.Refresh();
             ++_progressCount;
         }
 
@@ -1008,6 +1009,10 @@ namespace CIXReader.Forms
             _logonImage.Image = Mugshot.MugshotForUser(CIX.Username, true).RealImage;
             CIX.MugshotUpdated += OnMugshotUpdated;
 
+            // Refresh status
+            CIX.RefreshStatusStarted += OnRefreshStatusStarted;
+            CIX.RefreshStatusEnded += OnRefreshStatusEnded;
+
             // Get notified of authentication errors
             CIX.AuthenticationFailed += OnAuthenticationFailed;
 
@@ -1179,6 +1184,28 @@ namespace CIXReader.Forms
                 xPosition += label.Size.Width;
             }
             _shortcutBar.Update();
+        }
+
+        /// <summary>
+        /// Called when CIX refresh starts
+        /// </summary>
+        private void OnRefreshStatusStarted(object sender, EventArgs args)
+        {
+            Platform.UIThread(this, delegate
+                {
+                    StartStatusProgressSpinner("Refreshing database from CIX...");
+                });
+        }
+
+        /// <summary>
+        /// Called when CIX refresh completes
+        /// </summary>
+        private void OnRefreshStatusEnded(object sender, EventArgs args)
+        {
+            Platform.UIThread(this, delegate
+                {
+                    StopStatusProgressSpinner();
+                });
         }
 
         /// <summary>
@@ -1430,6 +1457,7 @@ namespace CIXReader.Forms
         private void mainMenubar_MenuActivate(object sender, EventArgs e)
         {
             menuFileOffline.Checked = !CIX.Online;
+            menuFileRefresh.Enabled = !CIX.Online;
             menuFileReplyByMail.Enabled = CanAction(ActionID.ReplyByMail);
 
             menuViewGroupByConv.Checked = Preferences.StandardPreferences.GroupByConv;
@@ -1514,6 +1542,7 @@ namespace CIXReader.Forms
             // Menu titles
             menuViewShowStatusBar.Text = Preferences.StandardPreferences.ViewStatusBar ? Resources.HideStatusBar : Resources.ShowStatusBar;
             menuViewShowToolBar.Text = Preferences.StandardPreferences.ShowToolBar ? Resources.HideToolBar : Resources.ShowToolBar;
+            menuFileRefresh.Text = CIX.AreTasksRunning ? Resources.StopRefresh : Resources.StartRefresh;
             if (menuMessageMarkReadLock.Enabled)
             {
                 menuMessageMarkReadLock.Text = _foldersTree.TitleForAction(ActionID.ReadLock);
@@ -2006,6 +2035,14 @@ namespace CIXReader.Forms
         private void menuMessageBlock_Click(object sender, EventArgs e)
         {
             Action(ActionID.Block);
+        }
+
+        /// <summary>
+        /// Refresh in offline mode.
+        /// </summary>
+        private void menuFileRefresh_Click(object sender, EventArgs e)
+        {
+            CIX.RunAllTasks();
         }
     }
 }

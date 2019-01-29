@@ -47,8 +47,11 @@ namespace CIXReader.SubViews
             {
                 FillCanvas();
             }
-            CIX.RefreshOnlineUsers();
-            FolderCollection.RefreshInterestingThreads();
+            if (CIX.Online)
+            {
+                CIX.RefreshOnlineUsers();
+                FolderCollection.RefreshInterestingThreads();
+            }
             return true;
         }
 
@@ -144,6 +147,34 @@ namespace CIXReader.SubViews
         private void OnLinkClicked(object sender, LinkClickedEventArgs args)
         {
             FoldersTree.MainForm.Address = args.LinkText;
+        }
+
+        /// <summary>
+        /// Return whether the specified action can be carried out.
+        /// </summary>
+        /// <param name="id">An action ID</param>
+        public override bool CanAction(ActionID id)
+        {
+            switch (id)
+            {
+                case ActionID.Refresh:
+                    return CIX.Online;
+            }
+            return false;
+        }
+
+         /// <summary>
+        /// Actions the specified action ID.
+        /// </summary>
+        public override void Action(ActionID id)
+        {
+            switch (id)
+            {
+                case ActionID.Refresh:
+                    CIX.RefreshOnlineUsers();
+                    FolderCollection.RefreshInterestingThreads();
+                    break;
+            }
         }
 
         /// <summary>

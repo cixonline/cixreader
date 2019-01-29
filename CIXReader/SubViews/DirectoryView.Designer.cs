@@ -52,6 +52,7 @@
             this.dvForumsList.Location = new System.Drawing.Point(3, 0);
             this.dvForumsList.MultiSelect = false;
             this.dvForumsList.Name = "dvForumsList";
+            this.dvForumsList.SearchRow = 0;
             this.dvForumsList.ShowGroups = false;
             this.dvForumsList.Size = new System.Drawing.Size(527, 466);
             this.dvForumsList.TabIndex = 5;

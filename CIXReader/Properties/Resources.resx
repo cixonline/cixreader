@@ -793,4 +793,10 @@
   <data name="MarkAllReadPrompt" xml:space="preserve">
     <value>Mark All Read</value>
   </data>
+  <data name="StartRefresh" xml:space="preserve">
+    <value>&amp;Refresh</value>
+  </data>
+  <data name="StopRefresh" xml:space="preserve">
+    <value>Stop &amp;Refresh</value>
+  </data>
 </root>

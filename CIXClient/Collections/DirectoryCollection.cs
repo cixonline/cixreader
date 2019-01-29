@@ -304,12 +304,9 @@ namespace CIXClient.Collections
         /// </summary>
         internal void Sync()
         {
-            if (CIX.Online)
+            foreach (DirForum forum in Forums.Where(forum => forum.HasPending))
             {
-                foreach (DirForum forum in Forums.Where(forum => forum.HasPending))
-                {
-                    forum.Sync();
-                }
+                forum.Sync();
             }
         }
 

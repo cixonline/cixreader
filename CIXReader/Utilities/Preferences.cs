@@ -64,7 +64,7 @@ namespace CIXReader.Utilities
         public const string MAPref_ViewStatusBar = "ViewStatusBar";
         public const string MAPref_ViewMenuBar = "ShowMenuBar";
         public const string MAPref_ShowToolBar = "ShowToolBar";
-        public const string MAPref_StartOffline = "StartOffline";
+        public const string MAPref_StartOffline = "StartOffline20";
         public const string MAPref_LastAddress = "LastAddress";
         public const string MAPref_CacheCleanUpFrequency = "CacheCleanUpFrequency";
         public const string MAPref_LastCacheCleanUp = "LastCacheCleanUp";
@@ -108,7 +108,7 @@ namespace CIXReader.Utilities
             _viewStatusBar = ReadBoolean(MAPref_ViewStatusBar);
             _viewMenuBar = ReadBoolean(MAPref_ViewMenuBar, true);
             _showToolBar = ReadBoolean(MAPref_ShowToolBar, true);
-            _startOffline = ReadBoolean(MAPref_StartOffline);
+            _startOffline = ReadBoolean(MAPref_StartOffline, true);
             _cacheCleanUpFrequency = ReadInteger(MAPref_CacheCleanUpFrequency);
             _lastCacheCleanUp = ReadDate(MAPref_LastCacheCleanUp, DateTime.MinValue);
             _useBeta = ReadBoolean(MAPref_UseBeta);

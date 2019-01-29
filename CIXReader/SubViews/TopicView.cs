@@ -134,7 +134,10 @@ namespace CIXReader.SubViews
                     {
                         Int32.TryParse(address.Data, out _lastIndex);
                     }
-                    folder.Refresh();
+                    if (CIX.Online)
+                    {
+                        folder.Refresh();
+                    }
                     return false;
                 }
 
@@ -347,7 +350,7 @@ namespace CIXReader.SubViews
                     return false;
 
                 case ActionID.Refresh:
-                    return _currentFolder.ID > 0;
+                    return CIX.Online && _currentFolder.ID > 0;
 
                 case ActionID.Participants:
                     return true;

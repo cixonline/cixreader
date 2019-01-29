@@ -86,8 +86,16 @@ $endif
 $ifscript
 <input type="checkbox" id="_beta" onchange="togglebeta();return false;">Include beta release changes<br>
 $endif
-<div>
+<div class="beta">
 <h2>Version $(version)</h2>
+<ul class="ul1">
+    <li class="li2"><span class="s1">Potential fix for toolbar relayout crash on startup.</span></li>
+    <li class="li2"><span class="s1">Potential fix for spelling checker crash on startup.</span></li>
+    <li class="li2"><span class="s1">Performance: remove animation when displaying search bar.</span></li>
+</ul>
+</div>
+<div>
+<h2>Version 1.65.1170</h2>
 <ul class="ul1">
     <li class="li2"><span class="s1">Fix issue where orphan messages don't appear when grouping by conversation.</span></li>
 </ul>

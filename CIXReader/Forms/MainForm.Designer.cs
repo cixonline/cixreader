@@ -63,6 +63,7 @@ namespace CIXReader.Forms
             this.menuFileReplyByMail = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuFileOffline = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFileRefresh = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuFilePageSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFilePrint = new System.Windows.Forms.ToolStripMenuItem();
@@ -123,6 +124,8 @@ namespace CIXReader.Forms
             this.menuMessageGoToOriginal = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem15 = new System.Windows.Forms.ToolStripSeparator();
             this.menuMessageWithdraw = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuMessageBlock = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFolderJoinForum = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripSeparator();
@@ -160,8 +163,7 @@ namespace CIXReader.Forms
             this.mainStatusBar = new CIXReader.Controls.CRPanel();
             this.mainStatusText = new System.Windows.Forms.Label();
             this.mainProgress = new CIXReader.Controls.CRProgress();
-            this.menuMessageBlock = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+            this.refreshtCtrlTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPopupMenu.SuspendLayout();
             this.mainMenubar.SuspendLayout();
             this.menuViewSortByTopic.SuspendLayout();
@@ -311,6 +313,7 @@ namespace CIXReader.Forms
             this.menuFileReplyByMail,
             this.toolStripMenuItem1,
             this.menuFileOffline,
+            this.menuFileRefresh,
             this.toolStripMenuItem3,
             this.menuFilePageSetup,
             this.menuFilePrint,
@@ -356,6 +359,14 @@ namespace CIXReader.Forms
             this.menuFileOffline.Size = new System.Drawing.Size(229, 22);
             this.menuFileOffline.Text = "&Offline";
             this.menuFileOffline.Click += new System.EventHandler(this.mainOffline_Click);
+            // 
+            // menuFileRefresh
+            // 
+            this.menuFileRefresh.Name = "menuFileRefresh";
+            this.menuFileRefresh.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.menuFileRefresh.Size = new System.Drawing.Size(229, 22);
+            this.menuFileRefresh.Text = "&Refresh";
+            this.menuFileRefresh.Click += new System.EventHandler(this.menuFileRefresh_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -811,6 +822,18 @@ namespace CIXReader.Forms
             this.menuMessageWithdraw.Text = "&Withdraw";
             this.menuMessageWithdraw.Click += new System.EventHandler(this.menuMessageWithdraw_Click);
             // 
+            // toolStripSeparator13
+            // 
+            this.toolStripSeparator13.Name = "toolStripSeparator13";
+            this.toolStripSeparator13.Size = new System.Drawing.Size(187, 6);
+            // 
+            // menuMessageBlock
+            // 
+            this.menuMessageBlock.Name = "menuMessageBlock";
+            this.menuMessageBlock.Size = new System.Drawing.Size(190, 22);
+            this.menuMessageBlock.Text = "Block";
+            this.menuMessageBlock.Click += new System.EventHandler(this.menuMessageBlock_Click);
+            // 
             // menuFolder
             // 
             this.menuFolder.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -906,52 +929,52 @@ namespace CIXReader.Forms
             // menuHelpCheckForUpdates
             // 
             this.menuHelpCheckForUpdates.Name = "menuHelpCheckForUpdates";
-            this.menuHelpCheckForUpdates.Size = new System.Drawing.Size(173, 22);
+            this.menuHelpCheckForUpdates.Size = new System.Drawing.Size(180, 22);
             this.menuHelpCheckForUpdates.Text = "&Check For Updates";
             this.menuHelpCheckForUpdates.Click += new System.EventHandler(this.mainCheckForUpdates_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(170, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(177, 6);
             // 
             // menuHelpDiagnostics
             // 
             this.menuHelpDiagnostics.Name = "menuHelpDiagnostics";
-            this.menuHelpDiagnostics.Size = new System.Drawing.Size(173, 22);
+            this.menuHelpDiagnostics.Size = new System.Drawing.Size(180, 22);
             this.menuHelpDiagnostics.Text = "&Diagnostics";
             this.menuHelpDiagnostics.Click += new System.EventHandler(this.mainDiagnostics_Click);
             // 
             // menuHelpCIXSupport
             // 
             this.menuHelpCIXSupport.Name = "menuHelpCIXSupport";
-            this.menuHelpCIXSupport.Size = new System.Drawing.Size(173, 22);
+            this.menuHelpCIXSupport.Size = new System.Drawing.Size(180, 22);
             this.menuHelpCIXSupport.Text = "CIX &Support";
             this.menuHelpCIXSupport.Click += new System.EventHandler(this.mainSupport_Click);
             // 
             // menuHelpViewChangeLog
             // 
             this.menuHelpViewChangeLog.Name = "menuHelpViewChangeLog";
-            this.menuHelpViewChangeLog.Size = new System.Drawing.Size(173, 22);
+            this.menuHelpViewChangeLog.Size = new System.Drawing.Size(180, 22);
             this.menuHelpViewChangeLog.Text = "&View Change Log";
             this.menuHelpViewChangeLog.Click += new System.EventHandler(this.menuHelpViewChangeLog_Click);
             // 
             // menuHelpKeyboardHelp
             // 
             this.menuHelpKeyboardHelp.Name = "menuHelpKeyboardHelp";
-            this.menuHelpKeyboardHelp.Size = new System.Drawing.Size(173, 22);
+            this.menuHelpKeyboardHelp.Size = new System.Drawing.Size(180, 22);
             this.menuHelpKeyboardHelp.Text = "&Keyboard Help";
             this.menuHelpKeyboardHelp.Click += new System.EventHandler(this.mainKeyboardHelp_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(170, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(177, 6);
             // 
             // menuCIXReaderAbout
             // 
             this.menuCIXReaderAbout.Name = "menuCIXReaderAbout";
-            this.menuCIXReaderAbout.Size = new System.Drawing.Size(173, 22);
+            this.menuCIXReaderAbout.Size = new System.Drawing.Size(180, 22);
             this.menuCIXReaderAbout.Text = "&About CIXReader";
             this.menuCIXReaderAbout.Click += new System.EventHandler(this.mainAbout_Click);
             // 
@@ -1106,17 +1129,10 @@ namespace CIXReader.Forms
             this.mainProgress.Text = "crProgress1";
             this.mainProgress.Visible = false;
             // 
-            // menuMessageBlock
+            // refreshtCtrlTToolStripMenuItem
             // 
-            this.menuMessageBlock.Name = "menuMessageBlock";
-            this.menuMessageBlock.Size = new System.Drawing.Size(190, 22);
-            this.menuMessageBlock.Text = "Block";
-            this.menuMessageBlock.Click += new System.EventHandler(this.menuMessageBlock_Click);
-            // 
-            // toolStripSeparator13
-            // 
-            this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(187, 6);
+            this.refreshtCtrlTToolStripMenuItem.Name = "refreshtCtrlTToolStripMenuItem";
+            this.refreshtCtrlTToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
             // MainForm
             // 
@@ -1177,6 +1193,7 @@ namespace CIXReader.Forms
         private ToolStripMenuItem menuFilePrint;
         private ToolStripSeparator toolStripMenuItem4;
         private ToolStripMenuItem menuFileSignOut;
+        private ToolStripMenuItem menuFileRefresh;
         private ToolStripMenuItem menuEdit;
         private ToolStripMenuItem menuView;
         private ToolStripMenuItem menuMessage;
@@ -1270,5 +1287,6 @@ namespace CIXReader.Forms
         private ToolStripMenuItem menuViewCustomiseToolbar;
         private ToolStripSeparator toolStripSeparator13;
         private ToolStripMenuItem menuMessageBlock;
+        private ToolStripMenuItem refreshtCtrlTToolStripMenuItem;
     }
 }

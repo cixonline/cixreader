@@ -87,6 +87,8 @@ namespace CIXReader.SubViews
                     return _thisForum != null && _thisForum.IsModerator;
 
                 case ActionID.Refresh:
+                    return CIX.Online;
+
                 case ActionID.Participants:
                     return true;
             }

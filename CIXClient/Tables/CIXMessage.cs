@@ -651,20 +651,17 @@ namespace CIXClient.Tables
         /// </summary>
         public void Sync()
         {
-            if (CIX.Online)
+            if (PostPending)
             {
-                if (PostPending)
-                {
-                    PostMessage();
-                }
-                if (StarPending)
-                {
-                    StarMessage();
-                }
-                if (WithdrawPending)
-                {
-                    WithdrawMessage();
-                }
+                PostMessage();
+            }
+            if (StarPending)
+            {
+                StarMessage();
+            }
+            if (WithdrawPending)
+            {
+                WithdrawMessage();
             }
         }
 

@@ -60,25 +60,22 @@ namespace CIXClient.Collections
         /// </summary>
         public void Sync()
         {
-            if (CIX.Online)
+            try
             {
-                try
+                Profile selfProfile = Profile.ProfileForUser(CIX.Username);
+                if (selfProfile.Pending)
                 {
-                    Profile selfProfile = Profile.ProfileForUser(CIX.Username);
-                    if (selfProfile.Pending)
-                    {
-                        selfProfile.Sync();
-                    }
-                    Mugshot selfMugshot = Mugshot.MugshotForUser(CIX.Username, false);
-                    if (selfMugshot.Pending)
-                    {
-                        selfMugshot.Sync();
-                    }
+                    selfProfile.Sync();
                 }
-                catch (Exception e)
+                Mugshot selfMugshot = Mugshot.MugshotForUser(CIX.Username, false);
+                if (selfMugshot.Pending)
                 {
-                    CIX.ReportServerExceptions("ProfileCollection.Sync", e);
+                    selfMugshot.Sync();
                 }
+            }
+            catch (Exception e)
+            {
+                CIX.ReportServerExceptions("ProfileCollection.Sync", e);
             }
         }
 

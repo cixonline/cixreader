@@ -766,7 +766,7 @@ namespace CIXClient.Collections
         /// </summary>
         internal void Sync()
         {
-            if (CIX.Online && CIX.IsTasksRunning)
+            if (CIX.CanRunTasks)
             {
                 try
                 {
@@ -999,7 +999,7 @@ namespace CIXClient.Collections
         /// <param name="useFastSync">A flag that specifies whether or not to use fast sync</param>
         internal void Refresh(bool useFastSync)
         {
-            if (!CIX.Online || _isInRefresh)
+            if (_isInRefresh)
             {
                 return;
             }
@@ -1303,13 +1303,10 @@ namespace CIXClient.Collections
         /// </summary>
         private static void PostMessages()
         {
-            if (CIX.Online)
+            TableQuery<CIXMessage> cixMessages = CIX.DB.Table<CIXMessage>().Where(fld => fld.PostPending);
+            foreach (CIXMessage message in cixMessages)
             {
-                TableQuery<CIXMessage> cixMessages = CIX.DB.Table<CIXMessage>().Where(fld => fld.PostPending);
-                foreach (CIXMessage message in cixMessages)
-                {
-                    message.RealMessage.Sync();
-                }
+                message.RealMessage.Sync();
             }
         }
 
@@ -1493,21 +1490,18 @@ namespace CIXClient.Collections
         /// </summary>
         private static void FlushFolders()
         {
-            if (CIX.Online)
+            Folder[] modifiedFolders = CIX.FolderCollection.Where(fld => fld.IsModified).ToArray();
+            if (modifiedFolders.Length > 0)
             {
-                Folder[] modifiedFolders = CIX.FolderCollection.Where(fld => fld.IsModified).ToArray();
-                if (modifiedFolders.Length > 0)
+                lock (CIX.DBLock)
                 {
-                    lock (CIX.DBLock)
-                    {
-                        CIX.DB.UpdateAll(modifiedFolders);
+                    CIX.DB.UpdateAll(modifiedFolders);
 
-                        // Clear the flag asap. There could be a race condition here
-                        // unfortunately. Fix this.
-                        foreach (Folder folder in modifiedFolders)
-                        {
-                            folder.IsModified = false;
-                        }
+                    // Clear the flag asap. There could be a race condition here
+                    // unfortunately. Fix this.
+                    foreach (Folder folder in modifiedFolders)
+                    {
+                        folder.IsModified = false;
                     }
                 }
             }
