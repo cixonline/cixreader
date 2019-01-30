@@ -64,7 +64,7 @@ namespace CIXReader.Utilities
         public const string MAPref_ViewStatusBar = "ViewStatusBar";
         public const string MAPref_ViewMenuBar = "ShowMenuBar";
         public const string MAPref_ShowToolBar = "ShowToolBar";
-        public const string MAPref_StartOffline = "StartOffline20";
+        public const string MAPref_StartOffline = "StartOffline";
         public const string MAPref_LastAddress = "LastAddress";
         public const string MAPref_CacheCleanUpFrequency = "CacheCleanUpFrequency";
         public const string MAPref_LastCacheCleanUp = "LastCacheCleanUp";

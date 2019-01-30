@@ -171,10 +171,18 @@ namespace CIXReader.SubViews
             switch (id)
             {
                 case ActionID.Refresh:
-                    CIX.RefreshOnlineUsers();
-                    FolderCollection.RefreshInterestingThreads();
+                    Refresh();
                     break;
             }
+        }
+
+        /// <summary>
+        /// Refresh the welcome view
+        /// </summary>
+        public override void Refresh()
+        {
+            CIX.RefreshOnlineUsers();
+            FolderCollection.RefreshInterestingThreads();
         }
 
         /// <summary>

@@ -489,6 +489,15 @@ namespace CIXReader.Forms
         }
 
         /// <summary>
+        /// Display the specified text on the status bar.
+        /// </summary>
+        public void SetStatusText(string statusText)
+        {
+            mainStatusText.Text = statusText ?? (CIX.AreTasksRunning ? Resources.SyncMessage : String.Empty );
+            mainStatusText.Refresh();
+        }
+
+        /// <summary>
         /// Stop the progress spinner on the status bar.
         /// </summary>
         public void StopStatusProgressSpinner()
@@ -1012,6 +1021,7 @@ namespace CIXReader.Forms
             // Refresh status
             CIX.RefreshStatusStarted += OnRefreshStatusStarted;
             CIX.RefreshStatusEnded += OnRefreshStatusEnded;
+            CIX.RefreshStatusMessage += OnRefreshStatusMessage;
 
             // Get notified of authentication errors
             CIX.AuthenticationFailed += OnAuthenticationFailed;
@@ -1084,6 +1094,16 @@ namespace CIXReader.Forms
 
             // Start tasks running
             CIX.StartTask();
+
+            // Start the first refresh
+            if (Program.IsFirstRun)
+            {
+                SyncProgress progress = new SyncProgress();
+                if (progress.ShowDialog() == DialogResult.Cancel) 
+                {
+                    Close();
+                }
+            }
         }
 
         /// <summary>
@@ -1189,18 +1209,29 @@ namespace CIXReader.Forms
         /// <summary>
         /// Called when CIX refresh starts
         /// </summary>
-        private void OnRefreshStatusStarted(object sender, EventArgs args)
+        private void OnRefreshStatusStarted(object sender, StatusEventArgs args)
         {
             Platform.UIThread(this, delegate
                 {
-                    StartStatusProgressSpinner("Refreshing database from CIX...");
+                    StartStatusProgressSpinner(Resources.SyncMessage);
+                });
+        }
+
+        /// <summary>
+        /// Called when CIX has a status message
+        /// </summary>
+        private void OnRefreshStatusMessage(object sender, StatusEventArgs args)
+        {
+            Platform.UIThread(this, delegate
+                {
+                    SetStatusText(args.Message);
                 });
         }
 
         /// <summary>
         /// Called when CIX refresh completes
         /// </summary>
-        private void OnRefreshStatusEnded(object sender, EventArgs args)
+        private void OnRefreshStatusEnded(object sender, StatusEventArgs args)
         {
             Platform.UIThread(this, delegate
                 {

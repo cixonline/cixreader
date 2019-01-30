@@ -47,6 +47,7 @@
     <Compile Include="Collections\DirectoryEventArgs.cs" />
     <Compile Include="Collections\FoldersAddedEventArgs.cs" />
     <Compile Include="Collections\RuleCollection.cs" />
+    <Compile Include="Collections\StatusEventArgs.cs" />
     <Compile Include="Crypto.cs" />
     <Compile Include="Database\NativeMethods.cs" />
     <Compile Include="Models\Forum.cs" />

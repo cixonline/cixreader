@@ -421,7 +421,7 @@
   <data name="LatestVersionTitle" xml:space="preserve">
     <value>Update</value>
   </data>
-  <data name="StatusMessagePost" xml:space="preserve">
+  <data name="StatusMessagePosting" xml:space="preserve">
     <value>Posting message "{0}"</value>
   </data>
   <data name="StatusTopicRefresh" xml:space="preserve">
@@ -798,5 +798,11 @@
   </data>
   <data name="StopRefresh" xml:space="preserve">
     <value>Stop &amp;Refresh</value>
+  </data>
+  <data name="StatusMessagePosted" xml:space="preserve">
+    <value>Posted message "{0}"</value>
+  </data>
+  <data name="SyncMessage" xml:space="preserve">
+    <value>Refreshing database from CIX...</value>
   </data>
 </root>

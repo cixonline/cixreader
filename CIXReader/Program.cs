@@ -53,6 +53,11 @@ namespace CIXReader
         /// </summary>
         public static ShutdownReasonType ShutdownReason { private get; set; }
 
+        /// <summary>
+        /// Flag indicating whether this is a first run
+        /// </summary>
+        public static bool IsFirstRun { get; set; }
+
         // Mutex used to control access to running instances
         static readonly Mutex mutex = new Mutex(true, "{16042BB8-B234-4992-9CE4-BE88B4EC6E1D}");
 
@@ -282,6 +287,7 @@ namespace CIXReader
         /// <returns>True if we initialised successfully, false otherwise</returns>
         private static bool InitialiseFirstRun()
         {
+            IsFirstRun = true;
             if (Settings.CurrentUser.GetBoolean("FirstRun", true))
             {
                 int firstRunLicense = 0;
@@ -292,6 +298,8 @@ namespace CIXReader
                     firstRunLicense = (int)regKey.GetValue("FirstRunLicense", 0);
                     regKey.Close();
                 }
+
+                IsFirstRun = true;
 
                 Settings.CurrentUser.SetBoolean("FirstRun", false);
             }

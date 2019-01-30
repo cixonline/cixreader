@@ -81,6 +81,11 @@ namespace CIXClient.Tables
         public bool DetailsPending { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether a refresh of Forum details are pending.
+        /// </summary>
+        public bool RefreshPending { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether a join is pending.
         /// </summary>
         public bool JoinPending { get; set; }
@@ -140,7 +145,7 @@ namespace CIXClient.Tables
         [Ignore]
         public bool HasPending
         {
-            get { return JoinPending || DetailsPending; }
+            get { return JoinPending || DetailsPending || RefreshPending; }
         }
 
         /// <summary>
@@ -240,46 +245,7 @@ namespace CIXClient.Tables
         {
             if (string.IsNullOrEmpty(Parts) && CIX.Online && Interlocked.CompareExchange(ref isParticipantsRefreshing, 1, 0) == 0)
             {
-                Thread t = new Thread(() =>
-                {
-                    try
-                    {
-                        List<string> participants = new List<string>();
-
-                        LogFile.WriteLine("Updating list of participants for {0}", Name);
-
-                        string urlFormat = string.Format("forums/{0}/participants", FolderCollection.EncodeForumName(Name));
-
-                        HttpWebRequest wrGeturl = APIRequest.GetWithQuery(urlFormat, APIRequest.APIFormat.XML, "maxresults=10000");
-                        Stream objStream = APIRequest.ReadResponse(wrGeturl);
-                        if (objStream != null)
-                        {
-                            using (XmlReader reader = XmlReader.Create(objStream))
-                            {
-                                XmlSerializer serializer = new XmlSerializer(typeof(Parts));
-                                Parts allParticipants = (Parts)serializer.Deserialize(reader);
-
-                                participants.AddRange(allParticipants.Users.Select(part => part.Name));
-
-                                Parts = string.Join(",", participants);
-                                                       
-                                LogFile.WriteLine("List of participants for {0} updated", Name);
-
-                                lock (CIX.DBLock)
-                                {
-                                    CIX.DB.Update(this);
-                                }
-                            }
-                        }
-                        CIX.DirectoryCollection.NotifyParticipantsUpdated(this);
-                    }
-                    catch (Exception e)
-                    {
-                        CIX.ReportServerExceptions("DirForum.Participants", e);
-                    }
-                    isParticipantsRefreshing = 0;
-                });
-                t.Start();
+                RefreshParticipants();
             }
             return string.IsNullOrEmpty(Parts) ? new string[0] : Parts.Split(',');
         }
@@ -292,48 +258,100 @@ namespace CIXClient.Tables
         {
             if (string.IsNullOrEmpty(Mods) && CIX.Online && Interlocked.CompareExchange(ref isModeratorsRefreshing, 1, 0) == 0)
             {
-                Thread t = new Thread(() =>
-                {
-                    try
-                    {
-                        List<string> moderators = new List<string>();
-
-                        LogFile.WriteLine("Updating list of moderators for {0}", Name);
-
-                        string urlFormat = string.Format("forums/{0}/moderators", FolderCollection.EncodeForumName(Name));
-
-                        HttpWebRequest wrGeturl = APIRequest.GetWithQuery(urlFormat, APIRequest.APIFormat.XML, "maxresults=10000");
-                        Stream objStream = APIRequest.ReadResponse(wrGeturl);
-                        if (objStream != null)
-                        {
-                            using (XmlReader reader = XmlReader.Create(objStream))
-                            {
-                                XmlSerializer serializer = new XmlSerializer(typeof(ForumMods));
-                                ForumMods allModerators = (ForumMods)serializer.Deserialize(reader);
-
-                                moderators.AddRange(allModerators.Mods.Select(mod => mod.Name));
-
-                                Mods = string.Join(",", moderators);
-
-                                LogFile.WriteLine("List of moderators for {0} updated", Name);
-
-                                lock (CIX.DBLock)
-                                {
-                                    CIX.DB.Update(this);
-                                }
-                            }
-                        }
-                        CIX.DirectoryCollection.NotifyModeratorsUpdated(this);
-                    }
-                    catch (Exception e)
-                    {
-                        CIX.ReportServerExceptions("DirForum.Moderators", e);
-                    }
-                    isModeratorsRefreshing = 0;
-                });
-                t.Start();
+                RefreshModerators();
             }
             return string.IsNullOrEmpty(Mods) ? new string[0] : Mods.Split(',');
+        }
+
+        private void RefreshParticipants() 
+        {
+            Thread t = new Thread(() =>
+            {
+                try
+                {
+                    List<string> participants = new List<string>();
+
+                    LogFile.WriteLine("Updating list of participants for {0}", Name);
+
+                    string urlFormat = string.Format("forums/{0}/participants", FolderCollection.EncodeForumName(Name));
+
+                    HttpWebRequest wrGeturl = APIRequest.GetWithQuery(urlFormat, APIRequest.APIFormat.XML, "maxresults=10000");
+                    Stream objStream = APIRequest.ReadResponse(wrGeturl);
+                    if (objStream != null)
+                    {
+                        using (XmlReader reader = XmlReader.Create(objStream))
+                        {
+                            XmlSerializer serializer = new XmlSerializer(typeof(Parts));
+                            Parts allParticipants = (Parts)serializer.Deserialize(reader);
+
+                            participants.AddRange(allParticipants.Users.Select(part => part.Name));
+
+                            Parts = string.Join(",", participants);
+                                                       
+                            LogFile.WriteLine("List of participants for {0} updated", Name);
+
+                            lock (CIX.DBLock)
+                            {
+                                CIX.DB.Update(this);
+                            }
+                        }
+                    }
+                    CIX.DirectoryCollection.NotifyParticipantsUpdated(this);
+                }
+                catch (Exception e)
+                {
+                    CIX.ReportServerExceptions("DirForum.Participants", e);
+                }
+                isParticipantsRefreshing = 0;
+            });
+            t.Start();
+        }
+
+        /// <summary>
+        /// Refresh the list of moderators
+        /// </summary>
+        private void RefreshModerators() 
+        {
+            Thread t = new Thread(() =>
+            {
+                try
+                {
+                    List<string> moderators = new List<string>();
+
+                    LogFile.WriteLine("Updating list of moderators for {0}", Name);
+
+                    string urlFormat = string.Format("forums/{0}/moderators", FolderCollection.EncodeForumName(Name));
+
+                    HttpWebRequest wrGeturl = APIRequest.GetWithQuery(urlFormat, APIRequest.APIFormat.XML, "maxresults=10000");
+                    Stream objStream = APIRequest.ReadResponse(wrGeturl);
+                    if (objStream != null)
+                    {
+                        using (XmlReader reader = XmlReader.Create(objStream))
+                        {
+                            XmlSerializer serializer = new XmlSerializer(typeof(ForumMods));
+                            ForumMods allModerators = (ForumMods)serializer.Deserialize(reader);
+
+                            moderators.AddRange(allModerators.Mods.Select(mod => mod.Name));
+
+                            Mods = string.Join(",", moderators);
+
+                            LogFile.WriteLine("List of moderators for {0} updated", Name);
+
+                            lock (CIX.DBLock)
+                            {
+                                CIX.DB.Update(this);
+                            }
+                        }
+                    }
+                    CIX.DirectoryCollection.NotifyModeratorsUpdated(this);
+                }
+                catch (Exception e)
+                {
+                    CIX.ReportServerExceptions("DirForum.Moderators", e);
+                }
+                isModeratorsRefreshing = 0;
+            });
+            t.Start();
         }
 
         /// <summary>
@@ -386,11 +404,22 @@ namespace CIXClient.Tables
         /// </summary>
         public void Refresh()
         {
-            Mods = string.Empty;
-            Parts = string.Empty;
+            if (!CIX.Online)
+            {
+                RefreshPending = true;
+                lock (CIX.DBLock)
+                {
+                    CIX.DB.Update(this);
+                }
+            }
+            else
+            {
+                Mods = string.Empty;
+                Parts = string.Empty;
 
-            Participants();
-            Moderators();
+                RefreshParticipants();
+                RefreshModerators();
+            }
         }
 
         /// <summary>
@@ -425,6 +454,21 @@ namespace CIXClient.Tables
         /// </summary>
         internal void Sync()
         {
+            if (RefreshPending)
+            {
+                Mods = string.Empty;
+                Parts = string.Empty;
+
+                CIX.DirectoryCollection.RefreshForum(Name);
+                RefreshParticipants();
+                RefreshModerators();
+
+                RefreshPending = false;
+                lock (CIX.DBLock)
+                {
+                    CIX.DB.Update(this);
+                }
+            }
             if (DetailsPending)
             {
                 SyncDetails();

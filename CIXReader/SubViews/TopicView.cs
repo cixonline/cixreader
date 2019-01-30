@@ -898,8 +898,8 @@ namespace CIXReader.SubViews
             {
                 if (args.Message != null && args.Message.Body != null)
                 {
-                    string statusText = string.Format(Resources.StatusMessagePost, args.Message.Body.FirstLine());
-                    FoldersTree.MainForm.StartStatusProgressSpinner(statusText);
+                    string statusText = string.Format(Resources.StatusMessagePosting, args.Message.Body.TruncateByWordWithLimit(80));
+                    FoldersTree.MainForm.SetStatusText(statusText);
                 }
             });
         }
@@ -909,7 +909,10 @@ namespace CIXReader.SubViews
         /// </summary>
         private void OnMessagePostCompleted(object sender, MessagePostEventArgs args)
         {
-            Platform.UIThread(this, () => FoldersTree.MainForm.StopStatusProgressSpinner());
+            Platform.UIThread(this, delegate
+            {
+                FoldersTree.MainForm.SetStatusText(null);
+            });
         }
 
         /// <summary>

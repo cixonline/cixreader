@@ -67,20 +67,27 @@ namespace CIXClient
         /// </summary>
         /// <param name="sender">The CIX object</param>
         /// <param name="e">Additional update data</param>
-        public delegate void RefreshStatusStartedHandler(object sender, EventArgs e);
+        public delegate void RefreshStatusStartedHandler(object sender, StatusEventArgs e);
 
         /// <summary>
         /// Defines the delegate for RefreshStatusEnded event notifications.
         /// </summary>
         /// <param name="sender">The CIX object</param>
         /// <param name="e">Additional update data</param>
-        public delegate void RefreshStatusEndedHandler(object sender, EventArgs e);
+        public delegate void RefreshStatusEndedHandler(object sender, StatusEventArgs e);
+
+        /// <summary>
+        /// Defines the delegate for RefreshStatusMessage event notifications.
+        /// </summary>
+        /// <param name="sender">The CIX object</param>
+        /// <param name="e">Additional update data</param>
+        public delegate void RefreshStatusMessageHandler(object sender, StatusEventArgs e);
 
         /// <summary>
         /// Defines the delegate for AuthenticationFailedHandler event notifications.
         /// </summary>
-        /// <param name="sender">The ProfileTasks object</param>
-        /// <param name="e">Additional profile update data</param>
+        /// <param name="sender">The CIX object</param>
+        /// <param name="e">Additional update data</param>
         public delegate void AuthenticationFailedHandler(object sender, EventArgs e);
 
         /// <summary>
@@ -98,6 +105,11 @@ namespace CIXClient
         /// Event handler for notifying when a CIX refresh completes.
         /// </summary>
         public static event RefreshStatusEndedHandler RefreshStatusEnded;
+
+        /// <summary>
+        /// Event handler for notifying a CIX status message.
+        /// </summary>
+        public static event RefreshStatusMessageHandler RefreshStatusMessage;
 
         /// <summary>
         /// Event handler for notifying when CIX authentication fails.
@@ -287,7 +299,7 @@ namespace CIXClient
         /// </summary>
         internal static int CurrentVersion
         {
-            get { return 9; }
+            get { return 10; }
         }
 
         /// <summary>
@@ -328,13 +340,13 @@ namespace CIXClient
         /// </summary>
         internal static void RunAllTasksInternal()
         {
-            RefreshStatusStarted(null, new EventArgs());
+            RefreshStatusStarted(null, new StatusEventArgs());
             _syncRunning = true;
             FolderCollection.Sync();
             ConversationCollection.Sync();
             DirectoryCollection.Sync();
             _syncRunning = false;
-            RefreshStatusEnded(null, new EventArgs());
+            RefreshStatusEnded(null, new StatusEventArgs());
         }
 
         /// <summary>
@@ -544,6 +556,13 @@ namespace CIXClient
                 DB.DeleteAll<InboxMessage>();
             }
 
+            // DirForums table has changed
+            if (_globals.Version < 10)
+            {
+                DB.Execute("DROP TABLE IF EXISTS DirForums");
+                DB.CreateTable<DirForum>();
+            }
+
             // Set new version
             if (_globals.Version < CurrentVersion)
             {
@@ -690,6 +709,7 @@ namespace CIXClient
                 try
                 {
                     LogFile.WriteLine("Retrieving list of online users");
+                    RefreshStatusMessage(null, new StatusEventArgs { Message = "Retrieving list of online users"});
 
                     HttpWebRequest wrGeturl = APIRequest.Get("user/who", APIRequest.APIFormat.XML);
                     Stream objStream = APIRequest.ReadResponse(wrGeturl);

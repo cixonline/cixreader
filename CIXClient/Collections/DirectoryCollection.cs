@@ -207,62 +207,59 @@ namespace CIXClient.Collections
         {
             Thread t = new Thread(() =>
             {
-                if (CIX.Online)
+                DirForum forum = null;
+                try
                 {
-                    DirForum forum = null;
-                    try
+                    string encodedForumName = FolderCollection.EncodeForumName(forumName);
+                    LogFile.WriteLine("Updating directory for {0}", forumName);
+
+                    HttpWebRequest wrGeturl = APIRequest.Get("forums/" + encodedForumName + "/details", APIRequest.APIFormat.XML);
+                    Stream objStream = APIRequest.ReadResponse(wrGeturl);
+                    if (objStream != null)
                     {
-                        string encodedForumName = FolderCollection.EncodeForumName(forumName);
-                        LogFile.WriteLine("Updating directory for {0}", forumName);
-
-                        HttpWebRequest wrGeturl = APIRequest.Get("forums/" + encodedForumName + "/details", APIRequest.APIFormat.XML);
-                        Stream objStream = APIRequest.ReadResponse(wrGeturl);
-                        if (objStream != null)
+                        using (XmlReader reader = XmlReader.Create(objStream))
                         {
-                            using (XmlReader reader = XmlReader.Create(objStream))
+                            XmlSerializer serializer = new XmlSerializer(typeof(ForumDetails));
+                            ForumDetails forumDetails = (ForumDetails)serializer.Deserialize(reader);
+
+                            bool isNewForum = false;
+
+                            forum = ForumByName(forumDetails.Name);
+                            if (forum == null)
                             {
-                                XmlSerializer serializer = new XmlSerializer(typeof(ForumDetails));
-                                ForumDetails forumDetails = (ForumDetails)serializer.Deserialize(reader);
-
-                                bool isNewForum = false;
-
-                                forum = ForumByName(forumDetails.Name);
-                                if (forum == null)
-                                {
-                                    forum = new DirForum();
-                                    isNewForum = true;
-                                }
-                                forum.Name = forumDetails.Name;
-                                forum.Title = forumDetails.Title;
-                                forum.Desc = forumDetails.Description;
-                                forum.Cat = forumDetails.Category;
-                                forum.Sub = forumDetails.SubCategory;
-                                forum.Recent = forumDetails.Recent;
-                                forum.Type = forumDetails.Type;
-
-                                lock (CIX.DBLock)
-                                {
-                                    if (isNewForum)
-                                    {
-                                        CIX.DB.Insert(forum);
-                                        _allForums[forum.ID] = forum;
-                                    }
-                                    else
-                                    {
-                                        CIX.DB.Update(forum);
-                                    }
-                                }
-
-                                LogFile.WriteLine("Directory for {0} updated", forum.Name);
+                                forum = new DirForum();
+                                isNewForum = true;
                             }
+                            forum.Name = forumDetails.Name;
+                            forum.Title = forumDetails.Title;
+                            forum.Desc = forumDetails.Description;
+                            forum.Cat = forumDetails.Category;
+                            forum.Sub = forumDetails.SubCategory;
+                            forum.Recent = forumDetails.Recent;
+                            forum.Type = forumDetails.Type;
+
+                            lock (CIX.DBLock)
+                            {
+                                if (isNewForum)
+                                {
+                                    CIX.DB.Insert(forum);
+                                    _allForums[forum.ID] = forum;
+                                }
+                                else
+                                {
+                                    CIX.DB.Update(forum);
+                                }
+                            }
+
+                            LogFile.WriteLine("Directory for {0} updated", forum.Name);
                         }
                     }
-                    catch (Exception e)
-                    {
-                        CIX.ReportServerExceptions("DirectoryCollection.RefreshForum", e);
-                    }
-                    NotifyForumUpdated(forum);
                 }
+                catch (Exception e)
+                {
+                    CIX.ReportServerExceptions("DirectoryCollection.RefreshForum", e);
+                }
+                NotifyForumUpdated(forum);
             });
             t.Start();
         }

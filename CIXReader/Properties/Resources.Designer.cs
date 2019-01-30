@@ -1924,11 +1924,20 @@ namespace CIXReader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Posted message &quot;{0}&quot;.
+        /// </summary>
+        internal static string StatusMessagePosted {
+            get {
+                return ResourceManager.GetString("StatusMessagePosted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Posting message &quot;{0}&quot;.
         /// </summary>
-        internal static string StatusMessagePost {
+        internal static string StatusMessagePosting {
             get {
-                return ResourceManager.GetString("StatusMessagePost", resourceCulture);
+                return ResourceManager.GetString("StatusMessagePosting", resourceCulture);
             }
         }
         
@@ -1974,6 +1983,15 @@ namespace CIXReader.Properties {
         internal static string SupportTooltip {
             get {
                 return ResourceManager.GetString("SupportTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refreshing database from CIX....
+        /// </summary>
+        internal static string SyncMessage {
+            get {
+                return ResourceManager.GetString("SyncMessage", resourceCulture);
             }
         }
         

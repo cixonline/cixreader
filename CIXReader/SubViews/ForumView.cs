@@ -60,7 +60,10 @@ namespace CIXReader.SubViews
 
                 FoldersTree.SetTopicName(folder.Name);
 
-                CIX.DirectoryCollection.RefreshForum(folder.Name);
+                if (CIX.Online)
+                {
+                    CIX.DirectoryCollection.RefreshForum(folder.Name);
+                }
 
                 FillCanvas();
             }
