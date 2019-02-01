@@ -1180,8 +1180,10 @@ namespace CIXReader.SubViews
             }
             if (_currentFolder.ID > 0 && !_suspendFixup)
             {
-                TopicFolder topicFolder = (TopicFolder) _currentFolder;
-                topicFolder.Folder.Fixup();
+                // Disable fixup for now as this is contributing to performance issues
+                // with CIXReader.
+                //TopicFolder topicFolder = (TopicFolder) _currentFolder;
+                //topicFolder.Folder.Fixup();
             }
             tsvMessages.VirtualMode = true;
         }

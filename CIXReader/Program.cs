@@ -287,7 +287,6 @@ namespace CIXReader
         /// <returns>True if we initialised successfully, false otherwise</returns>
         private static bool InitialiseFirstRun()
         {
-            IsFirstRun = true;
             if (Settings.CurrentUser.GetBoolean("FirstRun", true))
             {
                 int firstRunLicense = 0;
@@ -302,6 +301,7 @@ namespace CIXReader
                 IsFirstRun = true;
 
                 Settings.CurrentUser.SetBoolean("FirstRun", false);
+                Preferences.StandardPreferences.StartOffline = true;
             }
 
             return true;

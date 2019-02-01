@@ -18,10 +18,14 @@ namespace CIXReader.Forms {
             CIX.RunAllTasks();
         }
 
+        /// <summary>
+        /// Called when RunAllTasks completes.
+        /// </summary>
         private void SyncProgress_Completed(object sender, StatusEventArgs e)
         {
             Platform.UIThread(this, delegate
                 {
+                    CIX.RefreshStatusEnded -= SyncProgress_Completed;
                     DialogResult = DialogResult.OK;
                     Close();
                 });

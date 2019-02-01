@@ -4,7 +4,7 @@
       <title>CIXReader Version $(version)</title>
       <link>https://cixreader.cixhosting.co.uk/cixreader/windows/$(folder)/appcast.xml</link>
       <description>Most recent changes with links to updates.</description>
-      <copyright>Copyright 2014-2016, CIXOnline Ltd</copyright>
+      <copyright>Copyright 2014-2019, CIXOnline Ltd</copyright>
       <language>en</language>      
          <item>
             <title>Version $(version)</title>

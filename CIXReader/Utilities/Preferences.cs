@@ -108,7 +108,7 @@ namespace CIXReader.Utilities
             _viewStatusBar = ReadBoolean(MAPref_ViewStatusBar);
             _viewMenuBar = ReadBoolean(MAPref_ViewMenuBar, true);
             _showToolBar = ReadBoolean(MAPref_ShowToolBar, true);
-            _startOffline = ReadBoolean(MAPref_StartOffline, true);
+            _startOffline = ReadBoolean(MAPref_StartOffline);
             _cacheCleanUpFrequency = ReadInteger(MAPref_CacheCleanUpFrequency);
             _lastCacheCleanUp = ReadDate(MAPref_LastCacheCleanUp, DateTime.MinValue);
             _useBeta = ReadBoolean(MAPref_UseBeta);

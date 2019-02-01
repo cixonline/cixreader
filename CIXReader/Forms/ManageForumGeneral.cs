@@ -56,7 +56,7 @@ namespace CIXReader.Forms
         {
             forumName.Text = _forum.Name;
             forumTitle.Text = _forum.Title;
-            forumDesc.Text = _forum.Desc.FixNewlines();
+            forumDesc.Text = _forum.Desc?.FixNewlines();
 
             forumType.Items.Clear();
             foreach (string typeName in forumTypeMap.Values)

@@ -1331,6 +1331,7 @@ namespace CIXReader.Forms
         private void ChangeOnlineState(bool newState)
         {
             CIX.Online = newState;
+            Preferences.StandardPreferences.StartOffline = !newState;
             UpdateCaption();
         }
 
