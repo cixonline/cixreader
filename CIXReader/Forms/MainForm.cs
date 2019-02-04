@@ -1269,13 +1269,13 @@ namespace CIXReader.Forms
         /// <summary>
         /// Update the logon mugshot if this changes globally.
         /// </summary>
-        private void OnMugshotUpdated(Mugshot mugshot)
+        private void OnMugshotUpdated(object sender, MugshotEventArgs e)
         {
             Platform.UIThread(this, delegate
                 {
-                    if (mugshot.Username == CIX.Username)
+                    if (e.Mugshot.Username == CIX.Username)
                     {
-                        _logonImage.Image = mugshot.RealImage;
+                        _logonImage.Image = e.Mugshot.RealImage;
                     }
                 });
         }

@@ -36,6 +36,7 @@ using System.Threading;
 #pragma warning disable 1591
 namespace CIXClient.Database
 {
+    [Serializable]
     internal sealed class SQLiteException : Exception
     {
         public SQLite3.Result Result { get; private set; }

@@ -824,7 +824,7 @@ namespace CIXClient.Tables
                         {
                             CIX.DB.Update(root);
                         }
-                        CIX.FolderCollection.NotifyMessageChanged(root);
+                        //CIX.FolderCollection.NotifyMessageChanged(root);
                     }
                 }
                 lock (CIX.DBLock)

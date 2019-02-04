@@ -58,7 +58,7 @@ namespace CIXReader.Forms
             forumRemoveMod.Enabled = false;
         }
 
-        private void OnModeratorsUpdated(DirForum forum)
+        private void OnModeratorsUpdated(object sender, DirForum forum)
         {
             Platform.UIThread(this, delegate
             {

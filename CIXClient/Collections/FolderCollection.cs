@@ -57,31 +57,33 @@ namespace CIXClient.Collections
         /// <summary>
         /// Defines the delegate for FolderUpdated event notifications.
         /// </summary>
-        /// <param name="folder">The folder object</param>
-        public delegate void FolderUpdatedHandler(Folder folder);
+        /// <param name="sender">The FolderCollection object</param>
+        /// <param name="e">Additional folder update data</param>
+        public delegate void FolderUpdatedHandler(object sender, FolderEventArgs e);
 
         /// <summary>
         /// Defines the delegate for FolderAdded event notifications.
         /// </summary>
         /// <param name="sender">The FolderCollection object</param>
-        /// <param name="args">Additional folder update data</param>
-        public delegate void FoldersAddedHandler(object sender, FoldersAddedEventArgs args);
+        /// <param name="e">Additional folder update data</param>
+        public delegate void FoldersAddedHandler(object sender, FoldersAddedEventArgs e);
 
         /// <summary>
         /// Defines the delegate for FolderDeleted event notifications.
         /// </summary>
+        /// <param name="sender">The FolderCollection object</param>
         /// <param name="folder">The folder object</param>
-        public delegate void FolderDeletedHandler(Folder folder);
+        public delegate void FolderDeletedHandler(object sender, Folder folder);
 
         /// <summary>
         /// Defines the delegate for FolderRefreshed event notifications.
         /// </summary>
         /// <param name="sender">The FolderCollection object</param>
-        /// <param name="args">Additional folder update data</param>
-        public delegate void FolderRefreshedHandler(object sender, FolderEventArgs args);
+        /// <param name="e">Additional folder update data</param>
+        public delegate void FolderRefreshedHandler(object sender, FolderEventArgs e);
 
         /// <summary>
-        /// Defines the delegate for ForumUpdatedHandler event notifications.
+        /// Defines the delegate for ForumUpdateStartedHandler event notifications.
         /// </summary>
         /// <param name="sender">The FolderCollection object</param>
         /// <param name="e">Additional forum update data</param>
@@ -95,14 +97,14 @@ namespace CIXClient.Collections
         public delegate void ForumUpdateCompletedHandler(object sender, EventArgs e);
 
         /// <summary>
-        /// Defines the delegate for TopicUpdatedHandler event notifications.
+        /// Defines the delegate for TopicUpdateStartedHandler event notifications.
         /// </summary>
         /// <param name="sender">The FolderCollection object</param>
         /// <param name="e">Additional forum update data</param>
         public delegate void TopicUpdateStartedHandler(object sender, FolderEventArgs e);
 
         /// <summary>
-        /// Defines the delegate for TopicUpdateCompleted event notifications.
+        /// Defines the delegate for TopicUpdateCompletedHandler event notifications.
         /// </summary>
         /// <param name="sender">The FolderCollection object</param>
         /// <param name="e">Additional forum update data</param>
@@ -118,20 +120,23 @@ namespace CIXClient.Collections
         /// <summary>
         /// Defines the delegate for the MessageDeleted event notification
         /// </summary>
+        /// <param name="sender">The FolderCollection object</param>
         /// <param name="message">The message that was deleted</param>
-        public delegate void MessageDeletedHandler(CIXMessage message);
+        public delegate void MessageDeletedHandler(object sender, CIXMessage message);
 
         /// <summary>
         /// Defines the delegate for the MessageChanged event notification
         /// </summary>
+        /// <param name="sender">The FolderCollection object</param>
         /// <param name="message">The message that changed</param>
-        public delegate void MessageChangedHandler(CIXMessage message);
+        public delegate void MessageChangedHandler(object sender, CIXMessage message);
 
         /// <summary>
         /// Defines the delegate for the ThreadChanged event notification
         /// </summary>
+        /// <param name="sender">The FolderCollection object</param>
         /// <param name="message">The root message of the thread that changed</param>
-        public delegate void ThreadChangedHandler(CIXMessage message);
+        public delegate void ThreadChangedHandler(object sender, CIXMessage message);
 
         /// <summary>
         /// Defines the delegate for AccountUpdated event notifications.
@@ -795,10 +800,7 @@ namespace CIXClient.Collections
         /// <param name="message">The root message of the thread that has changed</param>
         internal void NotifyThreadChanged(CIXMessage message)
         {
-            if (ThreadChanged != null)
-            {
-                ThreadChanged(message);
-            }
+            ThreadChanged?.Invoke(this, message);
         }
 
         /// <summary>
@@ -807,10 +809,7 @@ namespace CIXClient.Collections
         /// <param name="message">The CIXMessage that has been changed</param>
         internal void NotifyMessageChanged(CIXMessage message)
         {
-            if (MessageChanged != null)
-            {
-                MessageChanged(message);
-            }
+            MessageChanged?.Invoke(this, message);
         }
 
         /// <summary>
@@ -819,10 +818,7 @@ namespace CIXClient.Collections
         /// <param name="message">The CIXMessage that has been added</param>
         internal void NotifyMessageAdded(CIXMessage message)
         {
-            if (MessageAdded != null)
-            {
-                MessageAdded(message);
-            }
+            MessageAdded?.Invoke(this, message);
         }
 
         /// <summary>
@@ -831,10 +827,7 @@ namespace CIXClient.Collections
         /// <param name="message">The CIXMessage that has been deleted</param>
         internal void NotifyMessageDeleted(CIXMessage message)
         {
-            if (MessageDeleted != null)
-            {
-                MessageDeleted(message);
-            }
+            MessageDeleted?.Invoke(this, message);
         }
 
         /// <summary>
@@ -843,10 +836,7 @@ namespace CIXClient.Collections
         /// <param name="folder">The folder that has been updated</param>
         internal void NotifyFolderUpdated(Folder folder)
         {
-            if (FolderUpdated != null)
-            {
-                FolderUpdated(folder);
-            }
+            FolderUpdated?.Invoke(this, new FolderEventArgs { Folder = folder });
         }
 
         /// <summary>
@@ -855,10 +845,7 @@ namespace CIXClient.Collections
         /// <param name="args">A FolderEventArgs structure to be passed to the delegates</param>
         internal void NotifyFolderRefreshed(FolderEventArgs args)
         {
-            if (FolderRefreshed != null)
-            {
-                FolderRefreshed(this, args);
-            }
+            FolderRefreshed?.Invoke(this, args);
         }
 
         /// <summary>
@@ -867,10 +854,7 @@ namespace CIXClient.Collections
         /// <param name="folders">A list of folders that have been added</param>
         internal void NotifyFoldersAdded(List<Folder> folders)
         {
-            if (FoldersAdded != null)
-            {
-                FoldersAdded(this, new FoldersAddedEventArgs { Folders = folders });
-            }
+            FoldersAdded?.Invoke(this, new FoldersAddedEventArgs { Folders = folders });
         }
 
         /// <summary>
@@ -879,10 +863,7 @@ namespace CIXClient.Collections
         /// <param name="folder">The folder that has been deleted</param>
         internal void NotifyFolderDeleted(Folder folder)
         {
-            if (FolderDeleted != null)
-            {
-                FolderDeleted(folder);
-            }
+            FolderDeleted?.Invoke(this, folder);
         }
 
         /// <summary>
@@ -891,10 +872,7 @@ namespace CIXClient.Collections
         /// <param name="accountDetails">An Account object that contains the account details</param>
         internal void NotifyAccountUpdated(Account accountDetails)
         {
-            if (AccountUpdated != null)
-            {
-                AccountUpdated(this, new AccountEventArgs { Account = accountDetails });
-            }
+            AccountUpdated?.Invoke(this, new AccountEventArgs { Account = accountDetails });
         }
 
         /// <summary>
@@ -903,10 +881,7 @@ namespace CIXClient.Collections
         /// <param name="onlineUsers">A list of online users</param>
         internal void NotifyOnlineUsersUpdated(Whos onlineUsers)
         {
-            if (OnlineUsersUpdated != null)
-            {
-                OnlineUsersUpdated(this, new OnlineUsersEventArgs { Users = onlineUsers });
-            }
+            OnlineUsersUpdated?.Invoke(this, new OnlineUsersEventArgs { Users = onlineUsers });
         }
 
         /// <summary>
@@ -915,10 +890,7 @@ namespace CIXClient.Collections
         /// <param name="threads">A list of interesting threads</param>
         internal void NotifyInterestingThreadsUpdated(List<CIXThread> threads)
         {
-            if (InterestingThreadsUpdated != null)
-            {
-                InterestingThreadsUpdated(this, new InterestingThreadsEventArgs { Threads = threads });
-            }
+            InterestingThreadsUpdated?.Invoke(this, new InterestingThreadsEventArgs { Threads = threads });
         }
 
         /// <summary>
@@ -927,10 +899,7 @@ namespace CIXClient.Collections
         /// <param name="folder">The folder that will be updated</param>
         internal void NotifyTopicUpdateStarted(Folder folder)
         {
-            if (TopicUpdateStarted != null)
-            {
-                TopicUpdateStarted(this, new FolderEventArgs { Folder = folder });
-            }
+            TopicUpdateStarted?.Invoke(this, new FolderEventArgs { Folder = folder });
         }
 
         /// <summary>
@@ -939,10 +908,7 @@ namespace CIXClient.Collections
         /// <param name="folder">The folder which has been updated</param>
         internal void NotifyTopicUpdateCompleted(Folder folder)
         {
-            if (TopicUpdateCompleted != null)
-            {
-                TopicUpdateCompleted(this, new FolderEventArgs { Folder = folder });
-            }
+            TopicUpdateCompleted?.Invoke(this, new FolderEventArgs { Folder = folder });
         }
 
         /// <summary>
@@ -950,10 +916,7 @@ namespace CIXClient.Collections
         /// </summary>
         internal void NotifyForumUpdateStarted()
         {
-            if (ForumUpdateStarted != null)
-            {
-                ForumUpdateStarted(this, new EventArgs());
-            }
+            ForumUpdateStarted?.Invoke(this, new EventArgs());
         }
 
         /// <summary>
@@ -961,10 +924,7 @@ namespace CIXClient.Collections
         /// </summary>
         internal void NotifyForumUpdateCompleted()
         {
-            if (ForumUpdateCompleted != null)
-            {
-                ForumUpdateCompleted(this, new EventArgs());
-            }
+            ForumUpdateCompleted?.Invoke(this, new EventArgs());
         }
 
         /// <summary>
@@ -973,10 +933,7 @@ namespace CIXClient.Collections
         /// <param name="message">The CIXMessage that will be posted</param>
         internal void NotifyMessagePostStarted(CIXMessage message)
         {
-            if (MessagePostStarted != null)
-            {
-                MessagePostStarted(this, new MessagePostEventArgs { Message = message });
-            }
+            MessagePostStarted?.Invoke(this, new MessagePostEventArgs { Message = message });
         }
 
         /// <summary>
@@ -985,10 +942,7 @@ namespace CIXClient.Collections
         /// <param name="message">The CIXMessage that has been posted</param>
         internal void NotifyMessagePostCompleted(CIXMessage message)
         {
-            if (MessagePostCompleted != null)
-            {
-                MessagePostCompleted(this, new MessagePostEventArgs { Message = message });
-            }
+            MessagePostCompleted?.Invoke(this, new MessagePostEventArgs { Message = message });
         }
 
         /// <summary>

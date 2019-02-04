@@ -220,6 +220,7 @@ namespace CIXClient
         /// <param name="postObject">For POST, this is the object to be posted</param>
         /// <param name="queryString">Optional query string for the URL</param>
         /// <returns>A constructed HttpWebRequest</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
         private static HttpWebRequest Create(string apiFunction, string username, string password, APIFormat format, APIMethod method, object postObject, string queryString)
         {
             HttpWebRequest request;

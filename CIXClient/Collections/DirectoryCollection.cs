@@ -34,20 +34,23 @@ namespace CIXClient.Collections
         /// <summary>
         /// Defines the delegate for ForumJoined event notifications.
         /// </summary>
-        /// <param name="forum">The Folder object</param>
-        public delegate void ForumJoinedHandler(Folder forum);
+        /// <param name="sender">The DirectoryCollection object</param>
+        /// <param name="e">Additional event data</param>
+        public delegate void ForumJoinedHandler(object sender, FolderEventArgs e);
 
         /// <summary>
         /// Defines the delegate for ParticipantsUpdated event notifications.
         /// </summary>
+        /// <param name="sender">The DirectoryCollection object</param>
         /// <param name="forum">The DirForum object</param>
-        public delegate void ParticipantsUpdatedHandler(DirForum forum);
+        public delegate void ParticipantsUpdatedHandler(object sender, DirForum forum);
 
         /// <summary>
         /// Defines the delegate for ModeratorsUpdated event notifications.
         /// </summary>
+        /// <param name="sender">The DirectoryCollection object</param>
         /// <param name="forum">The DirForum object</param>
-        public delegate void ModeratorsUpdatedHandler(DirForum forum);
+        public delegate void ModeratorsUpdatedHandler(object sender, DirForum forum);
 
         /// <summary>
         /// Defines the delegate for DirectoryChanged event notifications.
@@ -59,8 +62,9 @@ namespace CIXClient.Collections
         /// <summary>
         /// Defines the delegate for ForumUpdated event notifications.
         /// </summary>
+        /// <param name="sender">The DirectoryCollection object</param>
         /// <param name="forum">The DirForum object</param>
-        public delegate void ForumUpdatedHandler(DirForum forum);
+        public delegate void ForumUpdatedHandler(object sender, DirForum forum);
 
         /// <summary>
         /// Event handler for notifying a delegate that the directory has been updated.
@@ -313,10 +317,7 @@ namespace CIXClient.Collections
         /// <param name="dirForum">The forum for which the list was updated</param>
         internal void NotifyForumUpdated(DirForum dirForum)
         {
-            if (ForumUpdated != null)
-            {
-                ForumUpdated(dirForum);
-            }
+            ForumUpdated?.Invoke(this, dirForum);
         }
 
         /// <summary>
@@ -325,10 +326,7 @@ namespace CIXClient.Collections
         /// <param name="dirForum">The forum for which the list was updated</param>
         internal void NotifyModeratorsUpdated(DirForum dirForum)
         {
-            if (ModeratorsUpdated != null)
-            {
-                ModeratorsUpdated(dirForum);
-            }
+            ModeratorsUpdated?.Invoke(this, dirForum);
         }
 
         /// <summary>
@@ -337,10 +335,7 @@ namespace CIXClient.Collections
         /// <param name="dirForum">The forum for which the list was updated</param>
         internal void NotifyParticipantsUpdated(DirForum dirForum)
         {
-            if (ParticipantsUpdated != null)
-            {
-                ParticipantsUpdated(dirForum);
-            }
+            ParticipantsUpdated?.Invoke(this, dirForum);
         }
 
         /// <summary>
@@ -349,10 +344,7 @@ namespace CIXClient.Collections
         /// <param name="forum">The forum that was joined</param>
         internal void NotifyForumJoined(Folder forum)
         {
-            if (ForumJoined != null)
-            {
-                ForumJoined(forum);
-            }
+            ForumJoined?.Invoke(this, new FolderEventArgs { Folder = forum });
         }
 
         /// <summary>

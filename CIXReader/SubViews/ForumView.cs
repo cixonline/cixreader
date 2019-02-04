@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using System.Drawing;
 using System.Windows.Forms;
 using CIXClient;
+using CIXClient.Collections;
 using CIXClient.Tables;
 using CIXReader.Canvas;
 using CIXReader.CanvasItems;
@@ -174,7 +175,7 @@ namespace CIXReader.SubViews
         /// <summary>
         /// Update the list of moderators
         /// </summary>
-        private void OnModeratorsUpdated(DirForum forum)
+        private void OnModeratorsUpdated(object sender, DirForum forum)
         {
             Platform.UIThread(this, delegate
             {
@@ -199,14 +200,14 @@ namespace CIXReader.SubViews
         /// Handle mugshot change events. We pass this through to the moderator component to
         /// refresh any that are affected.
         /// </summary>
-        private void OnMugshotUpdated(Mugshot mugshot)
+        private void OnMugshotUpdated(object sender, MugshotEventArgs e)
         {
             Platform.UIThread(this, delegate
             {
                 if (frmCanvas.Items.Count > 1)
                 {
                     ProfileGroupItem moderatorsItem = (ProfileGroupItem) frmCanvas.Items[1];
-                    moderatorsItem.Refresh(mugshot.Username);
+                    moderatorsItem.Refresh(e.Mugshot.Username);
                 }
             });
         }
@@ -290,7 +291,7 @@ namespace CIXReader.SubViews
         /// <summary>
         /// Event invoked when a forum's details are refreshed from the server.
         /// </summary>
-        private void OnDirForumUpdated(DirForum forum)
+        private void OnDirForumUpdated(object sender, DirForum forum)
         {
             if (forum == null || forum.Name != _currentFolder.Name)
             {
@@ -314,12 +315,12 @@ namespace CIXReader.SubViews
         /// Called when details of a forum are refreshed from the server. This may be the title
         /// or description.
         /// </summary>
-        private void OnFolderUpdated(Folder folder)
+        private void OnFolderUpdated(object sender, FolderEventArgs e)
         {
             Platform.UIThread(this, delegate
             {
                 // Handle changes to the topic name or description
-                if (folder == _currentFolder.Folder && frmCanvas.Items.Count > 0)
+                if (e.Folder == _currentFolder.Folder && frmCanvas.Items.Count > 0)
                 {
                     ForumPage forumFolderItem = (ForumPage) frmCanvas.Items[0];
                     forumFolderItem.InvalidateItem();

@@ -867,8 +867,8 @@ namespace CIXReader.SubViews
         /// This notification is triggered if a mugshot is updated from the server. We use this
         /// to refresh the images shown in the thread.
         /// </summary>
-        /// <param name="mugshot">The mugshot object</param>
-        private void OnMugshotUpdated(Mugshot mugshot)
+        /// <param name="e">The mugshot object</param>
+        private void OnMugshotUpdated(object sender, MugshotEventArgs e)
         {
             Platform.UIThread(this, delegate
             {
@@ -879,9 +879,9 @@ namespace CIXReader.SubViews
                     if (control != null)
                     {
                         CIXMessage message = control.Message;
-                        if (message.Author == mugshot.Username)
+                        if (message.Author == e.Mugshot.Username)
                         {
-                            control.Image = mugshot.RealImage;
+                            control.Image = e.Mugshot.RealImage;
                             control.UpdateImage();
                         }
                     }
@@ -918,8 +918,7 @@ namespace CIXReader.SubViews
         /// <summary>
         /// Respond to thread change events
         /// </summary>
-        /// <param name="message">The root message of the thread that changed</param>
-        private void OnThreadChanged(CIXMessage message)
+        private void OnThreadChanged(object sender, CIXMessage message)
         {
             Platform.UIThread(this, delegate
             {
@@ -986,8 +985,7 @@ namespace CIXReader.SubViews
         /// <summary>
         /// Respond to message change events
         /// </summary>
-        /// <param name="message">The CIXMessage that changed</param>
-        private void OnMessageChanged(CIXMessage message)
+        private void OnMessageChanged(object sender, CIXMessage message)
         {
             Platform.UIThread(this, delegate
             {
@@ -1011,8 +1009,7 @@ namespace CIXReader.SubViews
         /// <summary>
         /// This event is raised when a message is added on the database.
         /// </summary>
-        /// <param name="message">Message being added</param>
-        private void OnMessageAdded(CIXMessage message)
+        private void OnMessageAdded(object sender, CIXMessage message)
         {
             Platform.UIThread(this, delegate
             {
@@ -1026,7 +1023,7 @@ namespace CIXReader.SubViews
         /// <summary>
         /// This event is raised when a message is deleted from the database.
         /// </summary>
-        private void OnMessageDeleted(CIXMessage message)
+        private void OnMessageDeleted(object sender, CIXMessage message)
         {
             Platform.UIThread(this, delegate
             {
@@ -2112,7 +2109,7 @@ namespace CIXReader.SubViews
                         if (MessageBox.Show(promptString, titleString, MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             CIX.RuleCollection.Block(message.Author);
-                            OnMessageChanged(message);
+                            OnMessageChanged(this, message);
                         }
                     }
                     break;

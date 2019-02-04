@@ -657,8 +657,7 @@ namespace CIXReader.SubViews
         /// This notification is triggered if a mugshot is updated from the server. We use this
         /// to refresh the images shown in the root message list.
         /// </summary>
-        /// <param name="mugshot">The mugshot task</param>
-        private void OnMugshotUpdated(Mugshot mugshot)
+        private void OnMugshotUpdated(object sender, MugshotEventArgs e)
         {
             Platform.UIThread(this, delegate
             {
@@ -666,9 +665,9 @@ namespace CIXReader.SubViews
                 foreach (InboxItem item in inboxMessagePane.Items.Cast<InboxItem>())
                 {
                     InboxMessage message = item.Message;
-                    if (message.Author == mugshot.Username)
+                    if (message.Author == e.Mugshot.Username)
                     {
-                        item.Image = mugshot.RealImage;
+                        item.Image = e.Mugshot.RealImage;
                         item.Invalidate();
                     }
                 }

@@ -57,7 +57,7 @@ namespace CIXReader.Forms
         /// Callback after the forum details are refreshed from the server, whether or not they
         /// succeed. The e.Forum parameter is null if the forum doesn't exist.
         /// </summary>
-        private void OnForumUpdated(DirForum forum)
+        private void OnForumUpdated(object sender, DirForum forum)
         {
             if (forum != null)
             {
@@ -86,7 +86,7 @@ namespace CIXReader.Forms
             UpdateButtons();
         }
 
-        private void OnParticipantsUpdated(DirForum forum)
+        private void OnParticipantsUpdated(object sender, DirForum forum)
         {
             Platform.UIThread(this, delegate
             {

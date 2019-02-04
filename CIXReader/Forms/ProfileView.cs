@@ -171,14 +171,14 @@ namespace CIXReader.Forms
         /// Handle a mugshot updated. If this mugshot appears in any friend profile then we update
         /// the friend panel shown here.
         /// </summary>
-        private void OnMugshotUpdated(Mugshot mugshot)
+        private void OnMugshotUpdated(object sender, MugshotEventArgs e)
         {
             Platform.UIThread(this, delegate
             {
-                if (Profile != null && Profile.Username == mugshot.Username)
+                if (Profile != null && Profile.Username == e.Mugshot.Username)
                 {
                     ProfileItem item = (ProfileItem) prvDetails.Items[0];
-                    item.Image = mugshot.RealImage;
+                    item.Image = e.Mugshot.RealImage;
                     item.UpdateImage();
                 }
             });

@@ -301,7 +301,6 @@ namespace CIXReader
                 IsFirstRun = true;
 
                 Settings.CurrentUser.SetBoolean("FirstRun", false);
-                Preferences.StandardPreferences.StartOffline = true;
             }
 
             return true;
@@ -393,6 +392,10 @@ namespace CIXReader
 
             string settingsPath = Path.Combine(CIX.HomeFolder, username + ".ini");
             Preferences.Open(settingsPath);
+
+            if (IsFirstRun) {
+                Preferences.StandardPreferences.StartOffline = true;
+            }
 
             InitializeLogFile();
 

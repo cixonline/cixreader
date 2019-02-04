@@ -993,12 +993,11 @@ namespace CIXReader.Forms
         /// Handle the folder update event to redraw the folder's node in the tree
         /// and then update the counts on the shortcut bar.
         /// </summary>
-        /// <param name="folder">The folder that was updated</param>
-        private void OnFolderUpdated(Folder folder)
+        private void OnFolderUpdated(object sender, FolderEventArgs e)
         {
             Platform.UIThread(this, delegate
             {
-                UpdateFolder(folder);
+                UpdateFolder(e.Folder);
                 MainForm.UpdateTotalUnreadCount();
             });
         }
@@ -1038,8 +1037,7 @@ namespace CIXReader.Forms
         /// <summary>
         /// Handle the folder deletion event.
         /// </summary>
-        /// <param name="folder">The folder that was deleted</param>
-        private void OnFolderDeleted(Folder folder)
+        private void OnFolderDeleted(object sender, Folder folder)
         {
             Platform.UIThread(this, delegate
             {
@@ -1077,19 +1075,18 @@ namespace CIXReader.Forms
         /// <summary>
         /// Handle the forum joined event.
         /// </summary>
-        /// <param name="folder">The folder for the forum that was joined</param>
-        private void OnForumJoined(Folder folder)
+        private void OnForumJoined(object sender, FolderEventArgs e)
         {
             Platform.UIThread(this, delegate
             {
-                TreeNode node = FindFolder(_forumsTree.Nodes, folder.Name);
+                TreeNode node = FindFolder(_forumsTree.Nodes, e.Folder.Name);
                 if (node == null)
                 {
-                    node = InsertFolder(folder, false);
+                    node = InsertFolder(e.Folder, false);
                 }
                 else
                 {
-                    UpdateFolder(folder);
+                    UpdateFolder(e.Folder);
                 }
                 SelectFolder(node, FolderOptions.None);
             });

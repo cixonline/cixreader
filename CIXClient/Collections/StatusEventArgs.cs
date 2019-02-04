@@ -9,12 +9,14 @@
 // Copyright (C) 2013-2015 CIX Online Ltd. All Rights Reserved.
 // *****************************************************
 
+using System;
+
 namespace CIXClient.Collections
 {
     /// <summary>
     /// Class that encapsulates the status event arguments
     /// </summary>
-    public sealed class StatusEventArgs
+    public sealed class StatusEventArgs : EventArgs
     {
         /// <summary>
         /// Gets or sets the status bar message

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Collections\DirectoryEventArgs.cs" />
     <Compile Include="Collections\FoldersAddedEventArgs.cs" />
+    <Compile Include="Collections\MugshotEventArgs.cs" />
     <Compile Include="Collections\RuleCollection.cs" />
     <Compile Include="Collections\StatusEventArgs.cs" />
     <Compile Include="Crypto.cs" />

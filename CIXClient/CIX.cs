@@ -93,8 +93,9 @@ namespace CIXClient
         /// <summary>
         /// Defines the delegate for MugshotUpdated event notifications.
         /// </summary>
-        /// <param name="mugshot">The mugshot that was updated</param>
-        public delegate void MugshotUpdatedHandler(Mugshot mugshot);
+        /// <param name="sender">The CIX object</param>
+        /// <param name="e">Additional update data</param>
+        public delegate void MugshotUpdatedHandler(object sender, MugshotEventArgs e);
 
         /// <summary>
         /// Event handler for notifying when a CIX refresh starts.
@@ -739,7 +740,7 @@ namespace CIXClient
         /// <param name="mugshot">The mugshot that was updated</param>
         internal static void NotifyMugshotUpdated(Mugshot mugshot)
         {
-            MugshotUpdated?.Invoke(mugshot);
+            MugshotUpdated?.Invoke(null, new MugshotEventArgs { Mugshot = mugshot });
         }
 
         /// <summary>

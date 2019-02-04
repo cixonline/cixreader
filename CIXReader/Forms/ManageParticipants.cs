@@ -57,7 +57,7 @@ namespace CIXReader.Forms
             forumRemovePart.Enabled = false;
         }
 
-        private void OnParticipantsUpdated(DirForum forum)
+        private void OnParticipantsUpdated(object sender, DirForum forum)
         {
             Platform.UIThread(this, delegate
             {

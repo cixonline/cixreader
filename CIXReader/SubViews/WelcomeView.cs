@@ -136,9 +136,9 @@ namespace CIXReader.SubViews
         /// Handle mugshot change events. We pass this through to the moderator component to
         /// refresh any that are affected.
         /// </summary>
-        private void OnMugshotUpdated(Mugshot mugshot)
+        private void OnMugshotUpdated(object sender, MugshotEventArgs e)
         {
-            Platform.UIThread(this, () => _welcomePage.Refresh(mugshot.Username));
+            Platform.UIThread(this, () => _welcomePage.Refresh(e.Mugshot.Username));
         }
 
         /// <summary>

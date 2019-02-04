@@ -121,14 +121,14 @@ namespace CIXReader.Forms
         /// This notification is triggered if a mugshot is updated from the server. We're
         /// only interested if the current user's mugshot changes.
         /// </summary>
-        /// <param name="mugshot">The mugshot</param>
-        private void OnMugshotUpdated(Mugshot mugshot)
+        /// <param name="e">Event data</param>
+        private void OnMugshotUpdated(object sender, MugshotEventArgs e)
         {
             Platform.UIThread(this, delegate
             {
-                if (mugshot.Username == CIX.Username)
+                if (e.Mugshot.Username == CIX.Username)
                 {
-                    actMugshot.Image = mugshot.RealImage;
+                    actMugshot.Image = e.Mugshot.RealImage;
                 }
             });
         }
