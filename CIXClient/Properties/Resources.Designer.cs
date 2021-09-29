@@ -19,7 +19,7 @@ namespace CIXClient.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -70,8 +70,8 @@ namespace CIXClient.Properties {
         ///  &lt;meta name=&quot;Generator&quot; content=&quot;Cocoa HTML Writer&quot;&gt;
         ///  &lt;meta name=&quot;CocoaVersion&quot; content=&quot;1343.14&quot;&gt;
         ///  &lt;style type=&quot;text/css&quot;&gt;
-        ///    p.p1 {margin: 0; font: 12.0px Helvetica; -webkit-text-stroke: #000000}
-        ///    p.p2 {margin: 0; font: 12. [rest of string was truncated]&quot;;.
+        ///    p.p1 {margin: 0; font: 12.0px Helvetica; -webkit-text-stroke: 4px #000000}
+        ///    p.p2 {margin: 0; font: [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string AdmissionRequestTemplate {
             get {

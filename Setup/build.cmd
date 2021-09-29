@@ -5,7 +5,7 @@ rem
 rem Requirements:
 rem  7-Zip (from the Tools folder)
 rem  Inno Setup (from the Tools folder)
-rem  Visual Studio 2012 Professional or greater
+rem  Visual Studio 2019 or greater
 
 rem Note: Code signing requires the following variables to be set in
 rem advance:

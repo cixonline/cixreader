@@ -19,7 +19,7 @@ Name: "de"; MessagesFile: "compiler:Languages\German.isl"
 AppId={{37AE9380-5018-490B-8C51-3EB6D75C5658}
 AppName=CIXReader
 AppVersion={#PRODUCT_MAX_VER}.{#PRODUCT_MIN_VER}.{#PRODUCT_BUILD}
-AppPublisher=ICUK Ltd
+AppPublisher=CIX Ltd
 AppPublisherURL=https://www.cix.uk/
 AppSupportURL=https://www.cix.uk/
 AppUpdatesURL=https://www.cix.uk/

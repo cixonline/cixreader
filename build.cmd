@@ -35,7 +35,7 @@ perl %_CRDEVROOT%\scripts\replacetokens.pl %_CRDEVROOT%\setup\changes.html %_OUT
 set _OUTFILENAME=%_CRDEVROOT%\drops\changesNoScript.html
 perl %_CRDEVROOT%\scripts\replacetokens.pl %_CRDEVROOT%\setup\changes.html %_OUTFILENAME% %_VERSTRING% %_FOLDER% 0
 
-devenv cixreader.sln /%_OPTION% %_CONFIG% /projectconfig %_CONFIG%
+msbuild cixreader.sln /t:%_OPTION% /p:Configuration=%_CONFIG%
 if errorlevel 1 goto BuildFailed
 
 call %_CRDEVROOT%\setup\build.cmd
