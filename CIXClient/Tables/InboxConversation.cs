@@ -274,8 +274,9 @@ namespace CIXClient.Tables
         /// <param name="message">The draft InboxMessage to be posted</param>
         private void Reply(InboxMessage message)
         {
-            try
-            {
+            bool hasError = false;
+
+            try {
                 PMessageReply reply = new PMessageReply
                 {
                     Body = message.Body.EscapeXml(),
@@ -304,6 +305,10 @@ namespace CIXClient.Tables
                                 }
                                 LogFile.WriteLine("Reply {0} posted to server and updated locally", message.RemoteID);
                             }
+                            else 
+                            {
+                                hasError = true;
+                            }
                         }
                     }
                 }
@@ -311,6 +316,16 @@ namespace CIXClient.Tables
             catch (Exception e)
             {
                 CIX.ReportServerExceptions("InboxConversation.Reply", e);
+                hasError = true;
+            }
+
+            if (hasError) 
+            {
+                Flags |= InboxConversationFlags.Error;
+                lock (CIX.DBLock) 
+                {
+                    CIX.DB.Update(this);
+                }
             }
         }
 
