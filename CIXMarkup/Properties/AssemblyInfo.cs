@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("CIX Ltd")]
 [assembly: AssemblyProduct("CIXMarkup")]
-[assembly: AssemblyCopyright("Copyright © 2014-2021")]
+[assembly: AssemblyCopyright("Copyright © 2014-2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
