@@ -13,6 +13,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using CIXReader.Utilities;
+using TheArtOfDev.HtmlRenderer;
 
 namespace CIXReader.Forms
 {
@@ -44,9 +45,10 @@ namespace CIXReader.Forms
         private void NewSettingsDialog_Load(object sender, EventArgs e)
         {
             // On Linux, Check for Updates is not supported
-            #if __MonoCS__
-            settingsUpdates.Visible = false;
-            #endif
+            if (MonoHelper.IsMono)
+            {
+                settingsUpdates.Visible = false;
+            }
             SelectButton(settingsGeneral);
             LoadPage(_general);
         }

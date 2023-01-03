@@ -474,7 +474,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
 
         #region Private methods
 
-#if !MONO
         /// <summary>
         /// Override to support border for the control.
         /// </summary>
@@ -482,6 +481,11 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
         {
             get
             {
+                if (MonoHelper.IsMono)
+                {
+                    return base.CreateParams;
+                }
+                
                 CreateParams createParams = base.CreateParams;
 
                 switch (_borderStyle)
@@ -498,7 +502,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
                 return createParams;
             }
         }
-#endif
 
         /// <summary>
         /// Perform the layout of the html in the control.
@@ -684,7 +687,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             Invalidate();
         }
 
-#if !MONO
         /// <summary>
         /// Override the proc processing method to set OS specific hand cursor.
         /// </summary>
@@ -692,7 +694,7 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
         [DebuggerStepThrough]
         protected override void WndProc(ref Message m)
         {
-            if (_useSystemCursors && m.Msg == Win32Utils.WmSetCursor && Cursor == Cursors.Hand)
+            if (!MonoHelper.IsMono && _useSystemCursors && m.Msg == Win32Utils.WmSetCursor && Cursor == Cursors.Hand)
             {
                 try
                 {
@@ -708,7 +710,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             }
             base.WndProc(ref m);
         }
-#endif
 
         /// <summary>
         /// Release the html container resources.

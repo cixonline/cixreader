@@ -13,6 +13,7 @@ using System;
 using System.Windows.Forms;
 using CIXReader.UIConfig;
 using CIXReader.Utilities;
+using TheArtOfDev.HtmlRenderer;
 
 namespace CIXReader.Forms
 {
@@ -49,14 +50,17 @@ namespace CIXReader.Forms
             // Get notified of theme changes.
             UI.ThemeChanged += OnThemeChanged;
 
-            // Disable Editor options on Linux
-            #if __MonoCS__
-            settingsSeparator2.Visible = false;
-            settingsSpellAsYouType.Visible = false;
-            settingsEditorLabel.Visible = false;
-            #else
-            settingsSpellAsYouType.Checked = Preferences.StandardPreferences.CheckSpellAsYouType;
-            #endif
+            if (MonoHelper.IsMono)
+            {
+                // Disable Editor options on Linux
+                settingsSeparator2.Visible = false;
+                settingsSpellAsYouType.Visible = false;
+                settingsEditorLabel.Visible = false;
+            }
+            else
+            {
+                settingsSpellAsYouType.Checked = Preferences.StandardPreferences.CheckSpellAsYouType;
+            }
 
             _isInitialising = false;
         }
@@ -79,7 +83,7 @@ namespace CIXReader.Forms
         {
             if (!_isInitialising)
             {
-               Preferences.StandardPreferences.DownloadInlineImages = !settingsDontDownloadImages.Checked;
+                Preferences.StandardPreferences.DownloadInlineImages = !settingsDontDownloadImages.Checked;
             }
         }
 

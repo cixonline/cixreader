@@ -28,6 +28,7 @@ using CIXReader.SpecialFolders;
 using CIXReader.SubViews;
 using CIXReader.UIConfig;
 using CIXReader.Utilities;
+using TheArtOfDev.HtmlRenderer;
 
 namespace CIXReader.Forms
 {
@@ -71,15 +72,18 @@ namespace CIXReader.Forms
         /// </summary>
         private sealed class MainMenuBarRenderer : ToolStripProfessionalRenderer
         {
-            #if __MonoCS__
             protected override void OnRenderToolStripBackground(ToolStripRenderEventArgs e)
             {
+                if (!MonoHelper.IsMono)
+                {
+                    return;
+                }
+                
                 using (SolidBrush backBrush = new SolidBrush(UI.Menu.BackgroundColour))
                 {
                     e.Graphics.FillRectangle(backBrush, e.AffectedBounds);
                 }
             }
-            #endif
             protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
             {
                 if (!e.Item.IsOnDropDown && e.Item.Pressed)
@@ -240,12 +244,12 @@ namespace CIXReader.Forms
 
             // Add the folders tree portion
             _foldersTree = new FoldersTree(this)
-                {
-                    TopLevel = false,
-                    Location = new Point(0, 0),
-                    Parent = _viewPanel,
-                    Size = _viewPanel.Size
-                };
+            {
+                TopLevel = false,
+                Location = new Point(0, 0),
+                Parent = _viewPanel,
+                Size = _viewPanel.Size
+            };
 
             _mainPanel.Controls.Add(_viewPanel);
             _mainPanel.Controls.Add(_toolbar);
@@ -354,7 +358,7 @@ namespace CIXReader.Forms
         /// <param name="line">Message to display</param>
         // ReSharper disable UnusedMember.Global
         public void Message(string line)
-        // ReSharper restore UnusedMember.Global
+            // ReSharper restore UnusedMember.Global
         {
             MessageBox.Show(line);
         }
@@ -364,7 +368,7 @@ namespace CIXReader.Forms
         /// </summary>
         // ReSharper disable UnusedMember.Global
         public FoldersTree FoldersTree
-        // ReSharper restore UnusedMember.Global
+            // ReSharper restore UnusedMember.Global
         {
             get { return _foldersTree; }
         }
@@ -701,11 +705,11 @@ namespace CIXReader.Forms
                     break;
 
                 case ActionID.Markdown:
-                    {
-                        bool disableMarkup = Preferences.StandardPreferences.IgnoreMarkup;
-                        Preferences.StandardPreferences.IgnoreMarkup = !disableMarkup;
-                        break;
-                    }
+                {
+                    bool disableMarkup = Preferences.StandardPreferences.IgnoreMarkup;
+                    Preferences.StandardPreferences.IgnoreMarkup = !disableMarkup;
+                    break;
+                }
 
                 case ActionID.KeyboardHelp:
                     if (_keyHelpDialog == null)
@@ -717,11 +721,11 @@ namespace CIXReader.Forms
                     break;
 
                 case ActionID.ViewChangeLog:
-                    {
-                        string releaseOrBeta = Preferences.StandardPreferences.UseBeta ? "beta" : "release";
-                        LaunchURL(string.Format(Constants.ChangeLogURL, releaseOrBeta));
-                        break;
-                    }
+                {
+                    string releaseOrBeta = Preferences.StandardPreferences.UseBeta ? "beta" : "release";
+                    LaunchURL(string.Format(Constants.ChangeLogURL, releaseOrBeta));
+                    break;
+                }
 
                 case ActionID.JoinForum:
                     if (_foldersTree.CanAction(ActionID.JoinForum))
@@ -1033,25 +1037,24 @@ namespace CIXReader.Forms
             _toolbar.ValidateToolbarItem += OnValidateToolbarItem;
             _toolbar.ActionToolbarItem += OnActionToolbarItem;
 
-            #if __MonoCS__
-            _toolbar.CanCustomise = false;
-            #else
-            _toolbar.CanCustomise = true;
-            #endif
+            _toolbar.CanCustomise = !MonoHelper.IsMono;
+            
             _toolbar.Load();
             _toolbar.RefreshButtons();
 
             // On Linux, make Ctrl+Q the exit shortcut
-            #if __MonoCS__
-            menuFileExit.ShortcutKeys = Keys.Q | Keys.Control;
-            #endif
+            if (MonoHelper.IsMono)
+            {
+                menuFileExit.ShortcutKeys = Keys.Q | Keys.Control;
+            }
 
             // On Linux, Check for Updates is not supported
-            #if __MonoCS__
-            toolStripSeparator8.Visible = false;
-            menuHelpCheckForUpdates.Visible = false;
-            mainCheckForUpdates.Visible = false;
-            #endif
+            if (MonoHelper.IsMono)
+            {
+                toolStripSeparator8.Visible = false;
+                menuHelpCheckForUpdates.Visible = false;
+                mainCheckForUpdates.Visible = false;
+            }
 
             // Search control trigger
             CRToolbarItem item = _toolbar.ItemWithID(ActionID.Search);
@@ -1212,9 +1215,9 @@ namespace CIXReader.Forms
         private void OnRefreshStatusStarted(object sender, StatusEventArgs args)
         {
             Platform.UIThread(this, delegate
-                {
-                    StartStatusProgressSpinner(Resources.SyncMessage);
-                });
+            {
+                StartStatusProgressSpinner(Resources.SyncMessage);
+            });
         }
 
         /// <summary>
@@ -1223,9 +1226,9 @@ namespace CIXReader.Forms
         private void OnRefreshStatusMessage(object sender, StatusEventArgs args)
         {
             Platform.UIThread(this, delegate
-                {
-                    SetStatusText(args.Message);
-                });
+            {
+                SetStatusText(args.Message);
+            });
         }
 
         /// <summary>
@@ -1234,9 +1237,9 @@ namespace CIXReader.Forms
         private void OnRefreshStatusEnded(object sender, StatusEventArgs args)
         {
             Platform.UIThread(this, delegate
-                {
-                    StopStatusProgressSpinner();
-                });
+            {
+                StopStatusProgressSpinner();
+            });
         }
 
         /// <summary>
@@ -1247,23 +1250,23 @@ namespace CIXReader.Forms
         private void OnAuthenticationFailed(object sender, EventArgs args)
         {
             Platform.UIThread(this, delegate
+            {
+                ChangeOnlineState(false);
+
+                Authenticate loginDialog = new Authenticate
                 {
-                    ChangeOnlineState(false);
+                    Username = CIX.Username
+                };
 
-                    Authenticate loginDialog = new Authenticate
-                        {
-                            Username = CIX.Username
-                        };
+                // Stay offline if they cancel.
+                if (loginDialog.ShowDialog() == DialogResult.OK)
+                {
+                    CIX.Username = loginDialog.Username;
+                    CIX.Password = loginDialog.Password;
 
-                    // Stay offline if they cancel.
-                    if (loginDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        CIX.Username = loginDialog.Username;
-                        CIX.Password = loginDialog.Password;
-
-                        ChangeOnlineState(true);
-                    }
-                });
+                    ChangeOnlineState(true);
+                }
+            });
         }
 
         /// <summary>
@@ -1272,12 +1275,12 @@ namespace CIXReader.Forms
         private void OnMugshotUpdated(object sender, MugshotEventArgs e)
         {
             Platform.UIThread(this, delegate
+            {
+                if (e.Mugshot.Username == CIX.Username)
                 {
-                    if (e.Mugshot.Username == CIX.Username)
-                    {
-                        _logonImage.Image = e.Mugshot.RealImage;
-                    }
-                });
+                    _logonImage.Image = e.Mugshot.RealImage;
+                }
+            });
         }
 
         /// <summary>
@@ -1292,11 +1295,11 @@ namespace CIXReader.Forms
         private void OnNetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
         {
             Platform.UIThread(this, delegate
-                {
-                    ChangeOnlineState(NetworkInterface.GetIsNetworkAvailable());
+            {
+                ChangeOnlineState(NetworkInterface.GetIsNetworkAvailable());
 
-                    LogFile.WriteLine("Network state change detected: Online state is {0}", CIX.Online);
-                });
+                LogFile.WriteLine("Network state change detected: Online state is {0}", CIX.Online);
+            });
         }
 
         /// <summary>
@@ -1444,10 +1447,10 @@ namespace CIXReader.Forms
         private void mainInstallScript_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog
-                {
-                    CheckFileExists = true,
-                    Filter = Resources.ZipFileExtension
-                };
+            {
+                CheckFileExists = true,
+                Filter = Resources.ZipFileExtension
+            };
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 _scriptManager.InstallScriptPackage(ofd.FileName);
@@ -1867,13 +1870,13 @@ namespace CIXReader.Forms
         private void menuFilePageSetup_Click(object sender, EventArgs e)
         {
             PageSetupDialog setupDlg = new PageSetupDialog
-                {
-                    Document = PrintDocument,
-                    AllowMargins = true,
-                    AllowOrientation = true,
-                    AllowPaper = true,
-                    AllowPrinter = true
-                };
+            {
+                Document = PrintDocument,
+                AllowMargins = true,
+                AllowOrientation = true,
+                AllowPaper = true,
+                AllowPrinter = true
+            };
 
             if (setupDlg.ShowDialog() == DialogResult.OK)
             {

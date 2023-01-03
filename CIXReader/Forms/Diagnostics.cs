@@ -16,12 +16,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Management;
+using System.Reflection;
 using CIXClient;
 using CIXReader.Properties;
-
-#if __MonoCS__
-using System.Reflection;
-#endif
+using TheArtOfDev.HtmlRenderer;
 
 namespace CIXReader.Forms
 {
@@ -80,70 +78,74 @@ namespace CIXReader.Forms
             str.AppendFormat(" {0}\r\n", GetFileVersionInfo(@"CIXClient.dll"));
             str.AppendFormat(" {0}\r\n", GetFileVersionInfo(@"CIXMarkup.dll"));
             str.AppendFormat(" {0}\r\n", GetFileVersionInfo(@"HtmlRenderer.dll"));
-            #if !__MonoCS__
-            str.AppendFormat(" {0}\r\n", GetFileVersionInfo(@"NHunspell.dll"));
-            str.AppendFormat(" {0}\r\n", GetFileVersionInfo(@"NHunspellExtender.dll"));
-            #endif
+            if (!MonoHelper.IsMono)
+            {
+                str.AppendFormat(" {0}\r\n", GetFileVersionInfo(@"NHunspell.dll"));
+                str.AppendFormat(" {0}\r\n", GetFileVersionInfo(@"NHunspellExtender.dll"));
+            }
             str.AppendFormat(" {0}\r\n", GetFileVersionInfo(@"lua52.dll"));
             str.AppendFormat(" {0}\r\n", GetFileVersionInfo(@"NLua.dll"));
             str.AppendFormat(" {0}\r\n", GetFileVersionInfo(@"KeraLua.dll"));
 
             str.AppendLine();
 
-            #if !__MonoCS__
-            try
+            if (!MonoHelper.IsMono)
             {
-                ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_OperatingSystem");
-                foreach (var queryObj in searcher.Get().Cast<ManagementObject>())
+                try
                 {
-                    str.AppendFormat("Operating System: {0} {1}\r\n", queryObj["Caption"], queryObj["Version"]);
-                    str.AppendFormat("Service Pack: {0}.{1}\r\n", queryObj["ServicePackMajorVersion"], queryObj["ServicePackMinorVersion"]);
-                    str.AppendFormat("Architecture: {0}\r\n", queryObj["OSArchitecture"]);
-                }
-            }
-            catch (ManagementException)
-            {
-            }
-            str.AppendLine();
-            #else
-            Process process = new Process();
-            string kernelname = "Unknown";
-            string osname = "Linux";
-
-            process.StartInfo.FileName = "uname";
-            process.StartInfo.Arguments = "-mr";
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.OutputDataReceived += (s, args) => {
-                if (args.Data != null)
-                {
-                    kernelname = args.Data;
-                }
-            };
-            process.Start();
-            process.BeginOutputReadLine();
-            process.WaitForExit();
-
-            string osReleaseFile = "/etc/os-release";
-            if (File.Exists(osReleaseFile))
-            {
-                string [] releaseInfo = File.ReadAllLines(osReleaseFile);
-                foreach (string line in releaseInfo)
-                {
-                    string [] tokens = line.Split(new [] { '=' });
-                    if (tokens.Length == 2 && tokens[0] == "PRETTY_NAME")
+                    ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_OperatingSystem");
+                    foreach (var queryObj in searcher.Get().Cast<ManagementObject>())
                     {
-                        osname = tokens[1].Trim(new char [] { '"'});
-                        break;
+                        str.AppendFormat("Operating System: {0} {1}\r\n", queryObj["Caption"], queryObj["Version"]);
+                        str.AppendFormat("Service Pack: {0}.{1}\r\n", queryObj["ServicePackMajorVersion"], queryObj["ServicePackMinorVersion"]);
+                        str.AppendFormat("Architecture: {0}\r\n", queryObj["OSArchitecture"]);
                     }
                 }
+                catch (ManagementException)
+                {
+                }
+                str.AppendLine();
             }
+            else
+            {
+                Process process = new Process();
+                string kernelname = "Unknown";
+                string osname = "Linux";
 
-            str.AppendFormat("Operating System: {0}\r\n", osname);
-            str.AppendFormat("Kernel Version: {0}\r\n", kernelname);
-            str.AppendLine();
-            #endif
+                process.StartInfo.FileName = "uname";
+                process.StartInfo.Arguments = "-mr";
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.OutputDataReceived += (s, args) => {
+                    if (args.Data != null)
+                    {
+                        kernelname = args.Data;
+                    }
+                };
+                process.Start();
+                process.BeginOutputReadLine();
+                process.WaitForExit();
 
+                string osReleaseFile = "/etc/os-release";
+                if (File.Exists(osReleaseFile))
+                {
+                    string [] releaseInfo = File.ReadAllLines(osReleaseFile);
+                    foreach (string line in releaseInfo)
+                    {
+                        string [] tokens = line.Split(new [] { '=' });
+                        if (tokens.Length == 2 && tokens[0] == "PRETTY_NAME")
+                        {
+                            osname = tokens[1].Trim(new char [] { '"'});
+                            break;
+                        }
+                    }
+                }
+
+                str.AppendFormat("Operating System: {0}\r\n", osname);
+                str.AppendFormat("Kernel Version: {0}\r\n", kernelname);
+                str.AppendLine();
+            }
+            
             str.AppendFormat("User: {0}\r\n", CIX.Username);
             str.AppendFormat("Home: {0}\r\n", CIX.HomeFolder);
             str.AppendFormat("Config: {0}\r\n", CIX.UIConfigFolder);

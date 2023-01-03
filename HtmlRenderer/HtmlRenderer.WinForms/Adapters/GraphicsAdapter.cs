@@ -62,12 +62,10 @@ namespace TheArtOfDev.HtmlRenderer.WinForms.Adapters
         /// </summary>
         private readonly bool _useGdiPlusTextRendering;
 
-#if !MONO
         /// <summary>
         /// the initialized HDC used
         /// </summary>
         private IntPtr _hdc;
-#endif
 
         /// <summary>
         /// if to release the graphics object on dispose
@@ -107,11 +105,14 @@ namespace TheArtOfDev.HtmlRenderer.WinForms.Adapters
             _g = g;
             _releaseGraphics = releaseGraphics;
 
-#if MONO
-            _useGdiPlusTextRendering = true;
-#else
-            _useGdiPlusTextRendering = useGdiPlusTextRendering;
-#endif
+            if (MonoHelper.IsMono)
+            {
+                _useGdiPlusTextRendering = true;
+            }
+            else
+            {
+                _useGdiPlusTextRendering = useGdiPlusTextRendering;
+            }
         }
 
         public override void PopClip()
@@ -167,34 +168,39 @@ namespace TheArtOfDev.HtmlRenderer.WinForms.Adapters
                 {
                     var height = realFont.Height;
                     var descent = realFont.Size * realFont.FontFamily.GetCellDescent(realFont.Style) / realFont.FontFamily.GetEmHeight(realFont.Style);
-#if !MONO
-                    fontAdapter.SetMetrics(height, (int)Math.Round((height - descent + .5f)));
-#else
-                    fontAdapter.SetMetrics(height, (int)Math.Round((height - descent + 1f)));
-#endif
-
+                    if (!MonoHelper.IsMono)
+                    {
+                        fontAdapter.SetMetrics(height, (int)Math.Round((height - descent + .5f)));
+                    }
+                    else
+                    {
+                        fontAdapter.SetMetrics(height, (int)Math.Round((height - descent + 1f)));
+                    }
                 }
 
                 return Utils.Convert(size);
             }
             else
             {
-#if !MONO
-                SetFont(font);
-                var size = new Size();
-                Win32Utils.GetTextExtentPoint32(_hdc, str, str.Length, ref size);
-
-                if (font.Height < 0)
+                if (!MonoHelper.IsMono)
                 {
-                    TextMetric lptm;
-                    Win32Utils.GetTextMetrics(_hdc, out lptm);
-                    ((FontAdapter)font).SetMetrics(size.Height, lptm.tmHeight - lptm.tmDescent + lptm.tmUnderlined + 1);
-                }
+                    SetFont(font);
+                    var size = new Size();
+                    Win32Utils.GetTextExtentPoint32(_hdc, str, str.Length, ref size);
 
-                return Utils.Convert(size);
-#else
-                throw new InvalidProgramException("Invalid Mono code");
-#endif
+                    if (font.Height < 0)
+                    {
+                        TextMetric lptm;
+                        Win32Utils.GetTextMetrics(_hdc, out lptm);
+                        ((FontAdapter)font).SetMetrics(size.Height, lptm.tmHeight - lptm.tmDescent + lptm.tmUnderlined + 1);
+                    }
+
+                    return Utils.Convert(size);
+                }
+                else
+                {
+                    throw new InvalidProgramException("Invalid Mono code");
+                }
             }
         }
 
@@ -220,14 +226,14 @@ namespace TheArtOfDev.HtmlRenderer.WinForms.Adapters
             }
             else
             {
-#if !MONO
-                SetFont(font);
+                if (!MonoHelper.IsMono) {
+                    SetFont(font);
 
-                var size = new Size();
-                Win32Utils.GetTextExtentExPoint(_hdc, str, str.Length, (int)Math.Round(maxWidth), _charFit, _charFitWidth, ref size);
-                charFit = _charFit[0];
-                charFitWidth = charFit > 0 ? _charFitWidth[charFit - 1] : 0;
-#endif
+                    var size = new Size();
+                    Win32Utils.GetTextExtentExPoint(_hdc, str, str.Length, (int)Math.Round(maxWidth), _charFit, _charFitWidth, ref size);
+                    charFit = _charFit[0];
+                    charFitWidth = charFit > 0 ? _charFitWidth[charFit - 1] : 0;
+                }
             }
         }
 
@@ -242,25 +248,26 @@ namespace TheArtOfDev.HtmlRenderer.WinForms.Adapters
             }
             else
             {
-#if !MONO
-                var pointConv = Utils.ConvertRound(point);
-                var colorConv = Utils.Convert(color);
-
-                if (color.A == 255)
+                if (!MonoHelper.IsMono)
                 {
-                    SetFont(font);
-                    SetTextColor(colorConv);
-                    SetRtlAlignGdi(rtl);
+                    var pointConv = Utils.ConvertRound(point);
+                    var colorConv = Utils.Convert(color);
 
-                    Win32Utils.TextOut(_hdc, pointConv.X, pointConv.Y, str, str.Length);
+                    if (color.A == 255)
+                    {
+                        SetFont(font);
+                        SetTextColor(colorConv);
+                        SetRtlAlignGdi(rtl);
+
+                        Win32Utils.TextOut(_hdc, pointConv.X, pointConv.Y, str, str.Length);
+                    }
+                    else
+                    {
+                        InitHdc();
+                        SetRtlAlignGdi(rtl);
+                        DrawTransparentText(_hdc, str, font, pointConv, Utils.ConvertRound(size), colorConv);
+                    }
                 }
-                else
-                {
-                    InitHdc();
-                    SetRtlAlignGdi(rtl);
-                    DrawTransparentText(_hdc, str, font, pointConv, Utils.ConvertRound(size), colorConv);
-                }
-#endif
             }
         }
 
@@ -349,17 +356,14 @@ namespace TheArtOfDev.HtmlRenderer.WinForms.Adapters
         /// </summary>
         private void ReleaseHdc()
         {
-#if !MONO
-            if (_hdc != IntPtr.Zero)
+            if (!MonoHelper.IsMono && _hdc != IntPtr.Zero)
             {
                 Win32Utils.SelectClipRgn(_hdc, IntPtr.Zero);
                 _g.ReleaseHdc(_hdc);
                 _hdc = IntPtr.Zero;
             }
-#endif
         }
 
-#if !MONO
         /// <summary>
         /// Init HDC for the current graphics object to be used to call GDI directly.
         /// </summary>
@@ -448,7 +452,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms.Adapters
                 Win32Utils.ReleaseMemoryHdc(memoryHdc, dib);
             }
         }
-#endif
 
         /// <summary>
         /// Change text align to Left-to-Right or Right-to-Left if required.
