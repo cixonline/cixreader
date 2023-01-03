@@ -26,6 +26,7 @@ obj/
 drops/
 setup/source/
 .vs
+.idea
 
 # Executables
 *.exe

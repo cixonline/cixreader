@@ -16,6 +16,9 @@ namespace CIXReader.Forms
 {
     public partial class MainForm
     {
+        // Shim to get MainForm.Designer.cs working
+        private IDisposable _sparkle = null;
+        
         /// <summary>
         /// Secondary MainForm initialisation.
         /// </summary>
