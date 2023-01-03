@@ -27,6 +27,7 @@ using CIXReader.Properties;
 using CIXReader.SpecialFolders;
 using CIXReader.UIConfig;
 using CIXReader.Utilities;
+using TheArtOfDev.HtmlRenderer;
 
 namespace CIXReader.SubViews
 {
@@ -107,7 +108,7 @@ namespace CIXReader.SubViews
                     ShowMessage(null);
 
                     if (FoldersTree.MainForm.RunEvent(EventID.FolderSelected,
-                        _isTopicFolder ? ((TopicFolder) folder).Folder : null))
+                            _isTopicFolder ? ((TopicFolder) folder).Folder : null))
                     {
                         if (_isTopicFolder)
                         {
@@ -553,10 +554,10 @@ namespace CIXReader.SubViews
                 if (message != null)
                 {
                     _tooltip.Show(message.Body.TruncateByWordWithLimit(200),
-                                    tsvMessagePane,
-                                    e.Location.X,
-                                    e.Location.Y,
-                                    2500);
+                        tsvMessagePane,
+                        e.Location.X,
+                        e.Location.Y,
+                        2500);
                 }
             }
         }
@@ -1672,11 +1673,17 @@ namespace CIXReader.SubViews
             int indent = 0;
             if (CanGroupByConversation() && message.Level > 0)
             {
-                #if __MonoCS__
-                int maximumIndent = tsvMessagePane.ClientRectangle.Width / 2;
-                #else
-                const int maximumIndent = MaximumIndent;
-                #endif
+                int maximumIndent;
+                
+                if (MonoHelper.IsMono)
+                {
+                    maximumIndent = tsvMessagePane.ClientRectangle.Width / 2;
+                }
+                else
+                {
+                    maximumIndent = MaximumIndent;
+                }
+                
                 indent = Math.Min(7 + 14*message.Level, maximumIndent);
             }
             return indent;
@@ -1875,9 +1882,9 @@ namespace CIXReader.SubViews
         private static Image ReadImageForMessage(CIXMessage message)
         {
             return (message.ReadLocked) ? Resources.ReadLock :
-                   (!message.Unread) ? Resources.ReadMessage :
-                   (message.Priority) ? Resources.UnreadPriorityMessage :
-                                          Resources.UnreadMessage;
+                (!message.Unread) ? Resources.ReadMessage :
+                (message.Priority) ? Resources.UnreadPriorityMessage :
+                Resources.UnreadMessage;
         }
 
         /// <summary>
@@ -2178,10 +2185,10 @@ namespace CIXReader.SubViews
                     break;
 
                 case ActionID.ReplyByMail:
-                    {
-                        InboxMessageEditor newMessageWnd = new InboxMessageEditor(message);
-                        newMessageWnd.Show();
-                    }
+                {
+                    InboxMessageEditor newMessageWnd = new InboxMessageEditor(message);
+                    newMessageWnd.Show();
+                }
                     break;
 
                 case ActionID.Print:

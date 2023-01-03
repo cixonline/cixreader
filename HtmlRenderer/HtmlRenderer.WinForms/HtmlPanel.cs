@@ -421,7 +421,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
 
         #region Private methods
 
-#if !MONO
         /// <summary>
         /// Override to support border for the control.
         /// </summary>
@@ -431,21 +430,22 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             {
                 CreateParams createParams = base.CreateParams;
 
-                switch (_borderStyle)
+                if (!MonoHelper.IsMono)
                 {
-                    case BorderStyle.FixedSingle:
-                        createParams.Style |= Win32Utils.WsBorder;
-                        break;
+                    switch (_borderStyle)
+                    {
+                        case BorderStyle.FixedSingle:
+                            createParams.Style |= Win32Utils.WsBorder;
+                            break;
 
-                    case BorderStyle.Fixed3D:
-                        createParams.ExStyle |= Win32Utils.WsExClientEdge;
-                        break;
+                        case BorderStyle.Fixed3D:
+                            createParams.ExStyle |= Win32Utils.WsExClientEdge;
+                            break;
+                    }
                 }
-
                 return createParams;
             }
         }
-#endif
 
         /// <summary>
         /// Perform the layout of the html in the control.
@@ -714,9 +714,10 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             }
             catch
             {
-#if !MONO
-                throw;
-#endif
+                if (!MonoHelper.IsMono)
+                {
+                    throw;
+                }
             }
         }
 
@@ -741,7 +742,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             return base.IsInputKey(keyData);
         }
 
-#if !MONO
         /// <summary>
         /// Override the proc processing method to set OS specific hand cursor.
         /// </summary>
@@ -749,7 +749,7 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
         [DebuggerStepThrough]
         protected override void WndProc(ref Message m)
         {
-            if (_useSystemCursors && m.Msg == Win32Utils.WmSetCursor && Cursor == Cursors.Hand)
+            if (!MonoHelper.IsMono && _useSystemCursors && m.Msg == Win32Utils.WmSetCursor && Cursor == Cursors.Hand)
             {
                 try
                 {
@@ -765,7 +765,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             }
             base.WndProc(ref m);
         }
-#endif
 
         /// <summary>
         /// Release the html container resources.

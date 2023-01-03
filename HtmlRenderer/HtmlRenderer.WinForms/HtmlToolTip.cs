@@ -53,7 +53,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
         /// </summary>
         private string _tooltipCssClass = "htmltooltip";
 
-#if !MONO
        
         /// <summary>
         /// the control that the tooltip is currently showing on.<br/>
@@ -79,7 +78,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
         /// if clicked the <see cref="LinkClicked"/> event will be raised although the tooltip will be closed.
         /// </summary>
         private bool _allowLinksHandling = true;
-#endif
 
         #endregion
 
@@ -104,22 +102,21 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             Draw += OnToolTipDraw;
             Disposed += OnToolTipDisposed;
 
-#if !MONO
-            _linkHandlingTimer = new Timer();
-            _linkHandlingTimer.Tick += OnLinkHandlingTimerTick;
-            _linkHandlingTimer.Interval = 40;
+            if (!MonoHelper.IsMono)
+            {
+                _linkHandlingTimer = new Timer();
+                _linkHandlingTimer.Tick += OnLinkHandlingTimerTick;
+                _linkHandlingTimer.Interval = 40;
 
-            _htmlContainer.LinkClicked += OnLinkClicked;
-#endif
+                _htmlContainer.LinkClicked += OnLinkClicked;
+            }
         }
 
-#if !MONO
         /// <summary>
         /// Raised when the user clicks on a link in the html.<br/>
         /// Allows canceling the execution of the link.
         /// </summary>
         public event EventHandler<HtmlLinkClickedEventArgs> LinkClicked;
-#endif
 
         /// <summary>
         /// Raised when an error occurred during html rendering.<br/>
@@ -206,7 +203,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             set { _tooltipCssClass = value; }
         }
 
-#if !MONO
         /// <summary>
         /// If to handle links in the tooltip (default: false).<br/>
         /// When set to true the mouse pointer will change to hand when hovering over a tooltip and
@@ -221,7 +217,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             get { return _allowLinksHandling; }
             set { _allowLinksHandling = value; }
         }
-#endif
 
         /// <summary>
         /// Gets or sets the max size the tooltip.
@@ -262,14 +257,12 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             var desiredHeight = (int)Math.Ceiling(MaximumSize.Height > 0 ? Math.Min(_htmlContainer.ActualSize.Height, MaximumSize.Height) : _htmlContainer.ActualSize.Height);
             e.ToolTipSize = new Size(desiredWidth, desiredHeight);
 
-#if !MONO
             // start mouse handle timer
-            if (_allowLinksHandling)
+            if (!MonoHelper.IsMono && _allowLinksHandling)
             {
                 _associatedControl = e.AssociatedControl;
                 _linkHandlingTimer.Start();
             }
-#endif
         }
 
         /// <summary>
@@ -277,8 +270,7 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
         /// </summary>
         protected virtual void OnToolTipDraw(DrawToolTipEventArgs e)
         {
-#if !MONO
-            if (_tooltipHandle == IntPtr.Zero)
+            if (!MonoHelper.IsMono && _tooltipHandle == IntPtr.Zero)
             {
                 // get the handle of the tooltip window using the graphics device context
                 var hdc = e.Graphics.GetHdc();
@@ -287,7 +279,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
 
                 AdjustTooltipPosition(e.AssociatedControl, e.Bounds.Size);
             }
-#endif
 
             e.Graphics.Clear(Color.White);
             e.Graphics.TextRenderingHint = _textRenderingHint;
@@ -313,23 +304,27 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             if (mousePos.Y + size.Height + yOffset > screenBounds.Bottom)
                 mousePos.Y = Math.Max(screenBounds.Bottom - size.Height - yOffset - 3, screenBounds.Top + 2);
 
-#if !MONO
-            // move the tooltip window to new location
-            Win32Utils.MoveWindow(_tooltipHandle, mousePos.X, mousePos.Y + yOffset, size.Width, size.Height, false);
-#endif
+            if (!MonoHelper.IsMono)
+            {
+                // move the tooltip window to new location
+                Win32Utils.MoveWindow(_tooltipHandle, mousePos.X, mousePos.Y + yOffset, size.Width, size.Height, false);
+            }
         }
 
-#if !MONO
         /// <summary>
         /// Propagate the LinkClicked event from root container.
         /// </summary>
         protected virtual void OnLinkClicked(HtmlLinkClickedEventArgs e)
         {
+            if (MonoHelper.IsMono)
+            {
+                return;
+            }
+
             var handler = LinkClicked;
             if (handler != null)
                 handler(this, e);
         }
-#endif
 
         /// <summary>
         /// Propagate the Render Error event from root container.
@@ -361,7 +356,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
                 handler(this, e);
         }
 
-#if !MONO
         /// <summary>
         /// Raised on link handling timer tick, used for:
         /// 1. Know when the tooltip is hidden by checking the visibility of the tooltip window.
@@ -370,6 +364,11 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
         /// </summary>
         protected virtual void OnLinkHandlingTimerTick(EventArgs e)
         {
+            if (MonoHelper.IsMono)
+            {
+                return;
+            }
+            
             try
             {
                 var handle = _tooltipHandle;
@@ -407,7 +406,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
                 OnRenderError(this, new HtmlRenderErrorEventArgs(HtmlRenderErrorType.General, "Error in link handling for tooltip", ex));
             }
         }
-#endif
 
         /// <summary>
         /// Unsubscribe from events and dispose of <see cref="_htmlContainer"/>.
@@ -427,8 +425,7 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
                 _htmlContainer = null;
             }
 
-#if !MONO
-            if (_linkHandlingTimer != null)
+            if (!MonoHelper.IsMono && _linkHandlingTimer != null)
             {
                 _linkHandlingTimer.Dispose();
                 _linkHandlingTimer = null;
@@ -436,7 +433,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
                 if (_htmlContainer != null)
                     _htmlContainer.LinkClicked -= OnLinkClicked;
             }
-#endif
         }
 
 
@@ -466,7 +462,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             OnImageLoad(e);
         }
 
-#if !MONO
         private void OnLinkClicked(object sender, HtmlLinkClickedEventArgs e)
         {
             OnLinkClicked(e);
@@ -475,7 +470,6 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
         {
             OnLinkHandlingTimerTick(e);
         }
-#endif
 
         private void OnToolTipDisposed(object sender, EventArgs e)
         {

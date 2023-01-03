@@ -128,18 +128,21 @@ namespace TheArtOfDev.HtmlRenderer.WinForms.Utilities
         /// <returns>new graphics object or null in mono if failed</returns>
         public static Graphics CreateGraphics(Control control)
         {
-#if MONO
-            try
+            if (MonoHelper.IsMono)
+            {
+                try
+                {
+                    return control.CreateGraphics();
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            else
             {
                 return control.CreateGraphics();
             }
-            catch
-            {
-                return null;
-            }
-#else
-            return control.CreateGraphics();
-#endif
         }
     }
 }

@@ -22,6 +22,7 @@ using CIXReader.Forms;
 using CIXReader.Properties;
 using CIXReader.Utilities;
 using Microsoft.Win32;
+using TheArtOfDev.HtmlRenderer;
 
 namespace CIXReader
 {
@@ -208,26 +209,31 @@ namespace CIXReader
         {
             string cmdLine = Environment.CommandLine;
             string workingDir = Environment.CurrentDirectory;
+            string command;
+            string arguments;
 
             // generate the batch file path
-            #if __MonoCS__
-            string cmd = Environment.ExpandEnvironmentVariables("/tmp/" + Guid.NewGuid() + ".sh");
-            string command = "/bin/sh";
-            string arguments = cmd;
+            if (MonoHelper.IsMono)
+            {
+                string cmd = Environment.ExpandEnvironmentVariables("/tmp/" + Guid.NewGuid() + ".sh");
+                command = "/bin/sh";
+                arguments = cmd;
 
-            StreamWriter write = new StreamWriter(cmd);
-            write.WriteLine("#!sh");
-            write.WriteLine("mono " + cmdLine);
-            write.Close();
-            #else
-            string cmd = Environment.ExpandEnvironmentVariables("%temp%\\" + Guid.NewGuid() + ".cmd");
-            string command = cmd;
-            string arguments = string.Empty;
+                StreamWriter write = new StreamWriter(cmd);
+                write.WriteLine("#!sh");
+                write.WriteLine("mono " + cmdLine);
+                write.Close();
+            }
+            else
+            {
+                string cmd = Environment.ExpandEnvironmentVariables("%temp%\\" + Guid.NewGuid() + ".cmd");
+                command = cmd;
+                arguments = string.Empty;
 
-            StreamWriter write = new StreamWriter(cmd);
-            write.WriteLine(cmdLine);
-            write.Close();
-            #endif
+                StreamWriter write = new StreamWriter(cmd);
+                write.WriteLine(cmdLine);
+                write.Close();
+            }
 
             // start the installer helper
             Process process = new Process

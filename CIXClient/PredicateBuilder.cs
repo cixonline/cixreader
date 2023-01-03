@@ -23,7 +23,7 @@ namespace CIXClient
     /// </summary>
     public static class PredicateBuilder
     {
-        private static readonly MethodInfo ContainsMethod = typeof(string).GetMethod("Contains");
+        private static readonly MethodInfo ContainsMethod = typeof(string).GetMethod("Contains", new [] { typeof(string) });
         private static readonly MethodInfo StartsWithMethod = typeof(string).GetMethod("StartsWith", new[] { typeof(string) });
         private static readonly MethodInfo EndsWithMethod = typeof(string).GetMethod("EndsWith", new[] { typeof(string) });
 

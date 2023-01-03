@@ -21,12 +21,10 @@ namespace CIXReader.Forms
             {
                 components.Dispose();
             }
-            #if !__MonoCS__
             if (disposing && (_sparkle != null))
             {
-            _sparkle.Dispose();
+                _sparkle.Dispose();
             }
-            #endif
             base.Dispose(disposing);
         }
 
