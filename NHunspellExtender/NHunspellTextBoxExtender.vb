@@ -585,6 +585,7 @@ CreateNewHunspell:
                 'Get where the dll is supposed to be
                 Dim DLLpath As String = Trim(Strings.Mid(ex.Message, InStr(ex.Message, "DLL not found:") + 14))
                 Dim DLLName As String = Path.GetFileName(DLLpath)
+                Directory.CreateDirectory(Path.GetDirectoryName(DLLpath))
 
                 'Find out which DLL is missing
                 If DLLName = "Hunspellx64.dll" Then
@@ -664,6 +665,8 @@ CreateNewHunspell:
         Dim regKey As RegistryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\NHunspellTextBoxExtender")
 
         Dim callingDir As String = Path.GetDirectoryName(Assembly.GetExecutingAssembly.Location)
+        Dim spellCheckDir As String = callingDir & "\SpellCheck\"
+        Directory.CreateDirectory(spellCheckDir)
 
         If regKey Is Nothing Then
             regKey = Registry.CurrentUser.OpenSubKey("SOFTWARE", True).CreateSubKey("NHunspellTextBoxExtender")
@@ -671,8 +674,8 @@ CreateNewHunspell:
             regKeyLanguage.SetValue("Default", language)
 
             'Set the paths for the dic and aff files
-            USdic = callingDir & "\SpellCheck\" & filename & ".dic"
-            USaff = callingDir & "\SpellCheck\" & filename & ".aff"
+            USdic = spellCheckDir & filename & ".dic"
+            USaff = spellCheckDir & filename & ".aff"
 
             'Check if the spell check files already exist.  If not, add it
             If Not File.Exists(USaff) Then
@@ -718,8 +721,8 @@ CreateNewHunspell:
 
                 If regKeyLanguage.GetValue(language) Is Nothing Then
                     'Set the paths for the dic and aff files
-                    USdic = callingDir & "\SpellCheck\" & filename & ".dic"
-                    USaff = callingDir & "\SpellCheck\" & filename & ".aff"
+                    USdic = spellCheckDir & filename & ".dic"
+                    USaff = spellCheckDir & filename & ".aff"
 
                     'Check if the spell check files already exist.  If not, add it
                     If Not File.Exists(USaff) Then
@@ -742,7 +745,7 @@ CreateNewHunspell:
                     _Language = language
                 Else
                     If Not File.Exists(paths(0)) Then
-                        USaff = callingDir & "\SpellCheck\" & filename & ".aff"
+                        USaff = spellCheckDir & filename & ".aff"
 
                         Try
                             File.WriteAllBytes(USaff, sourceAff)
@@ -754,7 +757,7 @@ CreateNewHunspell:
                     End If
 
                     If Not File.Exists(paths(1)) Then
-                        USdic = callingDir & "\SpellCheck\" & filename & ".dic"
+                        USdic = spellCheckDir & filename & ".dic"
 
                         Try
                             File.WriteAllBytes(USdic, sourceDic)
@@ -773,7 +776,7 @@ CreateNewHunspell:
 
             'check if these files exist
             If Not File.Exists(USaff) Then
-                USaff = callingDir & "\SpellCheck\" & filename & ".aff"
+                USaff = spellCheckDir & filename & ".aff"
 
                 Try
                     File.WriteAllBytes(USaff, sourceAff)
@@ -786,7 +789,7 @@ CreateNewHunspell:
                 regKeyLanguage.SetValue(_Language, paths, RegistryValueKind.MultiString)
             End If
             If Not File.Exists(USdic) Then
-                USdic = callingDir & "\SpellCheck\" & filename & ".dic"
+                USdic = spellCheckDir & filename & ".dic"
 
                 Try
                     File.WriteAllBytes(USdic, sourceDic)
@@ -2211,6 +2214,10 @@ CreateNewHunspell:
         'Get the calling assembly's location
         Dim callingDir As String = Path.GetDirectoryName(Assembly.GetExecutingAssembly.Location)
 
+        Dim spellCheckDir As String = callingDir & "\SpellCheck\"
+        'Check if the spell check directory already exists.  If not, add it
+        Directory.CreateDirectory(spellCheckDir)
+
         Dim regKey As RegistryKey = _
             Registry.CurrentUser.OpenSubKey("SOFTWARE\NHunspellTextBoxExtender\Languages", True)
 
@@ -2218,15 +2225,8 @@ CreateNewHunspell:
 
         If regKey.GetValue("UK English") Is Nothing Then
             'Set the paths for the dic and aff files
-            USdic = callingDir & "\SpellCheck\en_UK.dic"
-            USaff = callingDir & "\SpellCheck\en_UK.aff"
-
-            'Check if the spell check directory already exists.  If not, add it
-            If Not Directory.Exists(callingDir & "\SpellCheck") Then
-                Directory.CreateDirectory(callingDir & "\SpellCheck")
-                Dim newDirInfo As New DirectoryInfo(callingDir & "\SpellCheck")
-                newDirInfo.Attributes = FileAttributes.Hidden
-            End If
+            USdic = spellCheckDir & "en_UK.dic"
+            USaff = spellCheckDir & "en_UK.aff"
 
             'Check if the spell check files already exist.  If not, add it
             If Not File.Exists(USaff) Then
@@ -2248,7 +2248,7 @@ CreateNewHunspell:
             paths = {USaff, USdic}
         Else
             If Not File.Exists(paths(0)) Then
-                USaff = callingDir & "\SpellCheck\en_UK.aff"
+                USaff = spellCheckDir & "en_UK.aff"
 
                 Try
                     File.WriteAllBytes(USaff, My.Resources.en_US)
@@ -2260,7 +2260,7 @@ CreateNewHunspell:
             End If
 
             If Not File.Exists(paths(1)) Then
-                USdic = callingDir & "\SpellCheck\en_UK.dic"
+                USdic = spellCheckDir & "en_UK.dic"
 
                 Try
                     File.WriteAllBytes(USdic, My.Resources.en_US_dic)
