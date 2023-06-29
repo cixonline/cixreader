@@ -131,7 +131,7 @@ namespace CIXReader.Utilities
         {
             _parser = new FileIniDataParser();
             _parser.Parser.Configuration.AllowDuplicateKeys = true;
-            if (File.Exists (INIPath)) 
+            if (File.Exists (INIPath))
             {
                 try
                 {
@@ -142,11 +142,17 @@ namespace CIXReader.Utilities
                     _data = null;
                 }
             }
+
             if (_data == null)
             {
                 _data = new IniData();
-                _data.Sections.AddSection (_mainSection);
             }
+
+            if (_data.Sections.ContainsSection(_mainSection) == false)
+            {
+                _data.Sections.AddSection(_mainSection);
+            }
+
             _path = INIPath;
         }
 
