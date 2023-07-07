@@ -65,7 +65,7 @@ if "%_AM2SIGNPWD%" == "" goto SkipSign1
 echo Signing files...
 
 set _CODEURL=http://timestamp.comodoca.com/authenticode
-signtool sign /f "%_PFXPATH%" /p %_AM2SIGNPWD% /t %_CODEURL% /v %_CRDEVROOT%\setup\source\CIXReader.exe
+signtool sign /fd sha1 /f "%_PFXPATH%" /p %_AM2SIGNPWD% /t %_CODEURL% /v %_CRDEVROOT%\setup\source\CIXReader.exe
 :SkipSign1
 
 echo Building setup program...
@@ -76,7 +76,7 @@ set _VERSTRING=%PRODUCT_MAX_VER%.%PRODUCT_MIN_VER%.%PRODUCT_BUILD%
 
 if "%_AM2SIGNPWD%" == "" goto SkipSign2
 echo Signing installers...
-signtool sign /f "%_PFXPATH%" /p %_AM2SIGNPWD% /t %_CODEURL% /v %_CRDEVROOT%\drops\cr%_VERSTRING%.exe
+signtool sign /fd sha1 /f "%_PFXPATH%" /p %_AM2SIGNPWD% /t %_CODEURL% /v %_CRDEVROOT%\drops\cr%_VERSTRING%.exe
 :SkipSign2
 
 echo Building Lite distribution...

@@ -34,5 +34,5 @@ using System.Runtime.InteropServices;
 
 // Version information for this assembly. The values are dynamically replaced
 // when running the build script.
-[assembly: AssemblyVersion("1.67.1208")]
-[assembly: AssemblyFileVersion("1.67.1208")]
+[assembly: AssemblyVersion("1.68.1209")]
+[assembly: AssemblyFileVersion("1.68.1209")]
